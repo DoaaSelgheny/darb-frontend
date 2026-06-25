@@ -1,0 +1,10 @@
+::ng-deep {
+  .ng-otp-input-wrapper {
+    @apply flex justify-center mt-10;
+    .customInputOtp {
+      &.otp-input {
+        @apply rounded-md w-[65px] h-[65px] border border-secondary border-solid;
+      }
+    }
+  }
+}

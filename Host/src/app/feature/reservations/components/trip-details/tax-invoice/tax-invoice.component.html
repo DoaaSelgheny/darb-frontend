@@ -1,0 +1,123 @@
+<div class="invoice-container" id="invoice">
+  <div class="header">
+    <h1 class="title">فاتورة ضريبية </h1>
+    <h2 class="title"> Tax Invoice</h2>
+  </div>
+  <div class="invoice-details">
+    <div>
+      <strong>رقم الفاتورة</strong>
+
+      <span class="spanDesign">{{ dataTax?.invoiceNumber }}</span>
+    </div>
+    <div><strong>Invoice Number</strong></div>
+    <div class="mt-2">
+      <strong>تاريخ الفاتورة</strong>
+      <span class="spanDesign">{{ dataTax?.invoiceDate | date }}</span>
+    </div>
+    <div><strong>Invoice Date</strong></div>
+  </div>
+  <div class="vendor-details mt-2">
+    <div>
+      <strong>البائع</strong>
+
+      <span class="spanDesign">{{ dataTax?.hostNameAr }}</span>
+    </div>
+    <div style="direction: ltr">
+      <span class="px-2">{{ dataTax?.hostNameEn }}</span>
+      <strong>Vendor</strong>
+    </div>
+    <div class="mt-2">
+      <strong>عنوانه</strong>
+      <span class="px-2"> {{ dataTax?.vendorAddress }}</span>
+    </div>
+    <div style="direction: ltr">
+      <span class="px-2"> {{ dataTax?.vendorAddressEn ?  dataTax?.vendorAddressEn :''}} </span>
+      <strong>Address</strong>
+    </div>
+    <div class="mt-2">
+      <strong>رقم تسجيل ضريبة القيمة المضافة</strong>
+      <span class="spanDesign"> {{ dataTax?.taxRegistrationNumber }}</span>
+    </div>
+    <div>
+      <strong>Tax VAT Registration Number</strong>
+    </div>
+  </div>
+  <div class="buyer-details mt-2">
+    <div>
+      <strong class="mt-2">المشتري (الضيف)</strong>
+
+      <span class="px-2"> {{ dataTax?.guestNameAr }}</span>
+    </div>
+
+
+      <div style="direction: ltr">
+        <span class="px-2"> {{ dataTax?.guestNameEn ? dataTax?.guestNameEn : ''}}</span>
+        <strong class="mt-2">(Guest) Buyer </strong>
+      </div>
+
+  </div>
+  <table class="invoice-table">
+    <thead>
+      <tr>
+        <th>
+          <strong>البيان</strong>
+        </th>
+        <th>الكمية</th>
+        <th>السعر قبل الضريبة</th>
+        <th>الضريبة</th>
+        <th>السعر شامل الضريبة</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          حجز رقم <span style="direction: ltr"># {{ dataTax?.reservationNo }} </span>
+        </td>
+        <td>1</td>
+        <td>{{ dataTax?.priceBeforeValueAddedTax }}</td>
+        <td>{{ dataTax?.valueAddedTax }}</td>
+        <td>{{ dataTax?.priceIncludeValueAddedTax }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="total-section">
+    <div class="flex d-flex justify-between">
+      <div><strong>إجمالي المبلغ الخاضع للضريبة:</strong></div>
+
+      <!-- <div>
+        {{ dataTax?.priceBeforeValueAddedTax }} ر.س
+      </div> -->
+      <div style="direction: rtl;align-items: center;display:flex" class="flex flex-row" >
+
+        <p class="text-base text-[#171717]"> {{  dataTax?.priceBeforeValueAddedTax}}  </p>
+        <img class="mx-2" src="assets/host/icons/riyal-black.svg" alt="riyal">
+      </div>
+    </div>
+    <div class="flex d-flex justify-between">The total taxable amount</div>
+    <div class="flex d-flex justify-between mt-2">
+      <strong>ضريبة القيمة المضافة (15%):</strong>
+      <div style="direction: rtl;align-items: center;display:flex" class="flex flex-row" >
+
+        <p class="text-base text-[#171717]"> {{ dataTax?.valueAddedTax}}  </p>
+        <img class="mx-2" src="assets/host/icons/riyal-black.svg" alt="riyal">
+      </div>
+       <!-- {{ dataTax?.valueAddedTax }} ر.س -->
+    </div>
+    <div class="flex d-flex justify-between">(15%) Value Added Tax</div>
+    <div class="flex d-flex justify-between mt-2">
+      <strong>المجموع مع الضريبة (15%):</strong>
+      <div style="direction: rtl;align-items: center;display:flex" class="flex flex-row" >
+
+        <p class="text-base text-[#171717]"> {{  dataTax?.priceIncludeValueAddedTax}}  </p>
+        <img class="mx-2" src="assets/host/icons/riyal-black.svg" alt="riyal">
+      </div>
+      <!-- {{ dataTax?.priceIncludeValueAddedTax }} ر.س -->
+    </div>
+    <div class="flex d-flex justify-between">Total with Tax</div>
+  </div>
+  <div class="qr-code">
+    <div>
+      <img [src]="dataTax?.qrCodeBase64" />
+    </div>
+  </div>
+</div>

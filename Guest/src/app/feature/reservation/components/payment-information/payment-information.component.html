@@ -1,0 +1,56 @@
+<nz-card  class="block w-full  rounded-2xl p-3 my-3">
+    <div class="px-4 py-2 flex items-center justify-between font-bold ">
+      <p class="font-bold text-lg text-[#171717] border-0">{{'::guest:reserveDetails:reservationInfo' |abpLocalization}} </p>
+    </div>
+    <div class="px-4 py-2 flex items-center justify-between ">
+      <p class="text-base text-[#171717] "> {{'::guest:reserveDetails:reservationWay' |abpLocalization}} </p>
+      <p class="text-base text-[#171717] ">
+        @if(data?.summary.paymentType === PaymentType.Visa){
+          {{'::guest:reserveDetails:card' |abpLocalization}}
+        }@else if(data?.summary.paymentType === PaymentType.CreditCard){
+          {{'::guest:reserveDetails:creditCard' |abpLocalization}}
+        }@else if(data?.summary.paymentType === PaymentType.Mada){
+          {{'::guest:reserveDetails:mada' |abpLocalization}}
+        }@else if(data?.summary.paymentType === PaymentType.Stcpay){
+          {{'::guest:reserveDetails:stcpay' |abpLocalization}}
+        }@else if(data?.summary.paymentType === PaymentType.Applepay5){
+          {{'::guest:reserveDetails:applepay5' |abpLocalization}}
+
+        }@else if(data?.summary.paymentType === PaymentType.TamaraSettlement){
+          {{'::guest:reserveDetails:tamara' |abpLocalization}}
+
+        }
+      </p>
+    </div>
+    @if(isVaction){
+
+      <div class="px-4 py-2 flex items-center justify-between ">
+        <p class="text-base text-[#171717] "> {{'::guest:reserveDetails:hyakPay' |abpLocalization}}  </p>
+        <!-- <p class="text-base text-[#171717] ">{{ data?.summary?.deposit}} {{'::Guset:Explore:sar' |abpLocalization}}</p> -->
+        <div class="flex flex-row" style="direction: rtl;">
+          <p class="text-base text-[#171717]">{{data?.summary?.deposit}}   </p>
+          <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+        </div>
+      </div>
+      <div class="px-4 py-2 flex items-center justify-between ">
+        <p class="text-base text-[#171717] ">  {{'::guest:reserveDetails:arrivalPay' |abpLocalization}}  </p>
+        <!-- <p class="text-base text-[#171717] ">
+          {{ data?.summary?.paymentOnArrival}} {{'::Guset:Explore:sar' |abpLocalization}}</p> -->
+          <div class="flex flex-row" style="direction: rtl;">
+            <p class="text-base text-[#171717]">{{ data?.summary?.paymentOnArrival}}   </p>
+            <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+          </div>
+      </div>
+    }@else {
+      
+      <div class="px-4 py-2 flex items-center justify-between ">
+        <p class="text-base text-[#171717] "> {{'::guest:reserveDetails:hyakPay' |abpLocalization}}  </p>
+        <!-- <p class="text-base text-[#171717] ">{{ data?.summary?.paymentOnArrival}} {{'::Guset:Explore:sar' |abpLocalization}}</p> -->
+        <div class="flex flex-row" style="direction: rtl;">
+          <p class="text-base text-[#171717]">{{ data?.summary?.paymentOnArrival}}   </p>
+          <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+        </div>
+      </div>
+    }
+</nz-card>
+  

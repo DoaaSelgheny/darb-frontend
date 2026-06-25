@@ -1,0 +1,56 @@
+
+<!-- Questions -->
+ <div class="bg-[#F9F9F9] mt-[70px]">
+
+   <div class="container  px-6 ">
+     <nz-breadcrumb class=" sm:px-0  lg:px-20 md:px-20 xl:px-20">
+       <nz-breadcrumb-item class="cursor-pointer" routerLink="/">
+         {{ '::guest:questionsanswers.Breadcrumb.Home' | abpLocalization }}
+       </nz-breadcrumb-item>
+       <nz-breadcrumb-item class="pt-2">
+         {{ '::guest:questionsanswers.Breadcrumb.Questions' | abpLocalization }}
+       </nz-breadcrumb-item>
+     </nz-breadcrumb>
+   <div class=" py-6   sm:px-0  lg:px-20 md:px-20 xl:px-20">
+   
+     <p class="text-2xl px-1 font-bold text-black mb-3 pb-[47px]">
+         {{ "::guest:questionsanswers.SectionTitle" | abpLocalization }}
+     </p>
+    
+     <div class=" ">
+         <nz-card [nzTitle]="''" class="block w-full border-0 rounded-2xl">
+             <div
+               *ngFor="let questionsAnswer of questionsAnswers; let i = index"
+               (click)="selectQuestionsAnswersItem(questionsAnswer)"
+               class=" mt-4 first:mt-0  p-2 cursor-pointer   border-black"
+               [ngClass]="lang === 'ar'?'border-r-2' :'border-l-2'"
+               
+               >
+               <div class="flex justify-between items-center p-2" 
+               [ngClass]="{
+                 'bg-white': questionsAnswer.open,
+                 'bg-[#F9F9F9]': !questionsAnswer.open
+               }">
+                 <p
+                   class="font-extrabold lg:text-base text-black text-sm"
+                 >
+                   {{'::'+  questionsAnswer.title | abpLocalization }}
+                 </p>
+                 <i
+                   class="fa-solid fa-plus text-black lg:text-base"
+                   *ngIf="!questionsAnswer.open"
+                 ></i>
+                 <i
+                   class="fa-solid fa-minus text-secondary lg:text-base"
+                   *ngIf="questionsAnswer.open"
+                 ></i>
+               </div>
+               <p class="text-black lg:text-sm w-11/12 mt-2 text-start" *ngIf="questionsAnswer.open"
+               [innerHtml]="'::'+ questionsAnswer.description | abpLocalization ">
+               </p>
+             </div>
+           </nz-card>
+     </div>
+   </div>
+   </div>
+ </div>

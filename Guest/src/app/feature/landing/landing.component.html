@@ -1,0 +1,36 @@
+<div class="cover relative ">
+
+  <div class="px-9 sm:px-8 md:px-4 lg:px-24 xl:px-12 2xl:px-24">
+    <h3
+      class="text-center text-3xl md:text-start md:text-5xl lg:text-[70px] md:pt-28 pt-5 md:pt-45 text-white"
+    >
+      {{ '::guest:landing.hyyak' | abpLocalization }}
+    </h3>
+    <h3
+    class="text-center text-3xl md:text-start md:text-5xl lg:text-[70px]  text-white"
+  >
+    {{ '::guest:landing.Main' | abpLocalization }}
+  </h3>
+    <p
+      class="mt-9 px-4 lg:text-xl lg:px-5 text-white text-center md:text-start text-sm lg:w-[680px]"
+    >
+      {{ lang === 'en' ? 'Hearts welcome you before doors, and culture embraces you. From majestic mountains to serene deserts, beaches to palm-shaded farms, experience the local story wherever you go.' :'::guest:landing.second' | abpLocalization }}
+    </p>
+
+    <app-button (click)="explore()" class="w-40 sm:block mx-auto md:mx-0 mt-7 lg:mt-14 hidden">
+      <p class="text-lg">
+        {{ '::guest:landing.hostwithus.IntegratedTourismPrograms.ButtonText' | abpLocalization }}
+      </p>
+    </app-button>
+  </div>
+
+  <app-filter (filterChange)="changeFilter($event)"></app-filter>
+</div>
+
+<app-explore-section [mergedArray]="mergedArray"></app-explore-section>
+<!-- <div [ngClass]="(vacationHomesLength || experiencesLength) ?'':'mt-80 lg:mt-0 md:mt-20'"> -->
+
+  <app-activities-section></app-activities-section>
+<!-- </div> -->
+<app-destinations></app-destinations>
+<app-host-with-us></app-host-with-us>

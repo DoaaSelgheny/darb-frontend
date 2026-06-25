@@ -1,0 +1,221 @@
+<!-- <div class="relative ">
+  <img [src]="lang === 'ar' ?'assets/imgs/test.svg' : 'assets/imgs/testen.svg'" 
+  class="absolute fixed" style="z-index:9;top: -40px;"> 
+    
+</div>-->
+<div class="container">
+  <!-- Breadrumb -->
+  <nz-breadcrumb class="pt-[26px]"> 
+      <nz-breadcrumb-item class="cursor-pointer" routerLink="/">{{
+      '::guest:explore.breadcrumbHome' | abpLocalization
+    }}</nz-breadcrumb-item>
+    @if(selectedType === 1){
+      <nz-breadcrumb-item class="cursor-pointer" >{{
+        '::guest:landing.vacationHomes' | abpLocalization
+      }}</nz-breadcrumb-item>
+    }@else if(selectedType === 2){
+      <nz-breadcrumb-item class="cursor-pointer" >{{
+        '::Guest:Explore:filter:Experience' | abpLocalization
+      }}</nz-breadcrumb-item>
+    }@else {
+     <nz-breadcrumb-item>{{
+      '::Guest:Explore:reserve' | abpLocalization
+    }}</nz-breadcrumb-item>
+    }
+  
+    
+  </nz-breadcrumb>
+  <!-- Header -->
+  <h2 class="text-3xl font-bold mt-6 mb-4">
+    {{ '::Guest:Explore:vacationHome' | abpLocalization }}
+  </h2>
+  <!-- filter -->
+  <div class="grid lg:grid-cols-5 xl:grid-cols-5 sm:grid-cols-2 grid-cols-1 sm:gap-3 ">
+    <nz-select
+      [(ngModel)]="selectedType"
+      nzAllowClear
+      nzPlaceHolder=" {{ '::guest:landing.Type' | abpLocalization }}"
+      class="xl-select flex-1 mt-4 md:mt-0 col-span-1"
+    >
+      <nz-option
+        *ngFor="let vhType of Types"
+        [nzLabel]="'::Guest:Explore:filter:'+vhType.displayName  | abpLocalization"
+        [nzValue]="vhType.id"
+      ></nz-option>
+    </nz-select>
+    <nz-select
+      [(ngModel)]="selectedVacationHomeCity"
+      nzAllowClear
+      [nzShowSearch]="true"
+      nzPlaceHolder="{{ '::guest:landing.city' | abpLocalization }}"
+      class="xl-select flex-1 mt-4 md:mt-0 col-span-1"
+      (ngModelChange)="getDistricts()"
+    >
+      <nz-option
+        *ngFor="let city of cities"
+        [nzLabel]="city.name"
+        [nzValue]="city.id"
+      ></nz-option>
+    </nz-select>
+
+    <nz-select
+    [(ngModel)]="selectedVacationHomeDistrict"
+      [nzDisabled]="!selectedVacationHomeCity"
+      nzAllowClear
+      [nzShowSearch]="true"
+      nzPlaceHolder="{{ '::guest:landing.district' | abpLocalization }}"
+      class="xl-select flex-1 mt-4 md:mt-0 col-span-1"
+    >
+      <nz-option
+        *ngFor="let vhType of districts"
+        [nzLabel]="vhType.name"
+        [nzValue]="vhType.id"
+      ></nz-option>
+    </nz-select>
+    <button
+    *ngIf="!showCalander"
+      (click)="showCalander = !showCalander"
+      nz-button
+      [ngClass]="{ showCalander: showCalander }"
+      class="col-span-1 bg-white mb-3 sm:mb-3 md:mb-3 border-gray-200
+        lg:mb-3 xl:last:mb-0 mt-4 md:mt-0 
+        text-[#0f172a] h-14 rounded-lg "
+    >
+      <p class="lg:text-sm text-sm">
+        {{ '::guest:landing:section2:date' | abpLocalization }}
+        <i class="fa-solid fa-plus absolute top-1/2 -translate-y-1/2 -rotate-90 lg:rotate-0">
+        </i>
+      </p>
+    </button>
+    <nz-range-picker
+    *ngIf="showCalander"
+    [nzPlaceHolder]="[
+      '::guest:landing.start' | abpLocalization,
+      '::guest:landing.end' | abpLocalization
+    ]"
+    classes="bg-white"
+    class="xl-select flex-1 mt-4 md:mt-0 mb-3 text-black col-span-1  h-[55px]"
+    ngModel
+    (ngModelChange)="changeVacationHomeDate($event)"
+    [nzDisabledDate]="disabledDate"
+    [nzDateRender]="tplRender"
+    ></nz-range-picker>
+    <ng-template #tplRender let-current>
+      <div
+        class="ant-picker-cell-inner"
+        [class.disable]="isdisabledDate(current)"
+      >
+        {{ current.getDate() }}
+      </div>
+    </ng-template>
+    <div class="flex flex-row justify-between col-span-1 gap-2 mt-4 md:mt-0">
+
+      <app-button class="w-full" (click)="searchVacationHome()">
+        {{ '::guest:landing.search' | abpLocalization }}
+      </app-button>
+      <app-button [outline]="true" class="w-full" (click)="resetFilter()">
+        {{ '::guest:landing.reset' | abpLocalization }}
+      </app-button>
+    </div>
+  </div>
+
+    <!-- tabs -->
+     @if(vacationHomeTypes?.length || experienceTypes?.length){
+
+       <div class="relative flex flex-col xl:block" >
+         <nz-tabset class="px-2 py-3" [nzSelectedIndex]="tabIndex">
+           <!-- All Tab -->
+           <nz-tab [nzTitle]="tabtitle" (nzClick)="getVacationHomeByType(null,0)">
+             <ng-template #tabtitle>
+               {{'::homeHoliday:search:all' | abpLocalization}}
+             </ng-template>
+             <div class="px-4 py-4" >
+               <ng-container>
+                 @if (items?.length > 0) {
+                     <ng-container *ngTemplateOutlet="list; context: { homes: items }"></ng-container>
+                 } @else {
+                   <nz-empty [nzNotFoundContent]="'::homeHoliday:search:noData' | abpLocalization"  class="block w-full mx-auto"></nz-empty>
+                 }
+             </ng-container>
+             </div>
+           </nz-tab>
+           <!-- Types Tab -->
+            @if(vacationHomeTypes?.length ){
+
+              @for (tab of vacationHomeTypes; track tab;let i = $index) {
+                <nz-tab 
+                 [nzTitle]="tabtitle" (nzClick)="getVacationHomeByType(tab.id,i+1)">
+                  <ng-template #tabtitle>
+                    {{ tab.name  }}
+                  </ng-template>
+                  <div class="px-4 py-4" dir="rtl">
+                    <ng-container>
+                      @if (items?.length > 0) {
+                          <ng-container *ngTemplateOutlet="list; context: { homes: items }"></ng-container>
+                      } @else {
+                        <nz-empty [nzNotFoundContent]="'::homeHoliday:search:noData' | abpLocalization"  class="block w-full mx-auto"></nz-empty>
+                      }
+                    </ng-container>
+                  </div>
+                </nz-tab>
+              }
+            } @else if(experienceTypes?.length) {
+              @for (tab of experienceTypes; track tab;let i = $index) {
+                <nz-tab [nzTitle]="tabtitle" (nzClick)="getVacationHomeByType(tab.id,i+1)">
+                  <ng-template #tabtitle>
+                    {{tab.name  }}
+                  </ng-template>
+                  <div class="px-4 py-4" dir="rtl">
+                    <ng-container>
+                      @if (items?.length > 0) {
+                          <ng-container *ngTemplateOutlet="list; context: { homes: items }"></ng-container>
+                      } @else {
+                        <nz-empty [nzNotFoundContent]="'::homeHoliday:search:noData' | abpLocalization"  class="block w-full mx-auto"></nz-empty>
+                      }
+                    </ng-container>
+                  </div>
+                </nz-tab>
+              }
+            }
+         </nz-tabset>
+       </div>
+     }@else {
+      <div class="px-4 py-4" >
+        <ng-container>
+          @if (items?.length > 0) {
+              <ng-container *ngTemplateOutlet="list; context: { homes: items }"></ng-container>
+          } @else {
+            <nz-empty [nzNotFoundContent]="'::homeHoliday:search:noData' | abpLocalization"  class="block w-full mx-auto"></nz-empty>
+          }
+      </ng-container>
+      </div>
+     }
+</div>
+
+<ng-template #list let-homes="homes">
+  <div
+    class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-1 gap-2 xl:gap-2"
+    [ngClass]="{ '!grid-cols-1': !homes?.length }"
+  >
+    @for (home of homes;track  $index) {
+      <app-vacation-home-item
+          [item]="home.isVacationHome ? home.vacationHome : home.experience"
+          [isVacationHome]="home.isVacationHome"
+          [ratingsAverage]="home.isVacationHome ? home?.vacationHome.ratingsAverage : home?.experience.ratingsAverage"
+          [ratingsCount]="home.isVacationHome ? home?.vacationHome.ratingsCount : home?.experience.ratingsCount"
+      ></app-vacation-home-item>
+    }
+
+  </div>
+
+
+</ng-template>
+<div class="mx-auto mt-12 flex justify-center pb-8">
+  <nz-pagination
+  (nzPageIndexChange)="filterEvent($event)"
+  [nzTotal]="totalCount"
+  [nzPageIndex]="page"
+  [nzPageSize]="itemsPerPage"
+  ></nz-pagination>
+</div>
+

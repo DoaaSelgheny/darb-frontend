@@ -1,0 +1,175 @@
+<div class="flex items-center justify-between rounded-lg p-4 bg-[rgba(253,234,233,0.50)]">
+  <div>
+    <p class="text-[32px] font-extrabold">
+      {{ payment?.pricePerNight }}
+    </p>
+    <div class="flex flex-row">
+      <img src="assets/imgs/reyal.svg" class="mx-2" alt="riyal">
+      <p  class="font-bold text-lg text-btnBg"> / {{"::Guest:Explore:price:night" |abpLocalization}}</p>
+    </div>
+    <!-- <p class="font-bold text-lg text-btnBg">
+      {{"::Guset:Explore:sar"|abpLocalization}} / {{"::Guest:Explore:price:night" |abpLocalization}}
+    </p> -->
+  </div>
+</div>
+
+<!-- Date -->
+<div class="flex items-center mt-2">
+  <nz-range-picker
+      [nzPlaceHolder]="[
+        '::guest:landing.start' | abpLocalization,
+        '::guest:landing.end' | abpLocalization
+      ]"
+      classes="bg-white"
+      class="xl-select flex-1 mt-4 md:mt-0 text-black col-span-1  h-[55px]"
+      [(ngModel)]="dateModel"
+      (ngModelChange)="changeVacationHomeDate($event)"
+      [nzDisabledDate]="disabledDate"
+      [nzDateRender]="tplRender"
+    ></nz-range-picker>
+    <ng-template #tplRender let-current>
+      <div
+        class="ant-picker-cell-inner"
+        [class.line-through]="isDateDisabled(current)"
+      >
+        {{ current.getDate() }}
+      </div>
+    </ng-template>
+</div>
+@if(payment?.isAvailable){
+
+  <p class="text-[#3B82F6] text-sm mt-1 flex items-center">
+    {{"::Guest:Explore:price:changeDate"| abpLocalization}}
+  </p>
+}@else {
+  <p class="text-[#ED3024] text-sm mt-1 flex items-center">
+    {{"::Guest:Explore:price:notAvailable"| abpLocalization}}
+  </p>
+}
+<!--Time-->
+<div class="flex justify-between items-center mt-3">
+  <div class="flex flex-col">
+    <p class="text-[#3A3A3A] text-base">{{"::Guest:Explore:price:CheckInTime"|abpLocalization}}</p>
+    <p class="text-[#3A3A3A] text-base mt-1">{{payment?.accessTime | timeFormat}}</p>
+  </div>
+  <div class="flex flex-col">
+    <p class="text-[#3A3A3A] text-base">{{"::Guest:Explore:price:CheckOutTime"|abpLocalization}}</p>
+    <p class="text-[#3A3A3A] text-base mt-1">{{payment?.leaveTime| timeFormat}}</p>
+  </div>
+</div>
+<!-- Pay Details-->
+<div class="mt-3">
+  <div class="flex justify-between">
+    <div class="text-sm flex flex-row">
+      <span class="font-bold">
+        {{ payment?.numberOfNights }} 
+        {{"::Guset:Explore:nights"|abpLocalization}} 
+      </span> &#10006; 
+      <!-- {{ payment?.pricePerNight }} {{"::Guset:Explore:sar" |abpLocalization}} -->
+      <div style="direction: rtl;" class="flex">
+        <p class="font-normal text-dark text-sm"> {{ payment?.pricePerNight }} </p>
+        <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+      </div>
+    </div>
+    <div class="flex flex-row" style="direction: rtl;">
+      <p class="font-normal text-dark text-sm">{{ payment?.subTotalPrice }} </p>
+      <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+    </div>
+    <!-- <p class="font-normal text-dark text-sm">
+      {{ payment?.subTotalPrice }} 
+      {{"::Guset:Explore:sar" |abpLocalization}}
+    </p> -->
+  </div>
+  @if(payment?.valueAddedTax !== 0){
+
+    <div class="mt-4 flex justify-between">
+      <p class=" font-bold text-sm text-[#3A3A3A] ">{{'::Host:taxValue'|abpLocalization}}</p>
+      <div style="direction: rtl;" class="flex">
+        <p class="text-dark font-normal text-sm">  {{ payment?.valueAddedTax}}  </p>
+        <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+      </div>
+      <!-- <p class=" text-dark font-normal text-sm">
+        {{ payment?.valueAddedTax}} 
+        {{'::guest:header.currency' |abpLocalization}}
+      </p> -->
+    </div>
+  }
+  @if(payment?.serviceFeeIncludeTax !== 0){
+
+  <div class="mt-4 flex justify-between">
+    <p class="font-bold text-sm text-[#3A3A3A]">{{"::Guest:Explore:price:tax" |abpLocalization}}</p>
+    <div style="direction: rtl;" class="flex">
+      <p class="text-dark font-normal text-sm">  {{ payment?.serviceFeeIncludeTax}}  </p>
+      <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+    </div>
+    <!-- <p class="text-dark font-normal text-sm">
+      {{ payment?.serviceFeeIncludeTax }} 
+      {{"::Guset:Explore:sar" |abpLocalization}}
+    </p> -->
+  </div>
+  }
+  <nz-divider class="my-4"></nz-divider>
+  <div>
+    <div class="flex justify-between">
+      <p class="font-bold text-dark text-base">{{"::Guest:Explore:price:total" |abpLocalization}}</p>
+      <!-- <p class=" text-dark text-base">
+        {{ payment?.totalPrice }}
+         {{"::Guset:Explore:sar" |abpLocalization}}
+        </p> -->
+        <div style="direction: rtl;" class="flex">
+          <p class=" text-dark text-base">  {{ payment?.totalPrice}}  </p>
+          <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+        </div>
+    </div>
+  </div>
+  <div>
+    @if(payment?.payNow && (payment?.payNow !== payment?.totalPrice)){
+
+      <div class="flex justify-between mt-2" >
+        <p class="text-dark text-base">{{"::Guest:Explore:price:payNow" |abpLocalization}}</p>
+        <!-- <p class=" text-dark text-base">
+          {{ payment?.payNow }} 
+          {{"::Guset:Explore:sar" |abpLocalization}}
+        </p> -->
+        <div style="direction: rtl;" class="flex">
+          <p class="text-dark text-base">  {{ payment?.payNow}}  </p>
+          <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+        </div>
+      </div>
+    }
+  </div>
+  <nz-divider class="my-4"></nz-divider>
+</div>
+<!-- Pay Button-->
+<app-button class="block my-6 bg-btnBg" (click)="pay()"
+[disabled]="!payment?.isAvailable">
+  <div class="flex items-center justify-center">
+    <p class="text-base font-bold mx-2">
+      @if(payment?.isAvailable){
+
+        {{"::Guest:Explore:price:reserveNow" |abpLocalization}}
+      }@else {
+        {{"::Guest:Explore:price:changeDateBtn" |abpLocalization}}
+
+      }
+    </p>
+    @if(lang === 'en'){
+
+      <span nz-icon nzType="arrow-right" nzTheme="outline" class="font-bold"></span>
+    }@else {
+
+      <span nz-icon nzType="arrow-left" nzTheme="outline" class="font-bold"></span>
+    }
+  </div>
+</app-button>
+
+<div class="flex items-center justify-between">
+  <img src="assets/imgs/explore/visa.svg" alt="visa">
+
+    <!-- <img src="assets/icons/tamara.svg" alt="mis" class="mx-1"> -->
+    <img src="assets/imgs/explore/mada.svg" alt="mada">
+
+
+</div>
+ 
+

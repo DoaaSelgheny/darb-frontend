@@ -1,0 +1,39 @@
+ ::ng-deep {
+  .ant-select .ant-select-selection-item {
+    &:read-only {
+      @apply text-gray-300;
+    }
+  }
+  .ant-btn
+  {
+    max-height: 40px;
+  }
+  nz-alert{
+    margin-top: 0px !important;
+    margin-bottom: 2px;
+  }
+  .ant-tooltip-inner {
+    font-weight: 400;
+  }
+  .ant-tooltip-arrow-content {
+    --antd-arrow-background-color: linear-gradient(to right bottom, rgb(255 255 255 / 65%), rgb(255 255 255 / 75%));
+  }
+}
+
+.verfiy{
+  font-size: 13px;
+    font-weight: 400;
+    line-height: 24px;
+    width: (154px);
+    height: (32px);
+    background: var(--Premititve-neutral-50, #FAFAFA);
+    padding: 4px 16px;
+    gap: 8px;
+    border-radius: 4px;
+    opacity: 0px;
+  span{
+    color: rgba(34, 197, 94, 1);
+    margin-left: 1px ;
+    margin-right: 1px;
+  }
+}

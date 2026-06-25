@@ -1,0 +1,124 @@
+<!-- Title -->
+<div class="text-lg color-[#252729] font-bold">{{"::homeHoliday:addEdit:title" | abpLocalization}}</div>
+
+<!-- Breadcrumb -->
+<nz-breadcrumb>
+  <nz-breadcrumb-item class="cursor-pointer" routerLink="/holiday-homes">
+    {{
+      {
+        key: '::Host:VacationHome:MainPage'
+      } | abpLocalization
+    }}
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item class="cursor-pointer" routerLink="/holiday-homes">
+    {{
+      {
+        key: '::Host:VacationHome:Title'
+      } | abpLocalization
+    }}
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    {{
+      {
+        key: '::Host:VacationHome:AddNew'
+      } | abpLocalization
+    }}
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<!-- Alert -->
+<!-- <app-alert [type]="alertType.ERROR" *ngIf="!isAccountVerified">
+  {{
+    {
+      key: '::Host:HolidayHome:Edit:Alert:Danger',
+      defaultValue: 'بيانات الملف الشخصي خطوه مطلوبة ليتم نشر الخدمة'
+    } | abpLocalization
+  }}
+  <span
+    class="underline text-[#A50000] font-bold text-xs cursor-pointer ps-2"
+    (click)="completeProfile()"
+    >استكمال</span
+  >
+</app-alert> -->
+
+<!-- -->
+<app-content-card >
+  <div class="progerss-steps mb-16 pt-6">
+    <nz-steps [nzCurrent]="currentStep" nzSize="small" nzProgressDot>
+      <nz-step [nzTitle]="'::homeHoliday:addEdit:step1:title' | abpLocalization"></nz-step>
+      <nz-step  [nzTitle]="'::homeHoliday:addEdit:step2:title' | abpLocalization" ></nz-step>
+      <nz-step  [nzTitle]="'::homeHoliday:addEdit:step3:title' | abpLocalization" ></nz-step>
+      <nz-step  [nzTitle]="'::homeHoliday:addEdit:step4:title' | abpLocalization" ></nz-step>
+      <nz-step  [nzTitle]="'::homeHoliday:addEdit:step5:title' | abpLocalization" ></nz-step>
+      <nz-step  [nzTitle]="'::homeHoliday:addEdit:step6:title' | abpLocalization" ></nz-step>
+      <nz-step  [nzTitle]="'::homeHoliday:addEdit:step7:title' | abpLocalization" ></nz-step>
+      <nz-step  [nzTitle]="'::homeHoliday:addEdit:step8:title' | abpLocalization" ></nz-step>
+      <nz-step  [nzTitle]="'::homeHoliday:addEdit:step9:title' | abpLocalization" ></nz-step>
+      <nz-step  [nzTitle]="'::homeHoliday:addEdit:step10:title' | abpLocalization" ></nz-step>
+    </nz-steps>
+  </div>
+  <div class="block">
+    @switch (currentStep) {
+      @case (0) {
+        <app-home-data (emitNext)="goNext($event)" [id]="id"
+        [vacationHome]="vacationHome"></app-home-data>
+      }
+      @case (1) {
+        <app-home-location
+        (emitNext)="goNext($event)" [id]="id"
+        [vacationHome]="vacationHome" [regionId]="regionId"
+        ></app-home-location>
+      }
+      @case (2) {
+        <app-home-facilities
+          (emitNext)="goNext($event)" [id]="id"
+        [vacationHome]="vacationHome"
+
+        ></app-home-facilities>
+      }
+      @case (3) {
+        <app-room-data
+          (emitNext)="goNext($event)" [id]="id" [vacationHome]="vacationHome"
+        ></app-room-data>
+      }
+      @case (4) {
+        <app-description-holiday-home
+        (emitNext)="goNext($event)" [id]="id"
+        [vacationHome]="vacationHome"
+        ></app-description-holiday-home>
+
+      }
+      @case (5) {
+        <app-home-policy
+          (emitNext)="goNext($event)" [id]="id"
+          [vacationHome]="vacationHome"
+        ></app-home-policy>
+      }
+      @case (6) {
+        <app-price-data
+          (emitNext)="goNext($event)" [id]="id"
+          [vacationHome]="vacationHome"
+        >
+        </app-price-data>
+      }
+      @case (7) {
+        <app-holiday-home-photos
+        (emitNext)="goNext($event)" [id]="id"
+        [vacationHome]="vacationHome"
+        ></app-holiday-home-photos>
+      }
+      @case (8) {
+        <app-availability
+        (emitNext)="goNext($event)" [id]="id"
+        [vacationHome]="vacationHome"
+        ></app-availability>
+      }
+      @case (9) {
+        <app-view-holiday-home-information (emitNext)="goNext($event)"  [id]="id"></app-view-holiday-home-information>
+      }
+    }
+  </div>
+
+</app-content-card>
+
+

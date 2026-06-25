@@ -1,0 +1,89 @@
+.financial {
+  background: linear-gradient(204.06deg, #122466 15.43%, #16329a 101.42%);
+}
+.bg-icon {
+  background: url('/assets/host/imgs/bg-trans.png') no-repeat;
+  background-position: left;
+  background-size: auto 100%;
+}
+
+::ng-deep {
+  .tabel-custom {
+    @apply bg-white rounded-b-lg;
+    nz-pagination {
+      @apply py-8;
+      margin: 0 !important;
+      display: flex;
+      justify-content: center !important;
+    }
+  }
+  .md-select nz-select-top-control, .md-select input, .lg-select nz-select-top-control, .lg-select input
+  {
+    height: 50px !important;
+  }
+  .ant-select-rtl.ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder, .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder,
+  .ant-select-rtl.ant-select-single.ant-select-show-arrow .ant-select-selection-item {
+    padding-top: 0px !important;
+}
+
+.ant-table-thead > tr > th{
+  padding: 1rem !important;
+  text-align: center!important;
+font-size: 16px !important;
+font-weight: 700 !important;
+line-height: 24px !important;
+
+
+}
+.ant-table-tbody > tr > td{
+
+font-size: 16px!important;
+font-weight: 400!important;
+line-height: 24px!important;
+text-align: center;
+
+}
+}
+td {
+  @apply text-base;
+}
+.block-totalTransfersAr {
+  background-image: url("/assets/host/imgs/card/cardAr.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  // background-position: center;
+  // border:1px solid #122466;
+  width: 230px;
+  height: 102px;
+  padding: 20px;
+  // border-radius: 16px;
+}
+.block-totalTransfers {
+  background-image: url("/assets/host/imgs/card/carden.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  // background-position: center;
+  // border:1px solid #122466;
+  width: 230px;
+  height: 102px;
+  padding: 20px;
+  // border-radius: 16px;
+}
+.block-upcomingTransfersAr{
+  background-image: url("/assets/host/imgs/card/card2ar.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  // background-position: center;
+  width: 230px;
+  height: 102px;
+  padding: 20px;
+}
+.block-upcomingTransfers{
+  background-image: url("/assets/host/imgs/card/card2en.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  // background-position: center;
+  width: 230px;
+  height: 102px;
+  padding: 20px;
+}

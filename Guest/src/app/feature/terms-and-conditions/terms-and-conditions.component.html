@@ -1,0 +1,56 @@
+<div class="container mx-auto px-6">
+  <nz-breadcrumb class="mt-[70px]">
+    <nz-breadcrumb-item class="cursor-pointer" routerLink="/">   {{ '::guest:questionsanswers.Breadcrumb.Home' | abpLocalization }}</nz-breadcrumb-item>
+    <nz-breadcrumb-item class="pt-2">  {{ '::guest:TermsAndConditions' | abpLocalization }} </nz-breadcrumb-item>
+  </nz-breadcrumb>
+
+  <h3 class="lg:text-[32px] text-2xl font-bold text-[#222] mt-[41px]">
+    @if(!isApp || isApp == 'false') {
+
+      {{ '::guest:TermsAndConditions' | abpLocalization }} 
+    }@else {
+      {{"::policy" | abpLocalization}}
+    }
+    </h3>
+  <p class="mt-1 text-base lg:text-lg text-[#666]">
+    {{ '::guest:TermsAndConditions:subTitle' | abpLocalization }} 
+  </p>
+
+  <div class="flex flex-col xl:flex-row my-14">
+    @if(!isApp || isApp == 'false'){
+
+      <div>
+        <ng-container [ngTemplateOutlet]="menuButtons"></ng-container>
+      </div>
+    }
+    <div class="lg:ms-4 mt-4 lg:mt-0 w-full">
+      <nz-card [nzTitle]="''" class="block w-full border-0 rounded-2xl">
+        <div [innerHTML]="content"></div>
+      </nz-card>
+    </div>
+  </div>
+
+  <ng-template #menuButtons>
+    <div
+      class="flex flex-row xl:flex-col w-full overflow-x-scroll xl:overflow-x-hidden xl:w-[378px] p-4 lg:p-4 bg-white rounded-2xl shrink-0"
+    >
+      @for (setting of settings; track $index) {
+        <button
+          nz-button
+          (click)="selectItem(setting)"
+          [ngClass]="{ '!text-white !bg-secondary': setting.select }"
+          class="bg-gray-50 font-bold border-gray-200 shrink-0 relative me-3 last:me-0 w-auto lg:min-w-[345px] xl:me-0 lg:mb-3 xl:last:mb-0 text-gray-600 h-14 rounded-lg hover:border-gray-300 hover:text-secondary focus:text-gray-600 focus:border-gray-300"
+        >
+          <p class="text-base font-bold flex lg:block items-center">
+            
+            {{ setting.name }}
+            <i
+              *ngIf="setting.select"
+              class="fa-solid fa-arrow-left lg:absolute static top-1/2 ms-3 lg:ms-0 lg:-translate-y-1/2 left-5 -rotate-90 lg:rotate-0"
+            ></i>
+          </p>
+        </button>
+      }
+    </div>
+  </ng-template>
+</div>

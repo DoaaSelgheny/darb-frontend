@@ -1,0 +1,175 @@
+import { Component, OnInit } from '@angular/core';
+import { SharedModule } from '../../../shared/shared.module';
+import { CommonModule } from '@angular/common';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { ReservationsHostService } from '@proxy/reservations/reservations-host.service';
+import { ReservationStatus } from '@proxy/reservation-users/reservation-status.enum';
+import { LocalizationService } from '@abp/ng.core';
+import { ReservationType } from '@proxy/reservation-users/reservation-type.enum';
+import { FileManagementService } from 'src/shared/services/file-management.service';
+import { Title } from '@angular/platform-browser';
+@Component({
+  selector: 'app-reservations',
+  standalone: true,
+  imports: [SharedModule, CommonModule, RouterModule],
+  templateUrl: './reservations.component.html',
+  styleUrl: './reservations.component.scss',
+})
+export class ReservationsComponent implements OnInit {
+  reservations:any;
+  reservationStatus:any;
+  selectedStatus=null;
+  filterText: string;
+  currentPage = 1;
+  itemsPerPage = 12;
+  totalCount = 0;
+  loading: boolean = false;
+  pageIndex = 1;
+  reservationType=ReservationType;
+  reservationTypeEnum=ReservationType;
+  downloadToken:any;
+  constructor(
+      private service: ReservationsHostService,
+      private localizationService: LocalizationService,
+      private router: Router,
+      private titleService: Title
+  ) {
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd && event.url === '/reservations') {
+
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    console.log("currentPage",this.currentPage)
+    this.titleService.setTitle(this.localizationService.instant('::Host:Title:reversation'));
+    this.reservationStatus = Object.keys(ReservationStatus)
+    .filter((key) => !isNaN(Number(ReservationStatus[key as keyof typeof ReservationStatus])))
+    .map((key) => ({ id: Number(ReservationStatus[key as keyof typeof ReservationStatus]), displayName: this.localizationService.instant("::Enum:ReservationStatus."+Number(ReservationStatus[key as keyof typeof ReservationStatus])) })).slice(0,4);
+
+      this.getReservation(this.currentPage);
+
+  }
+getReservation(pageIndex: number)
+{
+  let dataSearch = JSON.parse(sessionStorage.getItem('dataSearch'))
+    if(dataSearch){
+      this.selectedStatus = dataSearch.selectedStatus
+      this.filterText = dataSearch.filterText
+      pageIndex =dataSearch.currentPage
+    }
+
+  this.loading = true;
+  this.service.getReservationListByFilter({
+
+    reservationStatus:this.selectedStatus,
+    filterText:this.filterText,
+    maxResultCount: this.itemsPerPage,
+    skipCount: (pageIndex - 1) * this.itemsPerPage,
+
+  } as any).subscribe(data => {
+    this.reservations = data.items;
+    this.totalCount = data.totalCount;
+  });
+  sessionStorage.removeItem('dataSearch')
+  setTimeout(() => {
+    this.currentPage = pageIndex
+  }, 2000);
+}
+
+export()
+{
+
+  this.service.getDownloadToken().subscribe(data => {
+    this.downloadToken = data.token;
+    this.service.getListAsExcelFile({
+
+      reservationStatus:this.selectedStatus,
+      filterText:this.filterText,
+      downloadToken:data.token
+
+    } as any).subscribe(data => {
+      this.downloadBlob(data,'reversation')
+    });
+  });
+
+
+}
+
+
+ downloadBlob(blob, fileName) {
+    // Create a temporary URL for the Blob
+    const url = URL.createObjectURL(blob);
+
+    // Create an anchor element and set its attributes
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName; // Specify the file name
+
+    // Append the anchor to the body, click it, and then remove it
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    // Release the Blob URL to free memory
+    URL.revokeObjectURL(url);
+}
+  listOfColumn = [
+
+    {
+      title: this.localizationService.instant("::guestName"),
+
+      priority: 1,
+    },
+    {
+      title: this.localizationService.instant("::serviceName"),
+
+      priority: 2,
+    },
+    {
+      title: this.localizationService.instant("::reservationNumber"),
+
+      priority: 3,
+    },
+    {
+      title: this.localizationService.instant("::serviceType"),
+
+      priority: 4,
+    },
+    {
+      title: this.localizationService.instant("::creationDate"),
+
+      priority: 5,
+    },
+    {
+      title: this.localizationService.instant("::reversationStatus"),
+
+      priority: 6,
+    },
+    {
+      title: this.localizationService.instant("::BookingRating"),
+
+      priority: 7,
+    },
+    {
+      title: this.localizationService.instant("::details"),
+
+      priority: 8,
+    },
+  ];
+  changeFilter() {
+    this.getReservation(this.currentPage);
+  }
+  goToDetails(id,reservationType,dta){
+    let dataSearch ={
+      selectedStatus:this.selectedStatus,
+      filterText:this.filterText,
+      currentPage: this.currentPage
+    }
+    this.router.navigate(['/reservation-details/', id,reservationType,dta])
+    sessionStorage.setItem('dataSearch',JSON.stringify(dataSearch))
+  }
+
+}

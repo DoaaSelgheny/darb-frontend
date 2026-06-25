@@ -1,0 +1,23 @@
+<div class="flex items-center flex-col md:flex-row justify-between">
+  <label class="flex items-start mb-2 min-w-full md:min-w-[120px]">
+    {{ label }}
+    <img
+      alt="required"
+      *ngIf="control.hasError('required')"
+      class="ms-1"
+      src="/assets/host/icons/required.svg"
+
+    />
+  </label>
+  <div class="ms-0 md:ms-10 min-w-full md:min-w-[145px] justify-between flex items-center mb-5">
+    <button nz-button class="px-2 rounded-full border-[#171717]" (click)="increment()">
+      <!-- <span nz-icon nzType="plus" nzTheme="outline"></span> -->
+      <i class="fa-solid fa-plus"></i>
+    </button>
+    <span class="text-xl text-[#171717]">{{ value }}</span>
+    <button nz-button class="px-2 rounded-full border-[#171717]" (click)="decrement()">
+      <!-- <span nz-icon nzType="minus" nzTheme="outline"></span> -->
+      <i class="fa-solid fa-minus"></i>
+    </button>
+  </div>
+</div>

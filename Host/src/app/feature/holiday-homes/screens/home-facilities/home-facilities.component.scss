@@ -1,0 +1,11 @@
+:host ::ng-deep {
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+    justify-content: space-between;
+    flex-direction: row-reverse;
+  }
+}
+.symbol {
+     width: 24px;
+    height: 24px;
+    padding: 3px;
+}

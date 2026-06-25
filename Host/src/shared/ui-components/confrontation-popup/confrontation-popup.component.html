@@ -1,0 +1,27 @@
+<nz-modal
+  [(nzVisible)]="isVisible"
+  [nzClassName]="'custom-model'"
+  [nzFooter]="null"
+  (nzOnCancel)="cancel.emit()"
+>
+  <ng-container *nzModalContent>
+    <img
+      class="mx-auto py-10"
+      *ngIf="confrontationType == confrontationTypesEnum.success"
+      src="assets/host/icons/success.svg"
+    />
+    <img
+      class="mx-auto py-10"
+      *ngIf="confrontationType == confrontationTypesEnum.warning"
+      src="assets/host/icons/!imgs.svg"
+    />
+
+    <p class="font-bold text-lg mb-3 text-center max-w-[30ch] m-auto">{{ title }}</p>
+    <p class="mx-auto mb-3 w-4/5 text-center text-base text-dark">
+      {{ description }}
+    </p>
+    <div class="flex justify-center">
+      <ng-content select="[buttons]"></ng-content>
+    </div>
+  </ng-container>
+</nz-modal>

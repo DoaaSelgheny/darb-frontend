@@ -1,0 +1,388 @@
+<div class="grid grid-cols-2">
+  <div class="contact relative hidden sm:block" [ngClass]="lang === 'ar'?'borderAr':'borderEn'">
+      <img src="assets/imgs/logowhite.svg" class="m-5">
+      <div class="mx-5 flex items-center absolute bottom-4">
+        <button
+          nz-button
+          nzType="text"
+          (click)="openNewWindow('https://api.whatsapp.com/send?phone=966507400207')"
+          class="px-1"
+        >
+          <img src="assets/imgs/whatsapp.svg" width="20px" alt="tiktok" />
+        </button>
+        <button
+        nz-button
+        nzType="text"
+        (click)="openNewWindow('https://x.com/hyyak_co')"
+        class="px-1"
+      >
+        <img src="assets/imgs/twitter.svg"  width="20px" alt="twitter" />
+      </button>
+        <button
+          nz-button
+          (click)="openNewWindow('https://www.instagram.com/hyyak_co')"
+          nzType="text"
+          class="px-1"
+        >
+          <img src="assets/imgs/instagram.svg"  width="20px" alt="instagram" />
+        </button>
+        <button
+          nz-button
+          (click)="openNewWindow('https://www.linkedin.com/company/hyyak/')"
+          nzType="text"
+          class="px-1"
+        >
+          <img src="assets/imgs/linkedin.svg"  width="20px" alt="linkedin" />
+        </button>
+        <button
+          nz-button
+          nzType="text"
+          (click)="openNewWindow('https://www.tiktok.com/@hyyak_co?_t=8jm177dtMNG&_r=1')"
+          class="px-1"
+        >
+          <img src="assets/imgs/tiktok.svg"  width="20px" alt="tiktok" />
+        </button>
+        <button
+          nz-button
+          (click)="openNewWindow('https://t.snapchat.com/y6Cx87IC')"
+          nzType="text"
+          class="px-1"
+        >
+          <img src="assets/imgs/snapchat.svg"  width="20px" alt="snapchat" />
+        </button>
+  
+  
+      </div>
+    
+  </div>
+  <div class="col-span-2 sm:col-span-1">
+    <nz-card
+      [nzTitle]="cardTitle"
+      class="block relative w-full border-0 md:mt-0 mt-12 rounded-2xl"
+      [formGroup]="form"
+    >
+      <ng-template #cardTitle class="border-0">
+        <p class="font-extrabold text-base">
+          {{ '::guest:contactus.FormTitle' | abpLocalization }}
+        </p>
+      </ng-template>
+      <!--name-->
+      <app-field
+        formControlName="name"
+        [control]="form | getControl: 'name'"
+        label="{{ '::guest:contactus.YourName' | abpLocalization }}"
+        class="block"
+        placeholder="{{ '::guest:contactus.YourNamePlaceHolder' | abpLocalization }}"
+      ></app-field>
+      <!--email-->
+      <app-field
+        formControlName="email"
+        [control]="form | getControl: 'email'"
+        label="{{ '::guest:contactus.EmailAddress' | abpLocalization }}"
+        class="block mt-4"
+        placeholder="{{ '::guest:contactus.EmailAddress' | abpLocalization }}"
+      ></app-field>
+       <!-- رقم الهاتف  -->
+       <div class="mt-4">
+        <app-field-label
+            [control]="form | getControl: 'phoneNumber'"
+            label="{{ '::Host:Business:form:phoneNumber' | abpLocalization }}"
+            [options]="{
+            valid: form.value.phoneNumberConfirmed
+            }"
+        ></app-field-label>
+        <ngx-intl-tel-input
+            cssClass="w-full left-direction h-12 rounded-md mt-4 p-4 ant-input  ant-input-rtl ant-input-stepperless text-dark text-base"
+            [enableAutoCountrySelect]="true"
+            [enablePlaceholder]="true"
+            [searchCountryFlag]="true"
+            [selectedCountryISO]="selectedCountryISO"
+            [selectFirstCountry]="false"
+            [separateDialCode]="true"
+            name="phoneNumber"
+            formControlName="phoneNumber"
+            (paste)="allowPaste($event)"
+        ></ngx-intl-tel-input>
+        <app-validation
+         *ngIf="form.controls['phoneNumber']?.invalid 
+         && (form.controls['phoneNumber']?.dirty 
+             || form.controls['phoneNumber']?.touched)"
+            [control]="form | getControl: 'phoneNumber'"
+            [message]="
+            form.controls['phoneNumber']?.errors?.required ? 'Validation.' : 'General:Validation.'
+            "
+        ></app-validation>
+        </div>
+      <!--subject-->
+      <app-field-label
+      class=" block mt-4"
+      label="{{ '::guest:contactus.Subject' | abpLocalization }}"
+      [control]="form | getControl: 'topicType'"
+    ></app-field-label>
+    <nz-select
+      nzPlaceHolder="{{ '::guest:contactus.choose' | abpLocalization }}..."
+      class="w-full rounded-md xl-select h-[3.2rem]"
+      nzAllowClear
+      formControlName="topicType"
+    >
+      <nz-option
+        nzValue="1"
+        nzLabel="{{ '::guest:contactus.Complaint' | abpLocalization }}"
+      ></nz-option>
+      <nz-option
+        nzValue="2"
+        nzLabel="{{ '::guest:contactus.Suggestion' | abpLocalization }}"
+      ></nz-option>
+      <nz-option
+        nzValue="3"
+        nzLabel="{{ '::guest:contactus.Question' | abpLocalization }}"
+      ></nz-option>
+      <nz-option
+        nzValue="4"
+        nzLabel="{{ '::guest:contactus.Other' | abpLocalization }}"
+      ></nz-option>
+    </nz-select>
+    <app-validation
+    [message]=" form.controls['topicType']?.errors?.required ? 'Validation.' : 'General:Validation.'"
+    [control]="form | getControl: 'topicType'"
+    ></app-validation>
+      <!--Message -->
+      <app-textarea
+        formControlName="message"
+        [control]="form | getControl: 'message'"
+        label="{{ '::guest:contactus.YourMessage' | abpLocalization }}"
+        class="block mt-4"
+        placeholder="{{ '::guest:contactus.YourMessage' | abpLocalization }}"
+      ></app-textarea>
+      <!--Note-->
+      <p class="mb-6">{{ '::guest:contactus.note' | abpLocalization }}</p>
+     <!--btn-->
+     <app-button class="text-center" [size]="'md'" (click)="sendMessage()">
+        <p class="text-base font-bold">
+          {{ '::guest:contactus.SendButton' | abpLocalization }}
+        </p>
+    </app-button>
+    </nz-card>
+  </div>
+</div>
+
+
+<!-- 
+<div class="flex md:flex-row flex-col mt-14">
+    <div class="md:me-6 me-0">
+      <div class="bg-white lg:min-w-[400px] lg:w-[400px] w-full shrink-0 rounded-2xl p-6">
+        <p class="lg:text-2xl text-xl font-extrabold">
+          {{ '::guest:contactus.FormTitle' | abpLocalization }}
+        </p>
+        <p class="text-gray-600 text-sm lg:text-base mt-1">
+          {{ '::guest:contactus.FormDescription' | abpLocalization }}
+        </p>
+
+        <div class="flex items-center mt-4">
+          <div class="rounded-full w-[54px] flex items-center justify-center h-[54px] bg-[#F8F8F8]">
+            <img
+              src="assets/icons/comment-alt-message.svg"
+              alt="comment-alt-message"
+              title="comment-alt-message"
+            />
+          </div>
+          <div class="ms-4">
+            <p class="text-gray-600 text-base">
+              {{ '::guest:contactus.Email' | abpLocalization }}
+            </p>
+            <p class="text-[#222] text-base lg:text-lg mt-0.5 font-bold">
+              {{ '::hala@hyyak.com' | abpLocalization }}
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center mt-4">
+          <div class="rounded-full w-[54px] flex items-center justify-center h-[54px] bg-[#F8F8F8]">
+            <img src="assets/icons/support.svg" alt="support" title="support" />
+          </div>
+          <div class="ms-4">
+            <p class="text-gray-600 text-base">
+              {{ '::guest:contactus.PhoneNumber' | abpLocalization }}
+            </p>
+            <p class="text-[#222] text-base lg:text-lg mt-0.5 font-bold">507400207(966)</p>
+          </div>
+        </div>
+
+        <div class="flex items-center mt-4">
+          <div class="rounded-full w-[54px] flex items-center justify-center h-[54px] bg-[#F8F8F8]">
+            <img src="assets/icons/comment-alt.svg" alt="comment" title="comment" />
+          </div>
+          <div class="ms-4">
+            <div class="rounded-lg bg-primary text-xs text-white">
+              {{ '::guest:landing.comingSoon' | abpLocalization }}
+            </div>
+            <p class="text-gray-600 text-base">
+              {{ '::guest:contactus.LiveChat' | abpLocalization }}
+            </p>
+            <p class="text-[#222] text-base lg:text-lg mt-0.5 font-bold">
+              {{ '::guest:contactus.LiveChat' | abpLocalization }}
+            </p>
+          </div>
+        </div>
+        <nz-divider class="my-4"></nz-divider>
+
+        <p class="font-bold text-lg">
+          {{ '::guest:contactus.SocialMediaLinks' | abpLocalization }}
+        </p>
+        <div class="flex items-center mt-3">
+          <div
+            class="w-[50px] h-[50px] me-2 flex justify-center cursor-pointer items-center border border-[#EEE] rounded-full"
+          >
+            <a href="https://t.snapchat.com/y6Cx87IC" target="_blank">
+              <img
+                class="w-6 h-6"
+                src="assets/icons/snapchat-alt.svg"
+                alt="snapchat"
+                title="snapchat"
+              />
+            </a>
+          </div>
+          <div
+            class="w-[50px] h-[50px] me-2 flex items-center cursor-pointer justify-center border border-[#EEE] rounded-full"
+          >
+            <a href="https://www.instagram.com/hyyak_co" target="_blank">
+              <img
+                class="w-6 h-6"
+                src="assets/icons/instagram.svg"
+                alt="instagram"
+                title="instagram"
+              />
+            </a>
+          </div>
+          <div
+            class="w-[50px] h-[50px] me-2 flex items-center cursor-pointer justify-center border border-[#EEE] rounded-full"
+          >
+            <a href="https://mobile.x.com/hyyak_co" target="_blank">
+              <img
+                class="w-6 h-6"
+                src="assets/icons/twitter-alt.svg"
+                alt="twitter"
+                title="twitter"
+              />
+            </a>
+          </div>
+          <div
+            class="w-[50px] h-[50px] me-2 flex items-center cursor-pointer justify-center border border-[#EEE] rounded-full"
+          >
+            <a href="https://www.linkedin.com/company/hyyak/" target="_blank">
+              <i class="fa-brands fa-linkedin text-gray-700 text-xl"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nz-card
+      [nzTitle]="cardTitle"
+      class="block relative w-full border-0 md:mt-0 mt-12 rounded-2xl"
+      [formGroup]="form"
+    >
+      <ng-template #cardTitle>
+        <p class="font-extrabold text-lg">
+          {{ '::guest:contactus.FormTitle' | abpLocalization }}
+        </p>
+      </ng-template>
+      <app-field
+        formControlName="name"
+        [control]="form | getControl: 'name'"
+        label="{{ '::guest:contactus.YourName' | abpLocalization }}"
+        class="block"
+        placeholder="{{ '::guest:contactus.Write' | abpLocalization }}..."
+      ></app-field>
+      <app-field
+        formControlName="email"
+        [control]="form | getControl: 'email'"
+        label="{{ '::guest:contactus.EmailAddress' | abpLocalization }}"
+        class="block mt-6"
+        placeholder="{{ '::guest:contactus.EmailAddress' | abpLocalization }}"
+      ></app-field>
+      <app-field-label
+        class="mt-6 block"
+        label="{{ '::guest:contactus.Subject' | abpLocalization }}"
+        [control]="form | getControl: 'topicType'"
+      ></app-field-label>
+      <nz-select
+        nzPlaceHolder="{{ '::guest:contactus.choose' | abpLocalization }}..."
+        class="w-full rounded-md xl-select"
+        nzAllowClear
+        formControlName="topicType"
+      >
+        <nz-option
+          nzValue="1"
+          nzLabel="{{ '::guest:contactus.Complaint' | abpLocalization }}"
+        ></nz-option>
+        <nz-option
+          nzValue="2"
+          nzLabel="{{ '::guest:contactus.Suggestion' | abpLocalization }}"
+        ></nz-option>
+        <nz-option
+          nzValue="3"
+          nzLabel="{{ '::guest:contactus.Question' | abpLocalization }}"
+        ></nz-option>
+        <nz-option
+          nzValue="4"
+          nzLabel="{{ '::guest:contactus.Other' | abpLocalization }}"
+        ></nz-option>
+      </nz-select>
+      <app-validation
+        [message]="'هذا الحقل إلزامي'"
+        [control]="form | getControl: 'topicType'"
+      ></app-validation>
+      <app-textarea
+        formControlName="message"
+        [control]="form | getControl: 'message'"
+        label="{{ '::guest:contactus.YourMessage' | abpLocalization }}"
+        class="block mt-6"
+        placeholder="{{ '::guest:contactus.YourMessage' | abpLocalization }}"
+      ></app-textarea>
+
+      <div
+        class="flex gap-4 mt-6 md:justify-between md:items-center backdrop: md:flex-row flex-col"
+      >
+        <div>
+          <re-captcha
+            class="mt-3 block md:mt-0"
+            (resolved)="resolved($event)"
+            siteKey="6LcVXH4pAAAAAH8eyL7Ah1NnXmxvPqS9mT1UxB3K"
+          ></re-captcha>
+          <app-validation
+            class="block mt-4"
+            [control]="form | getControl: 'captcha'"
+            [message]="'هذا الحقل  إلزامي'"
+          ></app-validation>
+        </div>
+
+        <app-button class="" (click)="sendMessage()">
+          <div class="flex items-center">
+            <p class="text-base font-bold">
+              {{ '::guest:contactus.SendButton' | abpLocalization }}
+            </p>
+            <i class="fa-solid fa-arrow-left text-base ms-2"></i>
+          </div>
+        </app-button>
+      </div>
+    </nz-card>
+</div> -->
+
+<!-- <app-confrontation-popup
+  [visible]="isVisibleSend"
+  (cancel)="isVisibleSend = false"
+  [confrontationType]="confrontationTypesEnum.success"
+  title="{{ '::guest:contactus.SuccessPopupTitle' | abpLocalization }}"
+  description="{{ '::guest:contactus.SuccessPopupDescription' | abpLocalization }}"
+>
+  <div buttons>
+    <div class="flex justify-center">
+      <app-button size="md" class="block mb-6 px-6" routerLink="/">
+        <div class="flex items-center justify-center">
+          <p>{{ '::guest:contactus.HomePageButton' | abpLocalization }}</p>
+          <span nz-icon nzType="arrow-up" class="ms-2 -rotate-45" nzTheme="outline"></span>
+        </div>
+      </app-button>
+    </div>
+  </div>
+</app-confrontation-popup> -->

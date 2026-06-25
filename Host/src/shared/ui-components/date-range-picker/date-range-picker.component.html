@@ -1,0 +1,8 @@
+<app-field-label [label]="label" [control]="control"></app-field-label>
+<nz-range-picker
+  [(ngModel)]="value"
+  [nzDisabled]="disabled"
+  [nzPlaceHolder]="placeholder"
+  class="w-full h-14 rounded-lg"
+  (ngModelChange)="changeValue()"
+></nz-range-picker>

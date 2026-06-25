@@ -1,0 +1,63 @@
+<div class="flex items-center justify-between">
+  <div>
+    <app-field-label [label]="label" [control]="control"></app-field-label>
+    <p *ngIf="subLabel" class="text-[#999]">{{ subLabel }}</p>
+  </div>
+  <div class="ms-0 md:ms-10 justify-between flex items-center">
+    <button
+      (click)="decrement()"
+      nz-button
+      class="h-12 w-12 border-[1.2px] border-[#EEE] flex justify-center items-center rounded-full"
+      [disabled]="disabled"
+    >
+      <svg
+        class="shrink-0"
+        width="28"
+        height="28"
+        viewBox="0 0 28 28"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M6.00028 13.3574H22.0003C22.1708 13.3574 22.3343 13.4252 22.4548 13.5457C22.5754 13.6663 22.6431 13.8298 22.6431 14.0003C22.6431 14.1708 22.5754 14.3343 22.4548 14.4548C22.3343 14.5754 22.1708 14.6431 22.0003 14.6431H6.00028C5.82978 14.6431 5.66627 14.5754 5.54571 14.4548C5.42515 14.3343 5.35742 14.1708 5.35742 14.0003C5.35742 13.8298 5.42515 13.6663 5.54571 13.5457C5.66627 13.4252 5.82978 13.3574 6.00028 13.3574Z"
+          fill="#BBBBBB"
+          stroke="#BBBBBB"
+        />
+      </svg>
+    </button>
+    <span class="text-xl text-[#444] px-4">{{ value }}</span>
+    <button
+      (click)="increment()"
+      nz-button
+      class="h-12 w-12 border-[1.2px] border-[#EEE] flex justify-center items-center rounded-full"
+    [disabled]="disabled"
+    >
+      <svg
+        class="shrink-0"
+        width="48"
+        height="48"
+        viewBox="0 0 48 48"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0.600005 24C0.600005 11.0765 11.0765 0.600005 24 0.600005C36.9235 0.600005 47.4 11.0765 47.4 24C47.4 36.9235 36.9235 47.4 24 47.4C11.0765 47.4 0.600005 36.9235 0.600005 24Z"
+          fill="white"
+        />
+        <path
+          d="M0.600005 24C0.600005 11.0765 11.0765 0.600005 24 0.600005C36.9235 0.600005 47.4 11.0765 47.4 24C47.4 36.9235 36.9235 47.4 24 47.4C11.0765 47.4 0.600005 36.9235 0.600005 24Z"
+          stroke="#EEEEEE"
+          stroke-width="1.20001"
+        />
+        <path
+          d="M23.9998 31.0934V16.9062M16.9062 23.9998H31.0934"
+          stroke="#BBBBBB"
+          stroke-width="2.27368"
+          stroke-miterlimit="10"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
+  </div>
+</div>

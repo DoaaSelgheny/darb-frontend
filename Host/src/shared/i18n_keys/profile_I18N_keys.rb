@@ -1,0 +1,25 @@
+{
+   ::Menu:Profile
+   ::Host:Profile:PersonalInfo
+   ::Host:Profile:Back
+   ::Host:Profile:Save
+   ::Host:Profile:PlaceHolder:FirstName
+   ::Host:Profile:FirstName
+   ::Host:Profile:PlaceHolder:LastName
+   ::Host:Profile:LastName
+   ::Host:Profile:Verify
+   ::Host:Profile:PlaceHolder:Email
+   ::Host:Profile:Email
+   ::Host:Profile:PhoneNumber
+   ::Host:Profile:IdentificationInfo
+   ::Host:Profile:Brief
+   ::Host:Profile:Brief:Info
+   ::Host:Profile:PlaceHolder:Brief
+   ::Host:Profile:YourDataWillNotBeSaved
+   ::Host:Profile:AreYouSureYourModifiedDataWillNotBeSaved
+   ::Host:Profile:Yes
+   ::Host:Profile:No
+   ::Host:Profile:FullName
+   ::Host:Profile:Update
+   Validation.validatePhoneNumber
+}

@@ -1,0 +1,22 @@
+<h2 class="text-lg text-[#3C3C3CE3] mt-3 mb-6 font-bold">حول التجربة</h2>
+<div [formGroup]="form">
+  <div class="mt-9">
+    <app-textarea
+      label="وصف للتجربة"
+      placeholder="نص كتابي ..."
+      [control]="form | getControl: 'description'"
+      formControlName="description"
+    >
+    </app-textarea>
+  </div>
+
+  <div class="mt-9">
+    <app-textarea
+      label="تفاصيل اكثر"
+      placeholder="نص كتابي ..."
+      [control]="form | getControl: 'moreDetails'"
+      formControlName="moreDetails"
+    >
+    </app-textarea>
+  </div>
+</div>

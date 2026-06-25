@@ -1,0 +1,13 @@
+.holiday-home-details {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 24px;
+}
+
+@media (max-width: 991px) {
+  .holiday-home-details {
+    padding: 0 20px;
+  }
+}

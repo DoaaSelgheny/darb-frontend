@@ -1,0 +1,426 @@
+<section class="info-section">
+  <h2 class="section-title">
+    {{ '::Host:VacationHome2:Step1:Header:Info' | abpLocalization }}
+  </h2>
+  <div class="details-grid">
+    <app-info-item
+      label="{{ '::Host:VacationHome2:Step1:VacationName' | abpLocalization }}"
+      value="{{ vacationHome?.experience?.name }}"
+    ></app-info-item>
+    <app-info-item
+      label="{{ '::Host:VacationHome2:Step1:VacationType' | abpLocalization }}"
+      value="{{ vacationHome?.experienceType?.name }}"
+    ></app-info-item>
+  </div>
+</section>
+
+<section class="info-section">
+  <h2 class="section-title">
+    {{ '::Host:VacationHome2:Step02:Header:Info' | abpLocalization }}
+  </h2>
+  <div class="details-grid">
+    <app-info-item
+      label="{{ '::Host:VacationHome:Step02:City' | abpLocalization }}"
+      value="{{ vacationHome?.city?.name }}"
+    ></app-info-item>
+    <app-info-item
+      label="{{ '::Host:VacationHome:Step02:District' | abpLocalization }}"
+      value="{{ vacationHome?.district?.name }}"
+    ></app-info-item>
+  </div>
+
+  <div class="details-grid">
+    <app-info-item
+      label="{{ '::Host:VacationHome:Step2:Map:Location' | abpLocalization }}"
+      value="{{ vacationHome?.experience?.mapLink }}"
+    ></app-info-item>
+  </div>
+  <div id="map">
+    <div class="mt-9">
+      <google-map height="167px" width="40%" [center]="mapCenter" [zoom]="mapZoom">
+        <map-marker [position]="mapMarkerPosition"></map-marker>
+      </google-map>
+    </div>
+  </div>
+</section>
+
+<section class="info-section">
+  <h2 class="section-title">
+    {{ '::homeHoliday:addEdit:step3:title' | abpLocalization }}
+  </h2>
+
+  <div class="details-grid">
+    <app-info-item
+      label="{{ '::Host:Vacation2:Description' | abpLocalization }}"
+      [value]="
+        vacationHome?.experience.description ?? '::homeHoliday:search:noData' | abpLocalization
+      "
+    ></app-info-item>
+  </div>
+  <!-- <div class="details-grid">
+    <app-info-item
+      label="{{ '::experienceCategory' | abpLocalization }}"
+      [value]="('::Host:Vacation:'.concat(bookingCategoryAbpLocalizationText) | abpLocalization) ?? '::homeHoliday:search:noData' | abpLocalization"
+    ></app-info-item>
+  </div> -->
+
+  <div class="details-grid">
+    <app-info-item
+      label="{{ '::experienceLanguageTake' | abpLocalization }}"
+      [value]="
+        vacationHome?.experience.languageType === languageTypeEnum.Ar
+          ? ('::Ar' | abpLocalization)
+          : vacationHome?.experience.languageType === languageTypeEnum.En? ('::en' | abpLocalization)
+          :('::languageBoth' | abpLocalization)
+      "
+    ></app-info-item>
+  </div>
+  <div class="details-grid">
+    <app-info-item
+      label="{{ '::attanceCategory' | abpLocalization }}"
+      [value]="
+        vacationHome?.experience.attendanceType === attendanceTypeEnum.Men
+          ? ('::men' | abpLocalization)
+          : vacationHome?.experience.attendanceType === attendanceTypeEnum.Women
+            ? ('::women' | abpLocalization)
+            : vacationHome?.experience.attendanceType === attendanceTypeEnum.Children
+              ? ('::childern' | abpLocalization)
+              : vacationHome?.experience.attendanceType === attendanceTypeEnum.Adults
+                ? ('::adult' | abpLocalization)
+                : vacationHome?.experience.attendanceType === attendanceTypeEnum.All
+                  ? ('::all' | abpLocalization)
+                  : ''
+      "
+    ></app-info-item>
+  </div>
+  <!-- <div class="details-grid">
+    <app-info-item
+    label="{{ '::hospAttance' | abpLocalization }}"
+      [value]="('::Host:Vacation:'.concat(bookingCategoryAbpLocalizationText) | abpLocalization) ?? '::homeHoliday:search:noData' | abpLocalization"
+    ></app-info-item>
+  </div> -->
+  <div class="info-item">
+    <h3 class="info-label">
+      {{ '::hospAttance' | abpLocalization }}
+    </h3>
+    <div class="sub-facilities-grid" *ngIf="comfortMeans?.length > 0">
+      @for (item of comfortMeans; track $index) {
+        <p class="info-value">{{ item.name }} - </p>
+      }
+    </div>
+    <div class="sub-facilities-grid" *ngIf="comfortMeans?.length === 0">
+      <p class="info-value">{{ '::Host:VacationHome:Step10:None' | abpLocalization }}</p>
+    </div>
+  </div>
+</section>
+
+<section class="info-section">
+  <h2 class="section-title">
+    {{ '::experiencePhoto' | abpLocalization }}
+  </h2>
+  <div class="image-grid items-center ">
+    <nz-image-group class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2">
+      @for (image of vacationHome?.experience?.images; track $index) {
+        <!-- <div class="image-item relative" *ngIf="image.isMain">
+          <img [src]="image.imagePath" class="home-image" />
+          <p class="absolute top-5 right-5 bg-[#51BEFC] text-white rounded-full px-3 py-1">
+            {{ '::Host:VacationHome:mainImageLabel' | abpLocalization }}
+          </p>
+        </div>
+        <div class="image-item" *ngIf="!image.isMain">
+          <img
+            [src]="image.imagePath"
+            alt="vacation home image {{ $index + 1 }}"
+            class="home-image"
+          />
+        </div> -->
+        <div class=" relative" *ngIf="image.isMain">
+          <img nz-image [nzSrc]="image.imagePath" width="200px"/>
+          <p class="absolute top-5 right-5 bg-[#51BEFC] text-white rounded-full px-3 py-1">
+            {{ '::Host:VacationHome:mainImageLabel' | abpLocalization }}
+          </p>
+        </div>
+          <img nz-image width="200px" [nzSrc]="image.imagePath" alt="" *ngIf="!image.isMain"/>
+
+      }
+    </nz-image-group>
+  </div>
+</section>
+
+
+<section class="info-section">
+  <h2 class="section-title">
+    {{ '::Host:VacationHome:Step9:Header:Title' | abpLocalization }}
+  </h2>
+  <div class="details-grid">
+    <app-info-item
+      label="{{ '::Host:VacationHome:Step9:BookingType' | abpLocalization }}"
+      [value]="bookingTypeText"
+    ></app-info-item>
+    <app-info-item
+    *ngIf="vacationHome?.experience?.experienceDatesType ===  experienceDatesTypeEnum.Specific"
+      label="{{ '::when' | abpLocalization }}"
+      [value]="
+        vacationHome?.experience?.receptionTimeType === receptionTimeTypeEnum.Weekend
+          ? ('::Weekend' | abpLocalization)
+          : vacationHome?.experience?.receptionTimeType === receptionTimeTypeEnum.AllDaysWeek
+            ? ('::AllDaysWeek' | abpLocalization)
+            : vacationHome?.experience?.receptionTimeType === receptionTimeTypeEnum.MiddleWeek
+              ? ('::MiddleWeek' | abpLocalization)
+              : ''
+      "
+    ></app-info-item>
+    <app-info-item
+    *ngIf="  vacationHome?.experience?.experienceDatesType === experienceDatesTypeEnum.Scheduled"
+      label="{{ '::when' | abpLocalization }}"
+      [value]="
+        vacationHome?.experience?.experienceDatesType === experienceDatesTypeEnum.Scheduled
+          ? ('::schudel' | abpLocalization)
+          : vacationHome?.experience?.experienceDatesType ===  experienceDatesTypeEnum.Specific
+            ? ('::specific' | abpLocalization)
+            :  ''
+      "
+    ></app-info-item>
+
+  </div>
+  <div  class="details-grid2" *ngFor="let item of vacationHome?.experience?.specificTimeSlots ; let i=index">
+
+    <h2>{{ '::appointment' | abpLocalization }}{{i+1}}</h2>
+    <app-info-item
+
+      label="{{ '::Host:VacationHome:Step9:CheckInTime' | abpLocalization }} "
+      [value]="formatTime(item.checkInTime)  "
+    ></app-info-item>
+    <app-info-item
+
+      label="{{ '::Host:VacationHome:Step9:CheckOutTime' | abpLocalization }} "
+      [value]="formatTime(item.checkOutTime)  "
+    ></app-info-item>
+    <app-info-item
+    label="{{ '::avaliableSeat' | abpLocalization }}"
+    [value]="item.availableSeats"
+  ></app-info-item>
+   </div>
+   <div  *ngFor="let item of vacationHome?.experience?.scheduleDates ; let i=index">
+    <h2 class=" mt-4">{{ '::Date' | abpLocalization }} : <span class="info-value ">{{item.date |date}}</span> </h2>
+    <div  class="details-grid2" *ngFor="let item2 of item.scheduleTimeSlots ; let j=index">
+
+      <h2>{{ '::appointment' | abpLocalization }}{{j+1}}</h2>
+      <app-info-item
+
+        label="{{ '::Host:VacationHome:Step9:CheckInTime' | abpLocalization }} "
+        [value]="formatTime(item2.checkInTime)"
+      ></app-info-item>
+      <app-info-item
+
+        label="{{ '::Host:VacationHome:Step9:CheckOutTime' | abpLocalization }} "
+        [value]="formatTime(item2.checkOutTime)"
+      ></app-info-item>
+      <app-info-item
+      label="{{ '::avaliableSeat' | abpLocalization }}"
+      [value]="item2.availableSeats"
+    ></app-info-item>
+     </div>
+   </div>
+</section>
+<section class="info-section">
+  <h2 class="section-title">
+    {{ '::homeHoliday:addEdit:step7:title' | abpLocalization }}
+  </h2>
+  <div class="details-grid">
+    <app-info-item
+      label="{{ '::pricePerPerson' | abpLocalization }}"
+      [value]="vacationHome?.experience?.pricePerPerson"
+      [img]="'assets/host/icons/riyal-black.svg'"
+    ></app-info-item>
+  </div>
+</section>
+@if (buttons) {
+  <div class="info-section flex items-end" >
+    <label nz-checkbox (ngModelChange)="updateAllChecked($event)" [(ngModel)]="isAcceptTerms"
+    [nzDisabled]="vacationHome?.experience?.signingAgreement">
+      {{ '::Host:VacationHome:agree' | abpLocalization }}
+    </label>
+    <label style="cursor: pointer" class="text-[#ED3024] underline flex" (click)="openTerms()">
+      {{ '::Host:VacationHome:policy' | abpLocalization }}
+      <img alt="required" *ngIf="!isAcceptTerms" class="ms-1" src="/assets/icons/required.svg" />
+    </label>
+  </div>
+
+  <div class="mt-24 flex justify-between items-center flex-col md:flex-row">
+    <app-button size="md" (click)="goBack()">
+      <span>
+        {{
+          {
+            key: '::Host:VacationHome:Wizard:Back'
+          } | abpLocalization
+        }}
+      </span>
+    </app-button>
+    <div class="flex flex-row">
+       <app-button
+        class="ms-3"
+        (click)="isVisibleSaveAndExit = true"
+        size="md"
+        [outline]="true"
+        [secondary]="true"
+      >
+        {{
+          {
+            key: '::Host:VacationHome:SaveDraft'
+          } | abpLocalization
+        }}
+      </app-button>
+      <!-- Publish btn -->
+      <app-button size="md" class="ms-3" *ngIf="isSame" (click)="publishData()">
+        <p class="flex items-center">
+          {{
+            {
+              key: '::publish'
+            } | abpLocalization
+          }}
+          <img class="ms-2" src="assets/host/icons/share.svg" />
+        </p>
+      </app-button>
+
+      <!-- save btn-->
+      <app-button size="md" class="ms-3" *ngIf="!isSame" (click)="cancelPopup()">
+        <p class="flex items-center">
+          {{
+            {
+              key: '::VacationHomeType:Save',
+            } | abpLocalization
+          }}
+          <img class="ms-2" src="assets/host/icons/share.svg" />
+        </p>
+      </app-button>
+    </div>
+  </div>
+}
+<!--POPUP SAVE DRAFT-->
+<app-confrontation-popup
+  [visible]="isVisibleSaveAndExit"
+  (cancel)="isVisibleSaveAndExit = false"
+  title="  {{
+    {
+      key: '::Host:VacationHome2:Popup:SaveDraft:Title'
+    } | abpLocalization
+  }}"
+  description="  {{
+    {
+      key: '::Host:VacationHome2:Popup:SaveDraft:Description'
+    } | abpLocalization
+  }}"
+>
+  <div buttons class="flex items-center flex-col w-full px-10">
+    <app-button size="md" class="block mb-6 w-full" (click)="goToSearch()">
+      {{
+        {
+          key: '::General:Confirm'
+        } | abpLocalization
+      }}
+    </app-button>
+    <app-button class="w-full" (click)="isVisibleSaveAndExit = false" size="md" [outline]="true">
+      {{
+        {
+          key: '::General:Cancel'
+        } | abpLocalization
+      }}
+    </app-button>
+  </div>
+</app-confrontation-popup>
+
+<!--POPUP PUBLISH with Account not confirmed-->
+<app-confrontation-popup
+  [visible]="isVisiblePublishExit"
+  (cancel)="isVisiblePublishExit = false"
+  title="  {{
+    {
+      key: '::Host:VacationHome:Popup:Publish:confirmAccountTitle'
+    } | abpLocalization
+  }}"
+  [description]="Description"
+>
+  <div buttons class="flex items-center flex-col w-full px-10">
+    <app-button size="md" class="block mb-6 w-full" (click)="goToConfirmAccount()">
+      {{
+        {
+          key: '::General:ConfirmAccount'
+        } | abpLocalization
+      }}
+    </app-button>
+    <app-button class="w-full" (click)="isVisiblePublishExit = false" size="md" [outline]="true">
+      {{
+        {
+          key: '::General:Cancel'
+        } | abpLocalization
+      }}
+    </app-button>
+  </div>
+</app-confrontation-popup>
+<!--POPUP PUBLISH with Account not confirmed-->
+<app-confrontation-popup
+  [visible]="isVisibleSuccess"
+  (cancel)="isVisibleSuccess = false;cancelPopup()"
+  [confrontationType]="confrontationTypesEnum.success"
+  title="  {{
+    {
+      key: '::Host:VacationHome:Popup:PublishSuccess:Title'
+    } | abpLocalization
+  }}"
+  description="  {{
+    {
+      key: '::Host:VacationHome:Popup:PublishSuccess:Description'
+    } | abpLocalization
+  }}"
+>
+  <div buttons>
+    <div class="flex justify-center">
+      <app-button size="md" class="block mb-6 px-6" routerLink="/experiments">
+        <div class="flex items-center justify-center">
+          <p>
+            {{
+              {
+                key: '::Host:VacationHome2:RedirectToMainPage'
+              } | abpLocalization
+            }}
+          </p>
+          <span nz-icon nzType="arrow-up" class="ms-2 -rotate-45" nzTheme="outline"></span>
+        </div>
+      </app-button>
+    </div>
+  </div>
+</app-confrontation-popup>
+<!--POPUP Not Terms & Conditions not confirmed-->
+<app-confrontation-popup
+  [visible]="isTermsVisible"
+  (cancel)="isTermsVisible = false"
+  [confrontationType]="confrontationTypesEnum.warning"
+  title="  {{
+    {
+      key: '::Host:VacationHome:Popup:terms:Title'
+    } | abpLocalization
+  }}"
+  description="  {{
+    {
+      key: '::Host:VacationHome:Popup:terms:Description'
+    } | abpLocalization
+  }}"
+>
+  <div buttons>
+    <div class="flex justify-center">
+      <app-button size="md" class="block mb-6 px-6" (click)="isTermsVisible = false">
+        <div class="flex items-center justify-center">
+          <p>
+            {{
+              {
+                key: '::Host:VacationHome:back'
+              } | abpLocalization
+            }}
+          </p>
+          <span nz-icon nzType="arrow-up" class="ms-2 -rotate-45" nzTheme="outline"></span>
+        </div>
+      </app-button>
+    </div>
+  </div>
+</app-confrontation-popup>

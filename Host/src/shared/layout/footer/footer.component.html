@@ -1,0 +1,108 @@
+<div
+  class="triangle lg:border-l-[45vw] border-l-[50vw] border-r-[50vw] border-transparent lg:border-r-[45vw]"
+></div>
+<footer class="bg-secondary">
+  <div
+    class="grid grid-cols-1 md:grid-cols-5 sm:grid-cols-2  flex px-20 lg:py-12 lg:pb-4 py-12 lg:flex-row mx-auto
+    justify-center lg:justify-between flex-col"
+  >
+    <div class="flex flex-col items-center  sm:items-start lg:items-start">
+      <img
+        src="assets/host/imgs/Logo.svg"
+        routerLink="/landing"
+        class="cursor-pointer w-32"
+        alt="logo"
+      />
+      <div class="mt-8 flex items-center">
+        <button
+          nz-button
+          nzType="text"
+
+          class="px-1"
+        >
+          <img src="assets/host/imgs/whatsapp.svg" alt="tiktok" />
+        </button>
+        <button
+        nz-button
+        nzType="text"
+        (click)="openNewWindow('https://x.com/hyyak_co')"
+        class="px-1"
+      >
+        <img src="assets/host/imgs/twitter.svg" alt="twitter" />
+      </button>
+        <button
+          nz-button
+          (click)="openNewWindow('https://www.instagram.com/hyyak_co')"
+          nzType="text"
+          class="px-1"
+        >
+          <img src="assets/host/imgs/instagram.svg" alt="instagram" />
+        </button>
+        <button
+          nz-button
+          (click)="openNewWindow('https://www.linkedin.com/company/hyyak/')"
+          nzType="text"
+          class="px-1"
+        >
+          <img src="assets/host/imgs/linkedin.svg" alt="linkedin" />
+        </button>
+        <button
+          nz-button
+          nzType="text"
+          (click)="openNewWindow('https://www.tiktok.com/@hyyak_co?_t=8jm177dtMNG&_r=1')"
+          class="px-1"
+        >
+          <img src="assets/host/imgs/tiktok.svg" alt="tiktok" />
+        </button>
+        <button
+          nz-button
+          (click)="openNewWindow('https://t.snapchat.com/y6Cx87IC')"
+          nzType="text"
+          class="px-1"
+        >
+          <img src="assets/host/imgs/snapchat.svg" alt="snapchat" />
+        </button>
+
+
+      </div>
+    </div>
+    <div class="flex flex-col items-center md:col-span-2 mt-4 md:mt-0">
+      <!-- <p class="font-bold text-base text-white">مزود سياحي معتمد لدى</p> -->
+      <!-- <div class="flex items-center">
+        <img class="w-36 border-e	border-solid border-slate-300	px-2" src="assets/host/imgs/369746.svg" />
+        <img class="w-24 px-2" src="assets/host/imgs/SloganSaudiArabia.svg" />
+      </div> -->
+      <p class="text-sm text-white my-3 text-center">شركة حيّاك العربية للسفر والسياحة</p>
+      <div class="flex items-center justify-between">
+        <p class="text-white text-sm mx-3">73103871</p>
+        <p class="text-white text-sm">73104782</p>
+      </div>
+    </div>
+    <div class="flex flex-col mt-4 md:mt-0 items-center md:items-start sm:items-start">
+      <div class="mb-3 font-bold text-base text-white">السياسات</div>
+      <ul class="text-white text-sm  sm:text-start lg:text-start md:mt-10 lg:mt-0">
+        <li class="mb-3 cursor-pointer" routerLink="/terms-and-conditions">الشروط و الأحكام</li>
+        <li class="mb-3 cursor-pointer" >سياسة الخصوصية</li>
+      </ul>
+    </div>
+    <div class=" flex flex-col mt-4 md:mt-0 items-center md:items-start">
+      <div class="mb-3 font-bold text-white text-base">روابط سريعة</div>
+      <div class="flex flex-row	items-start justify-between grid grid-cols-2">
+
+        <ul class="text-white text-sm text-start lg:text-start md:mt-10 lg:mt-0">
+          <li class="mb-3 cursor-pointer" >أحجز الاّن</li>
+          <li class="mb-3 cursor-pointer" >حياك للأعمال</li>
+          <li class="mb-3 cursor-pointer" routerLink="/questions-answers">الأسئلة الشائعة</li>
+        </ul>
+        <ul class="text-white text-base text-center lg:text-start md:mt-10 lg:mt-0">
+          <li class="mb-3 cursor-pointer" >عن حياك</li>
+          <li class="mb-3 cursor-pointer" >اتصل بنا</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t py-6 border-slate-500 mt-6">
+    <p class="mx-auto text-center text-white">جميع الحقوق محفوظة © {{year}} حياك</p>
+  </div>
+</footer>

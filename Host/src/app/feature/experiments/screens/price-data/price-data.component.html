@@ -1,0 +1,80 @@
+
+<div class="grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-4">
+  <form [formGroup]="form">
+  <app-field    label="{{'::priceExperience'|abpLocalization}}"
+  [keypressValidation]="vaidationTypeEnum.numberOnly "
+  placeholder="{{'::priceExperience'|abpLocalization}}"
+  [control]="form | getControl: 'pricePerPerson'"
+  formControlName="pricePerPerson">
+    <!-- <span class="text-greyDark">{{'::Host:VacationPrice:SaudiCurrency'|abpLocalization}}</span> -->
+    <img src="assets/host/icons/riyal-black.svg" alt="riyal">
+
+  </app-field>
+</form>
+</div>
+<div class="mt-24 flex justify-between items-center flex-col md:flex-row">
+  <app-button size="md" (click)="goBack()">
+    <span>
+      {{
+        {
+          key: '::Host:VacationHome:Wizard:Back'
+        } | abpLocalization
+      }}
+    </span>
+  </app-button>
+  <div class="flex flex-row">
+    <app-button
+      class="ms-3"
+      (click)="isVisibleSaveAndExit = true"
+      size="md"
+      [outline]="true"
+      [secondary]="true"
+    >
+      {{
+        {
+          key: '::Host:VacationHome:SaveDraft'
+        } | abpLocalization
+      }}
+    </app-button>
+    <app-button size="md" class="mx-2" (click)="goNext()" [disabled]="!validateCurrentPage()">
+      {{
+        {
+          key: '::Host:VacationHome:Wizard:Next'
+        } | abpLocalization
+      }}
+    </app-button>
+  </div>
+</div>
+
+
+<app-confrontation-popup
+[visible]="isVisibleSaveAndExit"
+(cancel)="isVisibleSaveAndExit = false"
+title="  {{
+  {
+    key: '::Host:VacationHome2:Popup:SaveDraft:Title'
+  } | abpLocalization
+}}"
+description="  {{
+  {
+    key: '::Host:VacationHome2:Popup:SaveDraft:Description'
+  } | abpLocalization
+}}"
+>
+<div buttons class="flex items-center flex-col w-full px-10">
+  <app-button size="md" class="block mb-6 w-full" (click)="saveAndExit()">
+    {{
+      {
+        key: '::General:Confirm'
+      } | abpLocalization
+    }}
+  </app-button>
+  <app-button class="w-full" (click)="isVisibleSaveAndExit = false" size="md" [outline]="true">
+    {{
+      {
+        key: '::General:Cancel'
+      } | abpLocalization
+    }}
+  </app-button>
+</div>
+</app-confrontation-popup>

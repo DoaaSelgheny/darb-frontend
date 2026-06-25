@@ -1,0 +1,142 @@
+<div class="text-lg text-[#171717] font-bold">
+  {{"::Guest:Explore:Aminities:placeDetails"|abpLocalization}}
+</div>
+<ul class="mt-2">
+  <li class="flex mt-2">
+    
+  <img src="assets/imgs/details/img8.svg" alt="img">
+      
+    <p class="text-lg mx-3">{{vacationHome?.vacationHome?.areaString}} {{"::Guest:Explore:Meter" | abpLocalization}}</p>      
+  </li>
+  <li class="flex mt-2">
+    
+  <img src="assets/imgs/details/img9.svg" alt="img">
+
+      <p class="text-lg mx-3">
+        {{getAbpLocalizedBestForTextName() ? ('::Host:Vacation:'.concat(getAbpLocalizedBestForTextName()) | abpLocalization) : '::homeHoliday:search:noData' | abpLocalization }}
+      </p>      
+
+  </li>
+  <li class="flex mt-2">
+   
+  <img src="assets/imgs/details/img10.svg" alt="img">
+
+      @if(vacationHome?.vacationHome.deposit){
+
+        <!-- <p class="text-lg mx-3">
+          {{vacationHome?.vacationHome.deposit}} {{"::Guset:Explore:sar"|abpLocalization}}
+        </p>       -->
+        <div class="flex flex-row" style="direction: rtl;">
+          <p class="text-lg mx-3">{{vacationHome?.vacationHome.deposit}}   </p>
+          <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+        </div>
+      }@else {
+        <p class="text-lg mx-3">
+          {{'::Guest:Explore:Aminities:noDeposite'|abpLocalization}} 
+        </p> 
+      }
+      
+  </li>
+</ul>
+<hr/>
+@if(vacationHome?.vacationHome?.vacationHomeAmenities.length){
+  <div>
+
+  <div class="text-lg text-[#171717] font-bold">
+    {{"::Guest:Explore:Aminities:PrimaryAmantieisDetails"|abpLocalization}}
+  </div>
+  @for (item of vacationHome?.vacationHome?.vacationHomeAmenities; track $index) {
+    @if(item.vacationHomeSubAmenities?.length){
+      <div class="mt-3 flex items-center">
+        <img [src]="item.amenities.symbol" class="w-[15px] h-[15px] mx-1" [alt]="item.amenities.nameAr"/>
+        <span class="text-[#262626] text-lg ms-1 font-bold">{{lang === 'ar' ? item.amenities.nameAr:item.amenities.nameEn}}</span>
+      </div>
+      <div class="flex items-center mt-1">
+        
+  <img src="assets/imgs/details/img11.svg" alt="img">
+
+        <p class="ms-1">
+          <span class="mx-1">{{item.count}} {{lang === 'ar' ? item.amenities.nameAr:item.amenities.nameEn}}</span>
+        </p>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        @for(sub of item.vacationHomeSubAmenities;track sub){
+          <div class="flex items-center mt-1">
+            
+  <img src="assets/imgs/details/img12.svg" alt="img">
+
+            <p class="text-[#666] text-base ms-1">{{lang === 'ar'?sub.subAmenities.nameAr : sub.subAmenities.nameEn}}</p>
+  
+          </div>
+         }
+      </div>
+    }@else{
+      @if(item.amenitiesType === AmenitiesTypeEnum.BedRoom){
+        <div class="mt-3 flex items-center">
+          <img [src]="item.amenities.symbol" class="w-[15px] h-[15px] mx-1" [alt]="item.amenities.nameAr"/>
+          <span class="text-[#262626] text-lg ms-1 font-bold">{{lang === 'ar' ? item.amenities.nameAr:item.amenities.nameEn}}</span>
+        </div>
+        <div class="flex items-center mt-1">
+         
+  <img src="assets/imgs/details/img13.svg" alt="img">
+
+          <p class="ms-1">
+            <span class="mx-1">{{item.count}}</span>
+            <span class="text-[#666] text-base">{{"::Guest:Explore:Aminities:bedroom"| abpLocalization}}</span> 
+          </p>
+        </div>
+        <div class="flex items-center mt-1">
+         
+  <img src="assets/imgs/details/img14.svg" alt="img">
+
+          <p class="ms-1">
+            <span class="mx-1">{{item.guestCountPerAmenity}}</span>
+            <span class="text-[#666] text-base">{{'::Guest:Explore:Aminities:beds' | abpLocalization}}</span>
+          </p>
+        </div>
+       
+      }@else {
+        <div class="mt-3 flex items-center">
+          <img [src]="item.amenities.symbol" class="w-[15px] h-[15px] mx-1" [alt]="item.amenities.nameAr"/>
+          <span class="text-[#262626] text-lg ms-1 font-bold">{{lang === 'ar' ? item.amenities.nameAr:item.amenities.nameEn}}</span>
+        </div>
+        <div class="flex items-center mt-1">
+          
+  <img src="assets/imgs/details/img15.svg" alt="img">
+
+          <p class="ms-1">
+            <span class="mx-1">{{item.count}}</span>
+            <span class="text-[#666] text-base">{{lang === 'ar' ? item.amenities.nameAr:item.amenities.nameEn}}</span> 
+          </p>
+        </div>
+      }
+    }
+  }
+</div>
+<hr/>
+}
+
+@if(vacationHome?.vacationHome.vacationHomeMeans){
+<div >
+  <div class="text-lg text-[#171717] font-bold">
+    {{"::Host:VacationHome:Step3:Header:Info"|abpLocalization}}
+  </div>
+  <div class="grid grid-cols-2 gap-4">
+  @for(item of vacationHome?.vacationHome.vacationHomeMeans;track item){
+        <div class="flex items-center mt-1">
+         
+  <img src="assets/imgs/details/img16.svg" alt="img">
+
+          <p class="text-[#666] text-base ms-1">{{item.mean.name}}</p>
+
+        </div>
+       
+  }@empty {
+    {{"::experience:search:noData"|abpLocalization}}
+
+  }
+</div>
+
+</div>
+}
+

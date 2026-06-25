@@ -1,0 +1,103 @@
+<p class="mt-8 text-greyBlack text-center font-bold text-2xl">
+  {{ '::AuthServer:Login' | abpLocalization }}
+</p>
+@if (userType == userTypeEnum.Guest) {
+  <nz-radio-group
+    [(ngModel)]="loginMethod"
+    (ngModelChange)="form.reset(); validForm()"
+    class="mt-[25px]"
+    nzName="radiogroup"
+  >
+    <label nz-radio class="form-check-label" [nzValue]="loginMethodEnum.MobilePhone"
+      >{{ '::AuthServer:PhoneNumber' | abpLocalization }}
+    </label>
+    <label class="form-check-label" nz-radio [nzValue]="loginMethodEnum.Email">
+      {{ '::AuthServer:Email' | abpLocalization }}</label
+    >
+  </nz-radio-group>
+}
+<form [formGroup]="form">
+  <div class="mt-8">
+    @if (userType == userTypeEnum.Guest) {
+      <app-field
+        *ngIf="loginMethod == loginMethodEnum.Email"
+        class="block"
+        type="email"
+        label="{{ '::AuthServer:Email' | abpLocalization }}"
+        [labelOptions]="{
+          valid: form.value.phoneNumberConfirmed,
+        }"
+        placeholder="{{ '::AuthServer:Email' | abpLocalization }}"
+        [control]="form | getControl: 'email'"
+        formControlName="email"
+        [suppressValidationWithMessage]="{
+          pattern: 'emailPatterns',
+        }"
+      >
+      </app-field>
+    }
+
+    <div class="mt-4" *ngIf="loginMethod == loginMethodEnum.MobilePhone">
+      <app-field-label
+        [control]="form | getControl: 'phoneNumber'"
+        label="{{ '::Host:Business:form:phoneNumber' | abpLocalization }}"
+        [options]="{
+          valid: form.value.phoneNumberConfirmed,
+        }"
+      ></app-field-label>
+      <ngx-intl-tel-input
+        cssClass="w-full left-direction h-12 rounded-md mt-4 p-4 ant-input  ant-input-rtl ant-input-stepperless text-dark text-base"
+        [enableAutoCountrySelect]="true"
+        [enablePlaceholder]="true"
+        [searchCountryFlag]="true"
+        [selectedCountryISO]="selectedCountryISO"
+        [selectFirstCountry]="false"
+        [separateDialCode]="true"
+        [numberFormat]="phoneNumberFormat"
+        name="phoneNumber"
+        formControlName="phoneNumber"
+      ></ngx-intl-tel-input>
+      @if (
+        isSend || (form.controls['phoneNumber'].touched && form.controls['phoneNumber'].invalid)
+      ) {
+        <app-validation
+          class="block mt-4"
+          [control]="form | getControl: 'phoneNumber'"
+          [message]="
+            form.controls['phoneNumber']?.errors?.required ? 'Validation.' : 'General:Validation.'
+          "
+        ></app-validation>
+      }
+    </div>
+  </div>
+  <div class="flex gap-4 justify-between items-center flex-col md:flex-row mt-4">
+    <div>
+      <app-field-label
+        [control]="form | getControl: 'recaptchaResponse'"
+        [label]="'::Host:Business:form:verfication' | abpLocalization"
+        [options]="{
+          valid: form.value.recaptchaResponse,
+        }"
+      ></app-field-label>
+      <re-captcha
+        formControlName="recaptchaResponse"
+        class="mt-3 block md:mt-0"
+        (resolved)="resolved($event)"
+        siteKey="6LcVXH4pAAAAAH8eyL7Ah1NnXmxvPqS9mT1UxB3K"
+      ></re-captcha>
+      <!-- TODO -->
+      <app-validation
+        class="block mt-4"
+        [control]="form | getControl: 'recaptchaResponse'"
+        [message]="
+          form.controls['recaptchaResponse']?.errors?.required
+            ? 'Validation.'
+            : 'General:Validation.'
+        "
+      ></app-validation>
+    </div>
+  </div>
+  <app-button [nzLoading]="loading" [disabled]="form.invalid" (click)="submit()" class="block mt-4">
+    {{ '::AuthServer:Login' | abpLocalization }}
+  </app-button>
+</form>

@@ -1,0 +1,12 @@
+<div class="info-item">
+  <h3 class="info-label">{{ label }}</h3>
+  <div class="flex flex-row align-items mt-6"  [ngStyle]="{'direction': img === null ? '' : 'rtl'}">
+
+    @if (value != null) {
+      <p class="info-value">{{ value }}</p>
+    }
+    @if(img != null){
+      <img [src]="img" class="mx-2">
+    }
+  </div>
+</div>

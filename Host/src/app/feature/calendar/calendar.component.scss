@@ -1,0 +1,40 @@
+::ng-deep {
+  .tabel-custom {
+    @apply bg-white rounded-b-lg;
+    nz-pagination {
+      @apply py-8;
+      margin: 0 !important;
+      display: flex;
+      justify-content: center !important;
+    }
+  }
+  .md-select nz-select-top-control, .md-select input, .lg-select nz-select-top-control, .lg-select input
+  {
+    height: 50px !important;
+  }
+  .ant-select-rtl.ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder, .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder,
+  .ant-select-rtl.ant-select-single.ant-select-show-arrow .ant-select-selection-item {
+    padding-top: 0px !important;
+}
+
+.ant-table-thead > tr > th{
+  padding: 1rem !important;
+text-align: center!important;
+font-size: 16px !important;
+font-weight: 700 !important;
+line-height: 24px !important;
+
+
+}
+.ant-table-tbody > tr > td{
+
+font-size: 16px!important;
+font-weight: 400!important;
+line-height: 24px!important;
+text-align: center;
+
+}
+}
+td {
+  @apply text-base;
+}

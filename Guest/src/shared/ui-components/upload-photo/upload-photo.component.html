@@ -1,0 +1,29 @@
+<nz-upload
+  class="avatar-uploader mx-auto"
+  [nzAction]="uploadAction"
+  nzName="file"
+  [nzListType]="'picture'"
+  [nzDisabled]="uploadLoading"
+  [nzBeforeUpload]="beforeUpload"
+  [nzShowUploadList]="false"
+  nzType="drag"
+  [nzAccept]="accept"
+  (onProgress)="onProgress($event)"
+  (nzChange)="handleChangeEvent($event)"
+>
+  <div>
+    <ng-content select="*"></ng-content>
+
+    <div>
+      <ng-content select="[uploadState]"></ng-content>
+      <div class="ant-upload-text text-secondary font-bold" *ngIf="!uploadLoading">{{ label }}</div>
+      <span nz-icon *ngIf="uploadLoading" [nzType]="'loading'"></span>
+    </div>
+    <nz-progress
+      *ngIf="uploadLoading"
+      class="block mx-auto w-4/5"
+      [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }"
+      [nzPercent]="uploadProgress"
+    ></nz-progress>
+  </div>
+</nz-upload>

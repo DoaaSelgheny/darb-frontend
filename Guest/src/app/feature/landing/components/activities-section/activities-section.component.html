@@ -1,0 +1,151 @@
+<div class="lg:px-24 xl:px-24 px-10 pb-10 bg-white">
+
+  <h2 class="font-bold pt-2 text-3xl lg:text-[40px]">
+    {{ '::guest:landing:section2:title' | abpLocalization }}
+  </h2>
+
+  <nz-tabset class="pt-4 activities-tabs" (nzSelectedIndexChange)="ngAfterViewInit()">
+    <nz-tab nzTitle=" {{ '::guest:landing.VacationHomes' | abpLocalization }}  ">
+      <!-- @if (vacationHomeTypes && vacationHomeTypes.length > 0) {
+     -->
+      <div class="text-center py-10 ">
+        <div class="flex items-center justify-center flex-col sm:px-6 px-0">
+          <div class="w-full relative">
+            <div class="swiper centered-slide-carousel2">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" *ngFor="let item of vacationHomeTypes">
+                  <!-- <img [src]="item.src"> -->
+                  <div
+                  (click)="navigateToVacation(item.id)"
+                    class="cover relative lg:h-[312px] h-[200px] rounded-lg pointer"
+                    style.background-image="linear-gradient(to top, rgba(178, 36, 27, 0.3), rgba(0, 0, 0, 0)), url('{{item.imagePath}}')"
+                  >
+                    <div class="absolute bottom-8" 
+                    [ngClass]="localizationService.currentLang === 'en'? 'left-5' : 'right-5' ">
+                      <div
+                        [ngClass]="{
+                          imgEnd: localizationService.currentLang === 'en',
+                          imgStart: localizationService.currentLang === 'ar'
+                        }"
+                      >
+                        <img class="lg:h-[50px] h-[32px] filter_shadow" [src]="item.icon" />
+                      </div>
+                      <div class="flex flex-row items-center">
+                        <img [src]="item.iconPath" class="w-[20px] h-[20px] filter-white " [alt]="item.iconName"/>
+                        <p
+                          class="text-white font-bold text-base text-shadow mx-2"
+                          [ngClass]="{
+                            textend: localizationService.currentLang === 'ar',
+                            text: localizationService.currentLang === 'en'
+                          }"
+                        >
+                          {{  localizationService.currentLang === 'en' ? item.enName : item.arName }}
+                        </p>
+                      </div>
+                      <p
+                        class="text-white font-bold text-xs text-shadow"
+                        [ngClass]="{
+                          textend: localizationService.currentLang === 'ar',
+                          text: localizationService.currentLang === 'en'
+                        }"
+                      >
+                        {{ item.description }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button (click)="slidePrev('.centered-slide-carousel2')">
+                <i class="fa-solid text-xl mx-2 mt-2"
+                [ngClass]="localizationService.currentLang === 'ar' ? 'fa-circle-chevron-right' :'fa-circle-chevron-left'"></i>
+              </button>
+              <button (click)="slideNext('.centered-slide-carousel2')">
+                <i class="fa-solid text-xl mx-2 mt-2"
+                [ngClass]="localizationService.currentLang === 'ar' ? 'fa-circle-chevron-left' :'fa-circle-chevron-right'"></i>
+              </button>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- } @else {
+        <nz-empty
+          nzNotFoundContent="{{ 'guest:explore.noServicesAdded' | abpLocalization }}"
+          class="block w-full py-12 mx-auto"
+        ></nz-empty>
+      } -->
+      <!-- TODO I18N -->
+    </nz-tab>
+    <nz-tab nzTitle=" {{ '::guest:landing.Experiences' | abpLocalization }}">
+      <!-- @if (experienceTypes && experienceTypes.length > 0) { -->
+      <div class="text-center py-10 bg-white">
+        <div class="flex items-center justify-center flex-col sm:mx-6 mx-0">
+          <div class="w-full relative">
+            <div class="swiper centered-slide-carousel3">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" *ngFor="let item of experienceTypes">
+                  <!-- <img [src]="item.src"> -->
+                  <div
+                  (click)="navigateToExperience(item.id)"
+                    class="cover relative lg:h-[312px] h-[200px] rounded-lg pointer"
+                    style.background-image="linear-gradient(to top, rgba(178, 36, 27, 0.3), rgba(0, 0, 0, 0)), url('{{item.imagePath}}')"
+                  >
+                    <div class="absolute bottom-8"
+                    [ngClass]="localizationService.currentLang === 'en'? 'left-5' : 'right-5' ">
+                      <div
+                        [ngClass]="{
+                          imgEnd: localizationService.currentLang === 'en',
+                          imgStart: localizationService.currentLang === 'ar'
+                        }"
+                      >
+                        <img class="lg:h-[50px] h-[32px] filter_shadow" [src]="item.icon" />
+                      </div>
+                      <div class="flex flex-row items-center">
+                        <img [src]="item.iconPath" class="w-[20px] h-[20px] filter-white " [alt]="item?.name"/>
+                      <p
+                        class="text-white font-bold text-base text-shadow mx-2"
+                        [ngClass]="{
+                          textend: localizationService.currentLang === 'ar',
+                          text: localizationService.currentLang === 'en'
+                        }"
+                      >
+                        {{ item.name }}
+                      </p>
+                      </div>
+                      <p
+                        class="text-white font-bold text-xs  text-shadow"
+                        [ngClass]="{
+                          textend: localizationService.currentLang === 'ar',
+                          text: localizationService.currentLang === 'en'
+                        }"
+                      >
+                        {{ item.description }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button (click)="slidePrev('.centered-slide-carousel3')">
+                <i class="fa-solid text-xl mx-2 mt-2"
+                [ngClass]="localizationService.currentLang === 'ar' ? 'fa-circle-chevron-right' :'fa-circle-chevron-left'"></i>
+              </button>
+              <button (click)="slideNext('.centered-slide-carousel3')">
+                <i class="fa-solid text-xl mx-2 mt-2"
+                [ngClass]="localizationService.currentLang === 'ar' ? 'fa-circle-chevron-left' :'fa-circle-chevron-right'"></i>
+              </button>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- } @else {
+        <nz-empty
+          nzNotFoundContent="{{ '::guest:explore.noServicesAdded' | abpLocalization }}"
+          class="block w-full py-12 mx-auto"
+        ></nz-empty>
+      } -->
+      <!-- TODO I18N -->
+    </nz-tab>
+  </nz-tabset>
+</div>

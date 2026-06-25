@@ -1,0 +1,49 @@
+.fliter-mobile {
+  &::-webkit-scrollbar {
+    display: none !important;
+  }
+}
+:host ::ng-deep {
+  .ant-tabs > .ant-tabs-nav .ant-tabs-nav-list {
+    background-color: #122466;
+
+  }
+  .ant-tabs > .ant-tabs-nav {
+    background-color: #ffffff00;
+    color:#fff;
+    .ant-tabs-nav-more {
+      padding: 3px;
+    }
+  }
+  .ant-tabs-tab-active {
+    background-color: #fff;
+    border-bottom: none;
+    .ant-tabs-tab-btn {
+      color:#122466;
+    }
+    .ant-tag{
+      background-color: #3B82F6;
+    }
+  }
+  .ant-tabs > .ant-tabs-nav .ant-tabs-nav-more {
+    background-color: #122466;
+  }
+  .ant-tabs-ink-bar {
+    background-color: transparent;
+  }
+  .ant-form-item-label > label::after {
+    display: none;
+  }
+  .ant-tabs-top > .ant-tabs-nav::before{
+    border-bottom: none;
+  }
+  .ant-select-single .ant-select-selector {
+    align-items: flex-end;
+}
+.xl-select input {
+  padding:0 !important
+}
+.ant-tabs-nav-operations {
+  width: auto;
+}
+}

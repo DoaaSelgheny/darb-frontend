@@ -1,0 +1,182 @@
+<!-- Header -->
+<div class="text-sm text-[#334155] mt-3 mb-12 font-bold flex items-center">
+  <span class="mx-3">{{ { key: '::Host:VacationHome:Step1:Header:Info' } | abpLocalization }}</span>
+</div>
+
+<!-- Form -->
+<!-- Name -->
+<div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-1" [formGroup]="form">
+  <div>
+
+    <div class="flex items-baseline flex-row">
+
+      <app-field-label
+      class="block"
+      label="{{ '::Host:VacationHome:Step1:VacationName' | abpLocalization  }}"
+      [control]="form | getControl: 'name'"
+
+    >
+    <!-- TEMP COMMENT -->
+  <!-- [suppressValidationWithMessage]="{
+          maxlength: 'Host:VacationHome:Step5:Title:Validation:MaxLengh',
+          minlength: 'Host:VacationHome:Step5:Title:Validation:MinLengh'
+        }" -->
+  </app-field-label>
+      <span
+      nz-icon
+      nzType="info-circle"
+      nz-popover
+      class="text-[#3B82F6] mx-2"
+      nzPopoverContent="{{ '::Host:Vacation:Step1:DescText' | abpLocalization }}"
+      nzTheme="outline"
+    ></span>
+    </div>
+    <app-field
+      [control]="form | getControl: 'name'"
+      formControlName="name"
+      class="w-full col-span-1"
+      [keypressValidation]="vaidationTypeEnum.arabicAndEnglish"
+      [suppressValidationWithMessage]="{
+        minlength: 'Host:VacationHome:Step1:Title:Validation:MinLengh',
+        maxlength: 'Host:VacationHome:Step1:Title:Validation:MaxLengh'
+      }"
+      [maxlength]="50"
+      [minlength]="3"
+      placeholder="  {{
+        { key: '::Host:VacationHome:Step1:VacationNamePlaceHolder' } | abpLocalization
+      }}"
+    >
+      <div class="relative bg-white">
+        <nz-progress
+          [nzPercent]="((form | getControl: 'name').value?.length / 50) * 100"
+          [nzWidth]="40"
+          [nzStrokeWidth]="5"
+          [nzShowInfo]="false"
+          nzType="circle"
+        >
+        </nz-progress>
+        <p class="top-1/2 absolute left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#B6BBD0]">
+          {{ 50 - (form | getControl: 'name').value?.length }}
+        </p>
+      </div>
+    </app-field>
+  </div>
+</div>
+<!--
+<div class="ngx-timepicker-field-example">
+  <ngx-timepicker-field [defaultTime]="'11:11 am'"></ngx-timepicker-field>
+</div>
+<div class="ngx-timepicker-field-example">
+  <ngx-timepicker-field [format]="24" [defaultTime]="'23:11'"></ngx-timepicker-field>
+</div>
+<div class="ngx-timepicker-field-example">
+  <ngx-timepicker-field [format]="24" [defaultTime]="'23:11'"></ngx-timepicker-field>
+</div>
+<div class="ngx-timepicker-field-example">
+  <ngx-timepicker-field [disabled]="true"></ngx-timepicker-field>
+</div> -->
+<!--Vacation Types -->
+<div class="mt-8">
+  <h2 class="flex items-start text-base font-bold mb-2">
+    {{
+      {
+        key: '::Host:VacationHome:Step1:VacationType'
+      } | abpLocalization
+    }}
+    <img
+      alt="required"
+      *ngIf="(form | getControl: 'vacationHomeTypeId').value?.length < 1"
+      class="ms-1"
+      src="/assets/host/icons/required.svg"
+    />
+  </h2>
+  <div class="grid lg:grid-cols-6 gap-2 md:grid-cols-4 sm:grid-cols-3 grid-cols-2">
+    <div class="grid grid-cols-subgrid gap-4 lg:col-span-4 md:col-span-4 sm:col-span-3 col-span-2">
+      @for (type of vacationHomeTypes; track $index) {
+        <div
+          class="rounded-full border border-[#D4D4D440] w-full p-2 shadow-md"
+          (click)="selectType(type.id)"
+        >
+          <div class="flex items-center justify-between w-full">
+            <div class="rounded-full border border-[#A1AEBE]">
+              <img [src]="type.iconPath" class="w-[30px] p-2" />
+            </div>
+
+            <p class="text-black text-sm">{{ lang === 'ar' ? type.arName : type.enName }}</p>
+            <div
+              class="rounded-full border border-[#A1AEBE] bg-white w-[22px] h-[22px]"
+              *ngIf="!isTypeSelected(type.id)"
+            ></div>
+            <nz-icon
+              nz-icon
+              nzType="check-circle"
+              class="text-2xl text-[#007AFF]"
+              *ngIf="isTypeSelected(type.id)"
+              nzTheme="fill"
+            ></nz-icon>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+  <app-validation
+    class="block mt-4"
+    [message]="'Validation.'"
+    [control]="form | getControl: 'vacationHomeTypeId'"
+
+  ></app-validation>
+</div>
+<div class="mt-24 flex justify-between items-center flex-row">
+
+  <app-button
+    class="ms-3"
+    (click)="saveDraft()"
+    size="md"
+    [outline]="true"
+    [secondary]="true"
+  >
+    {{
+      {
+        key: '::Host:VacationHome:SaveDraft'
+      } | abpLocalization
+    }}
+  </app-button>
+  <app-button size="md" class="mt-4 md:mt-0 px-3" (click)="goNext()" [disabled]="!validateCurrentPage()">
+    {{
+      {
+        key: '::Host:VacationHome:Wizard:Next'
+      } | abpLocalization
+    }}
+  </app-button>
+</div>
+<app-confrontation-popup
+  [visible]="isVisibleSaveAndExit"
+  (cancel)="isVisibleSaveAndExit = false"
+  title="  {{
+    {
+      key: '::Host:VacationHome:Popup:SaveDraft:Title'
+    } | abpLocalization
+  }}"
+  description="  {{
+    {
+      key: '::Host:VacationHome:Popup:SaveDraft:Description'
+    } | abpLocalization
+  }}"
+>
+  <div buttons class="flex items-center flex-col w-full px-10">
+    <app-button size="md" class="block mb-6 w-full" (click)="saveAndExit()">
+      {{
+        {
+          key: '::General:Confirm'
+        } | abpLocalization
+      }}
+    </app-button>
+    <app-button class="w-full" (click)="isVisibleSaveAndExit = false" size="md" [outline]="true">
+      {{
+        {
+          key: '::General:Cancel'
+        } | abpLocalization
+      }}
+    </app-button>
+  </div>
+</app-confrontation-popup>

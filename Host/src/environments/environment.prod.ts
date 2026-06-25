@@ -1,0 +1,40 @@
+import { Environment } from '@abp/ng.core';
+
+const baseUrl = 'https://dev-hyyak-host-f9c3atejc8a9ezba.eastus-01.azurewebsites.net';
+const guestUrl = 'https://dev-hyyak-ehgja0c6bucpftd0.eastus-01.azurewebsites.net';
+export const OAUTH2_URL = `https://dev-hyyak-host-f9c3atejc8a9ezba.eastus-01.azurewebsites.net/account/oauth2-redirect`;
+export const LOGIN_PAGE_URL = `https://dev-hyyak-auth-dtdnbygscrgqbddj.eastus-01.azurewebsites.net/host/login?returnUrl=${OAUTH2_URL}`;
+
+const oAuthConfig = {
+  issuer: 'https://dev-api-hyyak-gwetdgeyada4hkgt.eastus-01.azurewebsites.net/',
+  redirectUri: baseUrl,
+  clientId: 'Hyyak_Angular',
+  // responseType: 'code',
+  scope: 'offline_access Hyyak',
+  requireHttps: true,
+};
+
+export const environment = {
+  guestUrl,
+  production: false,
+  application: {
+    baseUrl,
+    name: 'Hyyak',
+  },
+  oAuthConfig,
+  apis: {
+    default: {
+      url: 'https://dev-api-hyyak-gwetdgeyada4hkgt.eastus-01.azurewebsites.net',
+      rootNamespace: 'Hyyak',
+    },
+    AbpAccountPublic: {
+      url: oAuthConfig.issuer,
+      rootNamespace: 'AbpAccountPublic',
+    },
+    // remoteEnv: {
+    //   url: '/getEnvConfig',
+    //   mergeStrategy: 'deepmerge',
+    // },
+  },
+  googleMapsApiKey: 'AIzaSyBU9BgPd6aGdl2q8JaS1b61LlHcHeKv0vk',
+} as Environment;

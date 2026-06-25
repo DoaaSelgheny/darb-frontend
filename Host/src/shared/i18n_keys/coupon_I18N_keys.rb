@@ -1,0 +1,12 @@
+{
+    ::host:coupon:table:DiscountCoupon
+    ::host:coupon:table:AddNewCoupon
+    ::host:coupon:table:CouponCode
+    ::host:coupon:table:StartDate
+    ::host:coupon:table:EndDate
+    ::host:coupon:table:DiscountValue
+    ::host:coupon:table:ServiceType
+    ::host:coupon:table:Actions
+    ::host:coupon:table:ExperienceListItem
+    ::host:coupon:table:HolidayHomeListItem
+}

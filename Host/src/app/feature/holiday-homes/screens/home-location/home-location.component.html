@@ -1,0 +1,362 @@
+<h2 class="text-sm text-[#334155] mt-3 mb-12 font-bold flex items-center">
+  {{
+    {
+      key: '::Host:VacationHome:Step02:Header:Info'
+    } | abpLocalization
+  }}
+</h2>
+<div class="grid lg:grid-cols-3 gap-2 md:grid-cols-2 sm:grid-cols-1 grid-cols-1">
+  <div class="grid grid-cols-subgrid gap-4 lg:col-span-1 md:col-span-1 sm:col-span-1 col-span-1" [formGroup]="form">
+     <!-- region -->
+     <div class="w-full">
+      <div class="mt-4 lg:mt-0 w-full">
+        <app-field-label
+          label="  {{
+            {
+              key: '::Host:VacationHome:Step02:region'
+            } | abpLocalization
+          }}"
+          [control]="form | getControl: 'regionId'"
+        ></app-field-label>
+        <nz-select
+          nzShowSearch
+          [nzAllowClear]="true"
+
+          nzPlaceHolder="  {{
+            {
+              key: '::Host:VacationHome:Step02:region:Placeholder'
+            } | abpLocalization
+          }}"
+          class="xl-select w-full"
+          nzNotFoundContent=" {{
+            {
+              key: '::Host:VacationHome:Step02:City:noData'
+            } | abpLocalization
+          }}"
+          formControlName="regionId"
+          (ngModelChange)="getCityLookUp($event)"
+        >
+          <nz-option *ngFor="let c of regions" [nzLabel]="lang === 'ar' ? c.nameAr : c.nameEn" [nzValue]="c.id"></nz-option>
+        </nz-select>
+        <app-validation
+          class="block mt-4"
+          [message]="'Validation.'"
+          [control]="form | getControl: 'cityId'"
+        ></app-validation>
+      </div>
+    </div>
+    <!-- city -->
+    <div class="w-full">
+      <div class="mt-4 lg:mt-0 w-full">
+        <app-field-label
+          label="  {{
+            {
+              key: '::Host:VacationHome:Step02:City'
+            } | abpLocalization
+          }}"
+          [control]="form | getControl: 'cityId'"
+        ></app-field-label>
+        <nz-select
+          nzShowSearch
+          [nzAllowClear]="true"
+
+          nzPlaceHolder="  {{
+            {
+              key: '::Host:VacationHome:Step02:City:Placeholder'
+            } | abpLocalization
+          }}"
+          class="xl-select w-full"
+          nzNotFoundContent=" {{
+            {
+              key: '::Host:VacationHome:Step02:City:noData'
+            } | abpLocalization
+          }}"
+          formControlName="cityId"
+          (ngModelChange)="onCityChange($event)"
+        >
+          <nz-option *ngFor="let c of cities" [nzLabel]="c.name" [nzValue]="c.id"></nz-option>
+        </nz-select>
+        <app-validation
+          class="block mt-4"
+          [message]="'Validation.'"
+          [control]="form | getControl: 'cityId'"
+        ></app-validation>
+      </div>
+    </div>
+
+    <!-- District -->
+    <div class="w-full">
+      <div class="mt-4 lg:mt-0 w-full">
+        <app-field-label
+        label="  {{
+          {
+            key: '::Host:VacationHome:Step02:District'
+          } | abpLocalization
+        }}"
+        [control]="form | getControl: 'districtId'"
+      ></app-field-label>
+      <nz-select
+        nzShowSearch
+        [nzAllowClear]="true"
+        nzPlaceHolder="  {{
+          {
+            key: '::Host:VacationHome:Step02:District:Placeholder'
+          } | abpLocalization
+        }}"
+        class="xl-select w-full"
+        formControlName="districtId"
+        nzNotFoundContent=" {{
+          {
+            key: '::Host:VacationHome:Step02:District:noData'
+          } | abpLocalization
+        }}"
+      >
+        <nz-option *ngFor="let d of districts" [nzLabel]="d.name" [nzValue]="d.id"></nz-option>
+      </nz-select>
+      </div>
+      <app-validation
+      class="block mt-4"
+      [message]="'Validation.'"
+      [control]="form | getControl: 'districtId'"
+      [suppressValidationWithMessage]="{
+        required: 'required',
+      }"
+    ></app-validation>
+    </div>
+
+    <!-- multi unit -->
+     <div cass="w-full">
+      <app-field-label
+      label="  {{
+        {
+          key: '::Host:VacationHome:Step02:moreUnit'
+        } | abpLocalization
+      }}"
+      [control]="form | getControl: 'isOwningMultipleUnits'"
+    ></app-field-label>
+       <nz-radio-group formControlName="isOwningMultipleUnits">
+         <label nz-radio [nzValue]="true">{{"::Host:VacationHome:Step02:yes"|abpLocalization}}</label>
+         <label nz-radio [nzValue]="false">{{"::Host:VacationHome:Step02:no"|abpLocalization}}</label>
+       </nz-radio-group>
+     </div>
+    <!--street-->
+    <div class="w-full" >
+      <div class="mt-4 lg:mt-0 w-full">
+        <app-field
+          label="  {{
+            {
+              key: '::Host:VacationHome:Step02:street'
+            } | abpLocalization
+          }}"
+          placeholder="  {{
+            {
+              key: '::Host:VacationHome:Step02:street:Placeholder'
+            } | abpLocalization
+          }}"
+          formControlName="street"
+          [control]="form | getControl: 'street'"
+          class="w-full"
+
+        ></app-field>
+      </div>
+    </div>
+
+    <!--unit number-->
+    <div class="w-full" >
+      <div class="mt-4 lg:mt-0 w-full">
+        <app-field
+          label="  {{
+            {
+              key: '::Host:VacationHome:Step02:unitNo'
+            } | abpLocalization
+          }}"
+          placeholder="  {{
+            {
+              key: '::Host:VacationHome:Step02:unitNo:Placeholder'
+            } | abpLocalization
+          }}"
+          formControlName="unitNumber"
+          [control]="form | getControl: 'unitNumber'"
+          [keypressValidation]="validationTypeEnum.numberOnly"
+          class="w-full"
+          [maxlength]="6"
+        ></app-field>
+      </div>
+    </div>
+
+    <!--unitFloor-->
+    <div class="w-full" >
+      <div class="mt-4 lg:mt-0 w-full">
+        <app-field
+          label="  {{
+            {
+              key: '::Host:VacationHome:Step02:unitFloor'
+            } | abpLocalization
+          }}"
+          placeholder="  {{
+            {
+              key: '::Host:VacationHome:Step02:unitFloor:Placeholder'
+            } | abpLocalization
+          }}"
+          formControlName="unitFloor"
+          [control]="form | getControl: 'unitFloor'"
+          [keypressValidation]="validationTypeEnum.numberOnly"
+          class="w-full"
+          [maxlength]="6"
+        ></app-field>
+      </div>
+    </div>
+
+    <div class="flex items-center flex-col lg:flex-row" style="display: none">
+      <div class="mt-4 lg:mt-0 w-full">
+        <app-field
+          label="  {{
+            {
+              key: '::Host:VacationHome:Step02:Lng'
+            } | abpLocalization
+          }}"
+          placeholder="  {{
+            {
+              key: '::Host:VacationHome:Step02:Lng:Placeholder'
+            } | abpLocalization
+          }}"
+          [readonly]="true"
+          [control]="form | getControl: 'lng'"
+          formControlName="lng"
+          class="w-full lg:min-w-[300px]"
+        />
+      </div>
+
+      <app-field
+        [readonly]="true"
+        [control]="form | getControl: 'lat'"
+        formControlName="lat"
+        label="  {{
+          {
+            key: '::Host:VacationHome:Step02:Lat'
+          } | abpLocalization
+        }}"
+        placeholder="  {{
+          {
+            key: '::Host:VacationHome:Step02:Lat:Placeholder'
+          } | abpLocalization
+        }}"
+        class="w-full lg:min-w-[300px] lg:ms-4"
+      />
+    </div>
+
+   <!-- mapLink -->
+   <app-field-label
+   label="  {{
+     {
+       key: '::Host:VacationHome:Step02:mapLink'
+     } | abpLocalization
+   }}"
+ ></app-field-label>
+    <!-- <div class="w-full" *ngIf="this.vacationHome.mapLink">
+      <div class="mt-4 lg:mt-0 w-full">
+        <app-field
+          label="  {{
+            {
+              key: '::Host:VacationHome:Step02:mapLink'
+            } | abpLocalization
+          }}"
+          placeholder="  {{
+            {
+              key: '::Host:VacationHome:Step02:mapLink:Placeholder'
+            } | abpLocalization
+          }}"
+          formControlName="mapLink"
+          class="w-full"
+
+        ></app-field>
+      </div>
+    </div> -->
+    <!--map-->
+    <div >
+      <google-map
+        (centerChanged)="centerChanged()"
+        height="400px"
+        width="100%"
+        [center]="center"
+        [zoom]="zoom"
+        (mapClick)="moveMap($event)"
+        (mapMousemove)="move($event)"
+      >
+        <map-marker [position]="markCenter"></map-marker>
+      </google-map>
+    </div>
+  </div>
+</div>
+
+
+<div class="mt-24 flex justify-between items-center flex-row btn-data">
+  <app-button
+  size="md"
+  (click)="goBack()"
+  [outline]="true"
+      [secondary]="true"
+>
+  <span>
+    {{
+      {
+        key: '::Host:VacationHome:Wizard:Back'
+      } | abpLocalization
+    }}
+  </span>
+</app-button>
+  <div class="flex flex-row  mt-3 sm:mt-0">
+
+    <app-button
+      class="ms-3"
+      (click)="saveDraft()"
+      size="md"
+      [outline]="true"
+      [secondary]="true"
+    >
+      {{
+        {
+          key: '::Host:VacationHome:SaveDraft'
+        } | abpLocalization
+      }}
+    </app-button>
+    <app-button size="md" class="mx-2" (click)="goNext()" [disabled]="!validateCurrentPage()">
+      {{
+        {
+          key: '::Host:VacationHome:Wizard:Next'
+        } | abpLocalization
+      }}
+    </app-button>
+  </div>
+</div>
+<app-confrontation-popup
+  [visible]="isVisibleSaveAndExit"
+  (cancel)="isVisibleSaveAndExit = false"
+  title="  {{
+    {
+      key: '::Host:VacationHome:Popup:SaveDraft:Title'
+    } | abpLocalization
+  }}"
+  description="  {{
+    {
+      key: '::Host:VacationHome:Popup:SaveDraft:Description'
+    } | abpLocalization
+  }}"
+>
+  <div buttons class="flex items-center flex-col w-full px-10">
+    <app-button size="md" class="block mb-6 w-full" (click)="saveAndExit()">
+      {{
+        {
+          key: '::General:Confirm'
+        } | abpLocalization
+      }}
+    </app-button>
+    <app-button class="w-full" (click)="isVisibleSaveAndExit = false" size="md" [outline]="true">
+      {{
+        {
+          key: '::General:Cancel'
+        } | abpLocalization
+      }}
+    </app-button>
+  </div>
+</app-confrontation-popup>

@@ -1,0 +1,23 @@
+{
+  ::Menu:CouponEdit:MarketingTools
+  ::Menu:CouponEdit:MarketingTools:Coupons
+  ::Host:Coupon:Edit:CouponCreate
+  ::Host:Coupon:Edit:CouponEdit
+  ::Host:Coupon:Edit:CouponCode
+  ::Host:Coupon:Edit:ServiceName
+  ::Host:Coupon:Edit:Placeholder:ServiceName
+  ::Host:Coupon:Edit:Date
+  ::Host:Coupon:Edit:DiscountUsage
+  ::Host:Coupon:Edit:Placeholder:DiscountUsage
+  ::Host:Coupon:Edit:DiscountType
+  ::Host:Coupon:Edit:Placeholder:DiscountType
+  ::Host:Coupon:Edit:Placeholder:DiscountValue
+  ::Host:Coupon:Edit:DiscountValue
+  ::Host:Coupon:Edit:Delete
+  ::Host:Coupon:Edit:Update
+  ::Host:Coupon:Edit:Create
+  ::Host:Coupon:Edit:SendCreation
+  ::Host:Coupon:Edit:Description:SendCreation
+  ::Host:Coupon:Edit:SendConfirmation
+  ::Host:Coupon:Edit:Description:SendConfirmation
+}

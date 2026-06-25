@@ -1,0 +1,37 @@
+<div
+  class="h-[100vh] w-[100vw] md:w-[589px] md:rounded-md md:shadow-greyBox md:h-auto bg-white md:transform md:-translate-x-1/2 md:-translate-y-1/2 md:absolute md:left-1/2 md:top-1/2 md:pb-[44px]"
+>
+  <img
+    src="/assets/host/icons/verification-icon.png"
+    class="mx-auto block pt-[74px]"
+    alt="verification"
+    title="verification-otp"
+  />
+  <p class="text-xl text-primary font-bold text-center mt-[51px]">التحقق من حسابك</p>
+  <p class="text-center mt-[35px]">أدخل رمز التحقق المرسل الى الرقم 0533678588</p>
+  <!-- (onInputChange)="onOtpChange($event)"   -->
+  <div class="w-[309px] mx-auto">
+    <ng-otp-input
+      [config]="{
+        length: 4,
+        inputClass: 'customInputOtp rtl:!mr-3 ltr:!ml-3'
+      }"
+    ></ng-otp-input>
+
+    <div class="flex justify-between items-center mt-[31px]">
+      <div class="flex items-center">
+        <p>لم تصل رسالة التحقق؟</p>
+        <button class="text-primary text-sm" nz-button nzType="text">
+          <span class="underline"> إعادة إرسال</span>
+        </button>
+      </div>
+      <p>0:34</p>
+    </div>
+  </div>
+  <app-button
+    [routerLink]="['/holiday-homes']"
+    routerLinkActive="router-link-active"
+    class="w-11/12 mx-auto block mt-[88px]"
+    >تحقق</app-button
+  >
+</div>

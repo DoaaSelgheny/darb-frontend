@@ -1,0 +1,15 @@
+<div class="w-full h-auto min-h-screen login flex justify-center items-center">
+  <div class="w-[28rem] bg-white h-auto max-h-full md:w-[448px] shadow-greyBox rounded-md  py-[35px] px-11">
+    <div class="flex justify-end">
+      <app-select-language class="block px-3 rounded-lg"></app-select-language>
+      <ng-template #defaultTemplate let-selected>
+        <span nz-icon nzType="global" nzTheme="outline"></span>
+        {{ selected.nzLabel }}
+      </ng-template>
+    </div>
+
+    <img role="button" (click)="redirectToHost()" src="assets/authUi/imgs/logo.png" class="w-[100px] md:w-[100px] mx-auto block"
+      alt="Hyyak" title="Hyyak" />
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,290 @@
+
+<!-- <div class="relative ">
+  <img [src]="lang === 'ar' ?'assets/imgs/test.svg' : 'assets/imgs/testen.svg'" 
+  class="absolute fixed" style="z-index:9;top: -40px;"> 
+</div> -->
+<div class="container mx-auto px-9 mb-36">
+  <nz-breadcrumb class="mt-[26px]">
+    <nz-breadcrumb-item class="cursor-pointer" routerLink="/">{{
+      '::guest:explore.breadcrumbHome' | abpLocalization
+      }}</nz-breadcrumb-item>
+    <nz-breadcrumb-item class="cursor-pointer" routerLink="/explore">{{
+      '::Guest:Explore:reserve' | abpLocalization
+      }}
+    </nz-breadcrumb-item>
+    @if(type === 'experience'){
+
+      <nz-breadcrumb-item class="cursor-pointer" [routerLink]="['/experience-details',this.id]">
+        {{
+          '::Guest:Explore:experienceDetail' | abpLocalization
+          }}
+      </nz-breadcrumb-item>
+    }@else {
+      <nz-breadcrumb-item class="cursor-pointer" [routerLink]="['/vacation-home-details',this.id]">
+        {{
+          '::Guest:Explore:vactionDetail' | abpLocalization
+          }}
+      </nz-breadcrumb-item>
+    }
+    <nz-breadcrumb-item>{{"::Guest:Explore:payment:payment" | abpLocalization}}</nz-breadcrumb-item>
+  </nz-breadcrumb>
+   <!-- Header -->
+   <h2 class="text-2xl font-bold mt-6 mb-4">
+    {{ '::Guest:Explore:payment:confirm' | abpLocalization }}
+  </h2>
+  <div class="grid md:grid-cols-5 grid-cols-1 gap-4">
+    <div class="md:col-span-2 col-span-1">
+    <!-- <ng-container *ngIf="vacationHome"> -->
+            <!-- <app-trip-data [vacationHome]="vacationHome"></app-trip-data> -->
+    <!-- </ng-container> -->
+    
+  
+      <app-reservation-summary
+        [vacationHome]="vacationHome"
+        [payment]="payment"
+        [dateFrom]="dateFrom"
+        [dateTo]="dateTo"
+        [type]="type"
+        [experience]="experience"
+        [pricingDetails]="pricingDetails"
+        class="block"
+        (pay)="pay(this.paymentMethod)"
+      ></app-reservation-summary>
+    </div>
+
+    <!-- PAYMENT METHOD  -->
+    <nz-card class="md:col-span-3  col-span-1 border-0 rounded-2xl custom-card " [nzTitle]="cardTitle">
+      <ng-template #cardTitle>
+        <p class="font-extrabold text-lg">
+          {{
+            { key: '::guest:payment:paymentType', defaultValue: 'حدد طريقة الدفع' }
+              | abpLocalization
+          }}
+        </p>
+      </ng-template>
+      <div class="flex flex-col gap-4">
+        <app-collapse id="creditPayment"(click)="pay('Credit')" [isActive]="isShowPayment">
+          <div ngProjectAs="header">
+            <div class="flex justify-between items-center">
+              <!-- Radio Button without space between it and the label -->
+              <div class="flex items-center gap-0">
+                <input type="radio" class="custom-radio" id="creditCardPayment" [(ngModel)]="paymentMethod" value="Credit" />
+                <label for="creditCardPayment" class="m-0">
+                  <p class="sm:ms-2 sm:me-2 text-sm sm:text-base">
+                    {{
+                      {
+                        key: '::guest:payment:creditCardPayment',
+                        defaultValue: 'الدفع عن طريق بطاقة الإئتمان'
+                      } | abpLocalization
+                    }}
+                  </p>
+                </label> <!-- Removed margin and gap between radio button and label -->
+              </div>
+          
+              <!-- Payment Method Text -->
+              
+          
+              <!-- Card Icons -->
+              <div class="flex gap-1 px-4">
+                <img src="../../../assets/icons/mada-icon.svg" alt="mada" />
+                <img src="../../../assets/icons/visa-icon.svg" alt="visa" />
+                <img src="../../../assets/icons/mastercard-icon.svg" alt="mastercard" />
+
+              </div>
+            </div>
+          </div>
+          
+          <div ngProjectAs="body" *ngIf="isShowPayment">
+            <div class="w-full">
+              
+              <iframe title="payment frame" [src]="paymentUrl" width="100%" height="600"></iframe>
+            
+            </div>
+          </div>
+        </app-collapse>
+   
+        <!-- <app-collapse  (click)="pay('Settlement')" [isActive]="isShowPayment2">
+          <div ngProjectAs="header">
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-0">
+                <input type="radio" class="custom-radio" id="tamaraPayment" [(ngModel)]="paymentMethod" value="Settlement" />
+                <label for="tamaraPayment" class="m-0 flex items-start flex-col">
+                  <p class="sm:ms-2 sm:me-2 text-sm sm:text-base">
+                    {{
+                      {
+                        key: '::guest:payment:tamaraPayment',
+                        defaultValue: 'الدفع عن طريق تمارا'
+                      } | abpLocalization
+                    }}
+                  </p>
+                  <p  class="sm:ms-2 sm:me-2 text-sm text-[#777C84]">
+                    {{
+                      {
+                        key: '::guest:payment:tamaraPaymentHint',
+                        defaultValue: 'قسمها على  4 بدون أي فوائد أو رسوم'
+                      } | abpLocalization
+                    }}
+                  </p>
+                </label>
+              </div>
+          
+              
+              <div class="flex gap-1 px-4">
+                <img src="../../../assets/icons/tamara.svg" alt="mada" />
+
+              </div>
+            </div>
+          </div>
+          <div ngProjectAs="body" *ngIf="isShowPayment2">
+            <div class="w-full">
+              
+              <iframe title="payment frame" [src]="paymentUrl" width="100%" height="600"></iframe>
+            
+            </div>
+          </div>
+        </app-collapse> -->
+      <!--   <app-collapse [isDisabled]="true" [isActive]="false">
+          <div ngProjectAs="header">
+            <div class="flex justify-between">
+              <p>
+                {{
+                  {
+                    key: '::guest:payment:paypal',
+                    defaultValue: 'الدفع عن طريق باي بال'
+                  } | abpLocalization
+                }}
+              </p>
+              <div class="flex gap-1 px-4">
+                <img src="../../../assets/icons/paypal.svg" alt="paypal" />
+              </div>
+            </div>
+          </div>
+          <div ngProjectAs="body"></div>
+        </app-collapse>
+        <app-collapse [isDisabled]="true" [isActive]="false">
+          <div ngProjectAs="header">
+            <div class="flex justify-between">
+              <p>
+                {{
+                  {
+                    key: '::guest:payment:tabby',
+                    defaultValue: 'الدفع عن طريق تابي وتمارا'
+                  } | abpLocalization
+                }}
+              </p>
+              <div class="flex gap-1 px-4">
+                <img src="../../../assets/icons/tabby.svg" alt="tabby" />
+              </div>
+            </div>
+          </div>
+          <div ngProjectAs="body"></div>
+        </app-collapse>
+        <app-collapse [isDisabled]="true" [isActive]="false">
+          <div ngProjectAs="header">
+            <div class="flex justify-between">
+              <p>
+                {{
+                  {
+                    key: '::guest:payment:stc',
+                    defaultValue: 'الدفع عن طريق أبل باي و STC'
+                  } | abpLocalization
+                }}
+              </p>
+              <div class="flex gap-1 px-4">
+                <img src="../../../assets/icons/applePay.svg" alt="applePay" />
+                <img src="../../../assets/icons/stc.svg" alt="stc" />
+              </div>
+            </div>
+          </div>
+          <div ngProjectAs="body"></div>
+        </app-collapse>
+        <app-collapse [isDisabled]="true" [isActive]="false">
+          <div ngProjectAs="header">
+            <div class="flex justify-between">
+              <p>
+                {{
+                  {
+                    key: '::guest:payment:cash',
+                    defaultValue: 'الدفع كاش'
+                  } | abpLocalization
+                }}
+              </p>
+              <div class="flex gap-1 px-4">
+                <img src="../../../assets/icons/cash.svg" alt="cash" />
+              </div>
+            </div>
+          </div>
+          <div ngProjectAs="body"></div>
+        </app-collapse> -->
+      </div>
+      <!-- <app-button class="block mt-4" (click)="pay()">
+        <div class="flex items-center justify-center">
+          <p class="text-base font-bold">تأكيد الحجز</p>
+          <svg
+            width="25"
+            height="24"
+            class="ms-1.5"
+            viewBox="0 0 25 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17.5009 11.0002H9.91087L13.2109 7.71019C13.3992 7.52188 13.505 7.26649 13.505 7.00019C13.505 6.73388 13.3992 6.47849 13.2109 6.29019C13.0226 6.10188 12.7672 5.99609 12.5009 5.99609C12.2346 5.99609 11.9792 6.10188 11.7909 6.29019L6.79087 11.2902C6.69983 11.3853 6.62847 11.4974 6.58087 11.6202C6.48085 11.8636 6.48085 12.1367 6.58087 12.3802C6.62847 12.5029 6.69983 12.6151 6.79087 12.7102L11.7909 17.7102C11.8838 17.8039 11.9944 17.8783 12.1163 17.9291C12.2382 17.9798 12.3689 18.006 12.5009 18.006C12.6329 18.006 12.7636 17.9798 12.8854 17.9291C13.0073 17.8783 13.1179 17.8039 13.2109 17.7102C13.3046 17.6172 13.379 17.5066 13.4298 17.3848C13.4805 17.2629 13.5067 17.1322 13.5067 17.0002C13.5067 16.8682 13.4805 16.7375 13.4298 16.6156C13.379 16.4937 13.3046 16.3831 13.2109 16.2902L9.91087 13.0002H17.5009C17.7661 13.0002 18.0204 12.8948 18.208 12.7073C18.3955 12.5198 18.5009 12.2654 18.5009 12.0002C18.5009 11.735 18.3955 11.4806 18.208 11.2931C18.0204 11.1055 17.7661 11.0002 17.5009 11.0002Z"
+              fill="white"
+            />
+          </svg>
+        </div>
+      </app-button> -->
+    </nz-card>
+  </div>
+</div>
+
+<!-- Cofirm login-->
+<app-confrontation-popup 
+ [visible]="isVisibleLogin" (cancel)="isVisibleLogin = false" [title]="
+    { key: '::guest:payment:loginverify:title' }
+      | abpLocalization
+  " [description]="
+    {
+      key: '::guest:payment:loginverify:description'
+    } | abpLocalization
+  ">
+  <div buttons class="flex items-center flex-col w-full px-3">
+    <app-button size="md" class="block mb-3 w-full" (click)="goToAuth()"> {{'::guest:payment:loginverify:login'|abpLocalization}} </app-button>
+  
+  </div>
+</app-confrontation-popup>
+
+
+<!-- Cofirm verfiy -->
+<app-confrontation-popup [visible]="isVisibleVerfied" (cancel)="isVisibleVerfied = false" 
+[title]="
+    { key: '::guest:payment:Authenticatedverify:title'}
+      | abpLocalization
+  " [description]="
+    {
+      key: '::guest:payment:Authenticatedverify:description'
+    } | abpLocalization">
+  <div buttons class="flex items-center flex-col w-full px-1">
+    <app-specific-verification-type [fromPayment]="true" (verfySuccess)="handleverfySuccess($event)"></app-specific-verification-type>
+    <!-- <app-button class="w-full" size="md" [outline]="true">
+      {{ { key: '::Host:Verification:verifynow', defaultValue: 'وثق الأن' } | abpLocalization }}
+    </app-button> -->
+  </div>
+</app-confrontation-popup>
+
+<!-- Cofirm congratulation payment -->
+<app-confrontation-popup [confrontationType]="confrontationTypesEnum.success"
+ [visible]="isVisibleCongratulationReservation" (cancel)="isVisibleCongratulationReservation = false" [title]="
+    { key: '::guest:payment:success:title' }
+      | abpLocalization
+  " [description]="
+    {
+      key: '::guest:payment:success:description'
+    } | abpLocalization
+  ">
+  <div buttons class="flex items-center flex-col w-full px-3">
+    <app-button size="md" class="block mb-3 w-full" (click)="goToAuth()"> {{'::Menu:HomePage'|abpLocalization}} </app-button>
+  
+  </div>
+</app-confrontation-popup>

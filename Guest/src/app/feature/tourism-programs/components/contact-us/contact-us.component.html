@@ -1,0 +1,93 @@
+<div
+  class="container mb-[74px] mx-auto mt-[140px] shadow-[0px_3px_30px_0px_rgba(216,216,216,0.16)] px-5 py-10 rounded-[10px]"
+  [formGroup]="form"
+>
+  <p class="font-bold text-[25px] text-[#3E3E3E]">
+    {{ '::guest:tourismPrograms.contactTitle' | abpLocalization }}
+  </p>
+  <p class="text-base mt-[18px] font-normal text-[#3A3A3A]">
+    {{ '::guest:tourismPrograms.contactSubtitle' | abpLocalization }}
+  </p>
+  <nz-radio-group class="mt-[52px]" nzName="radiogroup" formControlName="individual">
+    <label class="text-base text-greyBlack" nz-radio nzValue="true">
+      {{ '::guest:tourismPrograms.individual' | abpLocalization }}</label
+    >
+    <label nz-radio class="text-base text-greyBlack !ms-20" nzValue="false">
+      {{ '::guest:tourismPrograms.organization' | abpLocalization }}</label
+    >
+  </nz-radio-group>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-[68px]">
+    <app-field
+      formControlName="name"
+      [control]="form | getControl: 'name'"
+      placeholder="{{ '::guest:tourismPrograms.guestNamePlaceholder' | abpLocalization }}"
+      label="{{ '::guest:tourismPrograms.guestNamePlaceholder' | abpLocalization }}"
+    ></app-field>
+    <app-field
+      formControlName="phoneNumber"
+      [control]="form | getControl: 'phoneNumber'"
+      type="number"
+      placeholder="{{ '::guest:tourismPrograms.phoneNumberPlaceholder' | abpLocalization }}"
+      label="{{ '::guest:tourismPrograms.phoneNumberPlaceholder' | abpLocalization }}"
+    >
+      <p
+        class="absolute top-[50%] translate -translate-y-1/2 left-4 before:border-s before:me-1 before:border-black"
+      >
+        +996
+      </p>
+    </app-field>
+    <app-field
+      formControlName="email"
+      [control]="form | getControl: 'email'"
+      placeholder="{{ '::guest:tourismPrograms.emailPlaceholder' | abpLocalization }}"
+      label="{{ '::guest:tourismPrograms.emailPlaceholder' | abpLocalization }}"
+    ></app-field>
+  </div>
+  <div>
+    <app-textarea
+      formControlName="message"
+      [control]="form | getControl: 'message'"
+      class="mt-[30px] block"
+      label="{{ '::guest:tourismPrograms.messageLabel' | abpLocalization }}"
+    ></app-textarea>
+    <div class="flex gap-4 mt-6 justify-between flex-col md:flex-row">
+      <div>
+        <re-captcha
+          formControlName="captcha"
+          class="mt-3 block md:mt-0"
+          (resolved)="resolved($event)"
+          siteKey="6LcVXH4pAAAAAH8eyL7Ah1NnXmxvPqS9mT1UxB3K"
+        ></re-captcha>
+        <!-- TODO -->
+        <app-validation
+          class="block mt-4"
+          [control]="form | getControl: 'captcha'"
+          [message]="'هذا الحقل  إلزامي'"
+        ></app-validation>
+      </div>
+      <app-button classes="px-[58px]" (click)="sendMessage()">{{
+        '::guest:tourismPrograms.Send' | abpLocalization
+      }}</app-button>
+    </div>
+  </div>
+</div>
+
+<app-confrontation-popup
+  [visible]="isVisibleSend"
+  (cancel)="isVisibleSend = false"
+  [confrontationType]="confrontationTypesEnum.success"
+  [title]="'::guest:tourismPrograms.successTitle' | abpLocalization"
+  [description]="'::guest:tourismPrograms.successDescription' | abpLocalization"
+>
+  <div buttons>
+    <div class="flex justify-center">
+      <app-button size="md" class="block mb-6 px-6" routerLink="/">
+        <div class="flex items-center justify-center">
+          <p>{{ '::guest:tourismPrograms.homePageButton' | abpLocalization }}</p>
+          <span nz-icon nzType="arrow-up" class="ms-2 -rotate-45" nzTheme="outline"></span>
+        </div>
+      </app-button>
+    </div>
+  </div>
+</app-confrontation-popup>

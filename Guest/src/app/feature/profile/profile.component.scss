@@ -1,0 +1,101 @@
+::ng-deep {
+
+  .custom-style-upload {
+    app-upload {
+      .ant-upload {
+        background: #edeff5 !important;
+      }
+    }
+  }
+
+  .intereste {
+    & > div p {
+      @apply text-base;
+    }
+  }
+  .ant-picker{
+    height: 41px;
+  }
+  .ant-btn-primary{
+    height: 41px;
+  }
+  .iti.separate-dial-code ,.iti input{
+    height: 41px;
+  }
+  .ant-radio-checked .ant-radio-inner {
+    border-color: #122466;
+}
+.ant-radio-inner::after {
+  
+  background-color: #122466;}
+  .ant-radio-checked::after {
+  
+    border: 1px solid #122466;
+   }
+
+}
+
+.black-icon {
+  width: 18px;
+  height: 15px;
+  // filter: invert(1) sepia(10%) saturate(10%) hue-rotate(266deg);
+}
+.block-name {
+  background-image: url("../../../assets/imgs/card/profileAr.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+//  background-position: center;
+}
+.block-nameEn {
+  background-image: url("../../../assets/imgs/card/profileEn.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: right;
+}
+.name-of-user {
+  font-size: 23px;
+  font-weight: 700;
+}
+.hayyak{
+  font-size: 16px;
+  font-weight: 400;
+}
+.isInterested{
+  background:  rgba(147, 197, 253, 1);
+  border: 1px solid  rgba(30, 58, 138, 1);
+  color:  rgba(30, 58, 138, 1);
+
+  .icon-class {
+
+    filter: brightness(0) saturate(100%) invert(17%) sepia(89%) saturate(547%) hue-rotate(199deg) brightness(91%);
+  }
+
+}
+.icon-class {
+  filter: brightness(0) saturate(100%) invert(37%) sepia(1) hue-rotate(0deg) brightness(95%);
+}
+
+.verfiy{
+  font-size: 13px;
+    font-weight: 400;
+    line-height: 24px;
+    width: (154px);
+    height: (32px);
+    background: var(--Premititve-neutral-50, #FAFAFA);
+    padding: 4px 16px;
+    gap: 8px;
+    border-radius: 4px;
+    opacity: 0px;
+  span{
+    color: rgba(34, 197, 94, 1);
+    margin-left: 1px ;
+    margin-right: 1px;
+  }
+}
+
+
+
+// .svg-icon {
+//   fill: currentColor;
+//   color: #ff0000; /* Desired color */
+// }

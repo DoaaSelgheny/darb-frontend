@@ -1,0 +1,59 @@
+::ng-deep {
+  .ant-table-row:nth-child(even) {
+    background: #fcfcfc;
+  }
+
+  .ant-table-pagination-right {
+    justify-content: center !important;
+  }
+
+  .ant-tooltip-inner {
+    color: #969696;
+    text-align: center !important;
+    padding: 1rem;
+  }
+
+  td th {
+    text-align: center !important;
+    font-size: 16px;
+  }
+
+  th {
+    font-weight: bold;
+  }
+
+  .ant-table-cell {
+    white-space: nowrap !important;
+  }
+
+  .ant-pagination {
+    ul {
+      @apply bg-white w-fit;
+      padding: 20px;
+
+      li {
+        @apply border-0;
+
+        a {
+          @apply text-[#D6DCE8];
+        }
+
+        &.ant-pagination-disabled {
+          @apply text-[#AAB2C5];
+
+          > div button {
+            color: #aab2c5;
+          }
+        }
+
+        &.ant-pagination-item-active {
+          @apply bg-primary;
+
+          a {
+            @apply text-white;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,211 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import 'swiper/swiper-bundle.css';
+body {
+background-color: #fafafa;
+}
+
+* {
+  font-family: 'Almarai', sans-serif;
+}
+
+// overrides all icons of toaster messages
+.ant-message-notice-content {
+  @apply p-0;
+
+  .anticon {
+    @apply hidden;
+  }
+}
+.iti {
+  display: block !important;
+}
+
+.iti .dropdown-menu.country-dropdown {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-color: #c7cace;
+  margin-top: -1px;
+}
+
+.iti .iti__country-list {
+  box-shadow: none;
+  font-size: 14px;
+  margin-left: 0;
+  width: auto;
+  max-height: 170px;
+}
+
+.iti__flag-container.open + input {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.iti .search-container input {
+  font-size: 14px;
+  border-color: #c7cace;
+  border-radius: 0;
+  padding: 5px 10px;
+}
+
+.iti .search-container input:focus {
+  outline: none;
+}
+.iti__selected-flag {
+  position: relative;
+  justify-content: space-evenly;
+  direction: ltr !important;
+  border-inline-end: 1px solid #d6d6d6;
+}
+
+.left-direction {
+  direction: ltr !important;
+}
+.iti__arrow {
+  width: 0;
+  display: none;
+}
+
+@media (max-width: 1024px) and (orientation: landscape) {
+  .landscape-message::before {
+    content: 'Please use portrait mode';
+    position: fixed;
+    font-size: 24px;
+    @apply text-secondary;
+    display: block;
+    padding-top: 50vh;
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+    background-color: #ddd;
+    z-index: 999999;
+  }
+}
+
+// .ant-breadcrumb-link{
+//   @apply font-bold;
+// }
+// .ant-tabs-nav {
+//  & .ant-tabs-tab{
+//   margin: 0 !important;
+//     @apply px-8;
+//     &.ant-tabs-tab-active{
+//       @apply bg-primaryLight h-[50px] md:h-[74px];
+//     }
+//   }
+// }
+
+/* Scrollbar Styling */
+* {
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #ebebeb;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #6d6d6d;
+  }
+}
+
+/* Add application styles & imports to this file! */
+.g-skeleton {
+  border-radius: 10px;
+  background-color: rgb(224, 224, 224);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+  transform: scale(1);
+  animation: pulse 2s infinite;
+}
+
+.g-image-height {
+  height: 200px;
+  width: 200px;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    border-radius: 2px;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    border-radius: 10px;
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    border-radius: 2px;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+abp-confirmation {
+  display: none;
+  .icon-container.error {
+    background: #f65656;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+  }
+  .confirmation-button.confirmation-button--approve {
+    flex: 1;
+  }
+}
+/* Override the default color of the dots */
+.ant-carousel .slick-dots li button {
+  background-color: #ccc; /* Change to your preferred color */
+  opacity: 1; /* Ensure the dot is visible */
+}
+
+/* Override the color of the active dot */
+.ant-carousel .slick-dots li.slick-active button {
+  background-color: #ff5722; /* Change to your preferred active color */
+}
+
+.text-shadow{
+  text-shadow: 0px 1.2px 1px rgba($color: #000000, $alpha: 0.2);
+}
+
+.filter_shadow{
+  filter: drop-shadow(0px 1.2px 1px rgba(0, 0, 0, 0.2));
+}
+
+.ant-pagination-prev .ant-pagination-item-link,
+.ant-pagination-next .ant-pagination-item-link,
+.ant-pagination-item {
+  border-radius: 16px;
+  a {
+    color:#999999
+  }
+}
+.ant-pagination-item-active:hover {
+  border-color: #122466;
+  a{
+    color :#fff;
+  }
+}
+.ant-pagination-item-active {
+  background-color: #122466;
+  border-color: #122466;
+  a {
+
+    color:#fff
+  }
+}
+
+.btn-primary{
+  background: red !important;
+}
+.ant-carousel .slick-slide img {
+  object-fit: contain;
+  width: 100%;
+}

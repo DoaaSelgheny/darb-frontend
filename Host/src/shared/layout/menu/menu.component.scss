@@ -1,0 +1,8 @@
+.csutom-scroll {
+  @media (height < 800px) {
+    scrollbar-width: thin;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+  }
+}

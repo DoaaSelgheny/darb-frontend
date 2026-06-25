@@ -1,0 +1,24 @@
+<!-- TODO I18N -->
+<article
+  class="d-flex flex-col bg-white sm:max-w-[21.5rem] p-6 rounded-md cursor-pointer shadow-sm hover:shadow-lg duration-300"
+  routerLink="coupons"
+>
+  <a class="block text-primary text-base mb-8 text-end">
+    <i class="fa-regular fa-percent !text-xl font-extrabold"></i>
+  </a>
+
+  <h3 class="text-base text-2xl mb-3 text-secondary">
+    {{
+      { key: '::MarketingTools:MarketingCard:FirstHeading', defaultValue: 'كوبونات التخفيض' }
+        | abpLocalization
+    }}
+  </h3>
+  <h2 class="text-dark text-xs mb-4">
+    {{
+      {
+        key: '::MarketingTools:MarketingCard:SecondHeading',
+        defaultValue: 'يمكنك اضافة كوبونات وتحريرها'
+      } | abpLocalization
+    }}
+  </h2>
+</article>

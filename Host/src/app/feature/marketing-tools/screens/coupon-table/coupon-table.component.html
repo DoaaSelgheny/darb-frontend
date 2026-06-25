@@ -1,0 +1,234 @@
+<nz-breadcrumb class="pb-4">
+  <nz-breadcrumb-item class="cursor-pointer" routerLink="/holiday-homes">
+    {{ '::Menu:Home' | abpLocalization }}
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item class="cursor-pointer" routerLink="/marketing-tools">{{
+    { key: '::Menu:CouponEdit:MarketingTools', defaultValue: 'الأدوات التسويقية' } | abpLocalization
+  }}</nz-breadcrumb-item>
+  <nz-breadcrumb-item>{{
+    { key: '::Menu:CouponEdit:MarketingTools:Coupons', defaultValue: 'كوبونات التخفيض' }
+      | abpLocalization
+  }}</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<div class="flex md:flex-row flex-col justify-between items-center">
+  <div class="flex md:w-auto w-full my-6 justify-center sm:justify-between items-center">
+    <h2 class="text-xl font-extrabold text-dark">
+      {{
+        { key: '::host:coupon:table:DiscountCoupon', defaultValue: 'كوبونات التخفيض' }
+          | abpLocalization
+      }}
+    </h2>
+  </div>
+  <app-button
+    nz-app-button
+    nz-dropdown
+    [nzDropdownMenu]="menu"
+    nzTrigger="click"
+    class="w-auto mb-3 md:mb-0"
+  >
+    <div class="items-center flex">
+      <i class="fa-regular fa-plus !text-lg px-2"></i>
+      <span class="text-base font-bold">
+        {{
+          {
+            key: '::host:coupon:table:AddNewCoupon',
+            defaultValue: 'إضافة كوبون جديد'
+          } | abpLocalization
+        }}
+      </span>
+    </div>
+  </app-button>
+
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu nzSelectable>
+      <li
+        nz-menu-item
+        class="border border-t-0 border-b-0 border-[#D6DCE8]"
+        [routerLink]="['./add-edit', serviceType.VACATION_HOME]"
+      >
+        <div class="py-1">
+          {{
+            { key: '::host:coupon:table:HolidayHomeListItem', defaultValue: 'بيت عطلة' }
+              | abpLocalization
+          }}
+        </div>
+      </li>
+      <li
+        nz-menu-item
+        [routerLink]="['./add-edit', serviceType.EXPERIENCE]"
+        class="border border-t border-b-0 border-[#D6DCE8]"
+      >
+        <div class="py-1">
+          {{
+            { key: '::host:coupon:table:ExperienceListItem', defaultValue: 'تجربة' }
+              | abpLocalization
+          }}
+        </div>
+      </li>
+    </ul>
+  </nz-dropdown-menu>
+</div>
+<!-- TODO override pagination style -->
+<div class="w-full overflow-x-auto">
+  <nz-table class="tabel-custom" #basicTable [nzData]="couponData" [nzFrontPagination]="false">
+    <thead>
+      <tr>
+        <th class="!font-bold text-base" nzAlign="center">
+          {{
+            { key: '::host:coupon:table:CouponCode', defaultValue: 'كود الكوبون' } | abpLocalization
+          }}
+        </th>
+        <th class="!font-bold text-base" nzAlign="center">
+          {{
+            { key: '::host:coupon:table:StartDate', defaultValue: 'تاريخ البدء' } | abpLocalization
+          }}
+        </th>
+        <th class="!font-bold text-base" nzAlign="center">
+          {{
+            { key: '::host:coupon:table:EndDate', defaultValue: 'تاريخ الانتهاء' } | abpLocalization
+          }}
+        </th>
+        <th class="!font-bold text-base" nzAlign="center">
+          {{
+            { key: '::host:coupon:table:DiscountValue', defaultValue: 'قيمة الخصم' }
+              | abpLocalization
+          }}
+        </th>
+        <th class="!font-bold text-base" nzAlign="center">
+          {{
+            { key: '::host:coupon:table:ServiceType', defaultValue: 'نوع الخدمة' } | abpLocalization
+          }}
+        </th>
+        <th class="!font-bold text-base" nzAlign="center">
+          {{ { key: '::host:coupon:table:Actions', defaultValue: 'الاجراءات' } | abpLocalization }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td
+          nzAlign="center"
+          class="text-primary cursor-pointer"
+          (click)="onCopy(data.promoCode.couponCode)"
+        >
+          {{ data.promoCode.couponCode }}
+        </td>
+        <td nzAlign="center">{{ data.promoCode.startDate | date: 'shortDate' }}</td>
+        <td nzAlign="center">{{ data.promoCode.endDate | date: 'shortDate' }}</td>
+        <td nzAlign="center">
+          {{
+            data.promoCode.discountValue +
+              ' ' +
+              (handleDiscountLabel(data.promoCode.discountType) | abpLocalization)
+          }}
+        </td>
+        <td nzAlign="center">
+          {{ handleServiceLabel(data.promoCode.vacationHomeId) | abpLocalization }}
+        </td>
+        <td nzAlign="center">
+          <div class="flex items-center justify-center">
+            <nz-switch
+              [nzId]="data.promoCode.id"
+              [ngModel]="!data.promoCode.isSuspended"
+              (ngModelChange)="handleSwitchChange($event, data.promoCode.id)"
+            ></nz-switch>
+            <button
+              [disabled]="!data.promoCode.isSuspended"
+              class="ms-2"
+              [routerLink]="[
+                'add-edit',
+                determineServiceType(data.promoCode.vacationHomeId),
+                data.promoCode.vacationHomeId
+                  ? data.promoCode.vacationHomeId
+                  : data.promoCode.experienceId,
+                data.promoCode.id
+              ]"
+              nz-tooltip
+              nzTooltipColor="#fff"
+              [nzTooltipTitle]="
+                !data.promoCode.isSuspended
+                  ? 'يجب عليك تعطيل الكوبون قبل ان تستطيع التعديل عليه'
+                  : ''
+              "
+            >
+              <i
+                class="fa-solid fa-pen-to-square text-lg"
+                [ngClass]="!data.promoCode.isSuspended ? 'text-[#969696]' : 'text-primary'"
+              ></i>
+            </button>
+            <button class="ms-2 text-base" (click)="showDeletePopup(data.promoCode.id)">
+              <i class="fa-solid fa-trash text-primary text-lg"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <nz-pagination
+    class="flex justify-center"
+    [nzPageSize]="itemsPerPage"
+    [(nzPageIndex)]="currentPage"
+    [nzTotal]="totalCount"
+    (nzPageIndexChange)="getData($event)"
+    [nzItemRender]="renderItemTemplate"
+  >
+    <ng-template #renderItemTemplate let-type let-page="page">
+      @switch (type) {
+        @case ('page') {
+          <a>{{ page }}</a>
+        }
+        @case ('prev') {
+          <div class="flex items-center gap-1 h-full">
+            <button class="text-2xl">‹</button>
+            <span>السابق</span>
+          </div>
+        }
+        @case ('next') {
+          <div class="flex items-center gap-1 h-full">
+            <span>التالي</span>
+            <button class="text-2xl">›</button>
+          </div>
+        }
+        @case ('prev_5') {
+          <a><<</a>
+        }
+        @case ('next_5') {
+          <a>>></a>
+        }
+      }
+    </ng-template>
+  </nz-pagination>
+</div>
+
+<ng-template #name></ng-template>
+
+<!-- POPUP ON DELETION -->
+<app-confrontation-popup
+  [visible]="isVisibleMasg"
+  (cancel)="isVisibleMasg = false"
+  [confrontationType]="confrontationTypesEnum.warning"
+  [title]="
+    { key: '::Host:Coupon:Edit:SendConfirmation', defaultValue: 'هل أنت متأكد؟' } | abpLocalization
+  "
+  [description]="
+    {
+      key: '::Host:Coupon:Edit:Description:SendConfirmation',
+      defaultValue: 'سوف يتم حذف الكوبون الذي قمت بإنشاءه'
+    } | abpLocalization
+  "
+>
+  <div buttons class="flex items-center flex-col w-full px-10">
+    <app-button
+      size="md"
+      class="block mb-6 w-full"
+      (click)="handleDelete()"
+      [nzLoading]="isDeleteLoading"
+    >
+      {{ { key: '::Host:Coupon:Edit:Confirm', defaultValue: 'نعم' } | abpLocalization }}
+    </app-button>
+    <app-button class="w-full" (click)="isVisibleMasg = false" size="md" [outline]="true">
+      {{ { key: '::Host:Coupon:Edit:Cancel', defaultValue: 'لا' } | abpLocalization }}
+    </app-button>
+  </div>
+</app-confrontation-popup>

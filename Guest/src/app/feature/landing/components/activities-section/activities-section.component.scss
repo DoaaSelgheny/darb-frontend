@@ -1,0 +1,41 @@
+.cover {
+  background-size: cover;
+}
+::ng-deep {
+  .activities-tabs {
+    .ant-tabs-nav::before {
+      @apply hidden;
+    }
+  }
+
+  .ant-tabs-top > .ant-tabs-nav .ant-tabs-ink-bar, .ant-tabs-bottom > .ant-tabs-nav .ant-tabs-ink-bar, .ant-tabs-top > div > .ant-tabs-nav .ant-tabs-ink-bar, .ant-tabs-bottom > div > .ant-tabs-nav .ant-tabs-ink-bar {
+    height: 5px;
+}
+
+
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+
+.text{
+  text-align: start !important;
+}
+
+.textend{
+  text-align: start !important;
+}
+.imgStart{
+  display: flex;
+  justify-content: flex-start !important;
+}
+
+.imgEnd{
+  display: flex;
+  justify-content: flex-end !important;
+}
+.filter-white{
+  filter: invert(97%) sepia(92%) saturate(22%) hue-rotate(339deg) brightness(111%) contrast(96%);
+  }

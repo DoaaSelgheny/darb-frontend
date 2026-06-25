@@ -1,0 +1,10 @@
+:host ::ng-deep {
+    .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+        color: black;
+       
+    }
+    .ant-tabs-tab-btn {
+        font-weight: 600;
+        font-size: 19px;
+    }
+}

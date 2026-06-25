@@ -1,0 +1,42 @@
+<nz-card [nzTitle]="cardTitle" class="block relative w-full border-0 rounded-2xl">
+  <ng-template #cardTitle>
+    <div class="flex items-center justify-between">
+      <p class="font-extrabold text-lg">بيانات التجربة</p>
+      <div class="flex">
+        <button
+          nz-button
+          nzType="text"
+          class="w-full mb-3 md:mb-0 border border-gray-200 rounded-lg flex items-center px-4 h-[52px] md:ms-2"
+        >
+          <i class="fa-regular fa-share-nodes text-xl text-[#666666] me-1"></i>
+          <span class="text-base">مشاركة</span>
+        </button>
+      </div>
+    </div>
+  </ng-template>
+
+  <div class="flex items-center">
+    <img
+      nz-image
+      [nzDisablePreview]="true"
+      class="w-[71px] h-[71px] rounded-2xl"
+      nzSrc="assets/imgs/frame6813.png"
+      alt="travel in dessert car"
+      title="travel in dessert car"
+    />
+
+    <div class="ms-2">
+      <p class="text-base font-extrabold text-[#444]">رحلة ترفيه جبلية إلي مدينة الباحة</p>
+      <div class="flex items-center mt-4">
+        <div class="flex items-center after:w-[1px] after:mx-2 after:h-4 after:bg-gray-200">
+          <i class="fa-solid fa-location-dot text-xl text-[#FF4B3D]"></i>
+          <p class="text-base text-gray-600 ms-1">السعودية - الباحة</p>
+        </div>
+        <div class="flex items-center">
+          <i class="fa-solid fa-star text-[#FFAF44] text-xl"></i>
+          <p class="text-gray-600 text-sm ms-1">4.5</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</nz-card>

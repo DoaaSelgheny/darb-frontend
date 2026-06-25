@@ -1,0 +1,61 @@
+<nz-breadcrumb class="py-3">
+  <nz-breadcrumb-item class="cursor-pointer" routerLink="/holiday-homes"
+    >الرئيسية</nz-breadcrumb-item
+  >
+  <nz-breadcrumb-item *ngIf="false">الأشعارات</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<div>
+  <div class="my-6 flex items-center justify-between flex-col lg:flex-row">
+    <h2 class="text-2xl font-extrabold">الأشعارات</h2>
+    <div class="flex items-center flex-col lg:flex-row w-full lg:w-auto">
+      <app-field
+        class="lg:me-4 w-full my-4 lg:my-auto lg:min-w-[340px] xl:min-w-[440px]"
+        placeholder="أبحث..."
+      >
+        <span
+          nz-icon
+          class="absolute top-1/2 -translate-y-1/2 left-4 text-xl"
+          nzType="search"
+          nzTheme="outline"
+        ></span>
+      </app-field>
+      <app-date-picker
+        classes="bg-white"
+        class="w-full lg:min-w-[170px] xl:min-w-[200px]"
+      ></app-date-picker>
+    </div>
+  </div>
+
+  <nz-card [nzTitle]="cardTitle" class="block w-full border-0 rounded-2xl">
+    <ng-template #cardTitle>
+      <p class="text-lg font-extrabold">كل الأشعارات</p>
+    </ng-template>
+    <div>
+      <p class="text-gray-700 text-base px-4">اليوم</p>
+      <div class="mt-4">
+        @for (item of [1, 2, 3, 4, 5]; track $index) {
+          <app-notification-item
+            class="block border-t border-gray-200 first:border-none"
+          ></app-notification-item>
+        } @empty {
+          <nz-empty class="block w-full mx-auto"></nz-empty>
+        }
+      </div>
+      <p class="text-gray-700 text-base p-4">امس</p>
+      <div class="mt-4">
+        @for (item of [1, 2, 3, 4, 5]; track $index) {
+          <app-notification-item
+            class="block border-t border-gray-200 first:border-none"
+          ></app-notification-item>
+        } @empty {
+          <nz-empty class="block w-full mx-auto"></nz-empty>
+        }
+      </div>
+    </div>
+
+    <div class="mx-auto flex justify-center">
+      <nz-pagination [nzPageIndex]="3" [nzTotal]="9000"></nz-pagination>
+    </div>
+  </nz-card>
+</div>

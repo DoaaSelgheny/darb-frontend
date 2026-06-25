@@ -1,0 +1,108 @@
+<div class="text-lg color-[#252729] font-bold">
+  {{ '::guest:invoice.breadcrumbBookingDetails' | abpLocalization }}
+</div>
+
+<nz-breadcrumb *ngIf="isTransaction === 'false'">
+  <nz-breadcrumb-item class="cursor-pointer" routerLink="/holiday-homes">{{
+    '::Menu:Home' | abpLocalization
+  }}</nz-breadcrumb-item>
+  <nz-breadcrumb-item class="cursor-pointer" routerLink="/reservations">{{
+    '::Reservations' | abpLocalization
+  }}</nz-breadcrumb-item>
+
+  <nz-breadcrumb-item
+    >{{ '::guest:invoice.breadcrumbBookingDetails' | abpLocalization }}
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<nz-breadcrumb *ngIf="isTransaction === 'true'">
+  <nz-breadcrumb-item class="cursor-pointer" routerLink="/holiday-homes">{{
+    '::Menu:Home' | abpLocalization
+  }}</nz-breadcrumb-item>
+  <nz-breadcrumb-item class="cursor-pointer" routerLink="/financial-transactions">{{
+    '::Financialtransactions' | abpLocalization
+  }}</nz-breadcrumb-item>
+  <nz-breadcrumb-item
+    >{{ '::guest:invoice.breadcrumbBookingDetails' | abpLocalization }}
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+<div class="block items-start mt-14 justify-between">
+  <div class="w-full">
+    <app-trip-data [data]="data" [isVaction]="isVaction"></app-trip-data>
+  </div>
+  <div
+    class="grid lg:grid-cols-2 grid-cols-1 gap-12 w-full shrink-0 mt-6 lg:mt-0"
+    *ngIf="data?.summary.status === reservationStatus.Approved"
+  >
+    <div>
+      <app-guest-information
+        *ngIf="data?.summary.status === reservationStatus.Approved"
+        [data]="data"
+      ></app-guest-information>
+      <app-terms-information *ngIf="isVaction" [data]="data"></app-terms-information>
+    </div>
+
+    <app-reservation-summary [isVaction]="isVaction" [data]="data"></app-reservation-summary>
+  </div>
+
+  <div
+    class="grid lg:grid-cols-2 grid-cols-1 gap-12 w-full shrink-0 mt-6 lg:mt-0"
+    *ngIf="data?.summary.status === reservationStatus.CanceledAndRefunded"
+  >
+    <app-reservation-summary [isVaction]="isVaction" [data]="data"></app-reservation-summary>
+    <div>
+      <nz-card
+        *ngIf="data?.summary.status === reservationStatus.CanceledAndRefunded"
+        class="block relative w-full border-1 rounded-2xl border-[#E5E5E5] rounded-lg custom-card h-[100%] lg:h-[50%] md:h-[100%] sm:h-[100%]"
+      >
+        <div class="px-4 pt-3 flex items-center justify-between font-bold">
+          <p class="font-bold text-lg text-[#171717] border-0">
+            {{ '::Reasonforcancellation' | abpLocalization }}
+          </p>
+        </div>
+        <div class="px-4 flex items-center justify-between">
+          <p class="text-[#171717] text-lg">{{ data?.summary.rejectionReason }}</p>
+        </div>
+      </nz-card>
+      <app-terms-information *ngIf="isVaction" [data]="data"></app-terms-information>
+    </div>
+  </div>
+  <div
+    class="grid lg:grid-cols-2 grid-cols-1 gap-12 w-full shrink-0 mt-6 lg:mt-0"
+    *ngIf="data?.summary.status === reservationStatus.Complete"
+  >
+    <app-reservation-summary [isVaction]="isVaction" [data]="data"></app-reservation-summary>
+    <app-terms-information *ngIf="isVaction" [data]="data"></app-terms-information>
+  </div>
+</div>
+<div
+  class="flex d-flex justify-end pt-4"
+  *ngIf="data?.summary.status === reservationStatus.Complete"
+>
+  <a
+    [routerLink]="data?.summary.valueAddedTax ? ['/invoice/', data?.id, true] : ['/invoice/', data?.id, false]"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="w-auto mb-3 md:mb-0"
+  >
+    <app-button size="md" [secondaryBabyBlue]="true">
+      <div class="items-center flex justify-between">
+        <span class="text-base font-bold">{{ '::Downloadinvoice' | abpLocalization }}</span>
+        <span class="px-1"
+          ><svg
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M6.66853 8.78139L10.2445 5.20539L11.1873 6.14819L6.00186 11.3337L0.816406 6.14819L1.75922 5.20539L5.33519 8.78139V0.666992H6.66853V8.78139Z"
+              fill="#FAFAFA"
+            />
+          </svg>
+        </span>
+      </div>
+    </app-button>
+  </a>
+</div>

@@ -1,0 +1,64 @@
+trigger:
+  - develop
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - checkout: none
+  - script: |
+      sshpass -p$(PASSWORD) ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $(HOST) """
+      cd /root
+      git clone -b develop https://$(AZURE_USERNAME):$(AZURE_PASSWORD)@dev.azure.com/idigitdev/hyyak/_git/HyyakHostFE hyyak-host||\ 
+      cd ./hyyak-host && git checkout develop && git pull origin develop
+      """
+    displayName: "Clone repo"
+    env:
+      HOST: $(HOST)
+      PASSWORD: $(PASSWORD)
+      AZURE_USERNAME: $(AZURE_USERNAME)
+      AZURE_PASSWORD: $(AZURE_PASSWORD)   
+
+  - script: |
+      sshpass -p$(PASSWORD) ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $(HOST) """
+      cd /root/hyyak-host
+      docker stop hyyakhost || true
+      docker rm hyyakhost || true
+      docker rmi hyyakhost-image || true
+      """
+    displayName: "Stopping containers and removing them"
+    env:
+      HOST: $(HOST)
+      PASSWORD: $(PASSWORD)
+
+  - script: |
+      sshpass -p$(PASSWORD) ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $(HOST) """
+      cd /root/hyyak-host
+      docker build -t hyyakhost-image -f Dockerfile.local .
+      docker run -d -p 4201:80 --name=hyyakhost --hostname=hyyakhost --network=hyyak-network hyyakhost-image 
+      """
+    displayName: "Building and running new containers .."
+    env:
+      HOST: $(HOST)
+      PASSWORD: $(PASSWORD)
+    
+  - script: |
+      sshpass -p$(PASSWORD) ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $(HOST) """
+      cd /root/hyyak
+      docker compose -f docker-compose-apache2.yml down --rmi all -v
+      docker compose -f docker-compose-apache2.yml up -d
+      """
+    displayName: "Restart apache web server"
+    env:
+      HOST: $(HOST)
+      PASSWORD: $(PASSWORD)
+
+  - script: |
+      sshpass -p$(PASSWORD) ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $(HOST) """
+      docker builder prune -f
+      docker image prune -f
+      """
+    displayName: "Cleaning Docker"
+    env:
+      HOST: $(HOST)
+      PASSWORD: $(PASSWORD)

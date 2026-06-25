@@ -1,0 +1,25 @@
+<div class="w-full h-auto min-h-screen login flex justify-center items-center">
+  <div
+    class="w-[28rem] bg-white h-auto max-h-full md:w-[448px] shadow-greyBox rounded-md py-[35px] px-11"
+  >
+    <div class="flex justify-end">
+      <nz-select [(ngModel)]="lang" [nzCustomTemplate]="defaultTemplate" class="rounded-lg">
+        <nz-option nzValue="Ar" nzLabel="Ar"></nz-option>
+        <nz-option nzValue="En" nzLabel="En"></nz-option>
+        <nz-option nzValue="Zn" nzLabel="Zn"></nz-option>
+      </nz-select>
+      <ng-template #defaultTemplate let-selected>
+        <span nz-icon nzType="global" nzTheme="outline"></span>
+        {{ selected.nzLabel }}
+      </ng-template>
+    </div>
+
+    <img
+      src="assets/imgs/logo.png"
+      class="w-[100px] md:w-[100px] mx-auto block"
+      alt="Hyyak"
+      title="Hyyak"
+    />
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+
+      <p class="mt-8 text-greyBlack text-center font-bold	 text-2xl">
+        {{"::AuthServer:AccountVerification"|abpLocalization}}
+      </p>
+      <div class="flex justify-center items-center flex-col">
+
+        <p class="text-center mt-7 text-base">
+          {{"::AuthServer:SendVerificationCodeSentToNumber" | abpLocalization}}
+        </p>
+        <p class="text-center mt-3 text-base">
+          0533678588
+        </p>
+        <button id="editBtn" class="underline text-primary mt-4 ">
+          {{"::AuthServer:Edit" | abpLocalization}}
+        </button>
+      </div>
+      <div class="w-[309px] mx-auto">
+        <div class="flex flex-col mt-5">
+          <form class="form w-100" [formGroup]="form" novalidate="novalidate" id="kt_login_signin_form">
+
+            <div class="chart-place">
+              <div class="d-flex" style="direction: ltr;">
+
+                <input formControlName="char1" type="text" name="code_4" data-inputmask="'mask': '9', 'placeholder': ''"
+                  maxlength="1" class=" bg-[#FAFAFA] border-[#E5E5E5] border rounded-lg h-[60px] w-[60px] text-xl text-center mx-1 my-2" value=""
+                  inputmode="text" (keyup)="movetoNext($event)">
+
+                <input formControlName="char2" type="text" name="code_4" data-inputmask="'mask': '9', 'placeholder': ''"
+                  maxlength="1" class=" bg-[#FAFAFA] border-[#E5E5E5] border rounded-lg h-[60px] w-[60px] text-xl text-center mx-1 my-2" value=""
+                  inputmode="text" (keyup)="movetoNext($event)">
+
+                <input formControlName="char3" type="text" name="code_4" data-inputmask="'mask': '9', 'placeholder': ''"
+                  maxlength="1" class="bg-[#FAFAFA] border-[#E5E5E5] border rounded-lg h-[60px] w-[60px] text-xl text-center mx-1 my-2" value=""
+                  inputmode="text" (keyup)="movetoNext($event)">
+
+                <input formControlName="char4" type="text" name="code_4" data-inputmask="'mask': '9', 'placeholder': ''"
+                  maxlength="1" class=" bg-[#FAFAFA] border-[#E5E5E5] border rounded-lg h-[60px] w-[60px] text-xl text-center mx-1 my-2" value=""
+                  inputmode="text" (keyup)="movetoNext($event)">
+
+              </div>
+            </div>
+          </form>
+     
+          <div class="flex justify-between mt-8 w-full time-counter">
+              <div>
+                  <span>
+                {{"::AuthServer:DidntReceiveTheMessage" | abpLocalization}}
+
+                  </span>
+                  <button id="resendBtn" class="underline text-primary">
+                    {{"::AuthServer:Resend" | abpLocalization}}
+                  </button>
+              </div>
+              <p class="font-bold" id="timeSinceLastSave"></p>
+          </div>
+          <div class="flex justify-between  w-full">
+              <p>
+                {{"::AuthServer.Information.OtpLeftToRight" | abpLocalization}}
+              </p>
+          </div>
+        </div>
+      </div>
+      <app-button [routerLink]="['../register']" class="block mt-4">
+        {{ '::AuthServer:Confirm' | abpLocalization }}
+      </app-button >
+

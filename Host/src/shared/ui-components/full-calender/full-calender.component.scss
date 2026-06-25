@@ -1,0 +1,53 @@
+::ng-deep {
+
+  .fc-toolbar-chunk > div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+  .fc .fc-button-primary {
+    background-color: transparent;
+    color:#111928;
+    border-color:transparent
+  }
+  .fc-h-event {
+    border-color: transparent !important;
+    background-color: transparent;
+  }
+  .md-select nz-select-top-control, .md-select input, .lg-select nz-select-top-control, .lg-select input
+    {
+      height: 50px !important;
+    }
+    .ant-select-rtl.ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder, .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder,
+    .ant-select-rtl.ant-select-single.ant-select-show-arrow .ant-select-selection-item {
+      padding-top: 0px !important;
+  }
+  .lg-select .ant-select-selection-item {
+    line-height: 47px !important;
+  }
+  .ant-modal-title {
+    font-weight: bold;
+     text-align: center;
+   }
+  //  .ant-modal-header{
+  //   border-bottom: none;
+  //  }
+}
+.doaa {
+
+ height:95px;
+ z-index:999999;
+ width:100%;
+//  &:hover{
+//   background-color: white;
+//  }
+}
+
+
+
+
+
+
+
+

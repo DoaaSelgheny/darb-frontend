@@ -1,0 +1,23 @@
+<div *ngIf="!!label" class="flex items-start">
+  <p class="mb-2 text-base md:text-sm">{{ label }}</p>
+  <img
+    alt="required"
+    *ngIf="control && control.hasError('required')"
+    class="ms-1"
+    src="assets/authUi/icons/required.svg"
+  />
+  @if (options?.valid) {
+    <img alt="valid" class="ms-1" src="assets/authUi/icons/valid.svg" />
+  }
+  @if (options?.info) {
+    <div class="relative group">
+      <img alt="valid" class="ms-1" src="assets/authUi/icons/info.svg" />
+      <div
+        id="tooltip"
+        class="group-hover:block hidden w-[25ch] border rounded-md p-3 -translate-x-2/4 md:translate-x-0 absolute z-10 bg-white shadow-sm"
+      >
+        {{ options.info }}
+      </div>
+    </div>
+  }
+</div>

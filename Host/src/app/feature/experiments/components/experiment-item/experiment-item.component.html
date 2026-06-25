@@ -1,0 +1,219 @@
+<div class="rounded-t-md overflow-hidden">
+  <div class="h-36 w-full relative">
+    <!-- <img class="w-full h-full" src="assets/host/imgs/item.png" /> -->
+    <img
+      class="w-full h-full"
+      [nzDisablePreview]="true"
+      nz-image
+      [nzSrc]="experience.experience?.primaryImage"
+      nzFallback="/assets/host/imgs/emptyHome.png"
+    />
+    <div class=" ">
+      <button
+        nz-button
+        nz-dropdown
+        [nzDropdownMenu]="menu"
+        nzTrigger="click"
+        class="top-2 rtl:left-2 ltr:right-2 w-7 border-0 h-7 p-0 bg-white opacity-60 leading-none backdrop-blur rounded-full absolute"
+      >
+        <i class="fa-solid fa-ellipsis-vertical text-secondary"></i>
+        <nz-dropdown-menu #menu="nzDropdownMenu" class="w-[143px]">
+          <ul nz-menu>
+            @if (experience?.experience?.experienceStatus !== homeStatusEnum.UnderReview) {
+            <li
+              nz-menu-item
+
+              [routerLink]="['/experiments/experiment-add-edit', experience?.experience?.id]"
+            >
+              <div class="py-1 flex justify-between">
+                {{ '::homeHoliday:search:edit' | abpLocalization }}
+                <i class="fa-regular fa-pen-to-square  ms-1 me-3 text-[#55565E]"></i>
+        
+              </div>
+            </li>
+          }
+
+            <li
+              nz-menu-item
+              *ngIf="experience?.experience?.experienceStatus !== homeStatusEnum.UnComplete"
+            >
+              <div
+                class="py-1 flex justify-between items-center"
+                [routerLink]="['/experiments/view-experiment', experience?.experience?.id]"
+              >
+                {{ '::homeHoliday:search:view' | abpLocalization }}
+                     <i class="fa-regular fa-eye ms-1 me-3 text-[#55565E]"></i>
+              </div>
+            </li>
+            @if (
+              experience?.experience?.experienceStatus === homeStatusEnum.Rejected ||
+              (experience?.experience?.experienceStatus ===
+                homeStatusEnum.WaitingModificationToCompleted &&
+                experience?.experience?.rejectionReason != null &&
+                experience?.experience?.rejectionReason != '')
+            ) {
+              <li
+                nz-menu-item
+                class="border border-t border-b-0 border-[#D6DCE8]"
+                (click)="openRejectReason(experience?.experience?.rejectionReason)"
+              >
+                <div class="py-1 flex justify-between items-center">
+                  {{ '::homeHoliday:search:rejectReason' | abpLocalization }}
+                  <i class="fa-regular fa-circle-xmark me-3 text-[#55565E]"></i>
+                </div>
+              </li>
+            }
+            <!-- @switch ( experience?.experience?.experienceStatus) {
+
+              @case (homeStatusEnum.Rejected) {
+              <li nz-menu-item class="border border-t border-b-0 border-[#D6DCE8]"
+                (click)="openRejectReason(experience?.experience?.rejectionReason)">
+                <div class="py-1 flex justify-between items-center">
+                  {{"::homeHoliday:search:rejectReason" |abpLocalization}}
+                  <i class="fa-regular fa-circle-xmark me-3 text-[#55565E]"></i>
+                </div>
+              </li>
+              }
+              } -->
+            <!-- <li nz-menu-item class="border border-t border-b-0 border-[#D6DCE8]">
+              <div class="py-1">
+                <i class="fa-light fa-toggle-on me-2 text-[#55565E]"></i>
+                تفعيل
+              </div>
+            </li>
+            <li nz-menu-item class="border border-t border-b-0 border-[#D6DCE8]">
+              <div class="py-1">
+                <i class="fa-light fa-repeat me-2 text-[#55565E]"></i>
+                تكرار التجربة
+              </div>
+            </li>
+            <li
+              nz-menu-item
+              class="border border-t border-b-0 border-[#D6DCE8]"
+              (click)="delete(experience?.experience?.id)"
+            >
+              <div class="py-1">
+                <i class="fa-light fa-trash ms-1 me-3 text-[#55565E]"></i>
+                حذف
+              </div>
+            </li> -->
+          </ul>
+        </nz-dropdown-menu>
+      </button>
+    </div>
+  </div>
+
+  <div class="rounded-b-md">
+    <p class="text-[#3B82F6] text-base mt-1 font-bold">{{ experience?.experience?.name }}</p>
+    <p class="text-[#A7AEB5] text-sm mt-1">
+      {{ '::Guest:Explore:experienceid' | abpLocalization }} :
+      {{ experience?.experience?.serialNumber }}
+    </p>
+    <div class="mt-3 grid grid-cols-2 gap-2">
+      <div class="flex items-center justify-center flex-col bg-greyBg py-2 rounded-md">
+        @switch (experience?.experience?.experienceStatus) {
+          @case (homeStatusEnum.UnderReview) {
+            <img src="/assets/host/imgs/holiday-homes/reviewIcon.svg" />
+            <p class="mt-2 text-[#737373] px-4 text-center">
+              {{ '::homeHoliday:search:underRevision' | abpLocalization }}
+            </p>
+          }
+          @case (homeStatusEnum.Rejected) {
+            <img src="/assets/host/imgs/holiday-homes/rejectIcon.svg" />
+            <p class="mt-2 text-[#737373] px-4 text-center">
+              {{ '::homeHoliday:search:rejected' | abpLocalization }}
+            </p>
+          }
+          @case (homeStatusEnum.Published) {
+            <img src="/assets/host/imgs/holiday-homes/publishIcon.svg" />
+            <p class="mt-2 text-[#737373] px-4 text-center">
+              {{ '::homeHoliday:search:published' | abpLocalization }}
+            </p>
+          }
+          <!-- @case (homeStatusEnum.) {
+            <img src="/assets/imgs/holiday-homes/publishIcon.svg" >
+            <p class="mt-2 text-[#737373] px-4 text-center">{{'::homeHoliday:search:published' | abpLocalization}}</p>
+          } -->
+          @case (homeStatusEnum.UnComplete) {
+            <img src="/assets/host/imgs/holiday-homes/uncompletedIcon.svg" />
+            <p class="mt-2 text-[#737373] px-4 text-center">
+              {{ '::homeHoliday:search:unpublished' | abpLocalization }}
+            </p>
+          }
+          @case (homeStatusEnum.WaitingModificationToCompleted) {
+            <img src="/assets/host/imgs/holiday-homes/editIcon.svg" />
+            <p class="mt-2 text-[#737373] px-4 text-center">
+              {{ '::homeHoliday:search:inwaitEdit' | abpLocalization }}
+            </p>
+          }
+        }
+      </div>
+      <div class="flex items-center justify-center flex-col bg-greyBg py-2 rounded-md">
+        <span class=" text-2xl text-[#FFC62A]" nz-icon nzType="star" nzTheme="fill"></span>
+        <span class="mt-2 text-[#737373]">{{experience.ratingsAverage | number: '1.1-1'}}/10</span>
+      </div>
+    </div>
+    <div class="grid grid-cols-2 gap-2 mt-5 items-baseline">
+      <p>
+        <span class="text-[#39393CE3] font-extrabold text-[23px]">
+          {{ experience?.numberOfConfirmedReservations }}</span
+        >
+        <span class="text-[#737373] text-[10px]">/{{ '::nightPrice' | abpLocalization }}</span>
+      </p>
+      <div class="flex justify-end">
+        <nz-form-label class="text-[11px] me-2">{{
+          '::homeHoliday:search:publishStatus' | abpLocalization
+        }}</nz-form-label>
+
+        <nz-switch
+          [nzId]="experience?.experience?.id"
+          class="w-[31px]"
+          [(ngModel)]="publishStatus"
+          (ngModelChange)="statusPublish = $event; isVisiblePublish = true"
+        ></nz-switch>
+      </div>
+    </div>
+  </div>
+</div>
+<!--POPUP Publish -->
+<app-confrontation-popup
+  [visible]="isVisiblePublish"
+  (cancel)="isVisiblePublish = false;
+    publishStatus=!publishStatus"
+  title="  {{
+    {
+      key: '::Host:VacationHome:Popup:PublishToggle:Title',
+    } | abpLocalization
+  }}"
+  description="  {{
+    {
+      key: '::Host:VacationHome:Popup:PublishToggle:Description',
+    } | abpLocalization
+  }}"
+>
+  <div buttons class="flex items-center flex-col w-full px-10">
+    <app-button
+      size="md"
+      class="block mb-6 w-full"
+      (click)="handleSwitchChange(statusPublish, experience?.experience?.id)"
+    >
+      {{
+        {
+          key: '::General:Confirm',
+        } | abpLocalization
+      }}
+    </app-button>
+    <app-button
+      class="w-full"
+      (click)="isVisiblePublish = false; publishStatus = !publishStatus"
+      size="md"
+      [outline]="true"
+    >
+      {{
+        {
+          key: '::General:Cancel',
+        } | abpLocalization
+      }}
+    </app-button>
+  </div>
+</app-confrontation-popup>

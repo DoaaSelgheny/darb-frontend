@@ -1,0 +1,797 @@
+<div class="text-lg color-[#252729] font-bold">
+  {{ '::Host:Verification:HeaderVerify' | abpLocalization }}
+</div>
+<nz-breadcrumb class="pb-4">
+  <nz-breadcrumb-item class="cursor-pointer" routerLink="/holiday-homes">
+    {{ '::Menu:Home' | abpLocalization }}
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>{{ '::Menu:Verification' | abpLocalization }}</nz-breadcrumb-item>
+</nz-breadcrumb>
+<section class="mb-4"></section>
+
+<nz-card [formGroup]="form" class="block w-full border-0 rounded-2xl">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-4">
+    <h4 class="text-lg text-dark font-extrabold border-0">
+      {{
+        { key: '::Host:Verification:VerificationHeaderIdentity', defaultValue: 'التحقق من الهوية' }
+          | abpLocalization
+      }}
+    </h4>
+    @if (form.value.status == accountVerificationStatus.Approved) {
+      <app-alert [type]="alertType.SUCCESS">
+        {{
+          {
+            key: '::Host:Verification:Alert:Success',
+            defaultValue: 'تمت الموافقة على طلب توثيق الحساب',
+          } | abpLocalization
+        }}
+      </app-alert>
+    }
+
+    @if (form.value.status == accountVerificationStatus.Reject) {
+      <app-alert
+        [type]="alertType.ERROR"
+        [tootTipTitle]="
+          {
+            key: '::Host:Verification:Tooltip:Danger',
+            defaultValue: 'الرجاء إعادة رفع المتطلبات الصحيحة',
+          } | abpLocalization
+        "
+      >
+        {{
+          {
+            key: '::Host:Verification:Alert:Danger',
+            defaultValue: 'تم رفض التوثيق ، الرجاء التحقق من سبب الرفض',
+          } | abpLocalization
+        }}</app-alert
+      >
+    }
+    @if (form.value.status == accountVerificationStatus.UnderStudy) {
+      <app-alert
+        [type]="alertType.WARNING"
+        [tootTipTitle]="
+          { key: '::Host:Verification:Tooltip:Warning', defaultValue: 'بياناتك تحت المراجعه' }
+            | abpLocalization
+        "
+      >
+        {{
+          { key: '::Host:Verification:Alert:Warning', defaultValue: 'بياناتك تحت المراجعه' }
+            | abpLocalization
+        }}
+      </app-alert>
+    }
+  </div>
+  <section class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-9 mt-3">
+    <div>
+      <app-field
+        [placeholder]="
+          { key: '::Host:Verification:Placeholder:Id', defaultValue: 'ادخل رقم الهوية الوطنية' }
+            | abpLocalization
+        "
+        [readonly]="
+          form.value.status === accountVerificationStatus.UnderStudy || form.value.isYakeenVerified
+        "
+        [control]="form | getControl: 'saudiID'"
+        formControlName="saudiID"
+        [maxlength]="10"
+        [label]="
+          { key: '::Host:Verification:Id', defaultValue: 'رقم الهوية الوطنية' } | abpLocalization
+        "
+      ></app-field>
+      <ng-container> </ng-container>
+    </div>
+    <app-date-picker
+      [disabled]="
+        form.value.status === accountVerificationStatus.UnderStudy || form.value.isYakeenVerified
+      "
+      [disabledDate]="disabledDate"
+      [nzDefaultValue]="startDate"
+      [showToday]="false"
+      formControlName="dateOfBirth"
+      [control]="form | getControl: 'dateOfBirth'"
+      [placeholder]="
+        { key: '::Host:Verification:Placeholder:BirthDate', defaultValue: 'ادخل تاريخ الميلاد' }
+          | abpLocalization
+      "
+      [label]="{ key: '::Host:Profile:BirthDate', defaultValue: 'تاريخ الميلاد' } | abpLocalization"
+    ></app-date-picker>
+    <app-field
+      [readonly]="true"
+      formControlName="accountHolder"
+      [placeholder]="
+        { key: '::Host:Verification:Placeholder:FullName', defaultValue: 'ادخل اسم صاحب الحساب' }
+          | abpLocalization
+      "
+      [label]="
+        { key: '::Host:Verification:FullName', defaultValue: 'اسم صاحب الحساب الثلاثي' }
+          | abpLocalization
+      "
+    ></app-field>
+    <app-button
+      *ngIf="!form.value.isYakeenVerified"
+      [disabled]="
+        form.get('saudiID').invalid ||
+        form.get('dateOfBirth').invalid ||
+        form.value.isYakeenVerified ||
+        form.value.status === accountVerificationStatus.UnderStudy
+      "
+      (click)="verify()"
+      [outline]="true"
+      secondary="true"
+      [nzLoading]="verifyLoading"
+      class="mt-8 ms-5 w-[120px]"
+      style="word-break: break-all"
+      >{{
+        { key: '::Host:Verification:Verify', defaultValue: 'تحقق' } | abpLocalization
+      }}</app-button
+    >
+    @if (form.value.isYakeenVerified === true) {
+      <p class="flex verfiy items-center mt-8 font-bold text-[rgba(34, 197, 94, 1)]">
+        <svg
+          width="16"
+          height="9"
+          viewBox="0 0 16 9"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M7.73463 6.17327L8.67596 7.1146L14.3196 1.47087L15.2625 2.41368L8.67596 9.0002L4.43329 4.75753L5.3761 3.81474L6.79263 5.23127L7.73463 6.17327ZM7.73576 4.28814L11.0375 0.986328L11.9777 1.92651L8.67596 5.22827L7.73576 4.28814ZM5.85128 8.0582L4.90927 9.0002L0.666626 4.75753L1.60943 3.81474L2.55145 4.7568L2.55065 4.75753L5.85128 8.0582Z"
+            fill="#22C55E"
+          />
+        </svg>
+
+        <span class="text-[rgba(34, 197, 94, 1)]">{{
+          { key: '::Host:Verification:Verified', defaultValue: 'تم التحقق' } | abpLocalization
+        }}</span>
+      </p>
+    }
+    <!-- @if (form.value.isYakeenVerified === false) {
+          <p class="flex verfiy items-center mt-5 font-bold text-[#ED3024]">
+            <span class="me-2" nz-icon nzType="close" nzTheme="outline"></span>
+            <span>{{
+              { key: '::Host:Verification:NotVerified', defaultValue: 'رفض التحقق' }
+                | abpLocalization
+            }}</span>
+          </p>
+        }  -->
+  </section>
+  <h4 class="py-6 text-lg text-dark font-bold mt-20">
+    {{
+      { key: '::Host:Verification:BankAccountData', defaultValue: 'بيانات الحساب البنكي' }
+        | abpLocalization
+    }}
+  </h4>
+  <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-9 gap-y-4 mt-3">
+    <div>
+      <app-field-label
+        [label]="
+          {
+            key: '::Host:Verification:IbanUpload',
+            defaultValue: '(PDF,JPG,JPEG) (IBAN) رفع شهادة ',
+          } | abpLocalization
+        "
+        [control]="form | getControl: 'attachedSaudiID'"
+        formControlName="attachedSaudiID"
+      ></app-field-label>
+      <app-upload
+        [fileList]="saudiIDFile"
+        [isShowUploadList]="true"
+        [readOnly]="
+          form.value.status === accountVerificationStatus.UnderStudy || !form.value.isYakeenVerified
+        "
+        [uploadAction]="uploadPDFUrl"
+        [accept]="'application/pdf, image/jpeg, image/jpg,image/png'"
+        (handleChange)="iPanFile($event)"
+        [sizeMB]="2"
+        label=""
+        class="border border-dashed h-auto border-gray-300 block rounded-lg"
+      >
+        <ng-container uploadState> </ng-container>
+        <div
+          class="flex items-center justify-between px-4 text-secondary"
+          [ngClass]="{
+            '!text-gray-300':
+              !form.value.isYakeenVerified ||
+              form.value.status === accountVerificationStatus.UnderStudy,
+          }"
+        >
+          <div class="flex items-center">
+            <svg
+              width="12"
+              height="14"
+              viewBox="0 0 12 14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8 1.66683H1.33333V12.3335H10.6667V4.3335H8V1.66683ZM0 0.994696C0 0.629529 0.298327 0.333496 0.665667 0.333496H8.66667L11.9998 3.66683L12 12.9952C12 13.3661 11.7034 13.6668 11.3377 13.6668H0.662267C0.296507 13.6668 0 13.3633 0 13.0056V0.994696ZM6.66667 7.00016V9.66683H5.33333V7.00016H3.33333L6 4.3335L8.66667 7.00016H6.66667Z"
+                fill="#404040"
+              />
+            </svg>
+            <p>
+              {{
+                { key: '::Host:Verification:Browse', defaultValue: 'تصفح ملفاتك' } | abpLocalization
+              }}
+            </p>
+          </div>
+
+          <span nz-icon nzType="cloud-upload" class="text-lg" nzTheme="outline"></span>
+        </div>
+      </app-upload>
+      <app-validation
+        [control]="form | getControl: 'attachedSaudiID'"
+        [message]="'Validation.'"
+      ></app-validation>
+      <div
+        class="flex justify-end mt-2"
+        *ngIf="saudiIDFile.length > 0 && form.value.status !== accountVerificationStatus.UnderStudy"
+      >
+        <button nz-button nzType="default" (click)="downloadFile(saudiIDFile[0])">
+          {{ { key: '::Host:Verification:Download', defaultValue: 'تحميل' } | abpLocalization }}
+          <span nz-icon nzType="download" class="ml-2"></span>
+        </button>
+      </div>
+    </div>
+    <div>
+      <app-field
+        [readonly]="
+          form.value.status === accountVerificationStatus.UnderStudy || !form.value.isYakeenVerified
+        "
+        formControlName="ibanNumber"
+        maxlength="24"
+        [placeholder]="
+          {
+            key: '::Host:Verification:Placeholder:IbanNumber',
+            defaultValue: 'SA0380000000608010167519',
+          } | abpLocalization
+        "
+        [label]="
+          { key: '::Host:Verification:IbanNumber', defaultValue: 'رقم الايبان' } | abpLocalization
+        "
+        [control]="form | getControl: 'ibanNumber'"
+        [suppressValidationWithMessage]="{
+          pattern: 'ibanValidation',
+        }"
+      ></app-field>
+    </div>
+
+    <app-field
+      [readonly]="
+        form.value.status === accountVerificationStatus.UnderStudy ||
+        !form.value.isYakeenVerified ||
+        !form.get('ibanNumber').invalid
+      "
+      [control]="form | getControl: 'accountNumber'"
+      formControlName="accountNumber"
+      [placeholder]="
+        {
+          key: '::Host:Verification:Placeholder:AccountNumber',
+          defaultValue:
+            '0000608010167519
+',
+        } | abpLocalization
+      "
+      [label]="
+        { key: '::Host:Verification:AccountNumber', defaultValue: 'رقم الحساب البنكي' }
+          | abpLocalization
+      "
+    ></app-field>
+
+    <div>
+      <app-field-label
+        [label]="{ key: '::Host:Verification:Bank', defaultValue: 'إسم البنك' } | abpLocalization"
+        [control]="form | getControl: 'bankName'"
+      ></app-field-label>
+      <nz-select
+        [nzDisabled]="
+          !form.value.isYakeenVerified ||
+          form.value.status === accountVerificationStatus.UnderStudy ||
+          !form.value.isYakeenVerified
+        "
+        [nzPlaceHolder]="
+          { key: '::Host:Verification:Placeholder:Bank', defaultValue: ' إسم البنك' }
+            | abpLocalization
+        "
+        class="w-full rounded-md xl-select"
+        nzAllowClear
+        formControlName="bankName"
+      >
+        @if (lang == 'ar') {
+          @for (item of bankData; track $index) {
+            <nz-option [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+          }
+        }
+        @if (lang == 'en') {
+          @for (item of bankDataEn; track $index) {
+            <nz-option [nzValue]="item.value" [nzLabel]="item.labelEn"></nz-option>
+          }
+        }
+        <!-- else{
+        @for (item of bankDataEn; track $index) {
+        <nz-option [nzValue]="item.value" [nzLabel]="item.labelEn"></nz-option>
+        }
+      }  -->
+      </nz-select>
+      <app-validation [control]="form | getControl: 'bankName'"></app-validation>
+    </div>
+  </section>
+  <!-- <h4 class="py-5 mt-8 text-lg text-dark font-bold ">
+    {{
+      { key: '::verfyTitle', defaultValue: 'ترخيص وزارة السياحة' }
+        | abpLocalization
+    }}
+  </h4> -->
+
+  <h4 class="py-3 mt-8 text-lg text-dark font-bold mt-20">
+    {{
+      { key: '::Host:Verification:MinistryOfTourismLicense', defaultValue: 'ترخيص وزارة السياحة' }
+        | abpLocalization
+    }}
+  </h4>
+  <p class="text-[#737373] font-bold text-sm pb-3">
+    {{ { key: '::verify'} | abpLocalization }}
+  </p>
+  <!-----Ministry Tourism Verification-->
+  <div cass="w-full mt-4">
+    <app-field-label
+      label="  {{
+        {
+          key: '::verify:chooseType',
+        } | abpLocalization
+      }}"
+      [control]="form | getControl: 'tourismVerificationType'"
+    ></app-field-label>
+    <nz-radio-group  [nzDisabled]="isVerifiedTourism" formControlName="tourismVerificationType" class="mt-2 flex flex-col"
+    (ngModelChange)="changetourismVerificationType($event)">
+      <label nz-radio [nzValue]="ministryTourismVerificationTypeEnum.PermitNumber" class="mb-2">{{
+        '::verify:personType' | abpLocalization
+      }}</label>
+      <label nz-radio [nzValue]="ministryTourismVerificationTypeEnum.LicenseNumber">{{
+        '::verify:companyType' | abpLocalization
+      }}</label>
+    </nz-radio-group>
+  </div>
+  <!------ Individual Verfication ------->
+  @if (form.value.tourismVerificationType == ministryTourismVerificationTypeEnum.PermitNumber) {
+    <div class="lg:w-2/4 w-full mt-11 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <app-field
+        [readonly]="
+          form.value.status === accountVerificationStatus.UnderStudy ||
+          form.value.isVerifiedMinistryTourism === true
+        "
+
+        [control]="form | getControl: 'permitNumber'"
+        formControlName="permitNumber"
+        [placeholder]="
+          { key: '::Host:Verification:permitNumber', defaultValue: 'Permit number' }
+            | abpLocalization
+        "
+        [label]="
+          { key: '::Host:Verification:permitNumber', defaultValue: 'Permit number' }
+            | abpLocalization
+        "
+      ></app-field>
+      <app-button
+        *ngIf="!form.value.isVerifiedMinistryTourism"
+        [disabled]="
+          !form.value.isYakeenVerified ||
+          form.value.status === accountVerificationStatus.UnderStudy ||
+          form.value.permitNumber === null
+        "
+        (click)="VerifiedMinistryTourism()"
+        [outline]="true"
+        secondary="true"
+        [nzLoading]="verifyLoading"
+        class="mt-8 ms-5 w-[120px]"
+        >{{
+          { key: '::Host:Verification:Verify', defaultValue: 'تحقق' } | abpLocalization
+        }}</app-button
+      >
+      @if (form.value.isVerifiedMinistryTourism === true) {
+        <p class="flex verfiy items-center mt-8 font-bold text-[rgba(34, 197, 94, 1)]">
+          <svg
+            width="16"
+            height="9"
+            viewBox="0 0 16 9"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.73463 6.17327L8.67596 7.1146L14.3196 1.47087L15.2625 2.41368L8.67596 9.0002L4.43329 4.75753L5.3761 3.81474L6.79263 5.23127L7.73463 6.17327ZM7.73576 4.28814L11.0375 0.986328L11.9777 1.92651L8.67596 5.22827L7.73576 4.28814ZM5.85128 8.0582L4.90927 9.0002L0.666626 4.75753L1.60943 3.81474L2.55145 4.7568L2.55065 4.75753L5.85128 8.0582Z"
+              fill="#22C55E"
+            />
+          </svg>
+
+          <span class="text-[rgba(34, 197, 94, 1)]">{{
+            { key: '::Host:Verification:Verified', defaultValue: 'تم التحقق' } | abpLocalization
+          }}</span>
+        </p>
+      }
+    </div>
+  }@else {
+    <!-------- Company Verification -------------->
+    <div class="lg:w-3/4 w-full mt-11 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+      <app-field
+        [readonly]="
+        form.value.status === accountVerificationStatus.UnderStudy ||
+        form.value.isVerifiedMinistryTourism === true
+      "
+        [control]="form | getControl: 'commercialRegister'"
+        formControlName="commercialRegister"
+        [placeholder]="{ key: '::verify:commercialRegister' } | abpLocalization"
+        [label]="{ key: '::verify:commercialRegister' } | abpLocalization"
+        [maxlength]="10"
+        [minlength]="10"
+        [suppressValidationWithMessage]="{
+          minlength: 'verify:commercialRegister:Validation:MinLengh',
+          maxlength: 'verify:commercialRegister:Validation:MaxLengh'
+        }"
+        [keypressValidation]="vaidationTypeEnum.numberOnly "
+      ></app-field>
+      <app-field
+        [readonly]="
+          form.value.status === accountVerificationStatus.UnderStudy ||
+          form.value.isVerifiedMinistryTourism === true
+        "
+        [control]="form | getControl: 'licenseNumber'"
+        formControlName="licenseNumber"
+        [placeholder]="{ key: '::verify:licenseNumber' } | abpLocalization"
+        [label]="{ key: '::verify:licenseNumber' } | abpLocalization"
+        [maxlength]="8"
+        [minlength]="8"
+        [suppressValidationWithMessage]="{
+          minlength: 'verify:licenseNumber:Validation:MinLengh',
+          maxlength: 'verify:licenseNumber:Validation:MaxLengh'
+        }"
+        [keypressValidation]="vaidationTypeEnum.numberOnly "
+      ></app-field>
+      <app-button
+        *ngIf="!form.value.isVerifiedMinistryTourism"
+        [disabled]="
+          form.value.status === accountVerificationStatus.UnderStudy ||
+          form.value.commercialRegister === null ||
+          form.value.licenseNumber === null
+        "
+        (click)="VerifiedMinistryTourism()"
+        [outline]="true"
+        secondary="true"
+        [nzLoading]="verifyLoading"
+        class="mt-8 w-[120px]"
+        >{{
+          { key: '::Host:Verification:Verify', defaultValue: 'تحقق' } | abpLocalization
+        }}</app-button
+      >
+      @if (form.value.isVerifiedMinistryTourism === true) {
+        <p class="flex verfiy items-center mt-8 font-bold text-[rgba(34, 197, 94, 1)]">
+          <svg
+            width="16"
+            height="9"
+            viewBox="0 0 16 9"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.73463 6.17327L8.67596 7.1146L14.3196 1.47087L15.2625 2.41368L8.67596 9.0002L4.43329 4.75753L5.3761 3.81474L6.79263 5.23127L7.73463 6.17327ZM7.73576 4.28814L11.0375 0.986328L11.9777 1.92651L8.67596 5.22827L7.73576 4.28814ZM5.85128 8.0582L4.90927 9.0002L0.666626 4.75753L1.60943 3.81474L2.55145 4.7568L2.55065 4.75753L5.85128 8.0582Z"
+              fill="#22C55E"
+            />
+          </svg>
+
+          <span class="text-[rgba(34, 197, 94, 1)]">{{
+            { key: '::Host:Verification:Verified', defaultValue: 'تم التحقق' } | abpLocalization
+          }}</span>
+        </p>
+      }
+    </div>
+    <!-------- Tax Number ------------>
+    <div class="flex items-baseline flex-row mt-4">
+
+      <label nz-checkbox  [(ngModel)]="isTaxNumber"
+      [ngModelOptions]="{standalone: true}" (ngModelChange)="updateIsTax($event)"
+      [disabled]="form.value.status === accountVerificationStatus.UnderStudy">
+        {{"::verify:isTaxNumber" |abpLocalization}}
+      </label>
+      <span
+        nz-icon
+        nzType="info-circle"
+        nz-tooltip
+        nzTooltipColor="#fff"
+        nzTooltipTitle="
+          {{ '::verify:taxDesc' | abpLocalization }}
+        "
+        class="text-black mx-2"
+        nzTheme="outline"
+        [nzTooltipArrowPointAtCenter]="true"
+      ></span>
+    </div>
+    <p class="text-[#737373] font-bold text-sm my-2">{{"::verify:taxHint"| abpLocalization}}</p>
+    @if(isTaxNumber){
+      <div class="lg:w-2/4 w-full mt-3 ">
+
+        <app-field
+        class="mt-2"
+        [control]="form | getControl: 'taxRegistrationNumber'"
+        [readonly]="form.value.status === accountVerificationStatus.UnderStudy"
+        formControlName="taxRegistrationNumber"
+        [placeholder]="
+          {
+            key: '::verify:taxNumberPlaceholder'
+          } | abpLocalization
+        "
+        [label]="
+          { key: '::verify:taxNumber' }
+            | abpLocalization
+        "
+        [maxlength]="15"
+        [keypressValidation]="vaidationTypeEnum.numberOnly "
+        [suppressValidationWithMessage]="{
+          pattern: '::verification:tax' | abpLocalization,
+        }"
+      ></app-field>
+      </div>
+    }
+
+  }
+  <div class="mt-7 border-t flex justify-end pt-8 pb-2 border-[#F1F3F9]">
+    <app-button
+
+      (click)="createOrUpdate()"
+      class="min-w-[93px]"
+    >
+      {{ { key: '::Host:Verification:Send', defaultValue: 'ارسال' } | abpLocalization }}
+    </app-button>
+  </div>
+</nz-card>
+
+<app-confrontation-popup
+  [visible]="isVisibleMasg"
+  (cancel)="isVisibleMasg = false"
+  [title]="
+    { key: '::Host:Verification:SendConfirmation', defaultValue: 'هل انت متاكد من الارسال' }
+      | abpLocalization
+  "
+  [description]="
+    {
+      key: '::Host:Verification:Description:SendConfirmation',
+      defaultValue: 'هل انت متاكد من إرسال بيانات التوثيق',
+    } | abpLocalization
+  "
+>
+  <div buttons class="flex items-center flex-col w-full px-10">
+    <app-button size="md" class="block mb-6 w-full" (click)="createOrUpdate()"> تاكيد </app-button>
+    <app-button class="w-full" (click)="isVisibleMasg = false" size="md" [outline]="true">
+      {{ { key: '::Host:Verification:Cancel', defaultValue: 'الغاء' } | abpLocalization }}
+    </app-button>
+  </div>
+</app-confrontation-popup>
+
+<app-confrontation-popup
+  [visible]="isVisibleAsDraftSuccess"
+  (cancel)="isVisibleAsDraftSuccess = false"
+  [confrontationType]="confrontationTypesEnum.success"
+  [title]="
+    {
+      key: '::Host:Verification:Draft',
+      defaultValue: 'تم الحفظ كمسودة',
+    } | abpLocalization
+  "
+>
+  <div buttons class="w-full">
+    <div class="flex justify-center">
+      <app-button size="md" class="block mb-6 px-6 w-full" routerLink="/holiday-homes">
+        <div class="flex items-center justify-center">
+          <p>
+            {{
+              {
+                key: '::Host:Verification:SaveAndExit',
+                defaultValue: 'حفظ و خروج',
+              } | abpLocalization
+            }}
+          </p>
+          <span nz-icon nzType="arrow-up" class="ms-2 -rotate-45" nzTheme="outline"></span>
+        </div>
+      </app-button>
+    </div>
+  </div>
+</app-confrontation-popup>
+
+<app-confrontation-popup
+  [visible]="isVisibleSuccess"
+  (cancel)="isVisibleSuccess = false;"
+  [confrontationType]="confrontationTypesEnum.success"
+  [title]="
+    {
+      key: '::Host:Verification:DataConfirmed',
+      defaultValue:
+        'تم ارسال بيانات التوثيق بنجاح
+سنقوم بالرد عليك خلال 24 ساعة
+لتقوم بنشر خدماتك لدى حياك',
+    } | abpLocalization
+  "
+>
+  <div buttons class="w-full">
+    <div class="flex justify-center">
+      <app-button size="md" class="block mb-6 px-6 w-full" routerLink="/holiday-homes">
+        <div class="flex items-center justify-center">
+          <p>
+            {{
+              {
+                key: '::Host:Verification:MoveToMainPage',
+                defaultValue: 'الإنتقال إلي الصفحة الرئيسية',
+              } | abpLocalization
+            }}
+          </p>
+          <span nz-icon nzType="arrow-up" class="ms-2 -rotate-45" nzTheme="outline"></span>
+        </div>
+      </app-button>
+    </div>
+  </div>
+</app-confrontation-popup>
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  [nzClassName]="'custom-model'"
+  [nzFooter]="null"
+  (nzOnCancel)="isVisible = false"
+>
+  <ng-container *nzModalContent>
+    <section class="max-h-[600px] overflow-auto relative px-2 mt-8" style="scrollbar-width: thin">
+      <p style="text-align: right">
+        @if (lang == 'en') {
+          Terms & Conditions
+          <br />
+          <br />
+          To fully utilize the platform's services, guests must complete the required information
+          accurately.
+          <br />
+          This ensures that service providers can identify their guests, and services can be
+          delivered safely and securely for both parties.
+          <br />
+          The information required includes:
+          <br /><br />
+          A correct name A valid email address A confirmed phone number Agreement to the terms and
+          conditions Payment information
+          <br /><br />
+          Sensitive information of the guest will not be disclosed to the service provider until a
+          booking request is made.
+          <br /><br />
+          To protect the guest from fraud or scams, the payment will not be transferred to the
+          service provider's account until the guest has received the full service.
+          <br /><br />
+          For Service Providers: To use the platform's services, service providers must complete the
+          required information accurately.
+          <br /><br />
+          This ensures that information is obtained safely and securely.
+          <br /><br />
+          The information required includes:
+          <br /><br />
+          Full name A valid email address A confirmed phone number A valid ID for individuals / a
+          valid commercial registration for companies and institutions Agreement to the terms and
+          conditions Payment information To ensure the provision of outstanding, comfortable, and
+          safe services to guests, the service provider must meet the following basic requirements:
+          <br /><br />
+          Eligibility: The service provider/experience provider must be over 18 years old, have the
+          legal right to establish a legal obligation, and possess all necessary valid documents.
+          <br /><br />
+          Responsiveness: Maintain a high response rate by replying to booking inquiries and
+          requests within 24 hours.
+
+          <br /><br />
+          Accepting Booking Requests: Make guests feel welcome by accepting requests whenever you
+          are available, and be sure to update the booking status regularly.
+
+          <br /><br />
+          Avoiding Cancellations: We take cancellations seriously and ask all hosts to avoid
+          canceling guest bookings, as their travel plans depend on it.
+
+          <br /><br />
+          In cases requiring cancellation, the guest must be notified at least 72 hours in advance.
+          Maintaining a High Overall Rating: Guests want to ensure they receive a consistent level
+          of quality, regardless of where they book.
+
+          <br /><br />
+          Accommodations that do not maintain a good rating will be given a grace period to correct
+          the situation, and if the rating continues to decline, they will be removed from the
+          platform.
+
+          <br /><br />
+          Providing Basic Amenities: We strongly encourage service providers to provide basic
+          amenities, pay attention to quality, and adhere to standards, as this will increase the
+          chances of guests booking their services.
+
+          <br /><br />
+          Complying with Safety and Security Regulations: The service provider must comply with the
+          security and safety regulations approved by the relevant authorities, inspect them, and
+          ensure their readiness regularly.
+
+          <br /><br />
+          The platform is not liable for any claims resulting from negligence of this requirement.
+
+          <br /><br />
+          Ensuring Quality and Professionalism in the Provided Service: The service provider must
+          deliver the service in the best way by paying attention to all service details to ensure a
+          great, unique, and exceptional experience for the guest.
+
+          <br /><br />
+          At Hayak platform, we are here to help you if you need advice and guidance to achieve
+          this, which contributes to increasing your sales and the booking rate of your services
+          through the platform. Do not hesitate to contact our team at any time using the contact
+          details on our website.
+
+          <br /><br />
+          Honesty and Reliability: The service provider commits to clarifying all details and
+          information that the guest needs to know before arrival and that are related to the
+          service truthfully, without falsification, using incorrect or unavailable information.
+
+          <br /><br />
+          They also commit that all information provided is accurate and correct.
+        }
+        @if (lang == 'ar') {
+          ليتمكن الضيف من إستخدام خدمات المنصة بشكل كامل يتوجب عليه استكمال المعلومات المطلوبة بشكل
+          صحيح حتى يتعرف مزود الخدمة من معرفة ضيوفهم وحتى يتم الحصول على الخدمات بشكل آمن ومضمون
+          للطرفين . تتضمن المعلومات الاتي :<br />الاسم صحيح<br />عنوان بريد الكتروني صحيح<br />رقم
+          هاتف مؤكد<br />الموافقة على الشروط والأحكام<br />بيانات الدفع<br />لن يتم إظهار المعلومات
+          الحساسة الخاصة بالضيف مزود الخدمة إلا بعد تقديم طلب الحجز , ولحماية الضيف من عمليات النصب
+          أو الاحتيال لن يتم تحويل المبلغ المالي لحساب مزود الخدمة إلا بعد حصول الضيف على الخدمة
+          كاملة .<br />لـ مزودي الخدمات :<br />ليتمكن مزود الخدمة من استخدام خدمات المنصه يتوجب عليه
+          استكمال المعلومات المطلوبه بشكل صحيح حتى يتمكن من الحصول على المعلومات بشكل آمن وسليم.<br />تضمن
+          المعلومات الاتي :<br />الاسم بالكامل<br />عنوان بريد الكتروني صحيح<br />رقم هاتف مؤكد<br />هوية
+          صحيحة للأفراد \ سجل تجاري ساري المفعول للشركات والمؤسسات<br />الموافقة على الشروط
+          والأحكام<br />بيانات الدفع<br />ولضمان تقديم خدمات مميزة ومريحة وآمنة للضيوف يتوجب على
+          مزود الخدمة إتمام المتطلبات الأساسية والتي تتضمن الاتي :<br />الأهلية : أن يكون مزود
+          الخدمة / مقدم التجربة أكبر من 18 سنة ويملك الحق الشرعي لإنشاء إلتزام قانوني ويملك كافة
+          الوثائق الضرورية سارية المفعول .<br />سرعة الاستجابة: الحفاظ على معدل استجابة عالٍ بالرد
+          على استفسارات الحجز وطلبات الحجز في غضون 24 ساعة .<br />قبول طلبات الحجز: اجعل الضيوف
+          يشعرون بالترحاب بقبول الطلبات كلما كنت متاحًا , وضرورة الاهتمام بالتحديث المستمر بحالة
+          الحجز .<br />تجنُب الإلغاءات : نتعامل مع الإلغاءات على محمل الجد ونطلب من جميع المضيفين
+          تجنب إلغاء حجوزات الضيوف حيث تعتمد خطط سفرهم عليها, وفي حال حدوث أسباب تستدعي الإلغاء
+          يتوجب إشعار الضيف بذلك في مدة لا تقل عن 72 ساعة .<br />الحفاظ على تقييم عام عالٍ: يرغب
+          الضيوف في التأكد من حصولهم على مستوى ثابت من الجودة، بغض النظر عن مكان الحجز.<br />سوف
+          تعطى المساكن التي لاتقيم بشكل جيد مهله لمعالجة الوضع ، وعند استمرار انخفاض التقييم تلغى من
+          المنصه.<br />توفير الميزات الأساسية : نشجع \مزودي الخدمة بشدة على توفير الميّزات الأساسية
+          والإهتمام بالجودة والالتزام بالمعايير , لتزيد فرص إقبال الضيوف على حجز خدماتهم .<br />مراعاة
+          شروط الأمن والسلامة : يلتزم مزود الخدمة بلوائح الامن والسلامه المعتمده من قبل الجهات
+          المختصه وفحصها والتأكد من جاهزيتها بشكل دوري ولايلحق المنصه اي مطالبات نتيجة اهمال هذا
+          الشرط<br />مراعاة الجودة والإحترافية في الخدمة المقدمة : يلتزم مزود الخدمة بأن يقدم الخدمة
+          بأفضل الأشكال من خلال الإهتمام بكل تفاصيل الخدمة لضمان تحقيق تجربة رائعة ومميزة وفريدة
+          للضيف . ونحن في منصة حياك نساعدك في حال إحتياجك للنصائح والإرشاد لتحقيق ذلك مما يسهم في
+          زيادة مبيعاتك وزيادة معدل حجز وشراء خدماتك عبر المنصة . فلا تتردد في التواصل مع فريقنا في
+          أي وقت من خلال بيانات التواصل الموجودة على موقعنا الالكتروني .<br />الصدق والموثوقية :
+          يلتزم \مقدم الخدمة بتوضيح كافة التفاصيل والمعلومات التي لابد للضيف معرفتها قبل وصوله
+          والمرتبطة بالخدمة بصدق بعيداً عن التزييف أو استخدام معلومات غير صحيحة أو غير متوفرة .
+          والتعهد بأن جميع المعلومات دقيقة وصحيحة .
+        }
+      </p>
+
+      <app-button
+        size="md"
+        (click)="isVisible = false"
+        [outline]="true"
+        class="sticky bottom-0 block py-6 px-6 bg-white"
+      >
+        {{ '::Host:Verification:Closed' | abpLocalization }}
+      </app-button>
+    </section>
+  </ng-container>
+</nz-modal>
+
+<app-confrontation-popup
+  [visible]="isVisibleSuccessCheck"
+  (cancel)="isVisibleSuccessCheck = false"
+  [confrontationType]="confrontationTypesEnum.success"
+  title="{{
+    { key: '::guest:Profile:AuthenticatedSuccessfully', defaultValue: 'تم التوثيق بنجاح' }
+      | abpLocalization
+  }}"
+>
+  <div buttons>
+    <div class="flex justify-center">
+      <app-button size="md" class="block mb-6 px-6" (click)="isVisibleSuccessCheck = false">
+        <div class="flex items-center justify-center">
+          <p class="px-12">
+            {{ { key: '::guest:Profile:Close', defaultValue: 'إغلاق' } | abpLocalization }}
+          </p>
+        </div>
+      </app-button>
+    </div>
+  </div>
+</app-confrontation-popup>

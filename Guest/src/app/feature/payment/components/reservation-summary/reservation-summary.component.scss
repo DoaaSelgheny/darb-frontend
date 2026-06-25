@@ -1,0 +1,7 @@
+::ng-deep {
+  .custom-card {
+    .ant-card-body {
+      @apply px-4 pb-4;
+    }
+  }
+}

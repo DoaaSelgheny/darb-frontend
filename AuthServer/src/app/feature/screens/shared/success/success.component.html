@@ -1,0 +1,27 @@
+
+<form id="form" method="post">
+    <section class="fixed inset-0 flex justify-center items-center z-50 w-max-[100vw] min-h-[100vh] div-backGround ">
+        <div class="bg-white rounded-2xl w-[37rem]" style="padding:20px 50px">
+            <div class="flex justify-center items-center ">
+                <img src="assets/authUi/imgs/logo.png" width="85px" style="border-right:1px solid #E5E5E5;padding-inline:10px" />
+                <img src="assets/authUi/imgs/success.svg" width="85px" style="padding-inline:10px" />
+            </div>
+            <p class="font-bold text-dark text-lg mb-6 text-center mx-auto mt-8">
+                {{ '::AuthServer:Success' | abpLocalization }}
+            </p>
+            <p class="mx-auto text-dark text-center">
+                {{ '::AuthServer:SuccessMessageGuest' | abpLocalization }}
+            </p>
+            <div class="flex justify-center mt-[3.5625rem]">
+                <button (click)="goToRedirectURL()" class="border-primary h-14 text-white active:border-primary active:bg-primary after:bg-primary hover:bg-primary focus:border-primary focus:bg-primary bg-primary w-full mx-auto rounded-md block">
+                 
+                    {{ '::AuthServer:GoToHomePage' | abpLocalization }}
+               
+                </button>
+            </div>
+        </div>
+    </section>
+</form>
+
+
+

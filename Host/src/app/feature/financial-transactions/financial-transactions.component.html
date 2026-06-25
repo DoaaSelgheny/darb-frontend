@@ -1,0 +1,239 @@
+<div class="text-lg color-[#252729] font-bold">{{ '::Financialtransactions' | abpLocalization }}</div>
+<nz-breadcrumb>
+  <nz-breadcrumb-item class="cursor-pointer" routerLink="/holiday-homes">{{
+    '::Menu:Home' | abpLocalization
+  }}</nz-breadcrumb-item>
+  <nz-breadcrumb-item>{{ '::Financialtransactions' | abpLocalization }}</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div
+  class="flex  md:w-auto xl:flex-row flex-col w-full md:flex-row sm:flex-col lg:my-10 my-5  xl:items-center"
+>
+<div class="ms-2 mt-2   w-[230px] h-[88px] p-[29px] rounded-2xl"
+[ngClass]="{'block-totalTransfers': lang==='en',
+      'block-totalTransfersAr':lang==='ar'
+    }"
+>
+<p class="text-[#122466] font-bold text-base">{{'::Total' |abpLocalization}}</p>
+<!-- <p >{{totalTransfers}} {{'::guest:header.currency' |abpLocalization}}</p> -->
+<div style="direction: rtl;" class="flex flex-row" >
+
+  <p class="text-[#262626] font-bold text-base"> {{totalTransfers}}  </p>
+  <img class="mx-2" src="assets/host/icons/riyal-black.svg" alt="riyal">
+</div>
+</div>
+  <div  [ngClass]="{'block-upcomingTransfers': lang==='en',
+  'block-upcomingTransfersAr':lang==='ar'
+}" class="ms-2 mt-2  w-[230px] h-[88px] p-[29px] rounded-2xl" >
+    <p class="text-[#122466] font-bold text-base">{{'::TotalUpcomingTransfers' |abpLocalization}}</p>
+    <!-- <p class="text-[#262626] font-bold text-base">{{upcomingTransfers}} {{'::guest:header.currency' |abpLocalization}}</p> -->
+    <div style="direction: rtl;" class="flex flex-row" >
+
+      <p class="text-[#262626] font-bold text-base"> {{upcomingTransfers}}  </p>
+      <img class="mx-2" src="assets/host/icons/riyal-black.svg" alt="riyal">
+    </div>
+  </div>
+  <div  [ngClass]="{'block-upcomingTransfers': lang==='en',
+  'block-upcomingTransfersAr':lang==='ar'
+}" class="ms-2 mt-2  w-[230px] h-[88px] p-[29px] p-[29px] rounded-2xl" >
+    <p class="text-[#122466] font-bold text-base">{{'::TotalCompletedTransfers' |abpLocalization}}</p>
+    <!-- <p class="text-[#262626] font-bold text-base">{{executedTransfers}} {{'::guest:header.currency' |abpLocalization}}</p> -->
+    <div style="direction: rtl;" class="flex flex-row" >
+
+      <p class="text-[#262626] font-bold text-base"> {{executedTransfers}}  </p>
+      <img class="mx-2" src="assets/host/icons/riyal-black.svg" alt="riyal">
+    </div>
+  </div>
+  <!-- <button nz-button (click)="export()" nzType="text" class="flex mt-4 lg:mt-0 px-0 items-center">
+    <svg
+      width="24"
+      height="24"
+      class="me-1"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M14.2906 17.2904L13.0006 18.5904V13.0004C13.0006 12.7352 12.8953 12.4808 12.7077 12.2933C12.5202 12.1057 12.2658 12.0004 12.0006 12.0004C11.7354 12.0004 11.4811 12.1057 11.2935 12.2933C11.106 12.4808 11.0006 12.7352 11.0006 13.0004V18.5904L9.71062 17.2904C9.61738 17.1971 9.50669 17.1232 9.38487 17.0727C9.26305 17.0223 9.13248 16.9963 9.00062 16.9963C8.86876 16.9963 8.73819 17.0223 8.61637 17.0727C8.49455 17.1232 8.38386 17.1971 8.29062 17.2904C8.19738 17.3836 8.12342 17.4943 8.07296 17.6161C8.0225 17.738 7.99653 17.8685 7.99653 18.0004C7.99653 18.1322 8.0225 18.2628 8.07296 18.3846C8.12342 18.5065 8.19738 18.6171 8.29062 18.7104L11.2906 21.7104C11.3857 21.8014 11.4979 21.8728 11.6206 21.9204C11.7403 21.9733 11.8698 22.0006 12.0006 22.0006C12.1315 22.0006 12.2609 21.9733 12.3806 21.9204C12.5034 21.8728 12.6155 21.8014 12.7106 21.7104L15.7106 18.7104C15.8989 18.5221 16.0047 18.2667 16.0047 18.0004C16.0047 17.7341 15.8989 17.4787 15.7106 17.2904C15.5223 17.1021 15.2669 16.9963 15.0006 16.9963C14.7343 16.9963 14.4789 17.1021 14.2906 17.2904ZM18.4206 6.22038C17.8096 4.81639 16.7551 3.65146 15.4187 2.90411C14.0823 2.15676 12.5377 1.86822 11.0216 2.08269C9.5055 2.29717 8.10155 3.00284 7.02488 4.09156C5.94821 5.18028 5.25821 6.592 5.06062 8.11038C4.10721 8.33871 3.27084 8.90922 2.71036 9.71357C2.14988 10.5179 1.90431 11.5001 2.02029 12.4736C2.13627 13.4471 2.60572 14.3441 3.33949 14.9942C4.07326 15.6444 5.02025 16.0024 6.00062 16.0004C6.26584 16.0004 6.52019 15.895 6.70773 15.7075C6.89527 15.52 7.00062 15.2656 7.00062 15.0004C7.00062 14.7352 6.89527 14.4808 6.70773 14.2933C6.52019 14.1057 6.26584 14.0004 6.00062 14.0004C5.47019 14.0004 4.96148 13.7897 4.58641 13.4146C4.21134 13.0395 4.00062 12.5308 4.00062 12.0004C4.00062 11.47 4.21134 10.9612 4.58641 10.5862C4.96148 10.2111 5.47019 10.0004 6.00062 10.0004C6.26584 10.0004 6.52019 9.89503 6.70773 9.70749C6.89527 9.51995 7.00062 9.2656 7.00062 9.00038C7.00318 7.81766 7.42491 6.67414 8.19089 5.77297C8.95688 4.8718 10.0175 4.27133 11.1844 4.07826C12.3512 3.88518 13.5488 4.11199 14.5642 4.71839C15.5796 5.32479 16.3472 6.27152 16.7306 7.39038C16.7878 7.56222 16.8905 7.71531 17.0279 7.83332C17.1653 7.95132 17.3321 8.0298 17.5106 8.06038C18.1767 8.18625 18.7805 8.53399 19.2236 9.04692C19.6668 9.55985 19.9232 10.2077 19.951 10.885C19.9789 11.5623 19.7765 12.2291 19.3769 12.7766C18.9774 13.3242 18.4041 13.7203 17.7506 13.9004C17.6232 13.9332 17.5036 13.9908 17.3984 14.0699C17.2933 14.149 17.2048 14.248 17.138 14.3613C17.0711 14.4746 17.0272 14.5999 17.0088 14.7302C16.9904 14.8604 16.9978 14.993 17.0306 15.1204C17.0635 15.2478 17.1211 15.3674 17.2001 15.4726C17.2792 15.5777 17.3782 15.6662 17.4915 15.7331C17.6048 15.7999 17.7301 15.8438 17.8604 15.8622C17.9906 15.8806 18.1232 15.8732 18.2506 15.8404C19.303 15.5623 20.2359 14.9484 20.9076 14.0918C21.5794 13.2353 21.9532 12.183 21.9725 11.0947C21.9917 10.0063 21.6552 8.94143 21.0142 8.0617C20.3731 7.18198 19.4625 6.53548 18.4206 6.22038Z"
+        fill="#222222"
+      />
+    </svg>
+    <p class="text-base font-bold">{{ '::ExportAllReservations' | abpLocalization }}</p>
+  </button>
+  <div class="flex flex-col lg:flex-row lg:items-center shrink-0">
+    <nz-select
+      [(ngModel)]="selectedStatus"
+      (ngModelChange)="changeFilter()"
+      nzPlaceHolder="{{ '::ReservationsStatusType' | abpLocalization }}"
+      class="min-w-[173px] mt-4 lg:mt-0 flex-1 xl:flex-none lg:ms-4 rounded-md lg-select"
+    >
+      <nz-option
+        [nzLabel]="'::experience:search:all' | abpLocalization"
+        [nzValue]="null"
+      ></nz-option>
+      <nz-option
+        *ngFor="let s of reservationStatus"
+        [nzLabel]="s.displayName"
+        [nzValue]="s.id"
+      ></nz-option>
+    </nz-select>
+    <app-field
+      [(ngModel)]="filterText"
+      (changeInputValue)="changeFilter()"
+      class="lg:ms-2 mt-4 lg:mt-0 w-full lg:w-[509px]"
+      placeholder="{{ '::searchbyReservation' | abpLocalization }}"
+    >
+      <div class="text-lg absolute rtl:left-3 ltr:right-3 top-1/2 -translate-y-1/2">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M17.6113 16.2966L17.3298 16.6476L17.6493 16.9644L21.3549 20.6401C21.4431 20.7329 21.4924 20.8562 21.4924 20.9844C21.4924 21.113 21.4428 21.2366 21.3541 21.3296C21.3081 21.3754 21.2536 21.4118 21.1937 21.4368C21.1327 21.4621 21.0674 21.4752 21.0014 21.4752C20.9354 21.4752 20.87 21.4621 20.8091 21.4368C20.7482 21.4114 20.6929 21.3742 20.6464 21.3273L20.6449 21.3259L16.9649 17.6459L16.6481 17.329L16.2985 17.6094C14.6027 18.9695 12.4502 19.6281 10.2837 19.4499C8.1171 19.2717 6.10117 18.2702 4.65037 16.6512C3.19958 15.0323 2.42419 12.9191 2.48365 10.746C2.54312 8.57296 3.43291 6.50527 4.97006 4.96811C6.50722 3.43095 8.57491 2.54116 10.748 2.4817C12.921 2.42224 15.0343 3.19762 16.6532 4.64842C18.2721 6.09922 19.2737 8.11515 19.4519 10.2817C19.6301 12.4483 18.9714 14.6008 17.6113 16.2966ZM6.83459 17.2354C8.06796 18.0595 9.51801 18.4994 11.0014 18.4994C12.9905 18.4994 14.8981 17.7092 16.3047 16.3027C17.7112 14.8962 18.5014 12.9885 18.5014 10.9994C18.5014 9.51606 18.0615 8.06601 17.2374 6.83264C16.4133 5.59927 15.2419 4.63798 13.8715 4.07032C12.501 3.50266 10.993 3.35414 9.53819 3.64353C8.08333 3.93292 6.74696 4.64722 5.69807 5.69612C4.64917 6.74501 3.93487 8.08138 3.64548 9.53624C3.35609 10.9911 3.50462 12.4991 4.07227 13.8695C4.63993 15.24 5.60122 16.4113 6.83459 17.2354Z"
+            fill="black"
+            stroke="#666666"
+          />
+        </svg>
+      </div>
+    </app-field>
+  </div> -->
+</div>
+<div class="w-full overflow-x-auto bg-white">
+  <nz-table class="tabel-custom" [nzData]="transactions" [nzFrontPagination]="false">
+    <thead>
+      <tr class="bg-secondary">
+        <th
+        class="text-center"
+          *ngFor="let column of listOfColumn"
+          [nzSortFn]="column?.compare"
+          [nzSortPriority]="column.priority"
+        >
+          {{ column.title }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of transactions">
+
+        <td>
+          {{
+            data.reservationType === reservationType.VacationHome
+              ? data?.vacationHomeName
+              : data?.experienceName
+          }}
+        </td>
+        <td>#{{ data?.reservationNumber }}</td>
+        <td >
+          <!-- {{ data?.revenue }}
+          {{'::guest:header.currency' |abpLocalization}} -->
+          <div class="flex items-center justify-center">
+
+            <div style="direction: rtl;" class="flex flex-row" >
+
+              <p class="text-[#262626] font-bold text-base"> {{data?.revenue}}  </p>
+              <img class="mx-2" src="assets/host/icons/riyal-black.svg" alt="riyal">
+            </div>
+          </div>
+        </td>
+
+        <td>
+          {{ data?.actionDate | shortDate }}
+        </td>
+        <td *ngIf="data?.transferExecutionDate!==null">
+          {{ data?.transferExecutionDate | shortDate }}
+        </td>
+        <td *ngIf="data?.transferExecutionDate===null">
+          {{ '::Inprogress'|abpLocalization}}
+        </td>
+        <td>
+          <div class="flex items-center" *ngIf="data?.transferStatus === 0">
+            <span class="w-[15px] h-[15px] rounded-full me-1.5 bg-[#FB923C]"> </span>
+            <p class="text-[#FB923C] font-normal text-sm">
+              {{ '::Enum:TransferStatus.' + data?.transferStatus | abpLocalization }}
+            </p>
+          </div>
+          <div class="flex items-center" *ngIf="data?.transferStatus === 1">
+
+            <span class="w-[15px] h-[15px] rounded-full me-1.5 bg-[#3B82F6]"> </span>
+            <p class="text-[#3B82F6] font-normal text-sm">
+              {{ '::Enum:TransferStatus.' + data?.transferStatus | abpLocalization }}
+            </p>
+          </div>
+          <div class="flex items-center" *ngIf="data?.transferStatus === 2">
+            <span class="w-[15px] h-[15px] rounded-full me-1.5 bg-[#00AF6C]"> </span>
+            <p class="text-[#00AF6C] font-normal text-sm">
+              {{ '::Enum:TransferStatus.' + data?.transferStatus | abpLocalization }}
+            </p>
+          </div>
+          <div class="flex items-center" *ngIf="data?.transferStatus === 3">
+            <span class="w-[15px] h-[15px] rounded-full me-1.5 bg-[#ED3024]"> </span>
+            <p class="text-[#ED3024] font-normal text-sm">
+              {{ '::Enum:TransferStatus.' + data?.transferStatus | abpLocalization }}
+            </p>
+          </div>
+        </td>
+        <td>
+          <button
+          *ngIf="data?.transferStatus === 3"
+          nz-button
+          nz-dropdown
+          [nzDropdownMenu]="menu"
+          nzTrigger="click"
+          class="top-2 w-7 border-0 h-7 p-0 bg-white opacity-60 leading-none backdrop-blur rounded-full absolute"
+        >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 10C3.9 10 3 10.9 3 12C3 13.1 3.9 14 5 14C6.1 14 7 13.1 7 12C7 10.9 6.1 10 5 10ZM19 10C17.9 10 17 10.9 17 12C17 13.1 17.9 14 19 14C20.1 14 21 13.1 21 12C21 10.9 20.1 10 19 10ZM12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10Z" fill="#404040"/>
+          </svg>
+
+          <nz-dropdown-menu #menu="nzDropdownMenu"  class="w-[143px]">
+            <ul nz-menu>
+
+              <li nz-menu-item >
+                <div class="py-1 flex justify-between items-center"
+            (click)="goToDetails(data.id,data.reservationType,true)"
+
+                >
+                  {{ '::Bookingdetails' | abpLocalization }}
+                  <i class="fa-light fa-eye ms-1 me-3 text-[#55565E]"></i>
+                </div>
+              </li>
+
+              <li
+              nz-menu-item
+              class="border border-t border-b-0 border-[#D6DCE8]"
+              (click)="openRejectReason(data?.transferFailureReason)"
+            >
+              <div class="py-1 flex justify-between items-center">
+                {{ '::ReasonforTransferFailure' | abpLocalization }}
+                <i class="fa-regular fa-circle-xmark me-3 text-[#55565E]"></i>
+              </div>
+            </li>
+
+
+            </ul>
+          </nz-dropdown-menu>
+        </button>
+          <nz-tag
+          *ngIf="data?.transferStatus !== 3"
+            role="button"
+            (click)="goToDetails(data.id,data.reservationType,true)"
+
+            class="bg-[#60A5FA] rounded-lg text-center text-white border-0 !mr-2 w-auto h-[40px] flex items-center justify-center"
+          >
+            {{ '::Bookingdetails' | abpLocalization }}</nz-tag
+          >
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+<div class="mx-auto mt-12 flex justify-center">
+  <nz-pagination
+    [nzPageIndex]="currentPage"
+    [nzTotal]="totalCount"
+    [nzPageSize]="itemsPerPage"
+    (nzPageIndexChange)="getTransaction($event)"
+  ></nz-pagination>
+</div>

@@ -1,0 +1,202 @@
+<nz-card [nzTitle]="cardTitle" class="block relative w-full border-0 rounded-2xl custom-card">
+
+  <ng-template #cardTitle>
+    <p class="font-extrabold text-lg">{{"::Guest:Explore:payment:paymentDetails" |abpLocalization}}</p>
+  </ng-template>
+  <div class="flex items-center mb-3">
+    @if(type === 'experience'){
+    <img [src]="experience?.experience?.primaryImage" alt="img" class="w-[71px] rounded-lg">
+    }@else {
+
+      <img [src]="vacationHome.vacationHome.primaryImage" alt="img" class="w-[71px] rounded-lg">
+    }
+    <div class="flex  flex-col mx-2">
+      <div class="flex flex-row items-center justify-between">
+        <p class="text-[#171717] font-extrabold text-base  me-4">
+          {{type === 'experience' ? experience.experience.name : vacationHome?.vacationHome?.name }}
+        </p>
+        <p class=" flex items-center flex-row mx-1">
+        
+  <img src="assets/imgs/details/img26.svg" alt="img">
+
+          <span class="mx-1 text-xs text-[#666666]">
+            {{type === 'experience' ? (experience.ratingsAverage | number: '1.1-1') : (vacationHome.ratingsAverage  | number: '1.1-1')}} / 
+            {{type === 'experience' ? experience.ratingsCount : vacationHome.ratingsCount}} 
+            {{'::guest:explore:rating:rate' |abpLocalization}}
+          </span>
+            
+        </p>
+      </div>
+      <p class=" text-[#737373]  text-xs mt-2 mx-1 flex flex-row"> 
+       
+  <img src="assets/imgs/details/img27.svg" alt="img">
+
+        <span class="mx-2">
+
+          {{type === 'experience' ? experience?.city?.name : vacationHome?.city?.name}} 
+          <span class="mx-1">/</span> {{"::Guest:Explore:district" | abpLocalization}}
+           {{type === 'experience' ? experience?.district?.name :vacationHome?.district?.name}}
+        </span>
+      </p>
+        
+    </div>
+  </div>
+  @if(type === 'experience'){
+    <div class="p-4 flex items-center justify-between font-bold odd:bg-white even:bg-[#F8F8F8]">
+      <p>{{"::Guest:Explore:price:ExperienceDate" |abpLocalization}} </p>
+      <p>{{ paymentData.date | date: 'dd/MM/yyyy' }}</p>
+    </div>
+    <div class="p-4 flex items-center justify-between font-bold odd:bg-white even:bg-[#F8F8F8]">
+      <p>{{"::Guest:Explore:price:ExperienceTime" |abpLocalization}} </p>
+      <p>{{  paymentData.checkInTime | timeFormat }} : {{paymentData.checkOutTime | timeFormat}}</p>
+    </div>
+  }@else {
+    <div class="p-4 flex items-center justify-between font-bold odd:bg-white even:bg-[#F8F8F8]">
+      <p>{{"::Guest:Explore:price:CheckInDate" |abpLocalization}} </p>
+      <p>{{ dateFrom | date: 'dd/MM/yyyy' }}</p>
+    </div>
+    <div class="p-4 flex items-center justify-between font-bold odd:bg-white even:bg-[#F8F8F8]">
+      <p>{{"::Guest:Explore:price:CheckOutDate" |abpLocalization}} </p>
+      <p>{{ dateTo | date: 'dd/MM/yyyy' }}</p>
+    </div>
+  }
+ 
+  
+  <div class="border rounded-lg p-4 mt-3">
+    <div class="mt-1 flex justify-between">
+      <!-- <p class=" text-sm">
+        @if(type === 'experience'){
+        <span class="font-bold">
+          {{ pricingDetails?.numberOfPerson }} {{"::Guest:Explore:persons" |abpLocalization}}
+        </span>
+          &#10006; {{ pricingDetails?.pricePerPerson }} {{"::Guset:Explore:sar" |abpLocalization}}
+        }@else {
+        <span class="font-bold">{{ payment?.numberOfNights }} {{"::Guset:Explore:nights" |abpLocalization}}</span>
+          &#10006; {{ payment?.pricePerNight }} {{"::Guset:Explore:sar" |abpLocalization}}
+        }
+      </p> -->
+      <div class="text-sm flex flex-row">
+        @if(type === 'experience'){
+        <span class="font-bold">
+          {{ pricingDetails?.numberOfPerson }} {{"::Guest:Explore:persons" |abpLocalization}} 
+        </span> 
+        &#10006; 
+        <div style="direction: rtl;" class="flex">
+          <p class="font-normal text-dark text-sm">{{ pricingDetails?.pricePerPerson }} </p>
+          <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+        </div>
+      }@else {
+        <span class="font-bold">
+          {{ payment?.numberOfNights }} {{"::Guset:Explore:nights" |abpLocalization}}
+        </span> 
+        &#10006; 
+        <div style="direction: rtl;" class="flex">
+          <p class="font-normal text-dark text-sm"> {{ payment?.pricePerNight }}</p>
+          <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+        </div>
+      }
+      </div>
+      <!-- <p class="font-normal text-dark text-sm">
+        {{ type === 'experience' ? pricingDetails?.netPrice: payment?.subTotalPrice }}
+         {{"::Guset:Explore:sar" |abpLocalization}}
+        </p> -->
+        <div class="flex flex-row" style="direction: rtl;">
+          <p class="font-normal text-dark text-sm">    {{ type === 'experience' ? pricingDetails?.netPrice: payment?.subTotalPrice }} </p>
+          <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+        </div>
+    </div>
+    @if(type === 'experience' && pricingDetails?.valueAddedTax !== 0){
+
+      <div class="mt-4 flex justify-between">
+        <p class="font-bold text-sm text-gray-600">{{'::Host:taxValue'|abpLocalization}}</p>
+        <!-- <p class="text-dark font-normal text-sm">
+          {{ pricingDetails?.valueAddedTax}} 
+          {{'::guest:header.currency' |abpLocalization}}
+        </p> -->
+        <div class="flex flex-row" style="direction: rtl;">
+          <p class="font-normal text-dark text-sm">     {{ pricingDetails?.valueAddedTax}} </p>
+          <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+        </div>
+      </div>
+    }
+    @if(type !== 'experience' && payment?.valueAddedTax !== 0){
+
+      <div class="mt-4 flex justify-between">
+        <p class="font-bold text-sm text-gray-600">{{'::Host:taxValue'|abpLocalization}}</p>
+        <!-- <p class="text-dark font-normal text-sm">
+          {{ payment?.valueAddedTax}} 
+          {{'::guest:header.currency' |abpLocalization}}
+        </p> -->
+        <div class="flex flex-row" style="direction: rtl;">
+          <p class="font-normal text-dark text-sm">      {{ payment?.valueAddedTax}}  </p>
+          <img class="mx-2 w-[13px]" src="assets/imgs/riyal-black.svg" alt="riyal">
+        </div>
+      </div>
+    }
+  @if(type === 'experience' && pricingDetails?.serviceFeesIncludesTax !== 0){
+
+    <div class="mt-4 flex justify-between">
+      <p class="font-bold text-sm text-gray-600">{{"::Guest:Explore:price:tax" |abpLocalization}} </p>
+      <!-- <p class="text-dark font-normal text-sm">
+        {{  pricingDetails?.serviceFeesIncludesTax  }} 
+        {{"::Guset:Explore:sar" |abpLocalization}}
+      </p> -->
+      <div class="flex flex-row" style="direction: rtl;">
+        <p class="font-normal text-dark text-sm"> {{  pricingDetails?.serviceFeesIncludesTax  }}</p>
+        <img class="mx-2 w-[13px]" src="assets/imgs/riyal-black.svg" alt="riyal">
+      </div>
+    </div>
+  }
+  @if(type !== 'experience' && payment?.serviceFeeIncludeTax !== 0){
+
+    <div class="mt-4 flex justify-between">
+      <p class="font-bold text-sm text-gray-600">{{"::Guest:Explore:price:tax" |abpLocalization}} </p>
+      <!-- <p class="text-dark font-normal text-sm">
+        {{  payment?.serviceFeeIncludeTax }} 
+        {{"::Guset:Explore:sar" |abpLocalization}}
+      </p> -->
+      <div class="flex flex-row" style="direction: rtl;">
+        <p class="font-normal text-dark text-sm">   {{  payment?.serviceFeeIncludeTax }} </p>
+        <img class="mx-2 w-[13px]" src="assets/imgs/riyal-black.svg" alt="riyal">
+      </div>
+    </div>
+  }
+    <nz-divider class="my-4"></nz-divider>
+    <div>
+      <div class="flex justify-between">
+        <p class="font-bold text-dark text-base">{{"::Guest:Explore:price:total" |abpLocalization}}</p>
+        <!-- <p class="font-bold text-dark text-base">
+          {{  type === 'experience' ? pricingDetails?.totalPrice : payment?.totalPrice }}
+           {{"::Guset:Explore:sar" |abpLocalization}}
+          </p> -->
+          <div class="flex flex-row" style="direction: rtl;">
+            <p class="font-bold text-dark text-base">   {{  type === 'experience' ? pricingDetails?.totalPrice : payment?.totalPrice }}</p>
+            <img class="mx-2 w-[13px]" src="assets/imgs/riyal-black.svg" alt="riyal">
+          </div>
+      </div>
+      @if(type === 'vacation-home' && payment?.payNow !== payment?.totalPrice){
+
+        <div class="flex justify-between mt-3">
+          <p class=" text-dark text-base">{{"::Guest:Explore:price:payNow" |abpLocalization}}</p>
+          <!-- <p class=" text-dark text-base">
+            {{ payment?.payNow }} {{"::Guset:Explore:sar" |abpLocalization}}</p> -->
+            <div class="flex flex-row" style="direction: rtl;">
+              <p class=" text-dark text-base">   {{ payment?.payNow }}</p>
+              <img class="mx-2 w-[13px]" src="assets/imgs/riyal-black.svg" alt="riyal">
+            </div>
+        </div>
+      }
+    </div>
+  </div>
+  @if(type === 'vacation-home' && payment?.payNow !== payment?.totalPrice){
+  <!-- <p class="text-sm mt-1 text-[#3A3A3A]">
+    {{"::Guest:Explore:payment:hint1" |abpLocalization}} ({{payment?.payNow}} 
+    {{"::Guset:Explore:sar" |abpLocalization}}) {{"::Guest:Explore:payment:hint2" |abpLocalization}}</p> -->
+    <div class="flex flex-row" style="direction: rtl;">
+      <p class="text-sm mt-1 text-[#3A3A3A]">    {{"::Guest:Explore:payment:hint1" |abpLocalization}} {{payment?.payNow}} </p>
+      <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+      <p class="text-sm mt-1 text-[#3A3A3A]">    {{"::Guest:Explore:payment:hint2" |abpLocalization}} </p>
+
+    </div>
+  }
+</nz-card>

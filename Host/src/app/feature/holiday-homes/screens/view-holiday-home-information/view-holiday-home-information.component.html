@@ -1,0 +1,541 @@
+<!-- <header class="header">
+  <h1 class="header-title">
+    {{ '::Host:VacationHome:Step10:Header:Title' | abpLocalization }}
+  </h1>
+</header> -->
+<section class="info-section">
+  <h2 class="section-title">
+    {{ '::Host:VacationHome:Step1:Header:Info' | abpLocalization }}
+  </h2>
+  <div class="details-grid">
+    <app-info-item
+      label="{{ '::Host:VacationHome:Step1:VacationName' | abpLocalization }}"
+      value="{{ vacationHome?.vacationHome?.name }}"
+    ></app-info-item>
+    <app-info-item
+      label="{{ '::Host:VacationHome:Step1:VacationType' | abpLocalization }}"
+      value="{{ vacationHome?.vacationHomeType?.arName }}"
+    ></app-info-item>
+  </div>
+</section>
+
+<section class="info-section">
+  <h2 class="section-title">
+    {{ '::Host:VacationHome:Step02:Header:Info' | abpLocalization }}
+  </h2>
+  <div class="grid grid-cols-5 gap-3">
+    <app-info-item
+      class="col-span-2"
+      label="{{ '::Host:VacationHome:Step02:region' | abpLocalization }}"
+      value="{{ language === 'ar' ? vacationHome?.region.nameAr : vacationHome?.region.nameEn }}"
+    ></app-info-item>
+    <app-info-item
+      class="col-span-1"
+      label="{{ '::Host:VacationHome:Step02:City' | abpLocalization }}"
+      value="{{ vacationHome?.city?.name }}"
+    ></app-info-item>
+    <app-info-item
+      class="col-span-1"
+      label="{{ '::Host:VacationHome:Step02:District' | abpLocalization }}"
+      value="{{ vacationHome?.district?.name }}"
+    ></app-info-item>
+    <app-info-item
+      class="col-span-1"
+      label="{{ '::Host:VacationHome:Step02:street' | abpLocalization }}"
+      value="{{ vacationHome?.vacationHome.street }}"
+    ></app-info-item>
+  </div>
+
+  <div class="grid grid-cols-5 gap-3 mt-2">
+    <app-info-item
+      class="col-span-2"
+      label="{{ '::Host:VacationHome:Step2:Map:Location' | abpLocalization }}"
+      value="{{ vacationHome?.vacationHome?.mapLink }}"
+    ></app-info-item>
+
+    @if (vacationHome?.vacationHome?.isOwningMultipleUnits) {
+      <app-info-item
+        class="col-span-1"
+        label="{{ '::Host:VacationHome:Step02:moreUnit' | abpLocalization }}"
+        value="{{ '::Host:VacationHome:Step02:yes' | abpLocalization }}"
+      ></app-info-item>
+    } @else {
+      <app-info-item
+        class="col-span-1"
+        label="{{ '::Host:VacationHome:Step02:moreUnit' | abpLocalization }}"
+        value="{{ '::Host:VacationHome:Step02:no' | abpLocalization }}"
+      ></app-info-item>
+    }
+    <app-info-item
+      class="col-span-1"
+      label="{{ '::Host:VacationHome:Step02:unitNo' | abpLocalization }}"
+      value="{{ vacationHome?.vacationHome?.unitNumber }}"
+    ></app-info-item>
+    <app-info-item
+      class="col-span-1"
+      label="{{ '::Host:VacationHome:Step02:unitFloor' | abpLocalization }}"
+      value="{{ vacationHome?.vacationHome?.unitFloor }}"
+    ></app-info-item>
+  </div>
+  <div id="map">
+    <div class="mt-9">
+      <google-map height="167px" width="40%" [center]="mapCenter" [zoom]="mapZoom">
+        <map-marker [position]="mapMarkerPosition"></map-marker>
+      </google-map>
+    </div>
+  </div>
+</section>
+<!-----Area -->
+<section class="info-section">
+  <h2 class="section-title">
+    {{ '::Host:VacationHome:Step2:Header:Info' | abpLocalization }}
+  </h2>
+  <div class="details-grid">
+    <app-info-item
+      label="{{ '::Host:VacationHome:Step2:Area' | abpLocalization }}"
+      value="{{ vacationHome?.vacationHome?.areaString }} {{
+        language === 'ar' ? 'متر مربع' : 'square meters'
+      }}"
+    ></app-info-item>
+  </div>
+
+  <!-----amenities -->
+  <div class="amenities-section">
+    <h3 class="amenities-title">
+      {{ '::Host:VacationHome:Step2:PrimaryAmantieis' | abpLocalization }}
+    </h3>
+    <div class="amenities-grid">
+      @for (item of this.primaryAmenities; track $index) {
+        <app-amenity-card
+          [name]="item.name"
+          [count]="item.numberOfUnits"
+          [guests]="item.numberOfGuests"
+        ></app-amenity-card>
+      } @empty {
+        <p class="info-value">{{ '::homeHoliday:search:noData' | abpLocalization }}</p>
+      }
+    </div>
+  </div>
+  <div class="amenities-section">
+    <h3 class="amenities-title">
+      {{ '::Host:VacationHome:Step2:ComfortMeans' | abpLocalization }}
+    </h3>
+    <div>
+      @for (item of primaryAmenities; track $index) {
+        @if (item.subFacility?.length) {
+          <div class="mt-3">{{ item.name }}</div>
+          <div class="amenities-grid">
+            @for (sub of item.subFacility; track sub) {
+              <p class="text-[#1C1C1C] font-bold">
+                {{ language === 'ar' ? sub.subAmenities.nameAr : sub.subAmenities.nameEn }}
+              </p>
+            }
+          </div>
+        } @else {
+          @if (item.amenitiesType === AmenitiesTypeEnum.BedRoom) {
+            <div class="mt-3">{{ item.name }}</div>
+            <p>
+              <span class="text-[#1C1C1C] font-bold">{{
+                '::Host:VacationHome:Step2:numberOfBed' | abpLocalization
+              }}</span>
+              :
+              <span>{{ item.guestCountPerAmenity }}</span>
+            </p>
+          }
+        }
+      }
+    </div>
+  </div>
+</section>
+
+<!-----Means -->
+<section class="info-section">
+  <h2 class="section-title">
+    {{ '::Host:VacationHome:Step4:SecondaryAmenities' | abpLocalization }}
+  </h2>
+  <div class="sub-facilities-section">
+    <h3 class="sub-facilities-title">
+      {{ '::Host:VacationHome:Step4:Header:Info' | abpLocalization }}
+    </h3>
+    <div class="sub-facilities-grid">
+      @for (item of comfortMeans; track $index) {
+        <app-amenity-card [name]="item.name" [symbol]="item.symbol"></app-amenity-card>
+      } @empty {
+        <p class="info-value">{{ '::homeHoliday:search:noData' | abpLocalization }}</p>
+      }
+    </div>
+  </div>
+</section>
+<!-----Description -->
+<section class="info-section">
+  <h2 class="section-title">
+    {{ '::Host:Vacation:AddHomeVacation' | abpLocalization }}
+  </h2>
+
+  <div class="details-grid">
+    <app-info-item
+      label="{{ '::Host:Vacation:Description' | abpLocalization }}"
+      [value]="
+        vacationHome?.vacationHome?.description ?? '::homeHoliday:search:noData' | abpLocalization
+      "
+    ></app-info-item>
+  </div>
+  <div class="details-grid">
+    <app-info-item
+      label="{{ '::Host:Vacation:HomeCategory' | abpLocalization }}"
+      [value]="
+        bookingCategoryAbpLocalizationText
+          ? ('::Host:Vacation:'.concat(bookingCategoryAbpLocalizationText) | abpLocalization)
+          : ('::homeHoliday:search:noData' | abpLocalization)
+      "
+    ></app-info-item>
+  </div>
+
+  <!-- <div class="details-grid">
+    <app-info-item
+      label="{{ '::Host:Vacation:OtherDetails' | abpLocalization }}"
+      [value]="vacationHome?.vacationHome?.otherDetails"
+    ></app-info-item>
+  </div> -->
+</section>
+<!-----Policy -->
+<section class="info-section">
+  <h2 class="section-title">
+    {{ '::Host:VacationHome:Step6:Header:policyCondition' | abpLocalization }}
+  </h2>
+  <div class="details-grid">
+    <app-info-item
+      label="{{ '::Host:VacationPrice:cancellationPolicy' | abpLocalization }}"
+      value="{{
+        language === 'ar'
+          ? cancellationAndReturnPolicyText?.nameAr
+          : cancellationAndReturnPolicyText?.nameEn
+      }}"
+    ></app-info-item>
+  </div>
+  <div class="details-grid">
+    <app-info-item
+      label="{{ '::Host:VacationHome:Step6:Header:policyCondition' | abpLocalization }}"
+      [value]="
+        vacationHome?.vacationHome?.conditionsReservation ?? '::homeHoliday:search:noData'
+          | abpLocalization
+      "
+    ></app-info-item>
+  </div>
+  <div class="details-grid">
+    <app-info-item
+      *ngIf="vacationHome?.vacationHome?.deposit"
+      label="{{ '::Host:VacationHome:Step6:Header:deposit' | abpLocalization }}"
+      [value]="vacationHome?.vacationHome?.deposit"
+      [img]="'assets/host/icons/riyal-black.svg'"
+    ></app-info-item>
+  </div>
+</section>
+<!-----Price -->
+<section class="info-section">
+  <h2 class="section-title">
+    {{ '::Host:VacationPrice:PriceList' | abpLocalization }}
+  </h2>
+  <div class="details-grid">
+    <app-info-item
+      label="{{ '::Host:VacationHome:Step7:weekPrice' | abpLocalization }}"
+      [value]=" vacationHome?.vacationHome?.midweekPrice"
+      [img]="'assets/host/icons/riyal-black.svg'"
+    ></app-info-item>
+
+    <app-info-item
+      label="{{ '::Host:VacationHome:Step7:thursdayPrice' | abpLocalization }}"
+      [value]=" vacationHome?.vacationHome?.thursdayPrice "
+      [img]="'assets/host/icons/riyal-black.svg'"
+    ></app-info-item>
+    <app-info-item
+      label="{{ '::Host:VacationHome:Step7:fridayPrice' | abpLocalization }}"
+      [value]="vacationHome?.vacationHome?.fridayPrice"
+      [img]="'assets/host/icons/riyal-black.svg'"
+    ></app-info-item>
+    <app-info-item
+      label="{{ '::Host:VacationHome:Step7:saturdayPrice' | abpLocalization }}"
+      [value]="vacationHome?.vacationHome?.saturdayPrice"
+      [img]="'assets/host/icons/riyal-black.svg'"
+
+    ></app-info-item>
+    <app-info-item
+      label="{{ '::Host:VacationHome:Step7:depositPercentage' | abpLocalization }}"
+      [value]="vacationHome?.vacationHome?.depositPercentage + '%'"
+    ></app-info-item>
+  </div>
+</section>
+<!------ PHoto -->
+<section class="info-section">
+  <h2 class="section-title">
+    {{ '::Host:VacationHome:Step7:Photos:Title' | abpLocalization }}
+  </h2>
+  <!-- <div class="image-grid">
+    <div class="image-item relative">
+      <img [src]="vacationHome?.vacationHome?.primaryImage"  class="home-image" />
+      <p
+      class="absolute top-5 right-5 bg-[#51BEFC] text-white rounded-full px-3 py-1">
+      {{"::Host:VacationHome:mainImageLabel" |abpLocalization}}
+    </p>
+    </div>
+    @for (image of vacationHome?.vacationHome?.primaryImages; track $index) {
+      <div class="image-item">
+        <img [src]="image" alt="vacation home image {{ $index + 1 }}" class="home-image" />
+      </div>
+    }
+  </div> -->
+  <div class="image-grid items-center justify-center">
+    <nz-image-group class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2">
+      <div class="relative">
+        <img
+          nz-image
+          [nzSrc]="vacationHome?.vacationHome?.primaryImage"
+          style="
+            object-fit: contain;
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+          "
+        />
+        <p class="absolute top-5 right-5 bg-[#51BEFC] text-white rounded-full px-3 py-1">
+          {{ '::Host:VacationHome:mainImageLabel' | abpLocalization }}
+        </p>
+      </div>
+      @for (image of vacationHome?.vacationHome?.primaryImages; track $index) {
+        <img
+          nz-image
+          [nzSrc]="image"
+          alt=""
+          style="
+            object-fit: contain;
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+          "
+        />
+      }
+    </nz-image-group>
+  </div>
+</section>
+<!-----Reservation -->
+<section class="info-section">
+  <h2 class="section-title">
+    {{ '::Host:VacationHome:Step9:Header:Title' | abpLocalization }}
+  </h2>
+  <div class="details-grid">
+    <app-info-item
+      label="{{ '::Host:VacationHome:Step9:BookingType' | abpLocalization }}"
+      [value]="bookingTypeText"
+    ></app-info-item>
+    <app-info-item
+      label="{{ '::Host:VacationHome:Step9:CheckInTime' | abpLocalization }}"
+      [value]="vacationHome?.vacationHome?.accessTime"
+    ></app-info-item>
+    <app-info-item
+      label="{{ '::Host:VacationHome:Step9:CheckOutTime' | abpLocalization }}"
+      [value]="vacationHome?.vacationHome?.leaveTime"
+    ></app-info-item>
+  </div>
+  <!-- <div class="details-grid">
+    <app-info-item
+      label="{{ '::Host:VacationHome:Step9:MinimumBookingDays' | abpLocalization }}"
+      [value]="vacationHome?.vacationHome?.minimumHomeReservationAmount"
+    ></app-info-item>
+
+  </div> -->
+</section>
+@if (buttons) {
+  <div class="info-section flex items-end">
+    <label
+      nz-checkbox
+      (ngModelChange)="updateAllChecked($event)"
+      [(ngModel)]="isAcceptTerms"
+      [nzDisabled]="vacationHome.vacationHome.signingAgreement"
+    >
+      {{ '::Host:VacationHome:agree' | abpLocalization }}
+    </label>
+    <label style="cursor: pointer" class="text-[#ED3024] underline flex" (click)="openTerms()">
+      {{ '::Host:VacationHome:policy' | abpLocalization }}
+      <img alt="required" *ngIf="!isAcceptTerms" class="ms-1" src="/assets/host/icons/required.svg" />
+    </label>
+  </div>
+
+  <div class="mt-24 flex justify-between items-center flex-row btn-data">
+    <app-button size="md" (click)="goBack()" [outline]="true" [secondary]="true">
+      <span>
+        {{
+          {
+            key: '::Host:VacationHome:Wizard:Back',
+          } | abpLocalization
+        }}
+      </span>
+    </app-button>
+    <div class="flex flex-row">
+      <app-button
+        class="ms-3"
+        (click)="isVisibleSaveAndExit = true"
+        size="md"
+        [outline]="true"
+        [secondary]="true"
+      >
+        {{
+          {
+            key: '::Host:VacationHome:SaveDraft',
+          } | abpLocalization
+        }}
+      </app-button>
+      <!-- Publish btn-->
+      <app-button size="md" class="ms-3" *ngIf="isSame" (click)="publishData()">
+        <p class="flex items-center">
+          {{
+            {
+              key: '::Host:VacationHome:Publish',
+            } | abpLocalization
+          }}
+          <img class="ms-2" src="assets/host/icons/share.svg" />
+        </p>
+      </app-button>
+
+      <!-- save btn-->
+      <app-button size="md" class="ms-3" *ngIf="!isSame" (click)="cancelPopup()">
+        <p class="flex items-center">
+          {{
+            {
+              key: '::VacationHomeType:Save',
+            } | abpLocalization
+          }}
+          <img class="ms-2" src="assets/host/icons/share.svg" />
+        </p>
+      </app-button>
+    </div>
+  </div>
+}
+<!--POPUP SAVE DRAFT-->
+<app-confrontation-popup
+  [visible]="isVisibleSaveAndExit"
+  (cancel)="isVisibleSaveAndExit = false"
+  title="  {{
+    {
+      key: '::Host:VacationHome:Popup:SaveDraft:Title',
+    } | abpLocalization
+  }}"
+  description="  {{
+    {
+      key: '::Host:VacationHome:Popup:SaveDraft:Description',
+    } | abpLocalization
+  }}"
+>
+  <div buttons class="flex items-center flex-col w-full px-10">
+    <app-button size="md" class="block mb-6 w-full" (click)="goToSearch()">
+      {{
+        {
+          key: '::General:Confirm',
+        } | abpLocalization
+      }}
+    </app-button>
+    <app-button class="w-full" (click)="isVisibleSaveAndExit = false" size="md" [outline]="true">
+      {{
+        {
+          key: '::General:Cancel',
+        } | abpLocalization
+      }}
+    </app-button>
+  </div>
+</app-confrontation-popup>
+
+<!--POPUP PUBLISH with Account not confirmed-->
+<app-confrontation-popup
+  [visible]="isVisiblePublishExit"
+  (cancel)="isVisiblePublishExit = false"
+  title="  {{
+    {
+      key: '::Host:VacationHome:Popup:Publish:confirmAccountTitle',
+    } | abpLocalization
+  }}"
+  [description]="Description"
+>
+  <div buttons class="flex items-center flex-col w-full px-10">
+    <app-button size="md" class="block mb-6 w-full" (click)="goToConfirmAccount()">
+      {{
+        {
+          key: '::General:ConfirmAccount',
+        } | abpLocalization
+      }}
+    </app-button>
+    <app-button class="w-full" (click)="isVisiblePublishExit = false" size="md" [outline]="true">
+      {{
+        {
+          key: '::General:Cancel',
+        } | abpLocalization
+      }}
+    </app-button>
+  </div>
+</app-confrontation-popup>
+<!--POPUP PUBLISH with Account not confirmed-->
+<app-confrontation-popup
+  [visible]="isVisibleSuccess"
+  (cancel)="isVisibleSuccess = false; cancelPopup()"
+  [confrontationType]="confrontationTypesEnum.success"
+  title="  {{
+    {
+      key: '::Host:VacationHome:Popup:PublishSuccess:Title',
+    } | abpLocalization
+  }}"
+  description="  {{
+    {
+      key: '::Host:VacationHome:Popup:PublishSuccess:Description',
+    } | abpLocalization
+  }}"
+>
+  <div buttons>
+    <div class="flex justify-center">
+      <app-button size="md" class="block mb-6 px-6" routerLink="/holiday-homes">
+        <div class="flex items-center justify-center">
+          <p>
+            {{
+              {
+                key: '::Host:VacationHome:RedirectToMainPage',
+              } | abpLocalization
+            }}
+          </p>
+          <span nz-icon nzType="arrow-up" class="ms-2 -rotate-45" nzTheme="outline"></span>
+        </div>
+      </app-button>
+    </div>
+  </div>
+</app-confrontation-popup>
+<!--POPUP Not Terms & Conditions not confirmed-->
+<app-confrontation-popup
+  [visible]="isTermsVisible"
+  (cancel)="isTermsVisible = false"
+  [confrontationType]="confrontationTypesEnum.warning"
+  title="  {{
+    {
+      key: '::Host:VacationHome:Popup:terms:Title',
+    } | abpLocalization
+  }}"
+  description="  {{
+    {
+      key: '::Host:VacationHome:Popup:terms:Description',
+    } | abpLocalization
+  }}"
+>
+  <div buttons>
+    <div class="flex justify-center">
+      <app-button size="md" class="block mb-6 px-6" (click)="isTermsVisible = false">
+        <div class="flex items-center justify-center">
+          <p>
+            {{
+              {
+                key: '::Host:VacationHome:back',
+              } | abpLocalization
+            }}
+          </p>
+          <span nz-icon nzType="arrow-up" class="ms-2 -rotate-45" nzTheme="outline"></span>
+        </div>
+      </app-button>
+    </div>
+  </div>
+</app-confrontation-popup>

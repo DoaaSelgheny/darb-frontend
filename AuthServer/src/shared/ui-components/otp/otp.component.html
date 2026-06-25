@@ -1,0 +1,88 @@
+@if (open) {
+  <section class="w-[100vw] h-[100vh] fixed inset-0 bg-[#0B163D99] flex justify-center z-50">
+    <form
+      class="py-9 px-4 md:px-11 md:w-[589px] rounded-md md:shadow-greyBox md:h-auto bg-white flex flex-col items-center self-center"
+    >
+      <div class="flex flex-col gap-5">
+        <img
+          src="/assets/authUi/icons/verification-icon.png"
+          class="mx-auto block"
+          alt="verification"
+          title="verification-otp"
+        />
+        @if ((verified && !otpUpdated) || (verified && updatedForm)) {
+          <p class="text-2xl text-primary font-bold text-center">{{'::otpTitle' |abpLocalization}}</p>
+        } @else {
+          <p class="text-2xl text-primary font-bold text-center">{{'::otpTitleVerfy' |abpLocalization}} </p>
+        }
+        <div class="text-center">
+          <p class="m-auto text-center" style="max-width: 35ch">{{'::subTitle' |abpLocalization}}</p>
+          @if (updatedForm?.form?.value?.newEmail) {
+            <p>{{ updatedForm.form.value.newEmail }}</p>
+          } @else if (updatedForm?.form?.value?.newPhoneNumber) {
+            <p class="dir">
+              {{ updatedForm?.form?.value?.newPhoneNumber?.internationalNumber }}
+            </p>
+          } @else {
+            <p class="dir">{{ contactInfo.value }}</p>
+          }
+        </div>
+      </div>
+      <button (click)="closePopup()" class="underline text-primary">
+        {{ { key: '::guest:Profile:Close', defaultValue: 'إغلاق' } | abpLocalization }}
+      </button>
+
+      <div class="flex flex-col mt-2">
+        <ng-otp-input
+          #ngOtpInput
+          [formCtrl]="form | getControl: 'otp'"
+          [config]="{
+            length: 4,
+            inputClass:
+              'text-secondary rounded-md  border border-secondary border-solid text-center text-2xl focus:bg-gray-200 mx-0 !w-[65px] !h-[65px] !mr-0',
+            containerClass: 'w-full flex justify-center gap-2',
+            allowNumbersOnly: true
+          }"
+        ></ng-otp-input>
+        <app-validation
+        [suppressValidationWithMessage]="{
+          minlength: 'otpLength',
+        }"
+          [control]="form | getControl: 'otp'"
+        ></app-validation>
+        <!-- COUNTER MESSAGE -->
+
+        <div class="flex justify-between mt-8 w-full">
+          <div>
+            <span>{{'::notSendOtp' |abpLocalization}}</span>
+            <button class="underline text-primary" (click)="resendOTP()" [disabled]="!isTimerDone">
+              {{'::resend' |abpLocalization}}
+            </button>
+          </div>
+          <div *ngFor="let counter of counters; let i = index">
+            <p class="font-bold">{{ transform(counter) }}</p>
+          </div>
+        </div>
+      </div>
+      <!-- SUBMIT BUTTON  -->
+      <div class="w-full mx-auto block mt-8 text-center">
+        <button
+          [disabled]="isTimerDone"
+          (click)="verify()"
+          class="border-primary h-14 text-white active:border-primary active:bg-primary after:bg-primary hover:bg-primary focus:border-primary focus:bg-primary bg-primary w-full mx-auto rounded-md block"
+        >
+          {{ { key: '::guest:Profile:Verify', defaultValue: 'تحقق' } | abpLocalization }}
+        </button>
+      </div>
+    </form>
+  </section>
+}
+
+<app-updated-account-details
+  [openUpdate]="verified && isVisible"
+  [contactInfo]="contactInfo"
+  (openUpdateChange)="closeUpdatePopup($event)"
+  (openOtp)="handleOpenOTP($event)"
+  (verifiedAccount)="handleVerifiedAccount($event)"
+  (updatedForm)="handleUpdatedForm($event)"
+></app-updated-account-details>

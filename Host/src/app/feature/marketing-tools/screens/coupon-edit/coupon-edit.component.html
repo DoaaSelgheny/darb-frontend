@@ -1,0 +1,244 @@
+<nz-breadcrumb class="pb-4">
+  <nz-breadcrumb-item class="cursor-pointer" routerLink="/holiday-homes">
+    {{ '::Menu:Home' | abpLocalization }}
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item class="cursor-pointer" routerLink="/marketing-tools">{{
+    { key: '::Menu:CouponEdit:MarketingTools', defaultValue: 'الأدوات التسويقية' } | abpLocalization
+  }}</nz-breadcrumb-item>
+  <nz-breadcrumb-item class="cursor-pointer" routerLink="/marketing-tools/coupons">{{
+    { key: '::Menu:CouponEdit:MarketingTools:Coupons', defaultValue: 'كوبونات التخفيض' }
+      | abpLocalization
+  }}</nz-breadcrumb-item>
+  <nz-breadcrumb-item>{{
+    { key: '::Menu:CouponEdit:MarketingTools:CouponsCreateUpdate', defaultValue: 'اعدادات الكوبون' }
+      | abpLocalization
+  }}</nz-breadcrumb-item>
+</nz-breadcrumb>
+@if (!couponId) {
+  <h3 class="flex justify-center md:justify-start text-lg text-dark font-bold mb-6">
+    {{
+      { key: '::Host:Coupon:Edit:CouponCreate', defaultValue: 'إضافة كوبون جديد' } | abpLocalization
+    }}
+  </h3>
+} @else {
+  <h3 class="flex justify-center md:justify-start text-xl text-dark font-bold mb-6">
+    {{ { key: '::Host:Coupon:Edit:CouponEdit', defaultValue: 'تعديل الكوبون' } | abpLocalization }}
+  </h3>
+}
+<app-content-card [formGroup]="form" class="block w-full border-0 rounded-2xl">
+  <section class="flex flex-col gap-4">
+    @if (couponId) {
+      <div>
+        <app-field
+          (copyToClipboard)="onCopy($event)"
+          [clipboard]="true"
+          [readonly]="true"
+          placeholder="HJS123"
+          [control]="form | getControl: 'couponCode'"
+          formControlName="couponCode"
+          [label]="
+            { key: '::Host:Coupon:Edit:CouponCode', defaultValue: 'رمز الكوبون' } | abpLocalization
+          "
+        >
+        </app-field>
+      </div>
+    }
+    <div>
+      <app-field-label
+        [label]="
+          { key: '::Host:Coupon:Edit:ServiceName', defaultValue: 'اسم الخدمة' } | abpLocalization
+        "
+        [control]="form | getControl: 'serviceName'"
+      ></app-field-label>
+      <nz-select
+        [nzPlaceHolder]="
+          { key: '::Host:Coupon:Edit:Placeholder:ServiceName', defaultValue: 'اسم الخدمة ..' }
+            | abpLocalization
+        "
+        class="w-full rounded-md xl-select"
+        nzAllowClear
+        formControlName="serviceName"
+      >
+        @for (item of serviceData; track $index) {
+          <nz-option [nzValue]="item.id" [nzLabel]="item.displayName"></nz-option>
+        }
+      </nz-select>
+      <app-validation [control]="form | getControl: 'serviceName'"></app-validation>
+    </div>
+    <div class="flex flex-col gap-4 md:flex-row">
+      <div class="w-full">
+        <app-field-label
+          [label]="
+            { key: '::Host:Coupon:Edit:Date', defaultValue: 'تاريخ بدء ونهاية الكوبون' }
+              | abpLocalization
+          "
+          [control]="form | getControl: 'startAndEndDate'"
+        ></app-field-label>
+        <nz-range-picker
+          [nzPlaceHolder]="[
+            '::guest:landing.start' | abpLocalization,
+            '::guest:landing.end' | abpLocalization
+          ]"
+          classes="bg-white"
+          class="h-[56px] rounded-md w-full"
+          formControlName="startAndEndDate"
+          [nzDisabledDate]="disabledDates.bind(this)"
+        ></nz-range-picker>
+        <app-validation [control]="form | getControl: 'startAndEndDate'"></app-validation>
+      </div>
+      <div class="w-full">
+        <app-field
+          [placeholder]="
+            { key: '::Host:Coupon:Edit:Placeholder:DiscountUsage', defaultValue: '1' }
+              | abpLocalization
+          "
+          [isNonZeroFirstInput]="true"
+          [control]="form | getControl: 'consumingCountPerUser'"
+          [keypressValidation]="validationTypeEnum.numberOnly"
+          formControlName="consumingCountPerUser"
+          [label]="
+            {
+              key: '::Host:Coupon:Edit:DiscountUsage',
+              defaultValue: 'عدد مرات استخدام الكوبون للضيف الواحد'
+            } | abpLocalization
+          "
+        ></app-field>
+      </div>
+    </div>
+    <div class="flex flex-col gap-4 md:flex-row">
+      <div class="w-full">
+        <app-field-label
+          [label]="
+            { key: '::Host:Coupon:Edit:DiscountType', defaultValue: 'نوع الخصم' } | abpLocalization
+          "
+          [control]="form | getControl: 'discountType'"
+        ></app-field-label>
+        <nz-select
+          [nzPlaceHolder]="
+            { key: '::Host:Coupon:Edit:Placeholder:DiscountType', defaultValue: 'نوع الخصم' }
+              | abpLocalization
+          "
+          [nzDisabled]="!!couponId"
+          class="w-full rounded-md xl-select"
+          nzAllowClear
+          formControlName="discountType"
+        >
+          @for (item of discountType; track $index) {
+            <nz-option [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+          }
+        </nz-select>
+        <app-validation [control]="form | getControl: 'discountType'"></app-validation>
+      </div>
+      <div class="w-full">
+        <app-field
+          [placeholder]="
+            {
+              key: '::Host:Coupon:Edit:Placeholder:DiscountValue',
+              defaultValue: 'يرجى ادخال قيمة الخصم ..'
+            } | abpLocalization
+          "
+          [readonly]="form.get('discountType').value === DiscountType.Percentage && couponId"
+          [isNonZeroFirstInput]="true"
+          pattern="[1-9][0-9]*"
+          [control]="form | getControl: 'discountValue'"
+          [keypressValidation]="validationTypeEnum.numberOnly"
+          formControlName="discountValue"
+          [label]="
+            { key: '::Host:Coupon:Edit:DiscountValue', defaultValue: 'قيمة الخصم' }
+              | abpLocalization
+          "
+        >
+          @if (form.get('discountType').value === DiscountType.Percentage) {
+            <i class="fa-regular fa-percent"></i>
+          }
+        </app-field>
+      </div>
+    </div>
+  </section>
+  <div
+    buttons
+    class="flex flex-col-reverse items-center gap-6 md:gap-0 md:flex-row md:justify-between"
+  >
+    @if (this.couponId) {
+      <app-button class="w-36" size="md" [outline]="true" (click)="isDeletePopupOpen = true">
+        {{ { key: '::Host:Coupon:Edit:Delete', defaultValue: 'حذف الكوبون' } | abpLocalization }}
+        <i class="ps-2 fa-solid fa-trash"></i>
+      </app-button>
+      <app-button class="w-36" size="md" (click)="update()" [nzLoading]="isUpdateLoading">
+        {{ { key: '::Host:Coupon:Edit:Update', defaultValue: 'تحديث الكوبون' } | abpLocalization }}
+      </app-button>
+    }
+    @if (!this.couponId) {
+      <div class="flex flex-col-reverse gap-y-4 md:flex-row flex-1 justify-between">
+        <app-button size="md" [outline]="true" (click)="navigateToCouponTable()">
+          {{ { key: '::Host:Profile:Back', defaultValue: 'تراجع' } | abpLocalization }}
+        </app-button>
+        <app-button class="w-36" size="md" (click)="isCreatePopupOpen = true">
+          {{ { key: '::Host:Coupon:Edit:Create', defaultValue: 'إنشاء كوبون' } | abpLocalization }}
+        </app-button>
+      </div>
+    }
+  </div>
+</app-content-card>
+
+<!-- POPUP ON CREATION -->
+<app-confrontation-popup
+  [visible]="isCreatePopupOpen"
+  (cancel)="isCreatePopupOpen = false"
+  [confrontationType]="confrontationTypesEnum.warning"
+  [title]="
+    { key: '::Host:Coupon:Edit:SendCreation', defaultValue: 'هل أنت متأكد؟' } | abpLocalization
+  "
+  [description]="
+    {
+      key: '::Host:Coupon:Edit:Description:SendCreation',
+      defaultValue:
+        'قيمة التخفيض ستطبق
+على سعر الخدمة الاساسي فقط'
+    } | abpLocalization
+  "
+>
+  <div buttons class="flex items-center flex-col w-full sm:px-10">
+    <app-button
+      size="md"
+      class="block mb-6 w-full"
+      (click)="create()"
+      [nzLoading]="isCreateLoading"
+    >
+      {{ { key: '::Host:Coupon:Edit:Confirm', defaultValue: 'نعم' } | abpLocalization }}
+    </app-button>
+    <app-button class="w-full" (click)="isCreatePopupOpen = false" size="md" [outline]="true">
+      {{ { key: '::Host:Coupon:Edit:Cancel', defaultValue: 'لا' } | abpLocalization }}
+    </app-button>
+  </div>
+</app-confrontation-popup>
+
+<!-- POPUP ON DELETION -->
+<app-confrontation-popup
+  [visible]="isDeletePopupOpen"
+  (cancel)="isDeletePopupOpen = false"
+  [confrontationType]="confrontationTypesEnum.warning"
+  [title]="
+    { key: '::Host:Coupon:Edit:SendConfirmation', defaultValue: 'هل أنت متأكد؟' } | abpLocalization
+  "
+  [description]="
+    {
+      key: '::Host:Coupon:Edit:Description:SendConfirmation',
+      defaultValue: 'سوف يتم حذف الكوبون الذي قمت بإنشاءه'
+    } | abpLocalization
+  "
+>
+  <div buttons class="flex items-center flex-col w-full sm:px-10">
+    <app-button
+      size="md"
+      class="block mb-6 w-full"
+      (click)="handleDelete()"
+      [nzLoading]="isDeleteLoading"
+    >
+      {{ { key: '::Host:Coupon:Edit:Confirm', defaultValue: 'نعم' } | abpLocalization }}
+    </app-button>
+    <app-button class="w-full" (click)="isDeletePopupOpen = false" size="md" [outline]="true">
+      {{ { key: '::Host:Coupon:Edit:Cancel', defaultValue: 'لا' } | abpLocalization }}
+    </app-button>
+  </div>
+</app-confrontation-popup>

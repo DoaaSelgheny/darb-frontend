@@ -1,0 +1,38 @@
+<div class="app-bg">
+  <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3">
+    <div class="px-10 py-5 lg:col-span-2 col-span-1">
+      <img  alt="logo" src="assets/imgs/phoneAppLogo.svg" />
+      <div class="md:ms-14 ms-0 lg:mt-3 md:mt-5">
+        <h2 class="font-bold text-4xl text-white">
+          {{lang === 'ar' ? 'تطبيق حياك': 'Hyyak App'}}
+        </h2>
+        <div class="mt-5 flex flex-row items-center">
+          <span class="text-white md:text-2xl text-xl"
+          >
+          {{lang === 'ar' ? 'عيش كل التجربة من جوالك': 'Enjoy the whole experience on your mobile' }}
+          </span>
+            <img  alt="logo" src="assets/imgs/phoneAppSub.svg" class="mx-2"/>
+        </div>
+        <div class="flex flex-row items-center mt-5">
+          <div class="mt-5" role="button" (click)="openApp('apple')">
+            <img  alt="logo" src="assets/imgs/phoneAppImg.svg" />
+          </div>
+          <div class="mt-5 mx-2" role="button" (click)="openApp('android')">
+            <img  alt="logo" src="assets/imgs/androidAppImg.svg" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class=" col-span-1">
+        <div class="flex justify-end" >
+          @if(lang === 'ar'){
+            <img  alt="pic" src="assets/imgs/phoneAppPic.svg" class="ms-14"/>
+          }@else{
+            <img  alt="pic" src="assets/imgs/phoneAppPicEn.svg" class="ms-14" />          
+          }
+          
+        </div>
+    
+    </div>
+  </div>
+</div>

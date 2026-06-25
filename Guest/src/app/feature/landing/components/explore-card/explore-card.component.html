@@ -1,0 +1,123 @@
+
+<div class="border mt-4 flex flex-col border-[#b2b2b277] w-full rounded-lg" 
+(click)="goToDetails(item)" style="cursor: pointer;">
+  <div class=" section-image shrink-0 h-32 px-2 overflow-hidden rounded-t-lg flex items-start justify-start"
+  [style]="'background: url(' + getImage(item) + ')'">
+      
+    <nz-tag class=" rounded-full mt-4 border-0  "
+    [ngClass]="item.isExperience ? 'bg-[#FCB751]' :'bg-[#51BEFC]'">
+      <div class="flex items-center justify-between font-bold text-white px-3 py-1" *ngIf="!item.isExperience">
+          <i class="fa-light fa-campground me-1"></i>
+              {{"::Guest:Explore:filter:vacationHome" | abpLocalization}}
+      </div>
+      <div class="flex items-center justify-between font-bold text-white px-3 py-1" *ngIf="item.isExperience">
+       
+  <img src="assets/imgs/details/img25.svg" alt="img">
+
+        {{"::Guest:Explore:filter:Experience" | abpLocalization}}
+      </div>
+    </nz-tag>
+  </div>
+  <div class="mx-2 " >
+    <div class="flex items-center justify-between mt-1 ">
+
+      <p class="text-[#3D3935] font-bold text-xs flex">{{item.isExperience ? item.experience?.name.slice(0,16) : item.vacationHome?.name.slice(0,16)}}
+        @if(item.experience?.name.length > 16 || item.vacationHome?.name.length > 16){
+          <span>...</span>
+        }
+      </p>
+      <div class="flex items-center">
+        <img src="assets/imgs/landing/icon2.svg" alt="icon">
+        <span class="text-[#666666] text-xs mx-1">
+          {{item.ratingsCount}} ({{item.ratingsAverage | number: '1.1-1'}})
+        </span>
+      </div>
+    </div>
+    <div class="flex mt-2">
+    
+      @if(item.isExperience){
+        <div class=" bg-[#F8F8F8] justify-center rounded items-center flex ">
+          <img src="assets/imgs/new/clock.svg" alt="Add alt here" />
+          @if(item.experience.experienceDatesType ===  experienceDatesTypeEnum.Specific){
+  
+            <p class=" text-[#3D3935]  text-xs mx-1"> 
+    
+              {{ ('::specific' | abpLocalization)}} -
+              {{ item?.receptionTimeType === receptionTimeTypeEnum.Weekend
+                ? ('::Weekend' | abpLocalization)
+                : item?.receptionTimeType === receptionTimeTypeEnum.AllDaysWeek
+                  ? ('::AllDaysWeek' | abpLocalization)
+                  : item?.receptionTimeType === receptionTimeTypeEnum.MiddleWeek
+                    ? ('::MiddleWeek' | abpLocalization)
+                    : ''}}
+            </p>
+          }
+          @if(item.experience.experienceDatesType ===  experienceDatesTypeEnum.Scheduled){
+  
+            <p class=" text-[#3D3935]  text-xs mx-1"> 
+    
+              {{ ('::schudel' | abpLocalization)}} 
+            </p>
+          }
+        </div>
+        <div class=" bg-[#F8F8F8] justify-center rounded items-center flex mx-1 ">
+          
+            <img src="assets/imgs/landing/icon3.svg" alt="icon">   
+          <p class=" text-[#3D3935]  text-xs mx-1"> {{ 
+          item.experience?.attendanceType === attendanceTypeEnum.Men
+            ? ('::men' | abpLocalization)
+            : item.experience?.attendanceType === attendanceTypeEnum.Women
+              ? ('::women' | abpLocalization)
+              : item.experience?.attendanceType === attendanceTypeEnum.Children
+                ? ('::childern' | abpLocalization)
+                : item.experience?.attendanceType === attendanceTypeEnum.Adults
+                  ? ('::adult' | abpLocalization)
+                  : item.experience?.attendanceType === attendanceTypeEnum.All
+                    ? ('::all' | abpLocalization)
+                    : ''
+          }}</p>
+        </div>
+      }
+      @if(!item.isExperience){
+        <div class=" bg-[#F8F8F8] justify-center rounded items-center flex ">
+          <img src="assets/imgs/new/space.svg" alt="Add alt here"  />
+          <p class=" text-[#3D3935]  text-xs mx-1"> 
+            {{ item.vacationHome?.area ? item.vacationHome?.area : item.vacationHome?.areaString }} {{"::Guest:Explore:Meter" | abpLocalization}}
+          </p>
+        </div>
+          @for(amenity of item.vacationHome?.vacationHomeAmenities;track amenity){
+    
+            <div class=" bg-[#F8F8F8] justify-center rounded items-center flex mx-1">
+              <img [src]="amenity?.amenities.symbol" alt="Add alt here" class="h-[20px] w-[20px]"/>
+              <p class=" text-[#3D3935]  text-sm  mx-1">{{amenity?.count}}</p>
+            </div>
+          }
+        
+      }
+    </div>
+    <div class="text-black flex items-center justify-between mt-3">
+        <span class="flex items-center">
+          <img src="assets/imgs/new/map.svg" alt="Add alt here"  />
+          <span class="block ms-1 text-[#737373]"> {{item.city?.name  }} /  {{"::Guest:Explore:district" | abpLocalization}} {{item.district?.name}}</span>
+        </span>
+  
+    </div>
+    @if(item.isExperience){
+      <div class="flex items-center mt-2">
+        <span class="text-[#39393CE3] text-base font-bold">{{item?.experience.pricePerPerson}}</span>
+        <span class="mx-1">/</span> 
+        <span class="text-xs">{{"::Guset:Explore:onePerson" |abpLocalization}}  </span>
+      </div>
+    }@else {
+      <div class="flex items-center mt-2">
+        
+        <span class="text-[#39393CE3] text-base font-bold">{{item?.vacationHome.averageDayPrice}}</span>
+          <span class="mx-1">/</span> 
+          <span class="text-xs"> {{"::Guset:Explore:oneNight" |abpLocalization}}</span> 
+        
+      </div>
+    }
+   
+  </div>
+</div>
+

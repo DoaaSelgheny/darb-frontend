@@ -1,0 +1,65 @@
+<app-field-label [options]="labelOptions" [label]="label" [control]="control"></app-field-label>
+<div class="h-12 relative">
+  <nz-input-group
+    class="w-full h-full bg-gray1 rounded-md border border-[#E2E2E2] text-dark placeholder:text-greyDark placeholder:text-bas"
+    [ngClass]="readonly && 'bg-gray-100 text-greyDark'"
+    [nzSuffix]="suffixTemplate"
+  >
+    <input
+      class="disable-text-selection text-dark text-base read-only:bg-gray-100"
+      [ngClass]="{
+        'ps-14': !!icon,
+        'ps-7': !icon,
+        'bg-gray-100 text-gray-300': readonly
+      }"
+      nz-input
+      #input
+      [(ngModel)]="value"
+      (input)="changeValue();nonZeroFirstInput($event)"
+      [disabled]="disabled"
+      [readonly]="readonly"
+      [maxlength]="maxlength"
+      [type]="!!showPassword ? 'text' : type"
+      [placeholder]="placeholder"
+    />
+  </nz-input-group>
+  <ng-template #suffixTemplate>
+    @if (clipboard) {
+      <img
+        class="cursor-pointer"
+        (click)="handleCopy(value)"
+        src="assets/host/icons/copy.svg"
+        alt="copy"
+      />
+    }
+    <ng-content></ng-content
+  ></ng-template>
+
+  <div
+    *ngIf="!!icon"
+    class="flex absolute top-1/2 rtl:right-4 ltr:left-4 transform -translate-y-1/2"
+  >
+    <img [src]="icon" />
+    <span class="w-[1px] ms-2.5 h-7 bg-[#E7E7E7] block"></span>
+  </div>
+  <div
+    *ngIf="type === 'password'"
+    class="flex absolute top-1/2 ltr:right-4 rtl:left-4 transform -translate-y-1/2"
+  >
+    <span
+      nz-icon
+      [nzType]="showPassword ? 'eye' : 'eye-invisible'"
+      (click)="showPassword = !showPassword"
+      class="text-xl cursor-pointer"
+      nzTheme="outline"
+    ></span>
+  </div>
+</div>
+<app-validation
+  [message]="'Validation.'"
+  *ngIf="!!control"
+  class="block mt-4"
+  [control]="control"
+  [suppressValidation]="suppressValidation"
+  [suppressValidationWithMessage]="suppressValidationWithMessage"
+></app-validation>

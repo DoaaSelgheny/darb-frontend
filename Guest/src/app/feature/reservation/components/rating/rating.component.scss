@@ -1,0 +1,60 @@
+.contact {
+    background-image: url('/assets/imgs/rating/rating-bg.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    &.borderAr{
+        border-radius: 0 20px 20px 0px;
+        @media(max-width: 768px){
+          border-radius: 20px 20px 0px 0px;
+          height:290px;      
+        }
+    }
+    &.borderEn{
+        border-radius: 20px 0  0px 20px;
+        @media(max-width: 768px){
+          border-radius: 20px 20px 0px 0px;
+          height:290px;      
+        }
+    }
+}
+
+::ng-deep {
+    .ant-modal-content {
+        border-radius: 20px;
+    }
+    .ant-modal-body {
+        padding:0;
+        
+    }
+    .ant-card-body {
+        padding: 10px 20px;
+    }
+    .ant-card-head {
+        border-bottom: none;
+    }
+}
+.rating-buttons button {
+    background-color: #fff;
+    border: 1px solid #122466;
+    color:#122466;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 3px;
+    padding: 1px 7px;
+  }
+  
+  .rating-buttons button.selected {
+    background-color: #122466;
+    color: white;
+    border-color: #122466;
+  }
+  :host ::ng-deep {
+    .ant-progress-inner:not(.ant-progress-circle-gradient) .ant-progress-circle-path {
+      stroke: #ffffff;
+    }
+    .ant-progress-circle-trail {
+      stroke: #B6BBD0;
+    }
+  }
+  

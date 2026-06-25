@@ -1,0 +1,108 @@
+<nz-card class="block w-full rounded-2xl p-3">
+
+  <div class="px-4 flex items-center justify-between font-bold ">
+    <p class="font-bold text-lg text-[#171717] border-0">{{'::BookingSummary'|abpLocalization}} </p>
+   </div>
+   @if(isVaction){
+
+     <div class="px-4 py-2 flex items-center justify-between" >
+       <p class=" text-base text-[#171717] ">{{'::Arrivaldate'|abpLocalization}}</p>
+       <p class=" text-base text-[#171717] ">{{ data?.summary.startDate | shortDate }}</p>
+     </div>
+     <div class="px-4 py-2 flex items-center justify-between  ">
+       <p class=" text-base text-[#171717] ">{{'::Departuredate'|abpLocalization}} </p>
+       <p class=" text-base text-[#171717] ">{{ data?.summary.endDate | shortDate }}</p>
+     </div>
+     <div class="px-4 py-2 flex items-center justify-between  ">
+       <p class=" text-base text-[#171717] "> {{'::Entrytime'|abpLocalization}} </p>
+       <p class=" text-base text-[#171717] ">{{ data?.summary.checkIn | timeFormat}}</p>
+     </div>
+     <div class="px-4 py-2 flex items-center justify-between  ">
+       <p class=" text-base text-[#171717] ">{{'::Checkouttime'|abpLocalization}}  </p>
+       <p class=" text-base text-[#171717] ">{{ data?.summary.checkOut | timeFormat}}</p>
+     </div>
+     <div class="px-4 py-2 flex items-center justify-between  ">
+       <!-- <p class=" text-base text-[#171717] "> 
+        <span class="font-bold">{{data?.summary.numberOfDaysOrPeople}} {{'::nights'|abpLocalization}}</span>  
+        &#10006; {{data?.summary.unitPrice}} {{'::guest:header.currency' |abpLocalization}} 
+
+      </p> -->
+      <div class="flex flex-row" >
+        <span class="font-bold">{{data?.summary.numberOfDaysOrPeople}} {{'::nights'|abpLocalization}}</span>  
+        &#10006;
+        <div style="direction: rtl;" class="flex flex-row" >
+
+          <p class="text-base text-[#171717]">{{data?.summary.unitPrice}}  </p>
+          <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+        </div>
+      </div>
+       <!-- <p class=" text-base text-[#171717] ">{{ data?.summary.netPrice  }} {{'::guest:header.currency' |abpLocalization}}</p> -->
+       <div class="flex flex-row" style="direction: rtl;">
+        <p class="text-base text-[#171717]">{{ data?.summary.netPrice  }}   </p>
+        <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+      </div>
+      </div>
+   }@else {
+
+     <div class="px-4 py-2 flex items-center justify-between  ">
+       <p class=" text-base text-[#171717] ">{{'::Experiencehistory'|abpLocalization}}</p>
+       <p class=" text-base text-[#171717] ">{{ data?.summary.date | shortDate }}</p>
+     </div>
+     <div class="px-4 py-2 flex items-center justify-between  ">
+       <p class=" text-base text-[#171717] ">{{'::Experiencetime'|abpLocalization}}</p>
+       <p class=" text-base text-[#171717] ">{{ data?.summary.checkIn | timeFormat }} - {{ data?.summary.checkOut | timeFormat }} </p>
+     </div>
+     <div class="px-4 py-2 flex items-center justify-between">
+      <!-- <p class=" text-base text-[#171717] ">
+
+          <span class="font-bold">{{data?.summary.numberOfDaysOrPeople}} {{'::Guest:Explore:persons'|abpLocalization}} &#10006; 
+          </span>{{data?.summary.unitPrice}} {{'::Guset:Explore:sar' |abpLocalization}} 
+      </p> -->
+      <div class="flex flex-row" style="direction: rtl;">
+        <span class="font-bold">
+          {{data?.summary.numberOfDaysOrPeople}} 
+          {{'::Guest:Explore:persons'|abpLocalization}} &#10006; 
+          </span>
+        <p class="text-base text-[#171717]"> {{data?.summary.unitPrice}}  </p>
+        <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+      </div>
+      <!-- <p class=" text-base text-[#171717] ">{{ data?.summary.netPrice}} {{'::Guset:Explore:sar' |abpLocalization}}</p> -->
+      <div class="flex flex-row" style="direction: rtl;">
+        <p class="text-base text-[#171717]"> {{ data?.summary.netPrice}}  </p>
+        <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+      </div>
+    </div>
+   }
+   @if(data?.summary.valueAddedTax !== 0){
+
+    <div class="px-4 py-2 flex items-center justify-between">
+      <p class="text-base text-[#171717] ">{{'::Host:taxValue'|abpLocalization}}</p>
+      <!-- <p class="text-base text-[#171717]">
+        {{ data?.summary.valueAddedTax}} {{'::guest:header.currency' |abpLocalization}}</p> -->
+        <div class="flex flex-row" style="direction: rtl;">
+          <p class="text-base text-[#171717]">{{ data?.summary.valueAddedTax}}   </p>
+          <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+        </div>
+    </div>
+  }
+  @if(data?.summary.serviceFeesIncludesTax !== 0){
+
+  <div class="px-4 py-2 flex items-center justify-between  ">
+    <p class=" text-base text-[#171717] ">{{'::Guest:Explore:price:tax'|abpLocalization}}</p> 
+    <!-- <p class=" text-base text-[#171717] ">{{ data?.summary.serviceFeesIncludesTax  }} {{'::guest:header.currency' |abpLocalization}}</p> -->
+    <div class="flex flex-row" style="direction: rtl;">
+      <p class="text-base text-[#171717]">{{ data?.summary.serviceFeesIncludesTax  }}   </p>
+      <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+    </div>
+  </div>
+}
+  <div class="px-4 py-2 flex items-center justify-between  ">
+    <p class=" text-base text-[#171717] ">  {{'::Guest:Explore:price:total'|abpLocalization}} </p>
+    <!-- <p class=" text-base text-[#171717] ">{{ data?.summary.totalPriceForGuest  }} {{'::guest:header.currency' |abpLocalization}}</p> -->
+    <div class="flex flex-row" style="direction: rtl;">
+      <p class="text-base text-[#171717]">{{ data?.summary.totalPriceForGuest  }}   </p>
+      <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+    </div>
+  </div>
+ 
+</nz-card>

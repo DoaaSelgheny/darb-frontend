@@ -1,0 +1,15 @@
+<app-field-label [label]="label" [control]="control"></app-field-label>
+
+<div>
+  <nz-time-picker
+    (ngModelChange)="changeValue()"
+    [(ngModel)]="value"
+    [nzDisabled]="disabled"
+    [nzPlaceHolder]="placeholder"
+    [nzUse12Hours]="true"
+    [nzAllowEmpty]="false"
+    nzFormat="h:mm a"
+    class="w-full  h-14 rounded-lg {{ classes }}"
+  ></nz-time-picker>
+</div>
+<app-validation [control]="control"></app-validation>

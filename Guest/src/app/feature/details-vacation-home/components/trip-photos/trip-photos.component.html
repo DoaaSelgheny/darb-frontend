@@ -1,0 +1,47 @@
+
+<!-- <div class=" h-[397px] bg-cover overflow-hidden rounded-lg">
+
+  <nz-carousel [nzEffect]="effect" nzAutoPlay style="max-height: 397px;height:397px">
+    @for (index of  vacationHome.vacationHome.vacationHomeImages; track index) {
+      <div nz-carousel-content class="rounded-lg">
+        <img [src]="index.imagePath" alt="img">
+      </div>
+    }@empty {
+      <div nz-carousel-content class="rounded-lg">
+        <img [src]="vacationHome.vacationHome.primaryImage" alt="img">
+      </div>
+    }
+
+  </nz-carousel>
+</div> -->
+
+<div class="image-grid">
+  <div class="relative">
+
+    <img
+    [src]="images[indexFirstImg]?.imagePath"
+    alt="Experience Image"
+    (click)="openPhotoViewer(indexFirstImg)"
+    class="clickable-image"
+    />
+    <button class="absolute bottom-3 left-0 bg-[#F4F4F4] text-[#494545] border-[#494545] border rounded-lg px-6 py-1"
+    (click)="openPhotoViewer(indexFirstImg)">{{"::guest:reserveDetails:seeAllImgs" | abpLocalization}} </button>
+  </div>
+  <div  class="flex items-center justify-center flex-row gap-3 mt-4">
+
+    <div *ngFor="let image of images.slice(0,5); let i = index" class="relative image-item">
+      <img
+        [src]="image.imagePath"
+        alt="Experience Image"
+        (click)="indexFirstImg=i"
+        class="icon-image"
+        
+      />
+      @if(images.length > 5 && i === 4){
+        <div class="overlay"></div>
+        <p class="absolute text-white font-bold text-2xl top-1/3 left-1/3">
+          <bdi>+{{images.length - 5}}</bdi></p>
+      }
+    </div>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+@if (!isEmpty) {
+  <ng-container [ngTemplateOutlet]="offerPrices"></ng-container>
+} @else {
+  <ng-container [ngTemplateOutlet]="empty"></ng-container>
+}
+
+<ng-template #offerPrices>
+  <div class="grid grid-cols-1 gap-4">
+    <div>
+      <app-field-label label="نوع المناسبة"></app-field-label>
+      <nz-select
+        nzAllowClear
+        nzPlaceHolder="برجاء تحديد نوع المناسبة .."
+        class="xl-select w-full lg:min-w-[300px]"
+      >
+        <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
+        <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
+        <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+      </nz-select>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
+    <app-field label="أسم  العرض" placeholder="برجاء أدخال أسم السعر .."> </app-field>
+    <app-field label="حقل السعر" placeholder="برجاء أدخال السعر .."> </app-field>
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
+    <app-date-picker label="تاريخ ظهور العرض"></app-date-picker>
+    <app-date-picker label="تاريخ انتهاء العرض"></app-date-picker>
+  </div>
+
+  <div class="flex">
+    <app-button class="mt-6 w-full md:w-auto">
+      <span class="flex items-center">
+        <span nz-icon class="text-lg me-1 leading-none" nzType="save" nzTheme="outline"></span>
+        حفظ التغييرات
+      </span>
+    </app-button>
+  </div>
+</ng-template>
+
+<ng-template #empty>
+  <nz-empty [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl">
+    <ng-template #contentTpl>
+      <p class="font-bold text-xl">لا يوجد عروض</p>
+    </ng-template>
+    <ng-template #footerTpl>
+      <div class="flex justify-center">
+        <app-button>
+          <span nz-icon nzType="plus" class="text-xl" nzTheme="outline"></span>
+          إنشاء عرض جديد
+        </app-button>
+      </div>
+    </ng-template>
+  </nz-empty>
+</ng-template>

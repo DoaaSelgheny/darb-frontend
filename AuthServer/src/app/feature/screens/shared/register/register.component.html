@@ -1,0 +1,134 @@
+<form [formGroup]="form">
+  <div class="mt-4">
+    <app-field
+      class="block"
+      type="text"
+      label="{{ '::AuthServer:FirstName' | abpLocalization }}"
+      placeholder="{{ '::AuthServer:FirstName' | abpLocalization }}"
+      [control]="form | getControl: 'name'"
+      formControlName="name"
+      [suppressValidationWithMessage]="{
+        pattern: 'namePattern',
+      }"
+    ></app-field>
+    <app-field
+      class="block"
+      type="text"
+      label="{{ '::AuthServer:LastName' | abpLocalization }}"
+      placeholder="{{ '::AuthServer:LastName' | abpLocalization }}"
+      [control]="form | getControl: 'surname'"
+      formControlName="surname"
+      [suppressValidationWithMessage]="{
+        pattern: 'namePattern',
+      }"
+    ></app-field>
+    <app-field
+      *ngIf="loginMethod == loginMethodEnum.MobilePhone"
+      class="block"
+      type="email"
+      label="{{ '::AuthServer:Email' | abpLocalization }}"
+      placeholder="{{ '::AuthServer:Email' | abpLocalization }}"
+      [control]="form | getControl: 'email'"
+      formControlName="email"
+      [suppressValidationWithMessage]="{
+        pattern: 'emailPatterns',
+      }"
+    ></app-field>
+
+    <div class="mt-2" *ngIf="loginMethod == loginMethodEnum.Email">
+      <app-field-label
+        [control]="form | getControl: 'phoneNumber'"
+        label="{{ '::Host:Business:form:phoneNumber' | abpLocalization }}"
+        [options]="{
+          valid: form.value.phoneNumberConfirmed,
+        }"
+      ></app-field-label>
+      <ngx-intl-tel-input
+        cssClass="w-full left-direction h-12 rounded-md mt-4 p-4 ant-input  ant-input-rtl ant-input-stepperless text-dark text-base"
+        [enableAutoCountrySelect]="true"
+        [enablePlaceholder]="true"
+        [searchCountryFlag]="true"
+        [selectedCountryISO]="selectedCountryISO"
+        [selectFirstCountry]="false"
+        [separateDialCode]="true"
+        name="phoneNumber"
+        formControlName="phoneNumber"
+      ></ngx-intl-tel-input>
+      <app-validation
+        [control]="form | getControl: 'phoneNumber'"
+        [message]="
+          form.controls['phoneNumber']?.errors?.required ? 'Validation.' : 'General:Validation.'
+        "
+      ></app-validation>
+    </div>
+  </div>
+  <div class="flex gap-4 justify-between items-center flex-col md:flex-row">
+    <div class="mt-4">
+      <app-field-label
+        [control]="form | getControl: 'gRecaptchaResponse'"
+        [label]="'::Host:Business:form:verfication' | abpLocalization"
+        [options]="{
+          valid: form.value.gRecaptchaResponse,
+        }"
+      ></app-field-label>
+      <re-captcha
+        formControlName="gRecaptchaResponse"
+        class="mt-3 block md:mt-0"
+        (resolved)="resolved($event)"
+        siteKey="6LcVXH4pAAAAAH8eyL7Ah1NnXmxvPqS9mT1UxB3K"
+      ></re-captcha>
+      <!-- TODO -->
+      <app-validation
+        class="block mt-4"
+        [control]="form | getControl: 'gRecaptchaResponse'"
+        [message]="
+          form.controls['gRecaptchaResponse']?.errors?.required
+            ? 'Validation.'
+            : 'General:Validation.'
+        "
+      ></app-validation>
+    </div>
+  </div>
+  <div class="flex items-end flex-row">
+    <label nz-checkbox formControlName="termsAndCondition">
+      {{ '::AuthServer:IAcceptOn' | abpLocalization }}
+    </label>
+    <a
+      href="https://hyyak.com/terms-and-conditions"
+      class="text-red-500 underline cursor-pointer"
+      target="_blank"
+      >{{ '::AuthServer:TermsAndConditions' | abpLocalization }}</a
+    >
+  </div>
+  @if (termsAndConditionControl.dirty && termsAndConditionControl.value != true) {
+    <div class="text-red-600">{{ '::Validation.required' | abpLocalization }}</div>
+  }
+
+  <app-button (click)="submit()" class="block mt-3">
+    {{ '::AuthServer:Register' | abpLocalization }}
+  </app-button>
+</form>
+<div class="text-center w-full mt-[15px] text-sm">
+  <p class="haveAccount">
+    <span class="text-gray-300">{{ '::AuthServer:HaveAccount' | abpLocalization }}</span>
+  </p>
+
+  <button
+    nz-button
+    nzSize="default"
+    nzBlock
+    nzType="primary"
+    class="text-secondary bg-[#F5F5F5] border-none"
+    (click)="goToLogin()"
+  >
+    {{ '::AuthServer:Login' | abpLocalization }}
+  </button>
+</div>
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="medium"
+  color="rgb(70 153 217)"
+  type="ball-spin-clockwise"
+  [fullScreen]="true"
+  ><p style="color: white"></p
+></ngx-spinner>

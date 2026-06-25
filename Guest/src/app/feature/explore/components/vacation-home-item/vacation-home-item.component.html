@@ -1,0 +1,164 @@
+
+<nz-card nzHoverable  [nzCover]="coverTemplate" class="rounded-lg"
+>
+  <nz-card-meta [nzTitle]="cardName" [nzDescription]="cardDescription" (click)="goToDetails()"></nz-card-meta>
+</nz-card>
+<ng-template #cardName>
+  <div class="flex justify-between">
+    <p class="text-[#3D3935] text-base font-bold">
+      {{item?.name.slice(0,16)}}
+      @if(item?.name.length > 16){
+        <span>...</span>
+      }
+    </p>
+    <div class="flex items-center">
+        
+        <img src="assets/imgs/details/img17.svg" alt="img">
+
+        <span class="text-[#666666] text-xs mx-1">
+          {{ratingsCount}} ({{ratingsAverage  | number: '1.1-1'}})
+        </span>
+    </div>
+  </div>
+</ng-template>
+<ng-template #cardDescription>
+  <div class="flex mt-2">
+    
+    @if(!isVacationHome){
+      <div class=" bg-[#F8F8F8] justify-center rounded items-center flex ">
+        <img src="assets/imgs/new/clock.svg" alt="Add alt here" />
+        @if(datesType ===  experienceDatesTypeEnum.Specific){
+
+          <p class=" text-[#3D3935]  text-xs mx-1"> 
+  
+            {{ ('::specific' | abpLocalization)}} -
+            {{ item?.receptionTimeType === receptionTimeTypeEnum.Weekend
+              ? ('::Weekend' | abpLocalization)
+              : item?.receptionTimeType === receptionTimeTypeEnum.AllDaysWeek
+                ? ('::AllDaysWeek' | abpLocalization)
+                : item?.receptionTimeType === receptionTimeTypeEnum.MiddleWeek
+                  ? ('::MiddleWeek' | abpLocalization)
+                  : ''}}
+          </p>
+        }
+        @if(datesType ===  experienceDatesTypeEnum.Scheduled){
+
+          <p class=" text-[#3D3935]  text-xs mx-1"> 
+  
+            {{ ('::schudel' | abpLocalization)}} 
+          </p>
+        }
+      </div>
+      <div class=" bg-[#F8F8F8] justify-center rounded items-center flex mx-1 ">
+      
+        <img src="assets/imgs/details/img18.svg" alt="img">
+          
+        <p class=" text-[#3D3935]  text-xs mx-1"> {{ 
+        attendType === attendanceTypeEnum.Men
+          ? ('::men' | abpLocalization)
+          : attendType === attendanceTypeEnum.Women
+            ? ('::women' | abpLocalization)
+            : attendType === attendanceTypeEnum.Children
+              ? ('::childern' | abpLocalization)
+              : attendType === attendanceTypeEnum.Adults
+                ? ('::adult' | abpLocalization)
+                : attendType === attendanceTypeEnum.All
+                  ? ('::all' | abpLocalization)
+                  : ''
+        }}</p>
+      </div>
+    }
+    @if(isVacationHome){
+      <div class=" bg-[#F8F8F8] justify-center rounded items-center flex ">
+        <img src="assets/imgs/new/space.svg" alt="Add alt here" class="w-[20px] h-[20px]" />
+        <p class=" text-[#3D3935]  text-xs mx-1"> 
+          {{ item?.area ? item?.area : item?.areaString }} {{"::Guest:Explore:Meter" | abpLocalization}}
+        </p>
+      </div>
+      @if(similar){
+        @for(amenity of item.vacationHomeAmenities;track amenity){
+  
+          <div class=" bg-[#F8F8F8] justify-center rounded items-center flex mx-1">
+            <img [src]="amenity?.amenities.symbol" alt="Add alt here" class="w-[20px] h-[20px]" />
+            <p class=" text-[#3D3935]  text-sm  mx-1">{{amenity?.count}}</p>
+          </div>
+        }
+      }@else {
+
+        @for(amenity of item.amentites;track amenity){
+    
+          <div class=" bg-[#F8F8F8] justify-center rounded items-center flex mx-1">
+            <img [src]="amenity?.symbol" alt="Add alt here" class="w-[20px] h-[20px]"  />
+            <p class=" text-[#3D3935]  text-sm  mx-1">{{amenity?.count}}</p>
+          </div>
+        }
+      }
+    }
+  </div>
+  <div class="flex mt-2">
+    
+    <img src="assets/imgs/details/img24.svg" alt="img">
+
+    @if(!similar){
+      <p class=" text-[#737373]  text-xs mx-1"> 
+        {{ item?.cityName}} <span class="mx-1">/</span> {{"::Guest:Explore:district" | abpLocalization}} {{item?.districtName}}
+      </p>
+    }@else{
+
+      <p class=" text-[#737373]  text-xs mx-1"> 
+        {{city}} <span class="mx-1">/</span> {{"::Guest:Explore:district" | abpLocalization}} {{district}}
+      </p>
+    }
+      
+  </div>
+  @if(isVacationHome){
+    <div class="flex items-center mt-2">
+      <span class="text-[#39393CE3] text-base font-bold">{{similar ? averagePrice :item?.averagePrice}}</span>
+      <span class="mx-1">/</span> 
+      <span class="text-xs">{{"::Guset:Explore:oneNight" |abpLocalization}}  </span>
+      @if(!similar){
+
+        <span class="mx-1">/</span> 
+        <span class="text-xs">{{"::Guset:Explore:total" |abpLocalization}}  </span>
+        <span class="text-xs"> ({{item?.daysCount}} {{"::Guset:Explore:nights" |abpLocalization}})</span> 
+        <span class="text-xs flex" style="direction: rtl;"> {{item?.totalPrice}} <img class="mx-1"  src="assets/imgs/riyal-black.svg" alt="riyal"></span>
+        
+      }
+    </div>
+  }@else {
+    <div class="flex items-center mt-2">
+      <span class="text-[#39393CE3] text-base font-bold">{{item?.pricePerPerson}}</span>
+      <span class="mx-1">/</span> 
+      <span class="text-xs">{{"::Guset:Explore:onePerson" |abpLocalization}}  </span>
+    </div>
+  }
+  
+</ng-template>
+<ng-template #coverTemplate>
+  <nz-carousel [nzEffect]="effect" style="max-height: 200px;height:200px">
+    @if(similar){
+      @for (index of similarImages; track index) {
+        <div nz-carousel-content class="rounded-t-lg">
+          <img [src]="index.imagePath" alt="img">
+        </div>
+      }@empty {
+        <div nz-carousel-content class="rounded-t-lg">
+          <img [src]="item.primaryImage" alt="img">
+  
+        </div>
+      }
+    }@else {
+
+      @for (index of item.images; track index) {
+        <div nz-carousel-content class="rounded-t-lg">
+          <img [src]="index" alt="img">
+        </div>
+      }@empty {
+        <div nz-carousel-content class="rounded-t-lg">
+          <img [src]="item.primaryImage" alt="img">
+  
+        </div>
+      }
+    }
+  </nz-carousel>
+</ng-template>

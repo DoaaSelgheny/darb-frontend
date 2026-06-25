@@ -1,0 +1,148 @@
+<h2 class="text-lg text-[#3C3C3CE3] mt-3 mb-6 font-bold">
+  {{
+    {
+      key: '::Host:VacationHome2:Step1:Header:Info'
+    } | abpLocalization
+  }}
+
+</h2>
+<div class="flex flex-col lg:flex-row lg:w-2/4 w-full" [formGroup]="form">
+  <app-field
+    [control]="form | getControl : 'name'"
+    formControlName="name"
+    class="w-full lg:min-w-[300px]"
+    placeholder="{{ '::Host:VacationHome2:Step1:VacationNamePlaceHolder' | abpLocalization  }}"
+    [keypressValidation]="vaidationTypeEnum.arabicAndEnglish"
+      [suppressValidationWithMessage]="{
+          maxlength: 'Host:VacationHome:Step5:Title:Validation:MaxLengh',
+          minlength: 'Host:VacationHome:Step5:Title:Validation:MinLengh'
+        }"
+    [maxlength]="50"
+    label="{{ '::Host:VacationHome2:Step1:VacationName' | abpLocalization  }}"
+  >
+    <div class="relative bg-white">
+      <!-- <nz-progress
+        [nzPercent]="((form | getControl : 'name').value?.length / 50) * 100"
+        [nzWidth]="40"
+        [nzShowInfo]="false"
+        nzType="circle"
+      >
+      </nz-progress> -->
+      <p class="top-1/2 absolute left-1/2 -translate-x-1/2 -translate-y-1/2">50</p>
+    </div>
+  </app-field>
+  <!-- <div class="lg:ms-4 mt-4 lg:mt-0 w-full">
+    <label class="mb-2 flex text-base font-bold items-start">
+      المدينة
+      <img alt="required" *ngIf="true" class="ms-1" src="assets/host/icons/required.svg" />
+    </label>
+    <nz-select
+      nzShowSearch
+      nzAllowClear
+      class="xl-select w-full lg:min-w-[300px]"
+      formControlName="cityId"
+    >
+      <nz-option *ngFor="let c of cities" [nzLabel]="c.name" [nzValue]="c.id"></nz-option>
+    </nz-select>
+    <app-validation
+      class="block mt-4"
+      [message]="'Validation.'"
+      [control]="form | getControl : 'cityId'"
+    ></app-validation>
+  </div> -->
+</div>
+
+<div class="mt-11">
+  <app-field-label
+    label="{{ '::Host:VacationHome2:Step1:VacationType' | abpLocalization  }}"
+    [control]="form | getControl : 'experienceTypeId'"
+  ></app-field-label>
+  <div class="grid lg:grid-cols-6 gap-2 md:grid-cols-4 sm:grid-cols-3 grid-cols-2">
+    <div class="grid grid-cols-subgrid gap-4 lg:col-span-4 md:col-span-4 sm:col-span-3 col-span-2">
+    @for (type of experienceTypes; track $index) {
+      <div
+      class="rounded-full border border-[#D4D4D440] w-full p-2 shadow-md"
+      (click)="selectType(type.id)"
+    >
+      <div class="flex items-center justify-between w-full">
+        <div class="rounded-full border border-[#A1AEBE]">
+          <img [src]="type.iconPath" class="w-[30px] p-2" />
+        </div>
+
+        <p class="text-black text-sm">{{ type.name }}</p>
+        <div
+          class="rounded-full border border-[#A1AEBE] bg-white w-[22px] h-[22px]"
+          *ngIf="!isTypeSelected(type.id)"
+        ></div>
+        <nz-icon
+          nz-icon
+          nzType="check-circle"
+          class="text-2xl text-[#007AFF]"
+          *ngIf="isTypeSelected(type.id)"
+          nzTheme="fill"
+        ></nz-icon>
+      </div>
+    </div>
+    }
+    </div>
+  </div>
+  <app-validation
+    class="block mt-4"
+    [message]="'Validation.'"
+    [control]="form | getControl : 'experienceTypeId'"
+  ></app-validation>
+</div>
+<div class="mt-24 flex justify-between items-center flex-col md:flex-row">
+
+  <app-button
+    class="ms-3"
+    (click)="saveDraft()"
+    size="md"
+    [outline]="true"
+    [secondary]="true"
+  >
+    {{
+      {
+        key: '::Host:VacationHome:SaveDraft'
+      } | abpLocalization
+    }}
+  </app-button>
+  <app-button size="md" class="mt-4 md:mt-0 px-3" (click)="goNext()" [disabled]="!validateCurrentPage()">
+    {{
+      {
+        key: '::Host:VacationHome:Wizard:Next'
+      } | abpLocalization
+    }}
+  </app-button>
+</div>
+<app-confrontation-popup
+[visible]="isVisibleSaveAndExit"
+(cancel)="isVisibleSaveAndExit = false"
+title="  {{
+  {
+    key: '::Host:VacationHome2:Popup:SaveDraft:Title'
+  } | abpLocalization
+}}"
+description="  {{
+  {
+    key: '::Host:VacationHome2:Popup:SaveDraft:Description'
+  } | abpLocalization
+}}"
+>
+<div buttons class="flex items-center flex-col w-full px-10">
+  <app-button size="md" class="block mb-6 w-full" (click)="saveAndExit()">
+    {{
+      {
+        key: '::General:Confirm'
+      } | abpLocalization
+    }}
+  </app-button>
+  <app-button class="w-full" (click)="isVisibleSaveAndExit = false" size="md" [outline]="true">
+    {{
+      {
+        key: '::General:Cancel'
+      } | abpLocalization
+    }}
+  </app-button>
+</div>
+</app-confrontation-popup>

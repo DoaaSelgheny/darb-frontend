@@ -1,0 +1,26 @@
+<app-header (openMenu)="toggleOpen($event)"></app-header>
+<nz-layout>
+
+  <nz-sider class="!min-w-[200px] md:block absolute z-50 !bg-white lg:relative !max-w-[auto]">
+    <app-menu (close)="isOpenMenu = false" [openMenu]="isOpenMenu"  [ngClass]="{
+      'ltr:-left-full  rtl:-right-full ': !isOpenMenu,
+      'ltr:left-0  rtl:right-0': isOpenMenu
+    }"
+      class="absolute block lg:ltr:!left-0 z-30 lg:rtl:!right-0 top-0  w-[200px] transition-all ease-in-out delay-300 shrink-0 bottom-0">
+      <!-- TODO design needs updating to accommodate قريبا -->
+    </app-menu>
+    <div (click)="isOpenMenu = false" [ngClass]="{ ' invisible opacity-0': !isOpenMenu }"
+      class="visible w-[100vw] h-[100vh] lg:hidden block transition-all ease-in-out delay-300 opacity-50 bg-black fixed">
+    </div>
+  </nz-sider>
+  <nz-layout>
+    <content class="min-h-[100vh] py-4 px-5 md:px-6">
+      <router-outlet>
+        <ngx-ui-loader />
+      </router-outlet>
+    </content>
+  </nz-layout>
+</nz-layout>
+<nz-footer class="bg-transparent !p-0 overflow-hidden relative z-[90]">
+  <app-footer></app-footer>
+</nz-footer>

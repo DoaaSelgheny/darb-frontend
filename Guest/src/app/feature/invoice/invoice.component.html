@@ -1,0 +1,96 @@
+<div class="container mx-auto px-6 xl:px-0 mb-36">
+  <nz-breadcrumb class="mt-[26px]">
+    <nz-breadcrumb-item class="cursor-pointer" routerLink="/">{{
+      '::guest:invoice.breadcrumbHome' | abpLocalization
+    }}</nz-breadcrumb-item>
+    <nz-breadcrumb-item class="cursor-pointer" routerLink="/reservation">{{
+      '::guest:invoice.breadcrumbMyBookings' | abpLocalization
+    }}</nz-breadcrumb-item>
+    <nz-breadcrumb-item>{{
+      '::guest:invoice.breadcrumbBookingDetails' | abpLocalization
+    }}</nz-breadcrumb-item>
+    <nz-breadcrumb-item>{{
+      '::guest:invoice.breadcrumbInvoiceDetails' | abpLocalization
+    }}</nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <div class="block lg:!flex items-start mt-14 justify-between">
+    <div class="w-full rounded-2xl p-4 bg-white">
+      <p class="text-center text-[#222222] text-lg font-extrabold">
+        {{ '::guest:invoice.invoiceTitle' | abpLocalization }}
+      </p>
+      <p class="text-center text-[#222222] my-4 text-lg font-extrabold">
+        {{ '::guest:invoice.invoiceNumberLabel' | abpLocalization }} :
+        <span class="font-bold">#4328569</span>
+      </p>
+      <img src="assets/icons/logo-item.svg" class="block mx-auto w-36 mb-4" alt="logo" />
+      <nz-divider></nz-divider>
+      <div class="p-4 flex items-center justify-between font-bold odd:bg-white even:bg-[#F8F8F8]">
+        <p class="text-[#1E1E1E]">{{ '::guest:invoice.bookingDateLabel' | abpLocalization }}</p>
+        <p class="text-base text-[#444444]">17/08/2023</p>
+      </div>
+      <div class="p-4 flex items-center justify-between font-bold odd:bg-white even:bg-[#F8F8F8]">
+        <p class="text-[#1E1E1E]">
+          {{ '::guest:invoice.vatRegistrationNumberLabel' | abpLocalization }}
+        </p>
+        <p class="text-base text-[#444444]">123456789900003</p>
+      </div>
+      <div class="p-4 flex items-center justify-between font-bold odd:bg-white even:bg-[#F8F8F8]">
+        <p class="text-[#1E1E1E]">{{ '::guest:invoice.bookingDetailsLabel' | abpLocalization }}</p>
+        <div class="flex w-[300px] text-center font-normal leading-3 justify-between">
+          <p class="text-[#444444] text-xs w-[50px] leading-5">
+            {{ '::guest:invoice.unitPriceLabel' | abpLocalization }}
+          </p>
+          <p class="text-[#444444] text-xs w-[100px] leading-5">
+            {{ '::guest:invoice.vatLabel' | abpLocalization }}
+          </p>
+          <p class="text-[#444444] text-xs w-[100px] leading-5">
+            {{ '::guest:invoice.totalPriceIncludingVATLabel' | abpLocalization }}
+          </p>
+        </div>
+      </div>
+      <div class="p-4 flex items-center justify-between font-bold odd:bg-white even:bg-[#F8F8F8]">
+        <p class="text-[#1E1E1E]">{{ '::guest:invoice.tripDestination' | abpLocalization }}</p>
+        <div class="flex w-[300px] text-center font-normal justify-between">
+          <p class="text-[#444444] text-xs w-[50px]">
+            {{ '::guest:invoice.unitPriceValue' | abpLocalization }}
+          </p>
+          <p class="text-[#444444] text-xs w-[100px]">
+            {{ '::guest:invoice.vatValue' | abpLocalization }}
+          </p>
+          <p class="text-[#444444] text-xs w-[100px]">
+            {{ '::guest:invoice.totalPriceIncludingVATValue' | abpLocalization }}
+          </p>
+        </div>
+      </div>
+      <div class="p-4 flex items-center justify-between font-bold odd:bg-white even:bg-[#F8F8F8]">
+        <p class="text-[#1E1E1E]">{{ '::guest:invoice.numberOfGuests' | abpLocalization }}</p>
+        <p class="text-base text-[#444444]">4 ضيوف</p>
+      </div>
+      <div class="p-4 flex items-center justify-between font-bold odd:bg-white even:bg-[#F8F8F8]">
+        <p class="text-[#1E1E1E]">{{ '::guest:invoice.unitPriceLabel' | abpLocalization }}</p>
+        <p class="text-base text-[#444444]">
+          {{ '::guest:invoice.unitPriceValue' | abpLocalization }}
+        </p>
+      </div>
+      <div class="p-4 flex items-center justify-between font-bold odd:bg-white even:bg-[#F8F8F8]">
+        <p class="text-[#1E1E1E]">{{ '::guest:invoice.vatLabel' | abpLocalization }}</p>
+        <p class="text-base text-[#444444]">{{ '::guest:invoice.vatValue' | abpLocalization }}</p>
+      </div>
+      <div class="p-4 flex items-center justify-between font-bold odd:bg-white even:bg-[#F8F8F8]">
+        <p class="text-[#1E1E1E]">
+          {{ '::guest:invoice.totalPriceIncludingVATLabel' | abpLocalization }}
+        </p>
+        <p class="text-base text-[#444444]">
+          {{ '::guest:invoice.totalPriceIncludingVATValue' | abpLocalization }}
+        </p>
+      </div>
+      <nz-divider nzText="{{ '::guest:invoice.closeInvoice' | abpLocalization }}"></nz-divider>
+      <div class="flex justify-center">
+        <qrcode [qrdata]="'Your data string'" [width]="103" [errorCorrectionLevel]="'M'"></qrcode>
+      </div>
+    </div>
+    <div class="xl:w-[432px] lg:w-[326px] w-full shrink-0 ms-0 mt-6 lg:mt-0 lg:ms-6">
+      <app-trip-information></app-trip-information>
+    </div>
+  </div>
+</div>

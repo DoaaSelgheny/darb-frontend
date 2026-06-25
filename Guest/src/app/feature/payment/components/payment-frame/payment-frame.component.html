@@ -1,0 +1,3 @@
+<div *ngIf="paymentUrl">
+  <iframe class="w-full min-h-[100vh]" [src]="paymentUrl | safe: 'resourceUrl'"></iframe>
+</div>

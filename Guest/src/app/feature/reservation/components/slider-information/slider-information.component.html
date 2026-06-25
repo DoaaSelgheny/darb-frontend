@@ -1,0 +1,131 @@
+<nz-card class="block w-full rounded-2xl p-3">
+    <div class="pt-2">
+        <nz-carousel [nzEffect]="effect" nzAutoPlay style="max-height: 200px;height:200px">
+            @for (index of images; track index) {
+              <div nz-carousel-content class="rounded-lg">
+                <img [src]="index" alt="img">
+              </div>
+            }
+          
+        </nz-carousel>
+    </div>
+      
+    <div class=" flex  flex-col mt-3">
+        <p class="text-base text-[#171717] font-bold">
+            {{isVaction ? data?.vacationHomeSummary.name.slice(0,30) : data?.experienceSummary.name.slice(0,30)}}
+            @if(isVaction ? data?.vacationHomeSummary.name.length > 30 : data?.experienceSummary.name.length > 30){
+              <span>...</span>
+            }
+        </p>
+        <div class="flex flex-row items-center justify-between mt-2">
+
+          <p class=" flex items-center flex-row mx-1">
+  
+              
+              <img src="assets/imgs/details/img39.svg" alt="img" >
+  
+              <span class="mx-1 text-xs">
+                  {{isVaction ? data?.vacationHomeSummary.location.cityName : data?.experienceSummary.location.cityName}} / 
+                  {{"::Guest:Explore:district"|abpLocalization}} 
+                  {{isVaction ? data?.vacationHomeSummary.location.districtName : data?.experienceSummary.location.districtName}}</span>
+          </p>
+          <p class=" flex items-center flex-row mx-1">
+          
+            <img src="assets/imgs/details/img40.svg" alt="img" >
+  
+            <span class="mx-1 text-xs text-[#666666]">
+              {{data?.summary.ratingsAverage  | number: '1.1-1'}} / {{data?.summary.ratingsCount}} {{'::guest:explore:rating:rate' |abpLocalization}}
+            </span>
+              
+          </p>
+        </div>
+    </div>
+    <div class="my-3">
+      @if(disableDetailBtn){
+        <button nz-button [nzType]="data?.summary.status === ReservationStatus.Approved ? 'default' : 'primary'" 
+          class="w-full border-[1px] rounded-md  text-center"
+          [ngClass]="data?.summary.status === ReservationStatus.Approved ? 'border-[#E5E5E5] text-[#171717] bg-[#FAFAFA]' : 'border-[#ED3024] text-[#fafafa] bg-[#ED3024]'"
+          (click)="goToExplore()">
+            <p class="flex items-center flex-row  justify-center ">
+                  {{'::guest:reserve.reReserve' |abpLocalization}}           
+              @if(lang == 'ar'){
+                  <i class="fa-solid fa-arrow-left mx-2"></i>
+                }@else {
+                  <i class="fa-solid fa-arrow-right mx-2"></i>
+                }
+            </p>
+            
+        </button>
+      }@else {
+
+        <button nz-button [nzType]="data?.summary.status === ReservationStatus.Approved ? 'default' : 'primary'" 
+          class="w-full border-[1px] rounded-md  text-center"
+          [ngClass]="data?.summary.status === ReservationStatus.Approved ? 'border-[#E5E5E5] text-[#171717] bg-[#FAFAFA]' : 'border-[#ED3024] text-[#fafafa] bg-[#ED3024]'"
+            (click)="goToDetails()"
+            [disabled]="disableDetailBtn">
+              <p class="flex items-center flex-row  justify-center ">
+                @if(data?.summary.status === ReservationStatus.Approved){
+                    {{'::guest:reserveDetails:details' |abpLocalization}}
+                }@else{
+
+                    {{'::guest:reserve.reReserve' |abpLocalization}}
+                }
+                @if(lang == 'ar'){
+                    <i class="fa-solid fa-arrow-left mx-2"></i>
+                  }@else {
+                    <i class="fa-solid fa-arrow-right mx-2"></i>
+                  }
+              </p>
+              
+        </button>
+      }
+      @if(data?.summary.status === ReservationStatus.Complete){
+     
+        @if( data?.summary.valueAddedTax == 0){
+          <a
+          [routerLink]="['/invoice/', data?.id, false]"
+          target="_blank"
+          rel="noopener noreferrer"
+          
+        >
+          <button nz-button [nzType]="'default'" 
+          class="w-full border-[1px] rounded-md mt-3 text-center border-[#E5E5E5] text-[#171717] bg-[#FAFAFA]"
+              >
+                <p class="flex items-center flex-row  justify-center ">
+                      {{'::guest:reserveDetails:downloadPill' |abpLocalization}}
+                  
+                      <i class="fa-solid fa-arrow-down mx-2"></i>
+                    
+                </p>
+                
+          </button>
+          </a>
+        }@else {
+            <a
+            [routerLink]="['/invoice/', data?.id, true]"
+            target="_blank"
+            rel="noopener noreferrer"
+            
+          >
+            <button nz-button [nzType]="'default'" 
+            class="w-full border-[1px] rounded-md mt-3 text-center border-[#E5E5E5] text-[#171717] bg-[#FAFAFA]"
+                >
+                  <p class="flex items-center flex-row  justify-center ">
+                        {{'::guest:reserveDetails:downloadPill' |abpLocalization}}
+                    
+                        <i class="fa-solid fa-arrow-down mx-2"></i>
+                      
+                  </p>
+                  
+            </button>
+            </a>
+        
+        }
+       
+      }
+      
+        
+        
+    </div>
+  </nz-card>
+  

@@ -1,0 +1,29 @@
+{
+    ::guest:profile:ID
+    ::guest:profile:VerificationType
+    ::guest:profile:NationalIdentity
+    ::guest:profile:Iqama
+    ::guest:profile:Passport
+    ::guest:profile:Verified
+    ::guest:profile:VerificationRejected
+    ::guest:profile:ProfileData
+    ::guest:profile:Back
+    ::guest:profile:SaveChanges
+    ::guest:Profile:PlaceHolder:FirstName
+    ::guest:Profile:FirstName
+    ::guest:Profile:PlaceHolder:LastName
+    ::guest:Profile:LastName
+    ::guest:Profile:PlaceHolder:Email
+    ::guest:Profile:Email
+    ::guest:Profile:Verify
+    ::guest:Profile:Update
+    ::guest:Profile:AccountIdentificationData
+    ::guest:Profile:Interests
+    ::guest:Profile:AuthenticatedSuccessfully
+    ::guest:Profile:Close
+    ::guest:Profile:Yes
+    ::guest:Profile:No
+    ::guest:Profile:YourDataWillNotBeSaved
+    ::guest:Profile:AreYouSureYourModifiedDataWillNotBeSaved
+    ::guest:Profile:FullName
+}

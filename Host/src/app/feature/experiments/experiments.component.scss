@@ -1,0 +1,29 @@
+:host ::ng-deep{
+  .ant-tabs > .ant-tabs-nav {
+    background-color: #122466;
+    color:#fff;
+    .ant-tabs-nav-more {
+      padding: 3px;
+    }
+  }
+  .ant-tabs-tab-active {
+    background-color: #fff;
+    border-bottom: none;
+    .ant-tabs-tab-btn {
+      color:#122466;
+    }
+    .ant-tag{
+      background-color: #3B82F6;
+    }
+  }
+  .ant-tabs-ink-bar {
+    background-color: transparent;
+  }
+  .ant-form-item-label > label::after {
+    display: none;
+  }
+  .ant-select-rtl.ant-select-single.ant-select-show-arrow .ant-select-selection-item, .ant-select-rtl.ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder, .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
+    padding-top: 0px;
+}
+
+}

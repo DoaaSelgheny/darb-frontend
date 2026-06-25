@@ -1,0 +1,64 @@
+<div class="">
+  <ul nz-menu nzTheme="light" nzMode="inline" class="h-[100vh] shadow-greyBox !border-none">
+    <li>
+      <div class="mt-4 pt-3 ps-8 pb-14 flex items-center">
+        <img alt="logo" class="w-[90px]" src="assets/imgs/logo.png" />
+      </div>
+      <ul>
+        <ng-container *ngFor="let item of menu">
+          <li
+            *ngIf="!item.isProfile"
+            nz-menu-item
+            (click)="close.emit()"
+            (click)="goToPath(item.path)"
+            [nzSelected]="item.selected"
+            class="sm:mx-2 mx-0 "
+          >
+            <span>{{ item.name }}</span>
+          </li>
+
+          <li nz-menu-item *ngIf="item.isProfile && isLogin" [routerLink]="item.path">
+            <span>
+              {{ '::guest:header.profile' | abpLocalization }}
+            </span>
+          </li>
+        </ng-container>
+
+        <li nz-menu-item class="block lg:hidden text-red-500" (click)="logOut()" *ngIf="this.authService.isAuthenticated;">
+          <span>
+            {{ '::guest:header.logOut' | abpLocalization }}
+          </span>
+        </li>
+        <app-select-language
+          classes=" !w-full"
+          class="block lg:hidden px-6 w-full mt-6"
+        ></app-select-language>
+
+        <ng-content></ng-content>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<app-confrontation-popup
+  [visible]="isVisibleSwitchToHost"
+  (cancel)="isVisibleSwitchToHost = false"
+  [title]="
+    {
+      key: '::guest:header:PleaseChangeNumberToSaudiNumber',
+      defaultValue: 'الرجاء تغيير الرقم الى رقم سعودي لتتمكن من الاستضافة معنا'
+    } | abpLocalization
+  "
+>
+  <div buttons class="flex items-center flex-col w-full px-10 mt-8">
+    <app-button size="md" class="block mb-6 w-full" [routerLink]="['/profile']">
+      {{
+        { key: '::guest:header:GoToProfile', defaultValue: 'الانتقال الى الملف الشخصي' }
+          | abpLocalization
+      }}
+    </app-button>
+    <app-button class="w-full" (click)="isVisibleSwitchToHost = false" size="md" [outline]="true">
+      {{ { key: '::guest:header:Cancel', defaultValue: 'إلغاء' } | abpLocalization }}
+    </app-button>
+  </div>
+</app-confrontation-popup>

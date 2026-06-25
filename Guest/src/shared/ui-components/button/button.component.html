@@ -1,0 +1,18 @@
+<button
+  [disabled]="disabled"
+  [nzLoading]="_loading"
+  [ngClass]="{
+    'h-14': size === 'lg',
+    'h-12': size === 'md',
+    'rounded-none': disabled,
+    '!border  !border-solid bg-white text-primary': !!outline && !disabled,
+    'text-secondary bg-secondary border-secondary font-normal': secondary
+  }"
+  class="w-full mx-auto rounded-md block font-bold"
+  nz-button
+  nzType="primary"
+>
+  <ng-content select="*"></ng-content>
+</button>
+
+<!-- border-secondary active:border-secondary active:bg-secondary after:bg-secondary hover:bg-secondary focus:border-secondary focus:bg-secondary bg-secondary -->

@@ -1,0 +1,46 @@
+::ng-deep {
+  .custom-card {
+    .ant-card-body {
+      @apply px-4 pb-4;
+    }
+  }
+
+  iframe {
+    width: 100%;
+    height: 600px;
+    border: 0;
+    background-color: #f4f4f4;
+  }
+
+  iframe body {
+    font-family: Arial, sans-serif;
+    background-color: #fafafa;
+  }
+
+  .btn-submit {
+    background-color: #f39c12 !important;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+  }
+ 
+    .ant-radio-checked .ant-radio-inner {
+      border-color: #122466;
+  }
+  .ant-radio-inner::after {
+    background-color: #122466;
+  }
+  
+  
+}
+.custom-radio:checked {
+  background-color: #122466 !important;
+  /* Color for the selected state */
+  border-color: #122466 !important;
+  /* Border color when checked */
+}
+
+.custom-radio:hover {
+  border-color: #122466 !important;
+  /* Border color on hover */
+}

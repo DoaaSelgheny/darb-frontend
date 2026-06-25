@@ -1,0 +1,89 @@
+<div class=" mt-9 shadow-greyBox mb-12">
+  <nz-tabset>
+    <nz-tab [nzTitle]="'::calendar:export' | abpLocalization"
+    (nzClick)="getSyncType(SyncCalendarType.Export)" >
+      <div class="flex flex-col items-center sm:px-16 px-66 pt-3 text-center">
+
+        <div class="bg-[#F9731614] text-[#F97316] flex flex-row justify-center items-center rounded-lg px-3 py-2">
+          <img src="assets/host/icons/export-icon.svg" alt="hint">
+          <span class="mx-2">{{'::calendar:export:hint' | abpLocalization}}</span>
+        </div>
+        <div class="mt-2">{{'::calendar:export:sub' | abpLocalization}}</div>
+        <div class="font-bold mt-3 text-[#122466]">{{'::calendar:export:title' | abpLocalization}}</div>
+
+      </div>
+
+      <div class="sm:px-16 px-6">
+       <div class="text-black text-sm font-bold mt-4 mb-3">{{data.name}}</div>
+        <div class="text-sm">{{"::calendar:export:link" | abpLocalization}}</div>
+        <div class="flex items-center justify-between">
+          <div class="text-[#938A8A] text-sm">{{link ? link.slice(0,40) :''}}</div>
+          <div role="button" class="flex items-center"  (click)="copyToClipboard(link)">
+            @if(copied){
+              <span class="mx-2 text-success text-xs">{{"::calendar:export:copied"|abpLocalization}}</span>
+            }@else {
+
+              <img src="assets/host/icons/export-copy.svg" alt="copy">
+              <span class="mx-2 text-[#122466] text-xs">{{"::calendar:export:copy"|abpLocalization}}</span>
+            }
+          </div>
+        </div>
+      </div>
+
+    </nz-tab>
+    <nz-tab [nzTitle]="'::calendar:import' | abpLocalization"  (nzClick)="getSyncType(SyncCalendarType.Import)" >
+      <div class="sm:px-14 px-6 pt-3">
+
+       <div class="text-black text-sm">{{"::calendar:import:hint" |abpLocalization}}</div>
+       <div class="text-black text-sm font-bold mt-3 mb-4">{{data.name}}</div>
+       <app-field
+       [(ngModel)]="url"
+        label="{{ '::calendar:import:url' | abpLocalization }}"
+        class="lg:ms-2 mt-5 lg:mt-0 w-full lg:w-[509px]"
+        placeholder="{{ '::calendar:import:urlPlaceholder' | abpLocalization }}"
+        >
+      </app-field>
+      <app-button size="md" class="w-full block mx-2 mt-4" (click)="saveCalendar()"
+      [disabled]="!url">
+        {{
+          {
+            key: '::calendar:import:save',
+          } | abpLocalization
+        }}
+      </app-button>
+
+      @if(externalLinks && externalLinks.length){
+        <div class="font-bold text-black my-4">{{'::calendar:import:externalLinks' | abpLocalization}}</div>
+        @for(link of externalLinks;track link;let last=$last){
+          <div class="flex justify-between flex-row">
+
+              <div class="text-sm">{{link.platformName}}</div>
+
+            <nz-switch
+              [nzId]="link.id"
+              class="w-[31px]"
+              [ngModel]="link.isActive"
+              (ngModelChange)="handleSwitchChange(link.id)"
+            ></nz-switch>
+
+          </div>
+          <div class="text-sm text-[#938A8A] flex flex-row items-center">
+            <span>{{link.syncCalendarUrl.slice(0,40)}}</span>
+            @if(link.isActive){
+
+              <img src="assets/host/icons/import-sync.svg" alt="sync"
+                class="mx-2" role="button" (click)="syncLink(link.id)">
+            }@else {
+              <img src="assets/host/icons/import-sync-disable.svg" alt="sync"
+                class="mx-2">
+            }
+          </div>
+          @if(!last){
+            <hr class="my-2"/>
+          }
+        }
+      }
+      </div>
+
+    </nz-tab>
+  </nz-tabset>

@@ -1,0 +1,34 @@
+{
+  "products":[
+    {
+    "id":"1",
+    "name":"y",
+    "description":"SSSS",
+    "imageUrl":"",
+    "price":55,
+    "quantity":3,
+    "category":"Cat 1"
+
+  },
+  {
+    "id":"2",
+    "name":"e",
+    "description":"eeee",
+    "imageUrl":"",
+    "price":545,
+    "quantity":43,
+    "category":"Cat 2"
+
+  },
+    {
+  "id":"3",
+  "name":"PPPPPP",
+  "description":"BBBBBB",
+  "imageUrl":"",
+  "price":665,
+  "quantity":78,
+  "category":"Cat 3"
+
+}
+]
+}

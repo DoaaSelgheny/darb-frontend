@@ -1,0 +1,22 @@
+.cover {
+  // background: url('https://hyyak-staging.oss-me-central-1.aliyuncs.com/guest/imgs/bg-lending.webp');
+  background: url('/assets/imgs/background.svg');
+  background-size: cover;
+  min-height:56vh;
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) { min-height:79vh }
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {  min-height:52vh }
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {  min-height:53vh }
+
+// X-Large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {  min-height:110vh }
+
+// XX-Large devices (larger desktops, 1400px and up)
+@media (min-width: 1400px) {  min-height:97vh }
+}
+

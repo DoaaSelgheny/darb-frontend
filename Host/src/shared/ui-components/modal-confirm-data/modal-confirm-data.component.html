@@ -1,0 +1,8 @@
+<div class="flex items-center justify-center">
+  <img [src]="img">
+  <p>{{reason}}</p>
+
+</div>
+<div *nzModalFooter>
+  <button nz-button nzType="primary" (click)="destroyModal()">{{"::homeHoliday:search:confirm" |abpLocalization}}</button>
+</div>

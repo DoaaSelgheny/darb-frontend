@@ -1,0 +1,246 @@
+
+<div class="flex items-center justify-between rounded-lg p-4 bg-[rgba(253,234,233,0.50)]">
+  <div>
+    <p class="text-[32px] font-extrabold">
+      {{ payment()?.detailsReservation?.netPrice }}
+    </p>
+    <!-- <p class="font-bold text-lg text-btnBg">
+      {{"::Guset:Explore:sar"|abpLocalization}} / {{"::Guest:Explore:person" |abpLocalization}}
+    </p> -->
+    <div class="flex flex-row">
+      <img src="assets/imgs/reyal.svg" class="mx-2" alt="riyal">
+      <p  class="font-bold text-lg text-btnBg"> / {{"::Guest:Explore:person" |abpLocalization}}</p>
+    </div>
+  </div>
+</div>
+ @if(experienceDatesType === experienceDatesTypeEnum.Scheduled){
+    <!-- Date -->
+   <div class="flex items-center">
+    <div class="flex-1">
+      <div class="flex items-center justify-between">
+        <app-field-label [label]="'::Guest:Explore:price:ExperienceDate' | abpLocalization" class="flex-1 me-3 mt-6 block"></app-field-label>
+        <p class="text-[#3B82F6] text-sm mt-1 flex items-center">
+          {{"::Guest:Explore:price:changeDate"| abpLocalization}}
+        </p>
+      </div>
+      <button
+      (click)="chooseDateForScheduled()"
+      nz-button
+      class="bg-[#fafafa] mb-3 text-[#737373]
+      border-gray-200 rounded-lg w-full shrink-0 relative h-14 flex-1
+      flex items-center   
+      ">
+      <p class="lg:text-base text-sm flex items-center">
+        <span nz-icon nzType="calendar" nzTheme="outline" class="mx-2"></span>
+        @if(selectedDate){
+          {{selectedDate}}
+        }@else {
+  
+          {{ '::Guest:Explore:price:chooseDate' | abpLocalization }}
+        }
+      </p>
+    </button>
+    </div>
+    
+  </div>
+}@else {
+
+  <!-- Date -->
+  <div class="flex items-center">
+    <div class="flex-1">
+      <div class="flex items-center justify-between">
+        <app-field-label [label]="'::Guest:Explore:price:ExperienceDate' | abpLocalization" class="flex-1 me-3 mt-6 block"></app-field-label>
+        <p class="text-[#3B82F6] text-sm mt-1 flex items-center">
+          {{"::Guest:Explore:price:changeDate"| abpLocalization}}
+        </p>
+      </div>
+      <nz-date-picker
+        [nzDisabledDate]="disabledDate"
+        (ngModelChange)="setDateFrom($event)"
+        [(ngModel)]="dateFrom"
+        [nzDateRender]="tplRender"
+        class="w-full h-14 rounded-lg"
+      ></nz-date-picker>
+  
+      <ng-template #tplRender let-current>
+        <div
+          class="ant-picker-cell-inner"
+          [class.line-through]="isDateDisabled(current)"
+        >
+          {{ current.getDate() }}
+        </div>
+      </ng-template>
+    </div>
+    
+  </div>
+ }
+<!-- Time -->
+<div class="flex items-center">
+  <div class="flex-1">
+    <div class="flex items-center justify-between">
+      <app-field-label [label]="'::Guest:Explore:price:ExperienceTime' | abpLocalization" class="flex-1 me-3 mt-6 block"></app-field-label>
+      <p class="text-[#3B82F6] text-sm mt-1 flex items-center">
+        {{"::Guest:Explore:price:changeTime"| abpLocalization}}
+      </p>
+    </div>
+    <button
+    (click)="chooseTimeForScheduled()"
+    nz-button
+    class="bg-[#fafafa] mb-3 text-[#737373]
+    border-gray-200 rounded-lg w-full shrink-0 relative h-14 flex-1
+    flex items-center   
+    ">
+    <p class="lg:text-base text-sm flex items-center">
+      <span nz-icon nzType="clock-circle" nzTheme="outline" class="mx-2"></span>
+      @if(TimeSlotChoosen()){
+        {{TimeSlotChoosen().checkInTime | timeFormat}}-{{TimeSlotChoosen().checkOutTime | timeFormat}}
+      }@else {
+
+        {{ '::Guest:Explore:price:chooseTime' | abpLocalization }}
+      }
+    </p>
+  </button>
+  </div>
+  
+</div>
+<!-- seat number -->
+@if(TimeSlotChoosen()){
+  <p class="text-[#ED3024] text-sm mt-1 flex items-center">
+    {{"::Guest:Explore:resetseats"| abpLocalization}} {{TimeSlotChoosen().availableSeats}}
+    {{"::Guest:Explore:totalseats"| abpLocalization}} {{TimeSlotChoosen().totalSeats}}
+    {{"::Guest:Explore:seats"| abpLocalization}}
+  </p>
+}
+<!-- No of Seats -->
+<app-counter
+[(value)]="seatsNo"
+(changeEvent)="setSeats($event)"
+class="mt-6 block"
+[label]='"::Guest:Explore:personsNo"| abpLocalization'
+[maxValue]="availableSeats ? availableSeats: 1"
+[minVal]="1"
+[disabled]="!TimeSlotChoosen()"
+>
+</app-counter>
+<!-- Pay Details-->
+<div class="mt-3">
+  <div class="flex justify-between">
+    <!-- <p class="text-sm">
+      <span class="font-bold">
+        {{ pricingDetails ? pricingDetails.numberOfPerson : 0 }} 
+        {{"::Guest:Explore:persons"|abpLocalization}}   
+      </span> &#10006;
+      {{pricingDetails ? pricingDetails.pricePerPerson : 0 }} {{"::Guset:Explore:sar" |abpLocalization}}
+    </p> -->
+    <div class="text-sm flex flex-row">
+      <span class="font-bold">
+        {{ pricingDetails ? pricingDetails.numberOfPerson : 0 }} 
+        {{"::Guest:Explore:persons"|abpLocalization}}   
+      </span> &#10006; 
+      <div style="direction: rtl;" class="flex">
+        <p class="font-normal text-dark text-sm">{{pricingDetails ? pricingDetails.pricePerPerson : 0 }} </p>
+        <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+      </div>
+    </div>
+    <!-- <p class="font-normal text-dark text-sm">
+      {{ pricingDetails ? pricingDetails.netPrice : 0 }}
+       {{"::Guset:Explore:sar" |abpLocalization}}
+      </p> -->
+      <div class="flex flex-row" style="direction: rtl;">
+        <p class="font-normal text-dark text-sm">{{ pricingDetails ? pricingDetails.netPrice : 0 }} </p>
+        <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+      </div>
+  </div>
+  @if(pricingDetails?.valueAddedTax !== 0){
+
+    <div class="mt-4 flex justify-between">
+      <p class="font-bold text-sm text-[#3A3A3A]">{{'::Host:taxValue'|abpLocalization}}</p>
+      <!-- <p class="text-dark font-normal text-sm">
+        {{ pricingDetails?.valueAddedTax}} 
+        {{'::guest:header.currency' |abpLocalization}}
+      </p> -->
+      <div class="flex flex-row" style="direction: rtl;">
+        <p class="font-normal text-dark text-sm">{{ pricingDetails?.valueAddedTax}}  </p>
+        <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+      </div>
+    </div>
+  }
+  @if(pricingDetails?.serviceFeesIncludesTax !== 0){
+
+    <div class="mt-4 flex justify-between">
+      <p class="font-bold text-sm text-[#3A3A3A]">{{"::Guest:Explore:price:tax" |abpLocalization}}</p>
+      <!-- <p class="text-dark font-normal text-sm">
+        {{ pricingDetails ? pricingDetails?.serviceFeesIncludesTax  : 0 }}
+         {{"::Guset:Explore:sar" |abpLocalization}}
+        </p> -->
+        <div class="flex flex-row" style="direction: rtl;">
+          <p class="font-normal text-dark text-sm">{{ pricingDetails ? pricingDetails?.serviceFeesIncludesTax  : 0 }}  </p>
+          <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+        </div>
+    </div>
+  }
+  <nz-divider class="my-4"></nz-divider>
+  <div>
+    <div class="flex justify-between">
+      <p class="font-bold text-dark text-base">{{"::Guest:Explore:price:total" |abpLocalization}}</p>
+      <!-- <p class=" text-dark text-base">
+        {{ pricingDetails ? pricingDetails?.totalPrice  : 0 }} 
+        {{"::Guset:Explore:sar" |abpLocalization}}
+      </p> -->
+      <div class="flex flex-row" style="direction: rtl;">
+        <p class="text-dark text-base">{{ pricingDetails ? pricingDetails?.totalPrice  : 0 }}  </p>
+        <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+      </div>
+    </div>
+  </div>
+  <div>
+  </div>
+  <nz-divider class="my-4"></nz-divider>
+</div>
+<!-- Pay Button-->
+<app-button class="block my-6 bg-btnBg" (click)="pay()"
+[disabled]="!TimeSlotChoosen()">
+  <div class="flex items-center justify-center">
+    <p class="text-base font-bold mx-2">
+      {{"::Guest:Explore:price:reserveNow" |abpLocalization}}</p>
+    @if(lang === 'en'){
+
+      <span nz-icon nzType="arrow-right" nzTheme="outline" class="font-bold"></span>
+    }@else {
+
+      <span nz-icon nzType="arrow-left" nzTheme="outline" class="font-bold"></span>
+    }
+  </div>
+</app-button>
+<div class="flex items-center justify-between">
+  <img src="assets/imgs/explore/visa.svg" alt="visa">
+
+
+  <!-- <img src="assets/icons/tamara.svg" alt="mis" class="mx-1"> -->
+  <img src="assets/imgs/explore/mada.svg" alt="mada">
+ 
+
+</div>
+<!--TimeSlotModal -->
+<nz-modal [(nzVisible)]="showTimeSlot" [nzTitle]="null" [nzFooter]="null" [nzWidth]="450" (nzOnCancel)="showTimeSlot = false">
+  <ng-container *nzModalContent>
+    <div class="grid grid-cols-2 gap-2">
+
+      @for(timeSlot of specificTimeSlots;track timeSlot){
+        <div class="rounded-lg border border-[#10205C] text-[#10205C] hover:bg-[#10205C] hover:text-white
+        text-center p-3 text-base font-bold" (click)="getChoosenTime(timeSlot)">
+          {{timeSlot.checkInTime | timeFormat}}-{{timeSlot.checkOutTime | timeFormat}}
+        </div>
+      }@empty {
+        <div class="col-span-2 flex items-center flex-col">
+          
+            <img src="assets/imgs/details/img4.svg" alt="img">
+            
+            
+          <p class="mt-3">{{"::Guest:Explore:price:noTimeSlot" |abpLocalization}}</p>            
+        </div>
+      }
+    </div>
+  </ng-container>
+</nz-modal>
+

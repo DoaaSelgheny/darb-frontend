@@ -1,0 +1,19 @@
+<app-field-label [label]="label" [control]="control"></app-field-label>
+<nz-date-picker
+  [(ngModel)]="value"
+  (ngModelChange)="changeValue()"
+  [nzInputReadOnly]="readonly"
+  [nzDisabled]="disabled"
+  [nzPlaceHolder]="placeholder"
+  class="w-full  h-14 rounded-lg {{ classes }}"
+  [ngClass]="readonly && 'bg-gray-100'"
+  [nzFormat]="dateFormat"
+  [nzDisabledDate]="disabledDate"
+  [nzDefaultPickerValue]="nzDefaultValue"
+  [nzShowToday]="showToday"
+></nz-date-picker>
+<app-validation
+  *ngIf="!!control"
+  class="block mt-4"
+  [control]="control"
+></app-validation>

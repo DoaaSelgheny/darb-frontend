@@ -1,0 +1,29 @@
+.contact {
+    background-image: url('/assets/imgs/contact.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    &.borderAr{
+        border-radius: 0 20px 20px 0px;
+
+    }
+    &.borderEn{
+        border-radius: 20px 0  0px 20px;
+    }
+}
+
+::ng-deep {
+    .ant-modal-content {
+        border-radius: 20px;
+    }
+    .ant-modal-body {
+        padding:0;
+        
+    }
+    .ant-card-body {
+        padding: 10px 20px;
+    }
+    .ant-card-head {
+        border-bottom: none;
+    }
+}

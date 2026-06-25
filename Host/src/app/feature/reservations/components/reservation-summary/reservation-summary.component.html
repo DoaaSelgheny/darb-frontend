@@ -1,0 +1,132 @@
+<nz-card class="block relative w-full border-1 rounded-2xl border-[#E5E5E5] custom-card">
+  <!-- <ng-template #cardTitle>
+    <p class=" text-lg text-[#171717] border-0">ملخص الحجز</p>
+  </ng-template> -->
+  <div class="p-4 flex items-center justify-between  font-bold">
+    <p class=" text-lg text-[#171717] border-0">{{'::BookingSummary'|abpLocalization}} </p>
+   </div>
+  <div class="p-4 flex items-center justify-between  " *ngIf="isVaction===true">
+    <p class=" text-base text-[#171717] ">{{'::Arrivaldate'|abpLocalization}}</p>
+    <p class=" text-base text-[#171717] ">{{ data?.summary.startDate | shortDate }}</p>
+  </div>
+  <div class="p-4 flex items-center justify-between  "  *ngIf="isVaction===true">
+    <p class=" text-base text-[#171717] ">{{'::Departuredate'|abpLocalization}} </p>
+    <p class=" text-base text-[#171717] ">{{ data?.summary.endDate | shortDate }}</p>
+  </div>
+  <div class="p-4 flex items-center justify-between  "  *ngIf="isVaction===true">
+    <p class=" text-base text-[#171717] "> {{'::Entrytime'|abpLocalization}} </p>
+    <p class=" text-base text-[#171717] ">{{ formatTime(data?.summary.checkIn)  }}</p>
+  </div>
+  <div class="p-4 flex items-center justify-between  "  *ngIf="isVaction===true">
+    <p class=" text-base text-[#171717] ">{{'::Checkouttime'|abpLocalization}}  </p>
+    <p class=" text-base text-[#171717] ">{{ formatTime(data?.summary.checkOut)  }}</p>
+  </div>
+  <div class="p-4 flex items-center justify-between  "  *ngIf="isVaction===true">
+    <div class=" flex flex-row " >
+      <span class=" text-base text-[#171717] font-bold">{{data?.summary.numberOfDaysOrPeople}}  {{  '::nights' |abpLocalization}}
+        &#10006;
+      </span>
+      <!-- {{data?.summary.unitPrice}}    {{'::guest:header.currency' |abpLocalization}} -->
+      <div style="direction: rtl;" class="flex flex-row" >
+
+        <p class="text-base text-[#171717]"> {{data?.summary.unitPrice}}  </p>
+        <img class="mx-2" src="assets/host/icons/riyal-black.svg" alt="riyal">
+      </div>
+    </div>
+    <!-- <p class=" text-base text-[#171717] " *ngIf="lang==='en'" style="direction: ltr;"  >
+      <span class="font-bold">{{data?.summary.numberOfDaysOrPeople}}   {{  '::nights' |abpLocalization}}
+        &#10006;
+      </span>
+      {{data?.summary.unitPrice}} {{'::guest:header.currency' |abpLocalization}}
+    </p> -->
+    <!-- <p class=" text-base text-[#171717] ">{{ data?.summary.netPrice  }}
+       {{'::guest:header.currency' |abpLocalization}}</p> -->
+    <div style="direction: rtl;" class="flex flex-row" >
+
+      <p class="text-base text-[#171717]"> {{ data?.summary.netPrice}}  </p>
+      <img class="mx-2" src="assets/host/icons/riyal-black.svg" alt="riyal">
+    </div>
+  </div>
+  <div class="p-4 flex items-center justify-between  " *ngIf="isVaction===false">
+    <p class=" text-base text-[#171717] ">{{'::Experiencehistory'|abpLocalization}}</p>
+    <p class=" text-base text-[#171717] ">{{ data?.summary.date | shortDate }}</p>
+  </div>
+  <div class="p-4 flex items-center justify-between  " *ngIf="isVaction===false">
+    <p class=" text-base text-[#171717] ">{{'::Experiencetime'|abpLocalization}}</p>
+    <p class=" text-base text-[#171717] ">{{ formatTime(data?.summary.checkIn) }} - {{ formatTime(data?.summary.checkOut) }} </p>
+  </div>
+  <div class="p-4 flex items-center justify-between  "  *ngIf="isVaction===false">
+
+    <!-- <p class=" text-base text-[#171717] "> <span class="font-bold">
+      {{data?.summary.numberOfDaysOrPeople}}  {{  '::people' |abpLocalization}} &#10006;
+    </span>   {{data?.summary.unitPrice}}    {{'::guest:header.currency' |abpLocalization}}   </p> -->
+    <div class=" flex flex-row " >
+      <span class=" text-base text-[#171717] font-bold">{{data?.summary.numberOfDaysOrPeople}}  {{  '::people' |abpLocalization}}
+        &#10006;
+      </span>
+      <!-- {{data?.summary.unitPrice}}    {{'::guest:header.currency' |abpLocalization}} -->
+      <div style="direction: rtl;" class="flex flex-row" >
+
+        <p class="text-base text-[#171717]"> {{data?.summary.unitPrice}}  </p>
+        <img class="mx-2" src="assets/host/icons/riyal-black.svg" alt="riyal">
+      </div>
+    </div>
+
+    <!-- <p class=" text-base text-[#171717] " *ngIf="lang==='en'" style="direction: ltr;"  > <span class="font-bold">{{data?.summary.numberOfDaysOrPeople}}   {{  '::people' |abpLocalization}} &#10006;</span>    {{data?.summary.unitPrice}} {{'::guest:header.currency' |abpLocalization}} </p> -->
+    <!-- <p class=" text-base text-[#171717] ">{{ data?.summary.netPrice  }} {{'::guest:header.currency' |abpLocalization}}</p> -->
+    <div style="direction: rtl;" class="flex flex-row" >
+
+      <p class="text-base text-[#171717]"> {{ data?.summary.netPrice }}  </p>
+      <img class="mx-2" src="assets/host/icons/riyal-black.svg" alt="riyal">
+    </div>
+  </div>
+  @if(data?.summary.valueAddedTax !== 0){
+
+    <div class="p-4 flex items-center justify-between  ">
+      <p class=" text-base text-[#171717] ">{{'::Host:taxValue'|abpLocalization}}</p>
+      <!-- <p class=" text-base text-[#171717] ">{{ data?.summary.valueAddedTax}} {{'::guest:header.currency' |abpLocalization}}</p> -->
+      <div style="direction: rtl;" class="flex flex-row" >
+
+        <p class="text-base text-[#171717]"> {{data?.summary.valueAddedTax}}  </p>
+        <img class="mx-2" src="assets/host/icons/riyal-black.svg" alt="riyal">
+      </div>
+    </div>
+  }
+  <div class="p-4 flex items-center justify-between  ">
+    <p class=" text-base text-[#171717] ">{{'::Bookingcommissionincludingtax'|abpLocalization}}</p>
+    <!-- <p class=" text-base text-[#171717] ">{{ data?.summary.commissionIncludesTax  }} {{'::guest:header.currency' |abpLocalization}}</p> -->
+    <div style="direction: rtl;" class="flex flex-row" >
+
+      <p class="text-base text-[#171717]"> {{data?.summary.commissionIncludesTax }}  </p>
+      <img class="mx-2" src="assets/host/icons/riyal-black.svg" alt="riyal">
+    </div>
+  </div>
+  <div class="p-4 flex items-center justify-between  ">
+    <p class=" text-base text-[#171717] ">  {{'::Netamount'|abpLocalization}} </p>
+    <!-- <p class=" text-base text-[#171717] ">{{ data?.summary.totalRevenueForHost  }} {{'::guest:header.currency' |abpLocalization}}</p> -->
+    <div style="direction: rtl;" class="flex flex-row" >
+
+      <p class="text-base text-[#171717]"> {{data?.summary.totalRevenueForHost}}  </p>
+      <img class="mx-2" src="assets/host/icons/riyal-black.svg" alt="riyal">
+    </div>
+  </div>
+  <!-- <div class=" p-4 flex items-center justify-between  odd:bg-white even:bg-[#F8F8F8]">
+    <p>عدد الاطفال</p>
+    <p>4</p>
+ </div> -->
+  <!-- <div class="mt-4 p-4 rounded-lg border border-[#EEE]">
+    <div class="flex justify-between">
+      <p class=" text-sm text-gray-600">المبلغ</p>
+      <p class="font-Rubik">{{ data?.netPrice }} ريال</p>
+    </div>
+    <div class="flex justify-between">
+      <p class=" text-sm text-gray-600">الضرائب</p>
+      <p class="font-Rubik">{{ data?.tax }} ريال</p>
+    </div>
+    <nz-divider class="my-4"></nz-divider>
+    <div class="flex justify-between text-base  text-dark">
+      <p class=" ">المبلغ الاجمالي</p>
+      <p>{{ data?.totalPrice }} ريال</p>
+    </div>
+  </div> -->
+</nz-card>

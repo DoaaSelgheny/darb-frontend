@@ -1,0 +1,23 @@
+<nz-card  class="block w-full  rounded-2xl p-3 my-3">
+  <div class="flex justify-between items-center">
+
+    <div class="px-4 py-2">
+        <p class="font-bold text-lg text-[#171717] border-0">{{'::guest:reserveDetails:location' |abpLocalization}} </p>
+    </div>
+    <button (click)="openGoogleMaps()"
+    class="bg-[#122466] text-white px-3 py-2 rounded-lg">{{'::guest:reserveDetails:viewLocation' |abpLocalization}}
+  </button>
+  </div>
+    <div class="px-4 py-2">
+        <google-map
+        height="320px"
+        width="100%"
+        [center]="center"
+        [zoom]="zoom"
+      >
+        <map-marker [position]="markCenter"></map-marker>
+      </google-map>
+    </div>
+    
+      
+</nz-card>

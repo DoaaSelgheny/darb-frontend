@@ -1,0 +1,122 @@
+@if (openUpdate) {
+  <section class="w-[100vw] h-[100vh] fixed inset-0 bg-[#0B163D99] flex justify-center z-50">
+    <form
+      [formGroup]="form"
+      class="py-9 px-4 md:px-11 md:w-[589px] rounded-md md:shadow-greyBox md:h-auto bg-white flex flex-col items-center self-center"
+    >
+      <div class="flex flex-col gap-5 w-full">
+        <div class="flex">
+          <img
+            src="/assets/icons/verification-icon.png"
+            class="mx-auto block"
+            alt="verification"
+            title="verification-otp"
+          />
+          <button (click)="closePopup()" class="underline text-primary">
+            <!-- {{ { key: '::guest:otp:Close', defaultValue: 'إغلاق' } | abpLocalization }} -->
+            <span nz-icon nzType="close" class="ms-2" nzTheme="outline"></span>
+          </button>
+        </div>
+
+        @if (contactInfo.type == otpType.ChangePhoneNumber) {
+          <div>
+            <app-field-label
+              label="
+                  {{
+                {
+                  key: '::guest:otp:PreviousPhoneNumber',
+                  defaultValue: 'رقم الهاتف السابق'
+                } | abpLocalization
+              }}"
+            ></app-field-label>
+            <ngx-intl-tel-input
+              cssClass="w-full left-direction rounded-md mt-4 p-4 ant-input ps-7 ant-input-rtl ant-input-stepperless text-dark text-base"
+              [enableAutoCountrySelect]="true"
+              [enablePlaceholder]="true"
+              [searchCountryFlag]="true"
+              [selectedCountryISO]="selectedCountryISO"
+              [selectFirstCountry]="false"
+              [separateDialCode]="true"
+              name="phoneNumber"
+              formControlName="previousPhoneNumber"
+            ></ngx-intl-tel-input>
+          </div>
+          <div>
+            <app-field-label
+              [control]="form | getControl: 'newPhoneNumber'"
+              label="
+                    {{
+                {
+                  key: '::guest:otp:NewPhoneNumber',
+                  defaultValue: 'رقم الهاتف الجديد'
+                } | abpLocalization
+              }}"
+            ></app-field-label>
+            <ngx-intl-tel-input
+              cssClass="w-full left-direction rounded-md mt-4 p-4 ant-input ps-7 ant-input-rtl ant-input-stepperless text-dark text-base"
+              [enableAutoCountrySelect]="true"
+              [enablePlaceholder]="false"
+              [searchCountryFlag]="true"
+              [selectedCountryISO]="selectedCountryISO"
+              [selectFirstCountry]="false"
+              [separateDialCode]="true"
+              name="phoneNumber"
+              formControlName="newPhoneNumber"
+            ></ngx-intl-tel-input>
+            <app-validation
+              *ngIf="submitted && form.controls['newPhoneNumber'].errors"
+              [control]="form | getControl: 'newPhoneNumber'"
+              [message]="
+                form.controls['newPhoneNumber']?.errors?.required
+                  ? 'Validation.'
+                  : 'General:Validation.'
+              "
+            ></app-validation>
+          </div>
+        } @else {
+          <div>
+            <app-field
+              [placeholder]="
+                { key: '::guest:Profile:PlaceHolder:Email', defaultValue: 'البريد الالكتروني' }
+                  | abpLocalization
+              "
+              [label]="
+                { key: '::Host:otp:PreviousEmail', defaultValue: 'البريد الالكتروني السابق' }
+                  | abpLocalization
+              "
+              formControlName="previousEmail"
+            ></app-field>
+          </div>
+          <div>
+            <app-field
+              [control]="form | getControl: 'newEmail'"
+              [placeholder]="
+                { key: '::guest:Profile:PlaceHolder:Email', defaultValue: 'البريد الالكتروني' }
+                  | abpLocalization
+              "
+              [label]="
+                { key: '::Host:otp:NewEmail', defaultValue: 'البريد الالكتروني الجديد' }
+                  | abpLocalization
+              "
+              formControlName="newEmail"
+            ></app-field>
+
+            <div *ngIf="emailsMatchError" class="error">
+              {{'::matchEmail'|abpLocalization}}
+             </div>
+          </div>
+        }
+
+        <!-- SUBMIT BUTTON  -->
+        <div class="w-11/12 mx-auto block mt-8 text-center">
+          <button
+            (click)="sendOtp()"
+            class="border-primary h-14 text-white active:border-primary active:bg-primary after:bg-primary hover:bg-primary focus:border-primary focus:bg-primary bg-primary w-full mx-auto rounded-md block"
+          >
+            {{ { key: '::guest:Profile:Verify', defaultValue: 'تحقق' } | abpLocalization }}
+          </button>
+        </div>
+      </div>
+    </form>
+  </section>
+}

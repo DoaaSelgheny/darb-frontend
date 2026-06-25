@@ -1,0 +1,13 @@
+<article class="collapsible">
+  <button
+    [disabled]="isDisabled"
+    (click)="toggleActive()"
+    class="header"
+    [ngClass]="{ 'header--active': isActive }"
+  >
+    <ng-content select="header"></ng-content>
+  </button>
+  <div [@collapse-animation]="getState()" class="content" [ngClass]="{ active: isActive }">
+    <ng-content select="body"></ng-content>
+  </div>
+</article>

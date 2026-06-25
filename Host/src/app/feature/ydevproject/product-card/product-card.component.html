@@ -1,0 +1,27 @@
+
+
+<!-- TODO I18N -->
+<div class="prod-card"
+  class="d-flex flex-col bg-white sm:max-w-[21.5rem] p-6 rounded-md cursor-pointer shadow-sm hover:shadow-lg duration-300"
+  routerLink="coupons"
+>
+  <a class="block text-primary text-base mb-8 text-end">
+    <i class="fa-regular fa-percent !text-xl font-extrabold"></i>
+  </a>
+  <h2 class="text-dark text-xs mb-4">
+    {{
+       product.name
+    }}
+  </h2>
+  <h3 class="text-base text-2xl mb-3 text-secondary">
+    {{
+        product.id
+    }}
+  </h3>
+    <p class="text-base text-2xl mb-3 text-secondary">
+    {{
+      product.description
+    }}
+  </p>
+
+</div>

@@ -1,0 +1,26 @@
+::ng-deep {
+  app-menu {
+    .changeCurrency {
+      span {
+        color: black !important;
+      }
+    }
+  }
+  .dropdownMenuStyle {
+    ul {
+      @apply rounded-lg min-w-[195px];
+    }
+  }
+}
+
+.separator {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #d6dce8;
+  }
+}

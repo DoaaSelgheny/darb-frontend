@@ -1,0 +1,10 @@
+export const ARABIC_ENGLISH_WITH_SPACES = /^[\u0600-\u06FFa-zA-Z0-9\s]+$/;
+export const ARABIC_ENGLISH_WITH_SPACES_WITHOUT_NUMBERS = /^[\u0600-\u06FFa-zA-Z\s]+$/;
+export const ARABIC_WITH_SPACES = /^[\u0600-\u06ff ]+$/;
+export const NUMBERS_ONLY = /^\d+$/;
+export const SAUDI_IBAN = /^SA\d{2}\d{2}\d{18}$/;
+export const ACCOUNT_NUMBER = /^\d{14}$/;
+export const IBAN = /^SA\d{22}$/;
+export const AREA_SIZE = /^[\u0661-\u06691-9]{1}[\u0660-\u06690-9]*[\*]*[\u0660-\u06690-9]*$/;
+export const POSITIVE_NUMBERS = /^[\u0661-\u06691-9]{1}[\u0660-\u06690-9]*$/;
+export const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;

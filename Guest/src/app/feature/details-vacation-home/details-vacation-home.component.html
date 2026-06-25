@@ -1,0 +1,68 @@
+<!-- <div class="relative ">
+  <img [src]="lang === 'ar' ?'assets/imgs/test.svg' : 'assets/imgs/testen.svg'" 
+  class="absolute fixed" style="z-index:9;top: -40px;"> 
+   
+</div> -->
+<div class="container pb-36">
+  <nz-breadcrumb class="mt-[26px]">
+    <nz-breadcrumb-item class="cursor-pointer" routerLink="/">{{
+      '::Guest:Explore:Home' | abpLocalization
+    }}</nz-breadcrumb-item>
+    <nz-breadcrumb-item class="cursor-pointer" routerLink="/explore">{{
+      '::Guest:Explore:reserve' | abpLocalization
+    }}</nz-breadcrumb-item>
+    <nz-breadcrumb-item>{{ '::Guest:Explore:vactionDetail' | abpLocalization }}</nz-breadcrumb-item>
+  </nz-breadcrumb>
+ 
+    <app-header-details-trip [vacationHome]="vacationHome"></app-header-details-trip>
+
+    <div class="grid md:grid-cols-3 grid-cols-1 gap-3 mt-6">
+      <div class="md:col-span-2 col-span-1">
+        <app-trip-photos [images]="images"></app-trip-photos>
+        <app-trip-info-details
+          [vacationHome]="vacationHome"
+          class="block mt-6"
+        ></app-trip-info-details>
+        <div class="bg-white rounded-2xl mt-2">
+          <nz-tabset class="custom-tabset py-3" (nzSelectedIndexChange)="onTabChange($event)">
+            <nz-tab
+              [nzTitle]="'::Guest:Explore:tab:Aminities' | abpLocalization"
+              class="font-bold text-black"
+            >
+              <app-space-rooms
+                [vacationHome]="vacationHome"
+                class="block mt-2 px-3"
+              ></app-space-rooms>
+            </nz-tab>
+            <nz-tab [nzTitle]="'::Guest:Explore:tab:condition' | abpLocalization">
+              <app-trip-features
+                [vacationHome]="vacationHome"
+                class="block mt-2 px-3"
+              ></app-trip-features>
+            </nz-tab>
+            <nz-tab [nzTitle]="'::Guest:Explore:tab:map' | abpLocalization">
+              <app-package-location
+                [vacationHome]="vacationHome"
+                class="block mt-2 px-3"
+              ></app-package-location>
+            </nz-tab>
+            <nz-tab [nzTitle]="'::Guest:Explore:tab:ratings' | abpLocalization">
+              <ng-container *ngIf="isRatingTabLoaded">
+                <app-rating-details
+                  [id]="vacationHome.vacationHome.id"
+                  [isVacation]="true"
+                  [ratingAverage]="vacationHome.ratingsAverage"
+                  class="block mt-2 px-3"
+                ></app-rating-details>
+              </ng-container>
+            </nz-tab>
+          </nz-tabset>
+        </div>
+      </div>
+      <div class="col-span-1 p-4 mt-6 lg:mt-0 bg-white rounded-2xl h-max">
+        <app-price-details></app-price-details>
+      </div>
+    </div>
+    <app-similar-vacation-home></app-similar-vacation-home>
+  
+</div>

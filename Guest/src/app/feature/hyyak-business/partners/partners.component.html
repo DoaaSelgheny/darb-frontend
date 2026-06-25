@@ -1,0 +1,19 @@
+<div class="text-center py-10 bg-white">
+    <div class="flex items-center justify-center flex-col md:mx-28 sm:mx-6 mx-20">
+      <p class="md:text-2xl lg:text-3xl sm:text-lg text-base font-bold text-black mb-5  ">
+      {{ '::Host:Business:partner:title' | abpLocalization }}
+  
+      </p>
+      <div class="w-full relative ">
+        <div class="swiper centered-slide-carousel2">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" *ngFor="let item of slides">
+                    <img [src]="item.src">
+                </div>
+            </div>
+            <div class="swiper-pagination "></div>
+        </div>
+    </div>
+     
+    </div>
+  </div>

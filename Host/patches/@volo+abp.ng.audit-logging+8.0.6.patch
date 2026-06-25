@@ -1,0 +1,14 @@
+diff --git a/node_modules/@volo/abp.ng.audit-logging/fesm2022/volo-abp.ng.audit-logging-common.mjs b/node_modules/@volo/abp.ng.audit-logging/fesm2022/volo-abp.ng.audit-logging-common.mjs
+index ea575e3..5e25caf 100644
+--- a/node_modules/@volo/abp.ng.audit-logging/fesm2022/volo-abp.ng.audit-logging-common.mjs
++++ b/node_modules/@volo/abp.ng.audit-logging/fesm2022/volo-abp.ng.audit-logging-common.mjs
+@@ -8,7 +8,8 @@ const AUDIT_LOGGING_FEATURES = new InjectionToken('AUDIT_LOGGING_FEATURES', {
+         const configState = inject(ConfigStateService);
+         const featureKey = 'AuditLogging.Enable';
+         const mapFn = features => ({
+-            enable: features[featureKey].toLowerCase() !== 'false',
++           
++enable: (features?.[featureKey] ?? '').toString().toLowerCase() !== 'false',
+         });
+         return featuresFactory(configState, [featureKey], mapFn);
+     },

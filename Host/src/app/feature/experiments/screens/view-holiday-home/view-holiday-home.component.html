@@ -1,0 +1,23 @@
+<div class="text-lg color-[#252729] font-bold">{{"::experience:search:title" | abpLocalization}}</div>
+<div class="flex justify-between items-center">
+  <!-- Breadcrumb -->
+  <nz-breadcrumb>
+    <nz-breadcrumb-item class="cursor-pointer" routerLink="/experiments"
+      >{{"::homeHoliday:search:home" | abpLocalization}}</nz-breadcrumb-item
+    >
+    <nz-breadcrumb-item>{{"::Host:VacationHome2:Step2:Header:Info" | abpLocalization}}</nz-breadcrumb-item>
+  </nz-breadcrumb>
+
+</div>
+<main class="holiday-home-details">
+ 
+  <section class="edit-info">
+    <app-view-holiday-home-information [id]="id" [buttons]="false"></app-view-holiday-home-information>
+  </section>
+  <div class="flex md:flex-row flex-col justify-end items-center">
+    <app-button size="md" class="mt-4 md:mt-0" routerLink="/experiments">
+      {{ '::Host:VacationHome:Step10:Exit' | abpLocalization }}
+    </app-button>
+  </div>
+</main>
+ 

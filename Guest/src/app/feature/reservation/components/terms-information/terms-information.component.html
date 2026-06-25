@@ -1,0 +1,89 @@
+<nz-card  class="block w-full  rounded-2xl p-3 my-3">
+    <div class="px-4 py-2 flex items-center justify-between font-bold ">
+      <p class="font-bold text-lg text-[#171717] border-0">{{'::guest:reserveDetails:terms' |abpLocalization}} </p>
+    </div>
+    <div class="px-4 py-2">
+        <p class="font-bold text-base text-[#171717] border-0 pb-2">{{'::guest:reserveDetails:guestTerms' |abpLocalization}} </p>
+        <p class=" text-base text-[#171717] border-0">{{data?.vacationHomeSummary.conditionsReservation}}  </p>
+
+    </div>
+    <div class="px-4 py-2">
+        <p class="font-bold text-base text-[#171717] border-0 pb-2">{{'::Host:VacationHome:Step6:Header:policy' |abpLocalization}} </p>
+        <p class=" text-base text-[#171717] border-0">{{data?.summary.cancellationAndReturnPolicyDescription}} </p>
+
+    </div>
+    <div class="flex justify-end">
+      @if(data?.summary.canCancel){
+
+        <button nz-button nzType="primary" nzSize="large" class="w-1/2 mt-4 " (click)="isVisible =true">
+            {{'::guest:reserveDetails:cancelReserve' |abpLocalization}}
+            @if(lang == 'ar'){
+                <i class="fa-solid fa-arrow-left mx-2"></i>
+              }@else {
+                <i class="fa-solid fa-arrow-right mx-2"></i>
+              }
+        </button>
+      }
+    </div>
+      
+</nz-card>
+
+<!--POPUP reason -->
+<nz-modal 
+  [(nzVisible)]="isVisible" 
+  [nzTitle]="null" [nzFooter]="null"
+  [nzWidth]="450" 
+  (nzOnCancel)="isVisible = false">
+
+  <ng-container *nzModalContent>
+    <div class="flex justify-center items-center mt-6">
+
+     
+      <img src="assets/imgs/details/img41.svg" alt="img" >
+
+    </div>
+      
+    <app-textarea
+      [(ngModel)]="message"
+      class="mt-[30px] block"
+      label="{{ '::guest:reserveDetails:cancelReason' | abpLocalization }}"
+    ></app-textarea>
+    <!-- Modal Footer Buttons -->
+
+    <div class="modal-footer" class="flex items-center flex-row justify-center ">
+      <app-button
+        size="md"
+        class="block w-full"
+        (click)="cancelReserve()"
+        [disabled]="!message"
+      >
+        {{
+          {
+            key: '::guest:reserveDetails:Confirm'
+          } | abpLocalization
+        }}
+      </app-button>
+      <button nz-button [nzType]="'default'" class="w-full h-12 mx-3 border-[#E5E5E5] bg-[#fafafa]" (click)="isVisible = false;" >
+        {{
+          {
+            key: '::General:Cancel'
+          } | abpLocalization
+        }}
+      </button>
+    </div>
+  </ng-container>
+</nz-modal>
+<app-confrontation-popup
+  [visible]="isSuccess"
+  (cancel)="isSuccess = false"
+  [confrontationType]="confrontationTypesEnum.success"
+  title="{{ '::guest:reserveDetails:confirmTitle' | abpLocalization }}"
+  description="{{ '::guest:reserveDetails:confirmDescription' | abpLocalization }}"
+>
+  <div buttons>
+      <button nz-button [nzType]="'primary'"  class="w-52 h-12 border-[#ED3024] bg-[#ED3024] text-[#fafafa]" 
+        (click)="isSuccess = false">
+          <p>{{ '::guest:reserveDetails:ok' | abpLocalization }}</p>
+      </button>
+  </div>
+</app-confrontation-popup>

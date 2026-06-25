@@ -1,0 +1,63 @@
+
+<form [formGroup]="form">
+
+    <div class="mt-4">
+        <app-field
+        class="block"
+        type="text"
+        label="{{ '::AuthServer:FirstName' | abpLocalization }}"
+        placeholder="{{ '::AuthServer:FirstName' | abpLocalization }}"
+
+        ></app-field>
+        <app-field
+            class="block"
+            type="text"
+            label="{{ '::AuthServer:LastName' | abpLocalization }}"
+            placeholder="{{ '::AuthServer:LastName' | abpLocalization }}"
+        ></app-field>
+        <app-field
+        class="block"
+        type="email"
+        label="{{ '::AuthServer:Email' | abpLocalization }}"
+        ></app-field>
+    </div>
+    <div class="flex gap-4 justify-between items-center flex-col md:flex-row">
+    <div>
+        <app-field-label
+            [control]="form | getControl: 'captcha'"
+            [label]="'::Host:Business:form:verfication'|abpLocalization"
+            [options]="{
+            valid: form.value.captcha
+            }"
+        ></app-field-label>
+        <re-captcha
+        formControlName="captcha"
+        class="mt-3 block md:mt-0"
+        (resolved)="resolved($event)"
+        siteKey="6LcVXH4pAAAAAH8eyL7Ah1NnXmxvPqS9mT1UxB3K"
+        ></re-captcha>
+        <!-- TODO -->
+        <app-validation
+        class="block mt-4"
+        [control]="form | getControl: 'captcha'"
+        [message]=" form.controls['captcha']?.errors?.required ? 'Validation.' : 'General:Validation.'"
+        ></app-validation>
+    </div>
+    </div>
+
+    <label nz-checkbox>
+        {{"::AuthServer:IAcceptOn" |abpLocalization}} 
+        <a href="https://hyyak.com/terms-and-conditions" class='text-red-500 underline cursor-pointer' target='_blank'>{{"::AuthServer:TermsAndConditions" | abpLocalization}}</a>
+    </label>
+    <app-button  class="block mt-3">
+    {{ '::AuthServer:Register' | abpLocalization }}
+    </app-button >
+</form>
+<div class="text-center w-full mt-[15px] text-sm ">
+    <p class="haveAccount"><span class="text-gray-300">{{"::AuthServer:HaveAccount"|abpLocalization}}</span></p>
+    
+    <button  nz-button nzSize="md"  nzBlock nzType="primary" class="text-secondary bg-[#F5F5F5] border-none" [routerLink]="['../login']">
+        {{ '::AuthServer:Login' | abpLocalization }}
+    </button >
+</div>
+

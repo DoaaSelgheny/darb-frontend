@@ -1,0 +1,21 @@
+.map-container {
+  width: 100%;
+  height: 400px;
+}
+
+.map-frame {
+  border: 1px solid black;
+  height: 100%;
+}
+
+#map {
+  height: 100%;
+}
+::ng-deep{
+  .ant-radio-checked .ant-radio-inner {
+    border-color: #122466;
+}
+.ant-radio-inner::after {
+  background-color: #122466;
+}
+}

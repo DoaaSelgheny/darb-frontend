@@ -1,0 +1,124 @@
+<h2 class="text-lg text-[#3C3C3CE3] mt-3 mb-6 font-bold">صور التجربة</h2>
+<div class="mt-14">
+  <ng-container>
+    <h2 class="flex items-start mb-2 text-base font-bold">
+      صور لموقع التجربة
+      <img alt="required" class="ms-1" src="/assets/host/icons/required.svg" />
+    </h2>
+    <h4>اضف صور موقع التجربة الذي تشتمل على : صور الموقع + صور ما حول الموقع من خدمات مرافق …</h4>
+    <br />
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-1 gap-4">
+      @for (item of images.controls; track item; let idx = $index) {
+        <ng-container
+          *ngTemplateOutlet="imgItem; context: { data: { img: item.value, index: idx } }"
+        ></ng-container>
+      }
+      <ng-container *ngTemplateOutlet="addNewImg"></ng-container>
+    </div>
+  </ng-container>
+</div>
+
+<div class="mt-9">
+  <ng-container>
+    <h2 class="flex items-start mb-2 text-base font-bold">
+      صور التجربة
+      <img alt="required" class="ms-1" src="/assets/host/icons/required.svg" />
+    </h2>
+    <h4>صور لتفاصيل التجربة , صور محتويات التجربة …</h4>
+    <br />
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-1 gap-4">
+      @for (item of expImages.controls; track item; let idx = $index) {
+        <ng-container
+          *ngTemplateOutlet="expImgItem; context: { data: { img: item.value, index: idx } }"
+        ></ng-container>
+      }
+      <ng-container *ngTemplateOutlet="addNewExpImg"></ng-container>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #imgItem let-data="data">
+  <div class="h-36 relative">
+    <img class="w-full h-full rounded-lg" [src]="data.img" />
+    <div class=" ">
+      <button
+        nz-button
+        nz-dropdown
+        [nzDropdownMenu]="menu"
+        class="top-2 rtl:left-2 ltr:right-2 w-9 border-0 h-9 bg-white opacity-60 leading-none backdrop-blur rounded-full absolute"
+      >
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu>
+            <li
+              nz-menu-item
+              class="border border-t border-b-0 border-[#D6DCE8]"
+              (click)="delete(data.index)"
+            >
+              <span nz-icon nzType="delete" nzTheme="outline"></span>
+              حذف
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+        <span
+          nz-icon
+          nzType="more"
+          class="font-bold text-xl text-secondary"
+          nzTheme="outline"
+        ></span>
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #addNewImg let-data="data">
+  <div class="w-full h-36 mx-auto overflow-hidden rounded-md border border-dashed border-[#B6BBD0]">
+    <app-upload [uploadAction]="uploadPhotoUrl" (handleChange)="addImage($event)">
+      <ng-container uploadState>
+        <img class="mx-auto" src="assets/host/icons/image.svg" />
+      </ng-container>
+    </app-upload>
+  </div>
+</ng-template>
+
+<ng-template #expImgItem let-data="data">
+  <div class="h-36 relative">
+    <img class="w-full h-full rounded-lg" [src]="data.img" />
+    <div class=" ">
+      <button
+        nz-button
+        nz-dropdown
+        [nzDropdownMenu]="menu"
+        class="top-2 rtl:left-2 ltr:right-2 w-9 border-0 h-9 bg-white opacity-60 leading-none backdrop-blur rounded-full absolute"
+      >
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu>
+            <li
+              nz-menu-item
+              class="border border-t border-b-0 border-[#D6DCE8]"
+              (click)="deleteExpImages(data.index)"
+            >
+              <span nz-icon nzType="delete" nzTheme="outline"></span>
+              حذف
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+        <span
+          nz-icon
+          nzType="more"
+          class="font-bold text-xl text-secondary"
+          nzTheme="outline"
+        ></span>
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #addNewExpImg let-data="data">
+  <div class="w-full h-36 mx-auto overflow-hidden rounded-md border border-dashed border-[#B6BBD0]">
+    <app-upload [uploadAction]="uploadPhotoUrl" (handleChange)="addExpImage($event)">
+      <ng-container uploadState>
+        <img class="mx-auto" src="assets/host/icons/image.svg" />
+      </ng-container>
+    </app-upload>
+  </div>
+</ng-template>

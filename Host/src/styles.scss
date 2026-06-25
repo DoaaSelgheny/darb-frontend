@@ -1,0 +1,168 @@
+/* You can add global styles to this file, and also import other style files */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body,
+.ant-layout {
+  @apply bg-white;
+}
+
+* {
+  font-family: 'Almarai', sans-serif;
+}
+
+.iti {
+  display: block !important;
+}
+.ant-select-selection-item {
+  padding-bottom: 13;
+  padding-top: 13px;
+}
+
+.iti .dropdown-menu.country-dropdown {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-color: #c7cace;
+  margin-top: -1px;
+}
+
+.iti .iti__country-list {
+  box-shadow: none;
+  font-size: 14px;
+  margin-left: 0;
+  width: auto;
+  max-height: 170px;
+}
+
+.iti__flag-container.open + input {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.iti .search-container input {
+  font-size: 14px;
+  border-color: #c7cace;
+  border-radius: 0;
+  padding: 5px 10px;
+}
+
+.iti .search-container input:focus {
+  outline: none;
+}
+.iti__selected-flag {
+  position: relative;
+  justify-content: center;
+  direction: ltr !important;
+  border-inline-end: 1px solid #d6d6d6;
+  font-size: 16px;
+  @apply text-dark;
+}
+
+.left-direction {
+  direction: ltr !important;
+}
+.iti__arrow {
+  width: 0;
+  display: none;
+}
+app-validation {
+  margin-top: 0px !important;
+}
+abp-confirmation {
+  display: none;
+  .icon-container.error {
+    background: #f65656;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+  }
+  .confirmation-button.confirmation-button--approve {
+    flex: 1;
+  }
+}
+
+abp-validation-error {
+  display: none;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.noselect {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+.disable-text-selection {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.ant-picker-time-panel-column::after {
+  height: 0px !important;
+}
+.ant-breadcrumb > nz-breadcrumb-item:first-child {
+ color:#262626 !important;
+ font-weight: 700;
+}
+.ant-breadcrumb > nz-breadcrumb-item {
+  @apply text-primary font-normal ;
+ }
+.ant-breadcrumb > nz-breadcrumb-item:last-child {
+  color:#737373 !important;
+  font-weight: 400;
+}
+.ant-pagination-item {
+  border-radius: 20px;
+  color:#999999;
+
+}
+.ant-pagination-item-active {
+  background-color: #122466;
+  border-color: #fff;
+  a{
+
+    color:#fff;
+  }
+}
+.ant-pagination-prev .ant-pagination-item-link,
+ .ant-pagination-next .ant-pagination-item-link {
+  border-radius: 20px;
+
+}
+.ant-select-rtl.ant-select-single.ant-select-show-arrow .ant-select-selection-item,
+ .ant-select-rtl.ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder,
+ .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
+  padding-top: 10px;
+}
+.cdk-virtual-scrollable {
+  overflow-x: hidden !important;
+  overflow: inherit;
+}
+.ant-select-item-option-content{
+  white-space:normal ;
+}
+@media (max-width:450px){
+  .btn-data {
+    flex-direction: column !important;
+  }
+}
+.clock-face__container {
+  margin-left: 106px !important;
+}

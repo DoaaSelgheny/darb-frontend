@@ -1,0 +1,195 @@
+<div class="text-lg color-[#252729] font-bold">{{"::homeHoliday:search:title" | abpLocalization}}</div>
+<div class="flex justify-between items-center">
+  <!-- Breadcrumb -->
+  <nz-breadcrumb>
+    <nz-breadcrumb-item class="cursor-pointer" routerLink="/holiday-homes"
+      >{{"::homeHoliday:search:home" | abpLocalization}}</nz-breadcrumb-item
+    >
+    <nz-breadcrumb-item>{{"::homeHoliday:search:title" | abpLocalization}}</nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <!-- Add Button -->
+  <app-button size="md" class=" w-auto mb-3 md:mb-0" routerLink="./add-edit-holiday-home">
+    <div class="items-center flex">
+      <span class="text-base font-bold">{{"::homeHoliday:search:addNewHome" | abpLocalization}}</span>
+      <span nz-icon nzType="plus" class="mx-2 text-lg" nzTheme="outline"></span>
+    </div>
+  </app-button>
+</div>
+
+  <!-- Status Card Count -->
+<div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-2 mt-8">
+  <app-statistic-item
+    [count]="counts?.total"
+    [label]="'::homeHoliday:search:HomeTotal' | abpLocalization"
+    color="text-[#3B82F6]"
+    img="/assets/host/imgs/holiday-homes/totalIcon.svg"
+  ></app-statistic-item>
+  <app-statistic-item
+    [count]="counts?.underReview"
+    [label]="'::homeHoliday:search:HomeReview' | abpLocalization"
+    color="text-[#3B82F6]"
+    img="/assets/host/imgs/holiday-homes/reviewIcon.svg"
+  ></app-statistic-item>
+  <app-statistic-item
+    [count]="counts?.accepted"
+    [label]="'::homeHoliday:search:HomePublish'|abpLocalization"
+    color="text-[#16A34A]"
+    img="/assets/host/imgs/holiday-homes/publishIcon.svg"
+  ></app-statistic-item>
+  <app-statistic-item
+    [count]="counts?.rejected"
+    [label]="'::homeHoliday:search:HomeReject'|abpLocalization"
+    color="text-[#ED3024]"
+    img="/assets/host/imgs/holiday-homes/rejectIcon.svg"
+  ></app-statistic-item>
+  <app-statistic-item
+  [count]="counts?.waitingModificationToCompleted"
+  [label]="'::homeHoliday:search:HomeEdit'|abpLocalization"
+  color="text-[#ED3024]"
+  img="/assets/host/imgs/holiday-homes/editIcon.svg"
+></app-statistic-item>
+<app-statistic-item
+[count]="counts?.unComplete"
+[label]="'::homeHoliday:search:HomeUncompleted'|abpLocalization"
+color="text-[#ED3024]"
+img="/assets/host/imgs/holiday-homes/uncompletedIcon.svg"
+></app-statistic-item>
+</div>
+
+<!-- Filter -->
+<div class="flex md:flex-row flex-col justify-between items-center">
+  <!-- Filter Name -->
+  <div class="flex md:w-auto w-full lg:my-10 my-5 justify-between items-center">
+    <app-field
+      [(ngModel)]="filterText"
+      (changeInputValue)="changeFilter()"
+      class="ms-2 w-full md:w-[350px] h-10"
+      [placeholder]="'::homeHoliday:search:searchPlaceHolder' | abpLocalization"
+    >
+      <div class="text-lg absolute rtl:left-3 ltr:right-3 top-1/2 -translate-y-1/2">
+        <span nz-icon nzType="search" nzTheme="outline"></span>
+      </div>
+    </app-field>
+
+  </div>
+
+  <!-- Filter Select -->
+  <div class="">
+    <nz-select
+      nzShowSearch
+      nzAllowClear
+      [(ngModel)]="selectedStatus"
+      [nzPlaceHolder]="'::homeHoliday:search:chooseStatus' | abpLocalization"
+      name="statuses"
+      class="min-w-[132px] flex-1 xl:flex-none rounded-md md-select"
+      (ngModelChange)="changeFilter()"
+    >
+      <nz-option [nzLabel]="'::homeHoliday:search:all' | abpLocalization"
+       [nzValue]="null"></nz-option>
+      <nz-option
+        *ngFor="let s of statuses"
+        [nzLabel]="s.displayName"
+        [nzValue]="s.id"
+      ></nz-option>
+    </nz-select>
+    <nz-select
+      nzShowSearch
+      nzAllowClear
+      [(ngModel)]="selectedCity"
+      [nzPlaceHolder]="'::homeHoliday:search:chooseCity' | abpLocalization"
+      name="cities"
+      class="min-w-[132px] flex-1 xl:flex-none ms-4 rounded-md md-select"
+      (ngModelChange)="changeFilter()"
+    >
+      <nz-option [nzLabel]="'::homeHoliday:search:all' | abpLocalization" [nzValue]="null"></nz-option>
+      <nz-option *ngFor="let c of cities" [nzLabel]="c.name" [nzValue]="c.id"></nz-option>
+    </nz-select>
+  </div>
+</div>
+
+<!-- tabs -->
+  <div class="relative flex flex-col xl:block">
+    <nz-tabset class="px-2 py-3" >
+      <!-- All Tab -->
+      <nz-tab [nzTitle]="tabtitle" (nzClick)="getVacationHomeByType(null)">
+        <ng-template #tabtitle>
+          {{'::homeHoliday:search:all' | abpLocalization}}
+          <nz-tag class=" bg-transparent rounded-lg text-white border-0 !mr-2 w-7 h-5">
+            {{vacationHomeTypes?.total}}
+          </nz-tag>
+        </ng-template>
+        <div class="px-4 py-4" >
+          <ng-container>
+            @if (vacationHomes?.length > 0) {
+                <ng-container *ngTemplateOutlet="list; context: { homes: vacationHomes }"></ng-container>
+            } @else {
+              <nz-empty [nzNotFoundContent]="'::homeHoliday:search:noData' | abpLocalization"  class="block w-full mx-auto"></nz-empty>
+            }
+        </ng-container>
+        </div>
+      </nz-tab>
+      <!-- Types Tab -->
+      @for (tab of vacationHomeTypes?.vacationHomeTypes; track tab) {
+        <nz-tab [nzTitle]="tabtitle" (nzClick)="getVacationHomeByType(tab.vacationHomeType)">
+          <ng-template #tabtitle>
+            {{lang === 'ar' ? tab.vacationHomeTypeAr : tab.vacationHomeTypeEn  }}
+            <nz-tag class="bg-transparent rounded-lg text-white border-0 !mr-2 w-5 h-5">{{
+              tab.numberOfVacationHomeTypes
+            }}</nz-tag>
+          </ng-template>
+          <div class="px-4 py-4" dir="rtl">
+            <ng-container>
+              @if (vacationHomes?.length > 0) {
+                  <ng-container *ngTemplateOutlet="list; context: { homes: vacationHomes }"></ng-container>
+              } @else {
+                <nz-empty [nzNotFoundContent]="'::homeHoliday:search:noData' | abpLocalization"  class="block w-full mx-auto"></nz-empty>
+              }
+            </ng-container>
+          </div>
+        </nz-tab>
+      }
+    </nz-tabset>
+  </div>
+
+<!-- bind data  -->
+<div class="bg-white rounded-lg">
+  @if (!loading) {
+    <ng-template [ngTemplateOutlet]="list"></ng-template>
+  } @else {
+    <div class="p-4">
+      <nz-skeleton [nzActive]="true"></nz-skeleton>
+      <nz-skeleton [nzActive]="true"></nz-skeleton>
+      <nz-skeleton [nzActive]="true"></nz-skeleton>
+      <nz-skeleton [nzActive]="true"></nz-skeleton>
+    </div>
+  }
+</div>
+
+
+
+<ng-template #list let-homes="homes">
+  <div
+    class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 xl:gap-8"
+    [ngClass]="{ '!grid-cols-1': !homes?.length }"
+  >
+    @for (home of homes;track  $index) {
+      <app-holiday-homes-item
+        [home]="home.vacationHome"
+        [rating]="home.ratingsAverage"
+        (outputPublish)="getHolidayHomes(currentPage)"
+        [numberOfConfirmedReservations]="home.numberOfConfirmedReservations"
+      ></app-holiday-homes-item>
+    }
+
+  </div>
+
+
+</ng-template>
+<div class="mx-auto mt-12 flex justify-center">
+  <nz-pagination
+    [nzPageIndex]="currentPage"
+    [nzTotal]="totalCount"
+    [nzPageSize]="itemsPerPage"
+    (nzPageIndexChange)="getHolidayHomes($event)"
+  ></nz-pagination>
+</div>

@@ -1,0 +1,237 @@
+<div class="text-lg color-[#252729] font-bold">
+  {{ '::ratingDetails' | abpLocalization }}
+</div>
+
+<nz-breadcrumb>
+  <nz-breadcrumb-item class="cursor-pointer" routerLink="/holiday-homes">{{
+    '::Menu:Home' | abpLocalization
+  }}</nz-breadcrumb-item>
+  <nz-breadcrumb-item class="cursor-pointer" routerLink="/rating">{{
+    '::rating' | abpLocalization
+  }}</nz-breadcrumb-item>
+  <nz-breadcrumb-item>{{ '::ratingDetails' | abpLocalization }} </nz-breadcrumb-item>
+</nz-breadcrumb>
+<div class="block items-start mt-14 justify-between" *ngIf="data">
+  <div class="w-full">
+    <nz-card class="block relative w-full border-0 rounded-lg custom-card">
+      <div class="flex flex-col w-full items-center px-0 lg:flex-row md:flex-row sm:flex-col">
+        <img
+          nz-image
+          [nzDisablePreview]="true"
+          class="w-[170px] h-[170px] rounded-2xl mt-2"
+          [nzSrc]="data?.primaryImage"
+        />
+
+        <div
+          class="ms-2 mt-2 w-full p-[29px] rounded-2xl"
+          [ngClass]="{ 'block-nameEn': lang === 'en', 'block-name': lang === 'ar' }"
+        >
+          <div class="flex flex-col lg:flex-row md:flex-row w-full sm:flex-col">
+            <p class="text-2xl font-bold text-[#171717]">
+              {{
+                data?.serviceType === serviceType.VacationHome
+                  ? data?.vacationHomeName
+                  : data?.experienceName
+              }}
+              <span class="text-xl font-normal px-2 text-[#171717]"
+                >( {{ data?.categoryName }})</span
+              >
+            </p>
+            <div class="pt-1 flex flex-row items-center px-4">
+              <img src="./assets/host/icons/active-star.svg" />
+              <p class="px-1 pt-1">{{ data.averageRating  | number: '1.1-1'}} / {{ data.ratingCount }}  </p>
+              <p>{{'::Rates'|abpLocalization}}</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col lg:flex-row md:flex-row sm:flex-col items-start lg:items-center md:items-center sm:items-start mt-3">
+            <div class="col-12 col-lg-5 col-md-5 flex d-flex">
+              <p class="text-[#171717] text-base font-normal ms-1">
+                {{ '::reservationNumber' | abpLocalization }} :
+              </p>
+              <p class="text-[#171717] text-base font-normal ms-1 mx-3">
+                {{ data?.reservationNumber }}
+              </p>
+              <svg
+                (click)="copyToClipboard(data?.reservationNumber)"
+                role="button"
+                width="18"
+                height="21"
+                viewBox="0 0 18 21"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3.9998 4.5V1.5C3.9998 0.94772 4.44752 0.5 4.9998 0.5H16.9998C17.5521 0.5 17.9998 0.94772 17.9998 1.5V15.5C17.9998 16.0523 17.5521 16.5 16.9998 16.5H13.9998V19.4991C13.9998 20.0519 13.5499 20.5 12.993 20.5H1.00666C0.45059 20.5 0 20.0554 0 19.4991L0.00259995 5.50087C0.00269995 4.94811 0.45264 4.5 1.00942 4.5H3.9998ZM2.00242 6.5L2.00019 18.5H11.9998V6.5H2.00242ZM5.9998 4.5H13.9998V14.5H15.9998V2.5H5.9998V4.5Z"
+                  fill="#404040"
+                />
+              </svg>
+              <p *ngIf="copied" class="copy-success px-1">
+                {{ '::Numbercopied' | abpLocalization }}
+              </p>
+            </div>
+            <div class="col-12 col-lg-5 col-md-5 flex d-flex  px-0 lg:px-5 md:px-5 sm:px-0 ">
+              <div>
+                <p class="text-[#171717] text-base font-normal">
+                  {{ '::serialNumber' | abpLocalization }} :
+                </p>
+              </div>
+              <div>
+                <p class="text-[#171717] text-base font-normal ms-1 mx-3">
+                  {{ data?.serialNumber }}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col lg:flex-row md:flex-row sm:flex-col items-start lg:items-center md:items-center sm:items-start mt-3">
+            <div class="col-12 col-lg-5 col-md-5 flex d-flex">
+              <p class="text-[#171717] text-base font-normal ">
+                {{ '::reservationDate' | abpLocalization }} :
+              </p>
+              <p class="text-[#171717] text-base font-normal me-3">
+                {{ data?.publishDate | date }}
+              </p>
+            </div>
+
+            <div class="col-12 col-lg-5 col-md-5 flex d-flex px-0 lg:px-5 md:px-5 sm:px-0">
+              <p class="text-[#171717] text-base font-normal ">
+                {{ '::numberOfReservations' | abpLocalization }} :
+              </p>
+              <p class="text-[#171717] text-base font-normal me-3">
+                {{ data?.numberOfReservations }}
+              </p>
+            </div>
+            <!-- <div>
+              <p class="text-[#171717] text-base font-normal me-3">
+                {{ data?.numberOfReservations }}
+              </p>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+  <div class="mt-2 w-full lg:w-1/4 md:w-1/2 sm:w-full ">
+    <div class="px-3 pt-2 flex items-center text-2xl font-bold">
+      <p>{{ '::BookingRating' | abpLocalization }} :</p>
+      <img class="px-1" src="./assets/host/icons/active-star.svg" />
+      <span class=" pt-2">({{ data.guestAverageRating | number: '1.1-1' }}) </span>
+    </div>
+    <div class="col-12 col-lg-6 col-md-6">
+      <div
+        class="px-3 pt-1 flex flex-row items-center justify-between font-bold"
+        *ngFor="let item of data.facilityRatings"
+      >
+        <p class="text-base">{{ lang === 'en' ? item.nameEn : item.nameAr }} :</p>
+        <div class="rating-badge">{{ item.rating }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex d-flex pt-4 ">
+    <div class="px-3 text-2xl items-center font-bold">
+      <p class="title">{{ '::commentGuest' | abpLocalization }}</p>
+    </div>
+  </div>
+  <div class="grid grid-cols-2">
+    <p class="text-base px-3 pt-1 cols-span-2">
+      {{
+        data.guestOpinion !== null && data.guestOpinion !== ''
+          ? data.guestOpinion
+          : ('::notreply' | abpLocalization)
+      }}
+    </p>
+  </div>
+
+  <div class="pt-4 "  *ngIf=" data.guestOpinion !== null && data.guestOpinion !== '' && data.hostReply===null" >
+    <!-- <app-field
+      [(ngModel)]="replyText"
+      class="w-1/2 lg:min-w-[300px]"
+      placeholder="{{ '::opinion' | abpLocalization }}"
+      label="{{ '::yourReply' | abpLocalization }}"
+    >
+      <div class="relative bg-white">
+        <nz-progress
+          [nzPercent]="(replyText?.length / 250) * 100"
+          [nzWidth]="40"
+          [nzShowInfo]="false"
+          nzType="circle"
+        >
+        </nz-progress>
+        <p class="top-1/2 absolute left-1/2 -translate-x-1/2 -translate-y-1/2">
+          {{ 250 - replyText?.length }}
+        </p>
+      </div>
+    </app-field> -->
+    <app-field-label
+          [control]="form | getControl: 'guestOpinion'"
+          [label]="'::yourReply' | abpLocalization"
+        ></app-field-label>
+      <div class="grid grid-cols-2 ">
+        <div class="cols-span-1">
+          <div class="grid grid-cols-3">
+
+            <app-textarea
+            [(ngModel)]="replyText"
+            [control]="form | getControl: 'guestOpinion'"
+            placeholder=" {{ '::opinion' | abpLocalization }}"
+            [changeRow]="true"
+            [suppressValidationWithMessage]="{
+              maxlength: 'Host:VacationHome:Step5:Title:Validation:MaxLengh',
+              minlength: 'Host:VacationHome:Step5:Title:Validation:MinLengh'
+            }"
+            [maxlength]="250"
+            [minlength]="30"
+
+            class="relative col-span-2"
+          >
+            <div
+              class="absolute bg-white bottom-1"
+              [ngClass]="lang === 'ar' ? 'right-auto left-5' : 'right-5 left-auto'"
+            >
+            <nz-progress
+            [nzPercent]="(replyText?.length / 250) * 100"
+            [nzWidth]="30"
+            [nzShowInfo]="false"
+            nzType="circle"
+          >
+          </nz-progress>
+          <p class="top-1/2 absolute left-1/2 -translate-x-1/2 -translate-y-1/2">
+            {{ 250 - replyText?.length }}
+          </p>
+            </div>
+          </app-textarea>
+
+        <app-button size="md" class="w-1/2 mb-3 md:mb-0 px-4 col-span-1 h-10 "
+        [disabled]="replyText===null || replyText?.length===0|| replyText?.length >250"
+        (click)="reply()">
+            <span class="text-base font-bold">{{ '::publishRating' | abpLocalization }}</span>
+        </app-button>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div
+  class="block mt-4 text-red-600"
+
+ *ngIf="replyText?.length >250"
+>
+{{'::maxlengthReply'|abpLocalization}}
+</div>
+  <div *ngIf=" data.guestOpinion !== null && data.guestOpinion !== '' && data.hostReply!==null">
+  <div class="flex d-flex pt-4 ">
+    <div class="px-3 text-2xl items-center font-bold">
+      <p class="title">{{ '::yourReply' | abpLocalization }}</p>
+    </div>
+  </div>
+  <div>
+    <p class="text-base px-3 pt-1">
+      {{
+        data.hostReply !== null && data.hostReply !== ''
+          ? data.hostReply
+          : ('::notreply' | abpLocalization)
+      }}
+    </p>
+  </div>
+</div>
+</div>

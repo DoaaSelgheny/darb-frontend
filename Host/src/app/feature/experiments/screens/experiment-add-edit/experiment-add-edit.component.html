@@ -1,0 +1,245 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item class="cursor-pointer" routerLink="/experiments"
+    >   {{
+      {
+        key: '::Host:VacationHome:MainPage'
+      } | abpLocalization
+    }}</nz-breadcrumb-item
+  >
+
+  <nz-breadcrumb-item class="cursor-pointer" routerLink="/experiments">
+    {{
+      {
+        key: '::experience:search:title'
+      } | abpLocalization
+    }}
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item> {{
+    {
+      key: '::experience:search:addNewHome'
+    } | abpLocalization
+  }} </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<h2 class="text-lg font-bold my-6">  {{
+  {
+    key: '::experience:search:addNewHome'
+  } | abpLocalization
+}} </h2>
+
+<app-content-card >
+  <div class="progerss-steps mb-16 pt-6">
+    <nz-steps [nzCurrent]="currentStep" nzSize="small" nzProgressDot>
+      <nz-step  [nzTitle]="'::experience:addEdit:step1:title' | abpLocalization"></nz-step>
+      <nz-step  [nzTitle]="'::experience:addEdit:step2:title' | abpLocalization" ></nz-step>
+      <nz-step  [nzTitle]="'::experience:addEdit:step3:title' | abpLocalization" ></nz-step>
+      <nz-step  [nzTitle]="'::experience:addEdit:step4:title' | abpLocalization" ></nz-step>
+      <nz-step  [nzTitle]="'::experience:addEdit:step5:title' | abpLocalization" ></nz-step>
+      <nz-step  [nzTitle]="'::experience:addEdit:step6:title' | abpLocalization" ></nz-step>
+      <nz-step  [nzTitle]="'::experience:addEdit:step7:title' | abpLocalization" ></nz-step>
+
+    </nz-steps>
+  </div>
+  <div class="block">
+    @switch (currentStep) {
+      @case (0) {
+        <app-experiment-data (emitNext)="goNext($event)" [id]="id"
+        [experience]="experience"
+        [cities]="cities"
+        [experienceTypes]="experienceTypes"></app-experiment-data>
+      }
+       @case (1) {
+        <app-experiment-location
+
+        (emitNext)="goNext($event)" [id]="id"
+        [experience]="experience"
+        ></app-experiment-location>
+      }
+     @case (2) {
+      <app-description-holiday-home
+      (emitNext)="goNext($event)" [id]="id"
+      [experience]="experience"
+      ></app-description-holiday-home>
+      }
+      @case (3) {
+      <app-holiday-home-photos
+        (emitNext)="goNext($event)" [id]="id"
+        [experience]="experience"
+        ></app-holiday-home-photos>
+      }
+      @case (4) {
+        <app-experiment-booking-details
+        (emitNext)="goNext($event)" [id]="id"
+        [experience]="experience"
+        ></app-experiment-booking-details>
+      }
+      @case (5) {
+              <app-price-data
+          (emitNext)="goNext($event)" [id]="id"
+          [experience]="experience"
+        >
+        </app-price-data>
+      }
+      @case (6) {
+        <app-view-holiday-home-information (emitNext)="goNext($event)"  [id]="id"></app-view-holiday-home-information>
+      }
+
+
+    }
+  </div>
+
+</app-content-card>
+<!-- <app-content-card class="relative">
+  <div class="absolute -top-2.5 w-full left-0 progerss-steps">
+    <app-progress-group
+      [value]="(currentStep * 100) / steps"
+      [progressCount]="1"
+      class="w-full flex"
+    >
+    </app-progress-group>
+  </div>
+  <div class="block">
+    @switch (currentStep) {
+      @case (1) {
+        <app-experiment-data
+          [form]="form.get('step1')"
+          [cities]="cities"
+          [experienceTypes]="experienceTypes"
+          (currentCityChange)="handleCityChage($event)"
+        ></app-experiment-data>
+      }
+      @case (2) {
+        <app-experiment-location
+          [form]="form.get('step2')"
+          [currentCity]="currentCity"
+        ></app-experiment-location>
+      }
+      @case (3) {
+        <app-experiment-description [form]="form.get('step3')"></app-experiment-description>
+      }
+      @case (4) {
+        <app-experiment-means-included
+          [means]="means"
+          [form]="form.get('step4')"
+        ></app-experiment-means-included>
+      }
+      @case (5) {
+        <app-experiment-photos [form]="form.get('step5')"></app-experiment-photos>
+      }
+      @case (6) {
+        <app-experiment-booking-details
+          [experienceReservationTypes]="experienceReservationTypes"
+          [form]="form.get('step6')"
+        ></app-experiment-booking-details>
+      }
+      @case (7) {
+        <app-experiment-price
+          [form]="form.get('step7')"
+          [experienceReservationWays]="experienceReservationWays"
+          [cancellationAndReturnPolicies]="cancellationAndReturnPolicies"
+        ></app-experiment-price>
+      }
+      @case (8) {
+        <app-availability [form]="form.get('step8')"></app-availability>
+      }
+    }
+  </div>
+
+  <div buttons class="flex justify-between flex-col md:flex-row">
+    <ng-container [ngTemplateOutlet]="backButtons"></ng-container>
+    <app-button size="md" class="mt-4 md:mt-0" *ngIf="currentStep < steps" (click)="goNext()">
+      التالي
+      <span
+        nz-icon
+        [nzType]="lang === 'ar' ? 'arrow-left' : 'arrow-right'"
+        nzTheme="outline"
+      ></span>
+    </app-button>
+    @if (currentStep == steps) {
+      <ng-container [ngTemplateOutlet]="completedButton"></ng-container>
+    }
+  </div>
+</app-content-card>
+
+<ng-template #backButtons>
+  <div class="flex items-center justify-between">
+    <app-button size="md" (click)="goBack()" [disabled]="currentStep <= 1" [outline]="true">
+      <span>
+        <span
+          nz-icon
+          [nzType]="lang === 'ar' ? 'arrow-right' : 'arrow-left'"
+          nzTheme="outline"
+        ></span>
+        رجوع
+      </span>
+    </app-button>
+    <app-button
+      (click)="isVisibleSaveAndExit = true"
+      class="ms-3"
+      size="md"
+      [disabled]="currentStep > steps"
+      [outline]="true"
+    >
+      حفظ وخروج
+    </app-button>
+  </div>
+</ng-template>
+
+<ng-template #completedButton>
+  <div class="flex items-center mt-5 md:mt-0">
+    <app-button size="md" class="ms-3" (click)="isVisiblePublishExit = true">
+      <p class="flex items-center">
+        نشر التجربه
+        <img class="ms-2" src="assets/host/icons/share.svg" />
+      </p>
+    </app-button>
+  </div>
+</ng-template>
+
+<app-confrontation-popup
+  [visible]="isVisibleSaveAndExit"
+  title="حفظ التجربه"
+  description="هل انت متاكد من حفظ التجربه كمسوده"
+  (cancel)="isVisibleSaveAndExit = false"
+>
+  <div buttons class="flex items-center flex-col w-full px-10">
+    <app-button size="md" class="block mb-6 w-full" (click)="saveAndExit()"> تاكيد </app-button>
+    <app-button class="w-full" (click)="isVisibleSaveAndExit = false" size="md" [outline]="true">
+      الغاء
+    </app-button>
+  </div>
+</app-confrontation-popup>
+
+<app-confrontation-popup
+  [visible]="isVisiblePublishExit"
+  (cancel)="isVisiblePublishExit = false"
+  title="نشر التجربه"
+  description="هل انت متاكد من نشر التجربه"
+>
+  <div buttons class="flex items-center flex-col w-full px-10">
+    <app-button size="md" class="block mb-6 w-full" (click)="publish()"> تاكيد </app-button>
+    <app-button class="w-full" (click)="isVisiblePublishExit = false" size="md" [outline]="true">
+      الغاء
+    </app-button>
+  </div>
+</app-confrontation-popup>
+
+<app-confrontation-popup
+  [visible]="isVisibleSuccess"
+  (cancel)="isVisibleSuccess = false"
+  [confrontationType]="confrontationTypesEnum.success"
+  title="تم إرسال التجربة بنجاح"
+  description="شكرًا لك على نشر تجربتك في موقعنا. يرجى مراعاة أنه سيتم مراجعة بيانات التجربه الخاص بك خلال
+  48 ساعة. شكرًا لاختيارك نشر تجربتك معنا!"
+>
+  <div buttons>
+    <div class="flex justify-center">
+      <app-button size="md" class="block mb-6 px-6" routerLink="/experiments">
+        <div class="flex items-center justify-center">
+          <p>الأنتقال الى الصفحة التجرب</p>
+          <span nz-icon nzType="arrow-up" class="ms-2 -rotate-45" nzTheme="outline"></span>
+        </div>
+      </app-button>
+    </div>
+  </div>
+</app-confrontation-popup> -->

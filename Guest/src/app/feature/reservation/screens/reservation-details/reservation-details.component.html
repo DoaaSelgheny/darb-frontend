@@ -1,0 +1,99 @@
+<div class="px-9 pb-5">
+  <nz-breadcrumb class="mt-[26px]">
+    <nz-breadcrumb-item class="cursor-pointer" routerLink="/">{{'::Menu:Home' | abpLocalization}}</nz-breadcrumb-item>
+    <nz-breadcrumb-item class="cursor-pointer" routerLink="/reservation">{{ '::guest:reserve.recervation' | abpLocalization }}</nz-breadcrumb-item>
+    <nz-breadcrumb-item>{{'::guest:invoice.breadcrumbBookingDetails' |abpLocalization}} </nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <!-- Reservation Number -- copy -->
+  <div class="flex sm:items-center sm:flex-row flex-col items-start mt-6">
+    <div class="flex items-center flex-row">
+
+      <p class=" text-[#171717] text-base font-bold ms-1">{{'::reservationNumber' | abpLocalization}}</p>
+      <p class="  text-[#171717] text-base mx-3">{{data?.summary.number}}</p>
+      
+      <img src="assets/imgs/details/img42.svg" alt="img" role="button"  (click)="copyToClipboard(data?.summary.number)">
+
+      <p *ngIf="copied" class="copy-success px-1">{{'::Numbercopied'|abpLocalization}}</p>
+    </div>
+    <div class="flex items-center flex-row mt-2 sm:mt-0">
+
+      @if(data?.summary.status === ReservationStatus.Approved){
+        <div class="border-[1px] px-4 py-1 rounded-md border-[#16A34A] text-[#16A34A] text-base mx-3">{{"::guest:reserve.Approved" | abpLocalization}}</div>
+      }@else if (data?.summary.status === ReservationStatus.Complete) {
+        <div class="border-[1px] px-4 py-1 rounded-md border-[#3B82F6] text-[#3B82F6] text-base mx-3">{{"::guest:reserve.Complete" | abpLocalization}}</div>
+      }@else if(data?.summary.status === ReservationStatus.CanceledAndRefunded){
+        <div class="border-[1px] px-4 py-1 rounded-md border-[#ED3024] text-[#ED3024] text-base mx-3">{{"::guest:reserve.CanceledAndRefunded" | abpLocalization}}</div>
+      }
+      <!-- Rating-->
+      @if(data?.summary.status === ReservationStatus.Complete && data.canRating){
+  
+        <button nz-button nzType="primary" 
+        class="h-[34px] border-[1px] rounded-md text-white border-[#1E3A8A] bg-[#1E3A8A]
+        hover:bg-[#60A5FA] hover:border-[#60A5FA]"
+        (click)="rating(data)">
+         <p class="flex items-center flex-row justify-center">
+            {{ '::guest:reserve.rating:rateService' | abpLocalization }}
+           
+      <img src="assets/imgs/details/img43.svg" alt="img" class="mx-1">
+
+         </p>
+  
+         
+       </button>
+      }
+      @if(data.ratedBefore){
+        <div class="border-[1px] flex items-center sm:w-auto w-4/5 sm:px-4 px-2 py-1 rounded-md border-[#1E3A8A]  mx-3">
+          <span class="text-[#1E3A8A] text-base">
+            {{"::guest:reserve.rating:rateDone" | abpLocalization}}
+          </span>
+         
+      <img src="assets/imgs/details/img44.svg" alt="img" class="mx-1 sm:block hidden">
+
+        </div>
+  
+      }
+    </div>
+  </div>
+  <!-- Details -->
+  <div class="grid md:grid-cols-3 grid-cols-1 gap-3 mt-4">
+    <div class="md:col-span-2 col-span-1">
+      <app-reservation-summary  [isVaction]="isVaction" [data]="data"></app-reservation-summary>
+      @if(isVaction && data?.summary.status !== ReservationStatus.CanceledAndRefunded){
+        <app-terms-information [data]="data"></app-terms-information>
+      }
+      <app-payment-information  [data]="data" [isVaction]="isVaction"></app-payment-information>
+      @if(isVaction && data?.summary.insurance && data?.summary.status !== ReservationStatus.CanceledAndRefunded){
+        <app-deposite-information [data]="data"></app-deposite-information>
+      }
+      @if(!isVaction && data?.summary.status === ReservationStatus.Approved){
+        <app-map-information [data]="data" [isVaction]="isVaction"></app-map-information>
+      }
+    </div>
+    <div class="col-span-1">
+      <app-slider-information [data]="data" [images]="images" [isVaction]="isVaction"></app-slider-information>
+      @if(data?.summary.status === ReservationStatus.Approved){
+
+        <app-guest-information [data]="data"></app-guest-information>
+        @if(isVaction){
+          <app-map-information [data]="data" [isVaction]="isVaction"></app-map-information>
+        }
+      }
+      @if(isVaction && data?.summary.status === ReservationStatus.CanceledAndRefunded){
+        <app-reason-cancellation [data]="data"></app-reason-cancellation>
+
+      }
+    </div>
+  </div>
+
+  <!-- Similar -->
+  @if(isVaction ){
+    <app-similar-vacation-home [vacationId]="data.vacationHomeSummary.id" 
+    [cityId]="data.vacationHomeSummary.location.cityId"
+    [typeId]="data.vacationHomeSummary.typeId"></app-similar-vacation-home>
+  }@else {
+    <app-similar-home [experienceId]="data?.experienceSummary.id" 
+    [cityId]="data?.experienceSummary.location.cityId"
+    [typeId]="data?.experienceSummary.typeId"></app-similar-home>
+  }
+
+</div>

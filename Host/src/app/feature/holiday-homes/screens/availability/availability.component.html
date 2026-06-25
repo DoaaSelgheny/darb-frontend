@@ -1,0 +1,199 @@
+<h2 class="text-sm text-[#334155] mt-3 mb-12 font-bold flex items-center">
+  {{ '::Host:VacationHome:ReservationManagement' | abpLocalization }}
+</h2>
+<form [formGroup]="form">
+  <div class="lg:ms-3 mt-3 lg:mt-0 w-full lg:w-[400px]">
+    <div class="mb-3">
+      <app-field-label
+        label="{{ '::Host:VacationHome:ReservationType' | abpLocalization }}"
+        [control]="form | getControl: 'vacationHomeReservationWay'"
+      ></app-field-label>
+      <nz-select
+        nzPlaceHolder="{{ '::Host:VacationHome:ReservationType' | abpLocalization }}"
+        class="xl-select w-full lg:min-w-[300px]"
+        formControlName="vacationHomeReservationWay"
+        [nzDisabled]="true"
+
+      >
+        <nz-option
+          *ngFor="let c of bookingTypes"
+          [nzLabel]="lang === 'ar' ? c.nameAr : c.nameEn"
+          [nzValue]="c.id"
+        ></nz-option>
+      </nz-select>
+    </div>
+
+    <div class="mb-3">
+      <app-field-label
+        label="  {{
+          {
+            key: '::Host:VacationHome:stap8:AccessTime',
+          } | abpLocalization
+        }}"
+        [control]="form | getControl: 'accessTime'"
+        class="mt-8"
+      ></app-field-label>
+      <div class="ngx-timepicker-field-example" dir="ltr">
+      <ngx-timepicker-field
+      [format]="12"
+      formControlName="accessTime"
+      [defaultTime]="'11:11'"
+    ></ngx-timepicker-field>
+  </div>
+      <!-- <nz-time-picker
+        [dir]="'ltr'"
+        formControlName="accessTime"
+        nzFormat="HH:mm"
+        nzBackdrop="false"
+        class="w-full h-14 rounded-lg"
+        nzUse12Hours
+        [nzPlaceHolder]="
+          {
+            key: '::Host:VacationHome:stap8:AccessTime',
+          } | abpLocalization
+        "
+      >
+      </nz-time-picker> -->
+      <app-validation
+        class="block mt-4"
+        [suppressValidationWithMessage]="{
+          required: 'required',
+        }"
+        [control]="form | getControl: 'accessTime'"
+      ></app-validation>
+    </div>
+    <div class="">
+      <app-field-label
+        label="  {{
+          {
+            key: '::Host:VacationHome:step8:LeaveTime',
+          } | abpLocalization
+        }}"
+        [control]="form | getControl: 'leaveTime'"
+      ></app-field-label>
+      <div class="ngx-timepicker-field-example" dir="ltr">
+      <ngx-timepicker-field
+      [format]="12"
+      formControlName="leaveTime"
+      [defaultTime]="'11:11'"
+    ></ngx-timepicker-field>
+    </div>
+      <!-- <nz-time-picker
+        [dir]="'ltr'"
+        formControlName="leaveTime"
+        nzFormat="HH:mm"
+        [nzBackdrop]="false"
+        nzUse12Hours
+        [nzPlaceHolder]="
+          {
+            key: '::Host:VacationHome:step8:LeaveTime',
+          } | abpLocalization
+        "
+        [nzSize]="'large'"
+        class="w-full h-14 rounded-lg"
+      >
+      </nz-time-picker> -->
+
+      <app-validation
+        class="block mt-4"
+        [suppressValidationWithMessage]="{
+          required: 'required',
+          lessThanAccessTime: 'Host:VacationHome:Step9:Validation:LeaveTimeLessThanAccessTime',
+        }"
+        [control]="form | getControl: 'leaveTime'"
+      ></app-validation>
+    </div>
+    <!-- <div class="my-3">
+      <label
+        nz-checkbox
+        (ngModelChange)="updateAllChecked($event)"
+        formControlName="isAddMinReservation"
+        >{{ '::Host:VacationHome:Step9:addMin' | abpLocalization }}</label
+      >
+    </div> -->
+    <!-- <div class="flex flex-row items-center" *ngIf="form.value.isAddMinReservation">
+      <app-field
+        formControlName="minimumHomeReservationAmount"
+        label="{{ '::Host:VacationHome:MinimumHomeReservationAmount' | abpLocalization }}"
+        placeholder="{{ '::Host:VacationHome:MinimumHomeReservationAmount' | abpLocalization }}"
+        [control]="form | getControl: 'minimumHomeReservationAmount'"
+        [maxlength]="9999"
+        [isNonZeroFirstInput]="true"
+        [keypressValidation]="vaidationTypeEnum.numberOnly"
+      >
+      </app-field>
+      <p class="text-[#0F172A] bg-[#FAFAFA] p-3 mt-6 mx-2">
+        {{
+          {
+            key: '::Host:VacationPrice:day',
+          } | abpLocalization
+        }}
+      </p>
+    </div> -->
+  </div>
+</form>
+
+<div class="mt-24 flex justify-between items-center flex-row btn-data">
+  <app-button size="md" (click)="goBack()" [outline]="true" [secondary]="true">
+    <span>
+      {{
+        {
+          key: '::Host:VacationHome:Wizard:Back',
+        } | abpLocalization
+      }}
+    </span>
+  </app-button>
+  <div class="flex flex-row">
+    <app-button
+      class="ms-3"
+      (click)="isVisibleSaveAndExit = true"
+      size="md"
+      [outline]="true"
+      [secondary]="true"
+    >
+      {{
+        {
+          key: '::Host:VacationHome:SaveDraft',
+        } | abpLocalization
+      }}
+    </app-button>
+    <app-button size="md" class="mx-2" (click)="goNext()" [disabled]="!validateCurrentPage()">
+      {{
+        {
+          key: '::Host:VacationHome:Wizard:Next',
+        } | abpLocalization
+      }}
+    </app-button>
+  </div>
+</div>
+<app-confrontation-popup
+  [visible]="isVisibleSaveAndExit"
+  (cancel)="isVisibleSaveAndExit = false"
+  title="  {{
+    {
+      key: '::Host:VacationHome:Popup:SaveDraft:Title',
+    } | abpLocalization
+  }}"
+  description="  {{
+    {
+      key: '::Host:VacationHome:Popup:SaveDraft:Description',
+    } | abpLocalization
+  }}"
+>
+  <div buttons class="flex items-center flex-col w-full px-10">
+    <app-button size="md" class="block mb-6 w-full" (click)="saveAndExit()">
+      {{
+        {
+          key: '::General:Confirm',
+        } | abpLocalization
+      }}
+    </app-button>
+    <app-button class="w-full" (click)="isVisibleSaveAndExit = false" size="md" [outline]="true">
+      {{
+        {
+          key: '::General:Cancel',
+        } | abpLocalization
+      }}
+    </app-button>
+  </div>
+</app-confrontation-popup>

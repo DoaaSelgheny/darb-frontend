@@ -1,0 +1,73 @@
+:host ::ng-deep {
+    .ant-card-body {
+        padding: 0px;
+    }
+     
+    .ant-carousel .slick-dots li button {
+        background-color: #ffffff;
+        width: 12px;
+        height: 12px;
+        border-radius: 20px;
+        padding-bottom:10px;
+    }
+}
+
+/* trip-photos.component.scss */
+.image-grid {
+    // display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    background-color: #fff;
+    padding:2rem;
+    border-radius: 8px;
+
+  }
+  
+  .image-item {
+    // flex: 1 1 calc(25% - 10px); /* Adjust the width as needed */
+    cursor: pointer;
+    height:95px
+  }
+  
+  .clickable-image {
+    @media (max-width:500px){
+      height: 20vh;
+    }
+    @media (max-width:1030px){
+      height: 23vh;
+    }
+    cursor: pointer;
+    width: 100%;
+    height: 60vh; // 30% of the viewport height
+    border-radius: 8px;
+    transition: transform 0.2s ease;
+    object-fit: contain;
+  
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+  .icon-image{
+    // width: 95%;
+    // height: 30vh; // 30% of the viewport height
+    height:95px;
+    border-radius: 8px;
+    transition: transform 0.2s ease;
+    object-fit: cover;
+  
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+  .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+
+      background-color:#12246670; /* Black with 50% opacity */
+      pointer-events: none; /* Prevent interaction with the overlay */
+    
+  }

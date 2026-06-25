@@ -1,0 +1,13 @@
+.scrollable-agreement {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px 0;
+  }
+  
+  .modal-footer {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+  }

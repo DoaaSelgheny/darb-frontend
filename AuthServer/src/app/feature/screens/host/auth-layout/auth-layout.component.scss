@@ -1,0 +1,16 @@
+.login {
+    background: url('../../../../../assets/authUi/imgs/login-host-bg.png') no-repeat;
+    background-size: cover;
+  }
+  :host ::ng-deep{
+
+      .ant-select:not(.ant-select-customize-input) .ant-select-selector{
+        border-radius: 5px;
+        border:0.5px solid #262626;
+        display: flex;
+        align-items: center;
+      }
+      .anticon{
+        vertical-align:0
+      }
+  }

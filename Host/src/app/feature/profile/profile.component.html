@@ -1,0 +1,360 @@
+<!-- TODO I18N -->
+<!-- MENU NAV -->
+<nz-breadcrumb class="mb-4">
+  <nz-breadcrumb-item class="cursor-pointer text-primary" routerLink="/holiday-homes">
+    {{ '::Menu:Home' | abpLocalization }}
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item class="!text-greyDark">
+    {{
+      { key: '::Menu:profile', defaultValue: 'الحساب الشخصي' } | abpLocalization
+    }}</nz-breadcrumb-item
+  >
+</nz-breadcrumb>
+
+<app-content-card>
+  <input
+    type="file"
+    style="display: none"
+    accept="image/*"
+    #fileUpload
+    (change)="onFileSelected($event)"
+  />
+  <div class="block">
+    <div
+      class="flex flex-col items-center md:items-start md:-m-2.5 border-[12px] border-white border-solid custom-style-upload"
+    >
+      <ng-container uploadState>
+        @if (profilePicture?.source) {
+          <div>
+            <div class="img-wrap">
+              <span (click)="deleteProfileImage()" class="close cursor-pointer">&times;</span>
+              <img
+                (click)="fileUpload.click()"
+                class="w-[4.5rem] h-[4.5rem] md:w-40 md:h-40 lg:h-40 profile-image rounded-[50%] cursor-pointer"
+                src="{{ profilePicture.source }}"
+              />
+            </div>
+            <p class="text-base text-greyDark text-center mt-2">
+              ID: {{ profile?.hyyakId || 'No ID Stored' }}
+            </p>
+          </div>
+        } @else {
+          <div>
+            @if (lang == 'ar') {
+              <img
+              (click)="fileUpload.click()"
+              class="w-[4.5rem] h-[4.5rem] md:w-40 md:h-40 profile-image rounded-[50%] cursor-pointer"
+              src="assets/host/imgs/personalAr.svg"
+              alt="user_profile_iamge"
+              title="user_profile_iamge"
+            />
+            }
+            @if (lang == 'en') {
+              <img
+              (click)="fileUpload.click()"
+              class="w-[4.5rem] h-[4.5rem] md:w-40 md:h-40 profile-image rounded-[50%] cursor-pointer"
+              src="assets/host/imgs/personal.svg"
+              alt="user_profile_iamge"
+              title="user_profile_iamge"
+            />
+            }
+       
+            <p class="text-base text-greyDark text-center mt-2">
+              ID: {{ profile?.hyyakId || 'No ID Stored' }}
+            </p>
+          </div>
+        }
+      </ng-container>
+    </div>
+    <div class=" mt-8">
+      <h3 class="text-dark my-6 text-lg font-bold">
+        {{
+          { key: '::Host:Profile:PersonalInfo', defaultValue: 'بيانات الحساب الشخصية' }
+            | abpLocalization
+        }}
+      </h3>
+    </div>
+    @if (!!profile) {
+      <ng-container [ngTemplateOutlet]="formContent"> </ng-container>
+    }
+  </div>
+  <div buttons class="flex justify-end mt-2">
+    <!-- <app-button size="md" [outline]="true" (click)="isVisibleBackWithoutSave = true">
+      {{ { key: '::Host:Profile:Back', defaultValue: 'تراجع' } | abpLocalization }}
+    </app-button> -->
+    <app-button size="md" (click)="onSaveButtonClick()"
+      >{{ { key: '::Host:Profile:Save', defaultValue: 'حفظ التغيرات' } | abpLocalization }}
+    </app-button>
+  </div>
+</app-content-card>
+
+<ng-template #formContent>
+  <!-- Profile Info -->
+  <form #profileForm="ngForm" [formGroup]="form">
+    <section class="mt-4 grid grid-cols-1 lg:grid-cols-3 gap-x-20 gap-y-4">
+      <div>
+        <app-field
+          [control]="form | getControl: 'name'"
+          formControlName="name"
+          [placeholder]="
+            { key: '::Host:Profile:PlaceHolder:FirstName', defaultValue: 'الاسم الاول' }
+              | abpLocalization
+          "
+          [label]="
+            { key: '::Host:Profile:FirstName', defaultValue: 'الاسم الأول' } | abpLocalization
+          "
+            [suppressValidationWithMessage]="{
+              pattern: 'namePattern',
+            }"
+        ></app-field>
+      </div>
+      <div>
+        <app-field
+          [control]="form | getControl: 'surname'"
+          formControlName="surname"
+          [placeholder]="
+            { key: '::Host:Profile:PlaceHolder:LastName', defaultValue: 'ادخل الاسم الاخير' }
+              | abpLocalization
+          "
+          [label]="
+            { key: '::Host:Profile:LastName', defaultValue: 'الاسم الاخير' } | abpLocalization
+          "
+                [suppressValidationWithMessage]="{
+                  pattern: 'namePattern',
+                }"
+        ></app-field>
+      </div>
+      <div>
+        <app-field-label
+          [control]="form | getControl: 'phoneNumber'"
+          [label]="
+            { key: '::Host:Profile:PlaceHolder:Email', defaultValue: 'البريد الإلكتروني' }
+              | abpLocalization
+          "
+          [options]="{
+            valid: profile?.emailConfirmed,
+          }"
+        ></app-field-label>
+        <app-field
+          [readonly]="form.value.emailConfirmed"
+          [control]="form | getControl: 'email'"
+          formControlName="email"
+          [placeholder]="
+            { key: '::Host:Profile:PlaceHolder:Email', defaultValue: 'البريد الإلكتروني' }
+              | abpLocalization
+          "
+        ></app-field>
+        <div class="flex flex-col items-center md:items-end mt-4">
+           <div class="w-[123px]">
+            @if (form.value.emailConfirmed) {
+              <app-button
+                (click)="handleOpenOtp(profile.email, true, otpType.ChangeEmail)"
+                secondary="true"
+                size="md"
+                [outline]="true"
+              >
+                {{ { key: '::guest:Profile:Update', defaultValue: 'تعديل' } | abpLocalization }}
+              </app-button>
+            }
+            @if (!form.value.emailConfirmed) {
+              <app-button
+                (click)="handleOpenOtp(profile.email, false, otpType.ConfirmEmail)"
+                [disabled]="form.get('email').invalid"
+                secondary="true"
+                size="md"
+                [outline]="true"
+              >
+                {{ { key: '::Host:Profile:Verify', defaultValue: 'تحقق' } | abpLocalization }}
+              </app-button>
+            }
+          </div> 
+        </div>
+      </div>
+      <div class="flex flex-col">
+        <app-field-label
+          [control]="form | getControl: 'phoneNumber'"
+          [label]="
+            { key: '::Host:Profile:PhoneNumber', defaultValue: 'رقم الجوال' } | abpLocalization
+          "
+          [options]="{
+            valid: profile?.phoneNumberConfirmed,
+          }"
+        ></app-field-label>
+        <ngx-intl-tel-input
+          cssClass="w-full left-direction rounded-md mt-4 p-4 ant-input ps-7 ant-input-rtl ant-input-stepperless text-dark text-base"
+          [onlyCountries]="onlySaudiCountry"
+          [numberFormat]="PhoneNumberFormat.National"
+          [enablePlaceholder]="true"
+          [searchCountryFlag]="true"
+          [selectedCountryISO]="selectedCountryISO"
+          [selectFirstCountry]="false"
+          separateDialCode="true"
+          [phoneValidation]="true"
+          name="phoneNumber"
+          formControlName="phoneNumber"
+          (paste)="allowPaste($event)"
+        ></ngx-intl-tel-input>
+        <app-validation
+          *ngIf="form.controls['phoneNumber'].errors"
+          [control]="form | getControl: 'phoneNumber'"
+          [message]="
+            form.controls['phoneNumber']?.errors?.required ? 'Validation.' : 'General:Validation.'
+          "
+        ></app-validation>
+        <div class="flex flex-col items-center md:items-end mt-4">
+          <div class="w-[123px]">
+            @if (form.value.phoneNumberConfirmed) {
+              <app-button
+                (click)="
+                  handleOpenOtp(
+                    form.getRawValue().phoneNumber?.internationalNumber,
+                    true,
+                    otpType.ChangePhoneNumber
+                  )
+                "
+                secondary="true"
+                size="md"
+                [outline]="true"
+              >
+                {{ { key: '::guest:Profile:Update', defaultValue: 'تعديل' } | abpLocalization }}
+              </app-button>
+            } 
+             @if (!form.value.phoneNumberConfirmed) {
+              <app-button
+                [disabled]="form.get('phoneNumber').invalid"
+                (click)="
+                  handleOpenOtp(
+                    form.getRawValue().phoneNumber?.internationalNumber,
+                    false,
+                    otpType.ConfirmPhoneNumber
+                  )
+                "
+                secondary="true"
+                size="md"
+                [outline]="true"
+              >
+                {{ { key: '::Host:Profile:Verify', defaultValue: 'تحقق' } | abpLocalization }}
+              </app-button>
+            } 
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <app-field-label
+          [label]="{ key: '::gender', defaultValue: 'gender' } | abpLocalization"
+          [control]="form | getControl: 'gender'"
+        ></app-field-label>
+        <nz-select
+          [nzPlaceHolder]="{ key: '::gender', defaultValue: '  gender' } | abpLocalization"
+          class="w-full rounded-md xl-select"
+          nzAllowClear
+          formControlName="gender"
+        >
+          <nz-option
+            [nzValue]="genderEnum.Male"
+            [nzLabel]="'::gender:Male' | abpLocalization"
+          ></nz-option>
+          <nz-option
+            [nzValue]="genderEnum.Female"
+            [nzLabel]="'::gender:Female' | abpLocalization"
+          ></nz-option>
+        </nz-select>
+        <app-validation [control]="form | getControl: 'gender'"></app-validation>
+      </div>
+      <div  class="row">
+        <app-field
+          *ngIf="form.value.idFullName"
+          [readonly]="profile.isVerifiedBy3rdParty"
+          formControlName="idFullName"
+          [control]="form | getControl: 'idFullName'"
+          [label]="
+            { key: '::Host:Profile:FullName', defaultValue: 'الاسم الكامل' } | abpLocalization
+          "
+          [placeholder]="
+            { key: '::Host:Profile:FullName', defaultValue: 'الاسم الكامل' } | abpLocalization
+          "
+        ></app-field>
+      </div>
+
+    </section>
+    <!-- Profile Description  -->
+    <!-- <section class="mt-11">
+      <div class="border-b border-[#F1F3F9]">
+        <h3 class="text-dark text-lg my-5 font-bold">
+          {{
+            { key: '::Host:Profile:IdentificationInfo', defaultValue: 'بيانات الحساب التعريفية' }
+              | abpLocalization
+          }}
+        </h3>
+      </div>
+      <article class="ps-8">
+        <div class="mt-[26px]">
+          <app-field-label
+            classLabelOverride="font-bold"
+            [label]="
+              { key: '::Host:Profile:Brief', defaultValue: 'نبذة عن المستضيف' } | abpLocalization
+            "
+            [options]="{
+              info:
+                {
+                  key: '::Host:Profile:Brief:Info',
+                  defaultValue:
+                    '
+      أنا عبد الله ، معالج مهني
+    مهتم بالسفر والرحلات
+    والكثير من الهوايات الاخرى
+    مثل اللعب كرة التنس .'
+                } | abpLocalization
+            }"
+          ></app-field-label>
+        </div>
+        <app-textarea
+          size="md"
+          [control]="form | getControl: 'breif'"
+          formControlName="breif"
+          [placeholder]="
+            { key: '::Host:Profile:PlaceHolder:Brief', defaultValue: 'نص كتابي ...' }
+              | abpLocalization
+          "
+        ></app-textarea>
+      </article>
+    </section> -->
+  </form>
+</ng-template>
+
+<app-otp
+  [(open)]="isOtpOpen"
+  [contactInfo]="contactInfo"
+  [verified]="isVerified"
+  (verifiedOtp)="handleVerifiedOtp($event)"
+></app-otp>
+
+<app-confrontation-popup
+  [visible]="isVisibleBackWithoutSave"
+  (cancel)="isVisibleBackWithoutSave = false"
+  [title]="
+    { key: '::Host:Profile:YourDataWillNotBeSaved', defaultValue: 'لن يتم حفظ بياناتك!' }
+      | abpLocalization
+  "
+  [description]="
+    {
+      key: '::Host:Profile:AreYouSureYourModifiedDataWillNotBeSaved',
+      defaultValue: 'هل انت متأكد ؟ لن يتم حفظ بياناتك التي قمت بتعديلها',
+    } | abpLocalization
+  "
+>
+  <div buttons class="flex items-center flex-col w-full px-10">
+    <app-button size="md" class="block mb-6 w-full" [routerLink]="['/']">
+      {{ { key: '::Host:Profile:Yes', defaultValue: 'نعم' } | abpLocalization }}
+    </app-button>
+    <app-button
+      class="w-full"
+      (click)="isVisibleBackWithoutSave = false"
+      size="md"
+      [outline]="true"
+    >
+      {{ { key: '::Host:Profile:No', defaultValue: 'لا' } | abpLocalization }}
+    </app-button>
+  </div>
+</app-confrontation-popup>

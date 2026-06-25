@@ -1,0 +1,21 @@
+<nz-card  class="block w-full  rounded-2xl p-3 my-3">
+    <div class="px-4 py-2">
+      <p class="font-bold text-lg text-[#171717] border-0">{{'::guest:reserveDetails:deposite' |abpLocalization}} </p>
+      <p class="text-base text-[#171717] border-0 py-2">{{'::guest:reserveDetails:depositeHint' |abpLocalization}} </p>
+
+    </div>
+    <div class="px-4 py-2">
+        <p class="font-bold text-base text-[#171717] border-0 pb-2">{{'::guest:reserveDetails:depositeAmount' |abpLocalization}} </p>
+        <!-- <p class=" text-base text-[#171717] border-0">
+          {{data?.summary.insurance}} {{'::Guset:Explore:sar' |abpLocalization}} </p> -->
+          <div class="flex">
+
+            <div class="flex flex-row" style="direction: rtl;">
+              <p class="text-base text-[#171717] border-0"> {{data?.summary.insurance}} </p>
+              <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+            </div>
+          </div>
+    </div>
+    
+      
+</nz-card>

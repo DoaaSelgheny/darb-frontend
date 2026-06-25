@@ -1,0 +1,278 @@
+.edit-info {
+  //   border-radius: 15px;
+  background-color: #fff;
+  //   display: flex;
+  //   width: 100%;
+  //   padding-bottom: 24px;
+  //   flex-direction: column;
+  //   overflow: hidden;
+  padding: 24px;
+}
+
+@media (max-width: 991px) {
+  .edit-info {
+    max-width: 100%;
+  }
+}
+
+.info-section {
+  padding-bottom: 10px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 24px 0;
+}
+
+.header-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.header-title {
+  color: #171717;
+  font:
+    700 19px Almarai,
+    sans-serif;
+  text-align: right;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 16px;
+  font:
+    700 19px Almarai,
+    sans-serif;
+  color: #171717;
+}
+
+.details-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px 100px;
+  margin-top: 14px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  width: 158px;
+}
+
+.features-section,
+.amenities-section,
+.sub-facilities-section,
+.special-features-section {
+  margin-top: 20px;
+}
+
+.features-title,
+.amenities-title,
+.sub-facilities-title,
+.special-features-title {
+  color: #334155;
+  font:
+    700 13px/1.5 Almarai,
+    sans-serif;
+}
+
+.features-grid,
+.amenities-grid,
+.sub-facilities-grid,
+.special-features-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  // justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.amenity-item,
+.sub-facility-item,
+.special-feature-item {
+  border-radius: 16px;
+  background-color: #fff;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(212, 212, 212, 0.25);
+  padding: 8px;
+  width: 219px;
+}
+
+.feature-icon,
+.amenity-icon,
+.sub-facility-icon,
+.special-feature-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.sub-facility-content {
+  margin-top: 8px;
+}
+
+.amenity-name,
+.sub-facility-name,
+.special-feature-name {
+  font:
+    400 13px/1 Almarai,
+    sans-serif;
+  color: #000;
+  text-align: right;
+}
+
+.sub-facility-description {
+  font:
+    400 11px/16px Almarai,
+    sans-serif;
+  color: #000;
+  text-align: right;
+  margin-top: 8px;
+}
+
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.image-item {
+  width: calc(25% - 6px);
+  aspect-ratio: 1.87;
+  overflow: hidden;
+  border-radius: 9px;
+}
+
+.home-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.scroll-nav {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 223px;
+  display: flex;
+  align-items: flex-start;
+  border-radius: 12px 0 0 12px;
+  overflow: hidden;
+}
+
+.scroll-track {
+  width: 5px;
+  height: 100%;
+  border-radius: 0 0 0 20px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.scroll-thumb {
+  width: 5px;
+  height: 72px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+}
+
+.action-footer {
+  margin-top: 10px;
+  padding: 10px 24px;
+  font:
+    400 13px/24px Almarai,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.exit-button,
+.save-draft-button {
+  border-radius: 4px;
+  padding: 8px 48px;
+  width: 155px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.exit-button {
+  background-color: #ed3024;
+  color: #fafafa;
+}
+
+.save-draft-button {
+  background-color: #fafafa;
+  color: #171717;
+  border: 1px solid #e5e5e5;
+}
+
+@media (max-width: 991px) {
+  .action-footer {
+    padding: 10px 20px;
+  }
+
+  .exit-button,
+  .save-draft-button {
+    padding: 8px 20px;
+  }
+}
+
+.info-value {
+  color: #666;
+  font:
+    400 16px Almarai,
+    sans-serif;
+  // margin-top: 24px;
+}
+.info-label,h2 {
+  color: #1c1c1c;
+  font:
+    700 16px Almarai,
+    sans-serif;
+}
+
+.info-value {
+  color: #666;
+  font:
+    400 16px Almarai,
+    sans-serif;
+  margin-bottom: 15px;
+  line-height: 25px;
+}
+.details-grid2 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px 100px;
+  margin-top: 14px;
+}
+::ng-deep {
+  .ant-image-preview-img-wrapper {
+    right:40% !important;
+    bottom: 50% !important;
+    @media (max-width:990px){
+      right:29% !important;
+
+    }
+    @media (max-width:767px){
+      right:20% !important;
+
+    }
+    @media (max-width:640px){
+      right:10% !important;
+
+    }
+  }
+
+}

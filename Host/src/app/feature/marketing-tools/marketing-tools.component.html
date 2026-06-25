@@ -1,0 +1,22 @@
+<!-- TODO I18N -->
+<nz-breadcrumb>
+  <nz-breadcrumb-item class="cursor-pointer text-primary" routerLink="/holiday-homes">
+    {{ '::Menu:Home' | abpLocalization }}
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    {{
+      { key: '::Menu:MarketingTools', defaultValue: 'الأدوات التسويقية' } | abpLocalization
+    }}</nz-breadcrumb-item
+  >
+</nz-breadcrumb>
+<section class="mt-[2.375rem]">
+  <h2 class="flex justify-center sm:justify-start text-2xl text-dark font-extrabold">
+    {{
+      { key: '::Menu:MarketingTools:Heading', defaultValue: 'الأدوات التسويقية' } | abpLocalization
+    }}
+  </h2>
+  <!-- MARKETING CARDS -->
+  <div class="mt-[3.375rem]">
+    <app-marketing-card></app-marketing-card>
+  </div>
+</section>

@@ -1,0 +1,41 @@
+<app-field-label [options]="labelOptions" [label]="label" [control]="control"></app-field-label>
+<div class="h-[3.7rem] relative">
+  <input
+    class="w-full py-2 bg-gray1 rounded-md border text-base border-[#E2E2E2] placeholder:text-sm placeholder:text-sm read-only:bg-gray-100"
+    [ngClass]="{ 'ps-14': !!icon, 'ps-1': !icon, 'text-gray-300': readonly }"
+    nz-input
+    #input
+    (input)="changeValue()"
+    [(ngModel)]="value"
+    [disabled]="disabled"
+    [readonly]="readonly"
+    [type]="!!showPassword ? 'text' : type"
+    [placeholder]="placeholder"
+  />
+  <ng-content></ng-content>
+  <div
+    *ngIf="!!icon"
+    class="flex absolute top-1/2 rtl:right-4 ltr:left-4 transform -translate-y-1/2"
+  >
+    <img [src]="icon" alt="Add alt here" title="Add title here" />
+    <span class="w-[1px] ms-2.5 h-7 bg-[#E7E7E7] block"></span>
+  </div>
+  <div
+    *ngIf="type == 'password'"
+    class="flex absolute top-1/2 ltr:right-4 rtl:left-4 transform -translate-y-1/2"
+  >
+    <span
+      nz-icon
+      [nzType]="showPassword ? 'eye' : 'eye-invisible'"
+      (click)="showPassword = !showPassword"
+      class="text-xl cursor-pointer"
+      nzTheme="outline"
+    ></span>
+  </div>
+</div>
+<app-validation
+  [message]="'Validation.'"
+  *ngIf="!!control && control.errors"
+  class="block mt-1"
+  [control]="control"
+></app-validation>

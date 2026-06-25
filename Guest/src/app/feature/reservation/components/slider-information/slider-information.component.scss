@@ -1,0 +1,14 @@
+:host ::ng-deep {
+    .ant-card-body {
+        padding: 0px;
+    }
+     
+    .ant-carousel .slick-dots li button {
+        background-color: #ffffff;
+        width: 12px;
+        height: 12px;
+        border-radius: 20px;
+        padding-bottom:10px;
+    }
+}
+

@@ -1,0 +1,19 @@
+<button
+  nz-button
+  nzType="text"
+  nz-dropdown
+  [nzDropdownMenu]="menu"
+  class="hover:border-transparent w-full active:border-transparent focus:border-transparent border border-transparent rounded-md flex items-center p-3 h-9 justify-between"
+>
+  <span nz-icon nzType="down" class="text-secondary" nzTheme="outline"></span>
+  <span class="text-base uppercase {{ classes }}"> {{ selectLang }}</span>
+  <span nz-icon class="text-secondary" nzType="global" nzTheme="outline"></span>
+
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item (click)="changeLang('en')">EN</li>
+      <li nz-menu-item (click)="changeLang('ar')">AR</li>
+      <li nz-menu-item (click)="changeLang('zh')">ZH</li>
+    </ul>
+  </nz-dropdown-menu>
+</button>

@@ -1,0 +1,45 @@
+<div *ngIf="!!label" class="flex items-start">
+  <p class="mb-2 text-base">{{ label }}</p>
+  <img
+    alt="required"
+    *ngIf="control && control.hasError('required')"
+    class="ms-1"
+    src="/assets/host/icons/required.svg"
+
+  />
+</div>
+<div class="relative">
+  <nz-input-group [nzSuffix]="suffixTemplate" class="ant-input-affix-wrapper-textarea-with-clear-btn">
+  <textarea
+    [ngClass]="changeRow === true ?'':'!min-h-[125px]'"
+    class="w-full bg-gray1 rounded-md border border-[#E2E2E2] pt-3 placeholder:text-sm overflow-hidden resize-none"
+    [ngClass]="{ 'ps-14': !!icon, 'ps-1': !icon }"
+    nz-input
+    [rows]="rows"
+    (input)="changeValue($event)"
+    [(ngModel)]="value"
+    [disabled]="disabled"
+    [readonly]="readonly"
+    [placeholder]="placeholder"
+  ></textarea>
+  <div
+    *ngIf="!!icon"
+    class="flex absolute top-1/2 rtl:right-[15px] ltr:left-[15px] transform -translate-y-1/2"
+  >
+    <img [src]="icon" alt="Add alt here" title="Add title here" />
+    <span class="w-[1px] ms-2.5 h-7 bg-[#E7E7E7] block"></span>
+  </div>
+  <ng-template #suffixTemplate>
+
+    <ng-content></ng-content
+  ></ng-template>
+</nz-input-group>
+</div>
+<app-validation
+  [message]="'Validation.'"
+  *ngIf="!!control"
+  class="block mt-4"
+  [control]="control"
+  [suppressValidation]="suppressValidation"
+  [suppressValidationWithMessage]="suppressValidationWithMessage"
+></app-validation>

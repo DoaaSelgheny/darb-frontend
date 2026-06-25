@@ -1,0 +1,42 @@
+<div class="">
+  <ul nz-menu nzTheme="light" nzMode="inline" class=" shadow-greyBox !border-none flex flex-col pb-4">
+    <!-- <div class="mt-4 pt-3 ps-8 pb-14 flex items-center">
+      <img alt="logo" class="w-[90px]" src="assets/host/imgs/logo.png" />
+      <span class="ms-5 w-0.5 h-8 bg-[#DDDDDD]"></span>
+    </div> -->
+    <li class="csutom-scroll">
+      <ul>
+        <ng-container *ngFor="let item of menu">
+          <li nz-menu-group [nzTitle]="item.name">
+            <ul>
+              <!-- nzSelected -->
+              <ng-container *ngFor="let item of item.list">
+                <li nz-menu-item class="relative" (click)="onClick.emit()" routerLinkActive="ant-menu-item-selected"
+                  [routerLink]="item.path" [nzSelected]="item.selected" [nzDisabled]="item.comingSoon">
+                  <div class="flex justify-between gap-1">
+                    <div>
+                      <!-- <span
+                    class="leading-none !text-lg"
+                    nz-icon
+                    [nzType]="item.icon"
+                    nzTheme="outline"
+                  ></span> -->
+                      <i [class]="item.icon + ' !text-lg me-2'"></i>
+                      <span>{{ item.name }}</span>
+                    </div>
+                    <!-- <div *ngIf="item.comingSoon"
+                      class="px-2.5 py-1 rounded-lg bg-primary text-xs text-white self-center">
+                      {{'::guest:landing.comingSoon'|abpLocalization}}
+
+                    </div> -->
+                  </div>
+                </li>
+              </ng-container>
+            </ul>
+          </li>
+        </ng-container>
+        <app-select-language classes=" !w-full" class="block lg:hidden px-6 w-full mt-6"></app-select-language>
+      </ul>
+    </li>
+  </ul>
+</div>

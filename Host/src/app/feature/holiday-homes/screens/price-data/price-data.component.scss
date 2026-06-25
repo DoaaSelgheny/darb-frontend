@@ -1,0 +1,16 @@
+// .message-block .error-message {
+//   // Hidden by default
+//   display: none;
+// }
+
+// .message-block .error-message:first-child {
+//   display: block;
+// }
+.prevent-select {
+  -webkit-user-select: none;
+  /* Safari */
+  -ms-user-select: none;
+  /* IE 10 and IE 11 */
+  user-select: none;
+  /* Standard syntax */
+}

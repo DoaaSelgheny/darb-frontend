@@ -1,0 +1,21 @@
+:host ::ng-deep
+{
+  nz-switch button.ant-switch.ant-switch-checked {
+  background-color: black;
+}
+.ant-switch {
+  height:18px;
+  min-width:25px
+}
+.ant-switch-handle {
+  width:15px;
+  height:15px
+}
+.ant-form-item-label > label {
+  height:auto
+}
+
+.ant-switch-rtl.ant-switch-checked .ant-switch-handle {
+  right: calc(100% - 14px - 2px);
+}
+}

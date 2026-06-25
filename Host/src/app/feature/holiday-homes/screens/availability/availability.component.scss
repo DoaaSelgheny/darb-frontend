@@ -1,0 +1,17 @@
+:host ::ng-deep {
+  .ant-picker-content {
+    min-width: 170px !important;
+  }
+  .ant-picker-dropdown {
+    direction: ltr !important;
+  }
+}
+::ng-deep{
+  .timepicker-dial__container{
+    direction: ltr !important;
+    justify-content: center !important;
+  }
+  .ngx-timepicker-control__arrows{
+    display: none !important;
+  }
+}

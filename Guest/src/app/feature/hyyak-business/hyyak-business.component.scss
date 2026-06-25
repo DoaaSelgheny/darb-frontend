@@ -1,0 +1,40 @@
+#slider {
+    transition: transform 0.7s ease-out;
+}
+.gallery {
+    background:
+     url('/assets/imgs/hyak-business/bg-coursel.png') no-repeat center center,
+     linear-gradient(104.66deg, rgba(61, 121, 203, 0.95) -22.9%, rgba(30, 60, 101, 0.95) 92.02%);
+}
+.cover {
+    background-image: url('/assets/imgs/hyak-business/mainbg.svg');
+}
+
+  .item {
+    .body {
+        color:#737373
+    }
+    hr {
+        margin: auto 1rem 1rem;
+    }
+  }
+
+ 
+:host ::ng-deep{
+
+  .swiper-pagination-bullet {
+  background: #ffffff60 !important;
+  }
+  .swiper-pagination-bullet-active {
+  background: #ffffff80!important;
+  }
+
+}  /* CSS Code */
+  .swiper-wrapper {
+    width: 100%;
+    height: max-content !important;
+    padding-bottom: 64px !important;
+    -webkit-transition-timing-function: linear !important;
+    transition-timing-function: linear !important;
+    position: relative;
+    }

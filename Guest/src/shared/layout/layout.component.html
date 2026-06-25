@@ -1,0 +1,7 @@
+<app-header (scrollToSection)="getSection($event)" [isHost]="false" ></app-header>
+<div class="relative bg-white">
+    <!-- <img [src]="lang === 'ar' ?'assets/imgs/test.svg' : 'assets/imgs/testen.svg'" 
+    class="absolute fixed" style="z-index:9;top: 8px;"> -->
+    <router-outlet></router-outlet>
+</div>
+<app-footer> </app-footer>

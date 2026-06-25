@@ -1,0 +1,217 @@
+<h2 class="text-lg text-[#3C3C3CE3] mt-3 mb-6 font-bold"
+>  {{
+  {
+    key: '::experienceLocationInformation'
+  } | abpLocalization
+}} </h2>
+<div [formGroup]="form">
+  <div class="grid lg:grid-cols-3 gap-2 md:grid-cols-2 sm:grid-cols-1 grid-cols-1">
+    <div class="grid grid-cols-subgrid gap-4 lg:col-span-1 md:col-span-1 sm:col-span-1 col-span-1" [formGroup]="form">
+  
+     <!-- city -->
+     <div class="w-full">
+      <div class="mt-4 lg:mt-0 w-full">
+        <app-field-label
+          label="  {{
+            {
+              key: '::Host:VacationHome:Step02:City'
+            } | abpLocalization
+          }}"
+          [control]="form | getControl: 'cityId'"
+        ></app-field-label>
+        <nz-select
+          nzShowSearch
+          [nzAllowClear]="true"
+
+          nzPlaceHolder="  {{
+            {
+              key: '::Host:VacationHome:Step02:City:Placeholder'
+            } | abpLocalization
+          }}"
+          class="xl-select w-full"
+          nzNotFoundContent=" {{
+            {
+              key: '::Host:VacationHome:Step02:City:noData'
+            } | abpLocalization
+          }}"
+          formControlName="cityId"
+          (ngModelChange)="onCityChange($event)"
+        >
+          <nz-option *ngFor="let c of cities" [nzLabel]="c.name" [nzValue]="c.id"></nz-option>
+        </nz-select>
+        <app-validation
+          class="block mt-4"
+          [message]="'Validation.'"
+          [control]="form | getControl: 'cityId'"
+        ></app-validation>
+      </div>
+    </div>
+ 
+   <!-- District -->
+   <div class="w-full">
+    <div class="mt-4 lg:mt-0 w-full">
+      <app-field-label
+      label="  {{
+        {
+          key: '::Host:VacationHome:Step02:District'
+        } | abpLocalization
+      }}"
+      [control]="form | getControl: 'districtId'"
+    ></app-field-label>
+    <nz-select
+      nzShowSearch
+      [nzAllowClear]="true"
+      nzPlaceHolder="  {{
+        {
+          key: '::Host:VacationHome:Step02:District:Placeholder'
+        } | abpLocalization
+      }}"
+      class="xl-select w-full"
+      formControlName="districtId"
+      nzNotFoundContent=" {{
+        {
+          key: '::Host:VacationHome:Step02:District:noData'
+        } | abpLocalization
+      }}"
+    >
+      <nz-option *ngFor="let d of districts" [nzLabel]="d.name" [nzValue]="d.id"></nz-option>
+    </nz-select>
+    </div>
+    <app-validation
+    class="block mt-4"
+    [message]="'Validation.'"
+    [control]="form | getControl: 'districtId'"
+    [suppressValidationWithMessage]="{
+      required: 'required',
+    }"
+  ></app-validation>
+  </div>
+  <!--MapLink-->
+  <!-- <div class="w-full" *ngIf="this.experience.mapLink">
+    <div class="mt-4 lg:mt-0 w-full">
+      <app-field
+        label="  {{
+          {
+            key: '::Host:VacationHome:Step02:mapLink'
+          } | abpLocalization
+        }}"
+        placeholder="  {{
+          {
+            key: '::Host:VacationHome:Step02:mapLink:Placeholder'
+          } | abpLocalization
+        }}"
+        formControlName="mapLink"
+        class="w-full"
+
+      ></app-field>
+    </div>
+  </div> -->
+  <div class="flex items-center flex-col lg:flex-row" style="display: none">
+    <div class="mt-4 lg:mt-0 w-full">
+      <app-field
+        label="خط طول"
+        [control]="form | getControl: 'lng'"
+        formControlName="lng"
+        placeholder="ادخل خط طول"
+        class="w-full lg:min-w-[300px]"
+      />
+    </div>
+
+    <app-field
+      [control]="form | getControl: 'lat'"
+      formControlName="lat"
+      label="دائرة عرض"
+      placeholder="ادخل دائرة عرض"
+      class="w-full lg:min-w-[300px] lg:ms-4"
+    />
+  </div>
+  <app-field-label
+  label="  {{
+    {
+      key: '::Host:VacationHome:Step02:mapLink'
+    } | abpLocalization
+  }}"
+></app-field-label>
+  <div>
+    <google-map
+      (centerChanged)="centerChanged()"
+      height="400px"
+      width="100%"
+      [center]="center"
+      [zoom]="zoom"
+    >
+      <map-marker [position]="markCenter"></map-marker>
+    </google-map>
+  </div>
+</div>
+</div>
+
+<div class="mt-24 flex justify-between items-center flex-col sm:flex-row">
+  <app-button
+  size="md"
+  (click)="goBack()"
+>
+  <span>
+    {{
+      {
+        key: '::Host:VacationHome:Wizard:Back'
+      } | abpLocalization
+    }}
+  </span>
+</app-button>
+  <div class="flex flex-row  mt-3 sm:mt-0">
+
+    <app-button
+      class="ms-3"
+      (click)="saveDraft()"
+      size="md"
+      [outline]="true"
+      [secondary]="true"
+    >
+      {{
+        {
+          key: '::Host:VacationHome:SaveDraft'
+        } | abpLocalization
+      }}
+    </app-button>
+    <app-button size="md" class="mx-2" (click)="goNext()" [disabled]="!validateCurrentPage()">
+      {{
+        {
+          key: '::Host:VacationHome:Wizard:Next'
+        } | abpLocalization
+      }}
+    </app-button>
+  </div>
+</div>
+</div>
+<app-confrontation-popup
+[visible]="isVisibleSaveAndExit"
+(cancel)="isVisibleSaveAndExit = false"
+title="  {{
+  {
+    key: '::Host:VacationHome2:Popup:SaveDraft:Title'
+  } | abpLocalization
+}}"
+description="  {{
+  {
+    key: '::Host:VacationHome2:Popup:SaveDraft:Description'
+  } | abpLocalization
+}}"
+>
+<div buttons class="flex items-center flex-col w-full px-10">
+  <app-button size="md" class="block mb-6 w-full" (click)="saveAndExit()">
+    {{
+      {
+        key: '::General:Confirm'
+      } | abpLocalization
+    }}
+  </app-button>
+  <app-button class="w-full" (click)="isVisibleSaveAndExit = false" size="md" [outline]="true">
+    {{
+      {
+        key: '::General:Cancel'
+      } | abpLocalization
+    }}
+  </app-button>
+</div>
+</app-confrontation-popup>

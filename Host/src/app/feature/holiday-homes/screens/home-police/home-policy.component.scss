@@ -1,0 +1,14 @@
+.logo {
+  width: 24px;
+}
+:host ::ng-deep {
+
+  .ant-checkbox-checked .ant-checkbox-inner {
+    background-color: #3da29a;
+    border-color: #3da29a;
+  }
+  .ant-checkbox-checked::after {
+
+    border-color: #3da29a;
+  }
+}

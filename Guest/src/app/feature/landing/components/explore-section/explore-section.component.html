@@ -1,0 +1,40 @@
+<div [ngClass]='mergedArray.length ? "mt-[12rem] bg-white  px-6 lg:px-0 md:mt-[7rem]" : "mt-80 lg:mt-0 md:mt-20 "'>
+  @if(mergedArray){
+      @if(mergedArray.length > 0){
+      <div class="pt-32 md:pt-5 lg:pt-5 sm:pt-10">
+        <p class="text-[#333333] text-center text-xl md:text-2xl lg:text-5xl font-bold md:mt-4 mt-6">     
+          {{ '::guest:landing.section2Title' | abpLocalization }} 
+        </p>
+      </div>
+    }
+      <div
+        class="mt-6 mx-auto lg:px-36 xl:px-36  sm:px-2 "
+      >
+        <div class="text-center">
+          <div class="flex items-center justify-center flex-col sm:mx-6 mx-0">
+            <div class="w-full relative">
+              <div class="swiper centered-slide-carousel4">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide" *ngFor="let item of mergedArray;let i = index">
+                      <app-explore-card [item]="item"></app-explore-card>
+                  </div>
+                </div>
+                @if(mergedArray.length > 0){
+
+                  <button 
+                    (click)="slidePrev('.centered-slide-carousel4')">
+                    <i class="fa-solid text-xl mx-2 mt-2 " [ngClass]="lang === 'ar' ? 'fa-circle-chevron-right' :'fa-circle-chevron-left'"></i>
+                  </button>
+                  <button 
+                    (click)="slideNext('.centered-slide-carousel4')">
+                    <i class="fa-solid text-xl mx-2 mt-2 " [ngClass]="lang === 'ar' ? 'fa-circle-chevron-left' :'fa-circle-chevron-right'"></i>
+                  </button>
+                  <div class="swiper-pagination"></div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  }
+</div>

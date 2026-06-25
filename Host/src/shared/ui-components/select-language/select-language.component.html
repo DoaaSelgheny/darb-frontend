@@ -1,0 +1,30 @@
+<!-- <nz-select
+  nzPlaceHolder="أختر اللغه"
+  [(ngModel)]="selectLang"
+  class="min-w-[132px] rounded-md md-select"
+>
+  <nz-option nzValue="ar" nzLabel="عربي"></nz-option>
+  <nz-option nzValue="en" nzLabel="EN"></nz-option>
+</nz-select> -->
+
+<button
+  nz-button
+  nzType="text"
+  nz-dropdown
+  [nzDropdownMenu]="menu"
+  class="border-none rounded-md flex items-center p-3 h-9 justify-between {{
+    classes
+  }}"
+>
+  <i class="fa-solid fa-globe text-sm text-secondary"></i>
+  <span class="text-sm uppercase mx-2"> {{ selectLang }}</span>
+  <i class="fa-solid text-sm text-secondary fa-angle-down"></i>
+
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item (click)="changeLang('en')">EN</li>
+      <li nz-menu-item (click)="changeLang('ar')">AR</li>
+      <li nz-menu-item (click)="changeLang('zh')">ZH</li>
+    </ul>
+  </nz-dropdown-menu>
+</button>

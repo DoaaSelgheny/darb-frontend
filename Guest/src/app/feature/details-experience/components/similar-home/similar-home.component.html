@@ -1,0 +1,27 @@
+@if(homes?.length){
+
+<div class="text-2xl text-[#171717] font-bold mt-2">
+    {{"::Guest:Explore:aroundExperience"|abpLocalization}}
+</div>
+<p class="text-base text-[#666]"> {{"::Guest:Explore:enjoyExperience"|abpLocalization}}</p>
+<div
+    class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  grid-cols-1  gap-2 xl:gap-2 mt-3"
+    [ngClass]="{ '!grid-cols-1': !homes?.length }"
+  >
+    @for (home of homes;track  $index) {
+      <app-vacation-home-item
+      [item]="home.experience"
+      [isVacationHome]="false"
+      [similar]="true"
+      [city]="home?.city.name"
+      [district]="home?.district?.name"
+      [ratingsAverage]="home?.ratingsAverage "
+      [ratingsCount]="home?.ratingsCount"
+  ></app-vacation-home-item>
+    }@empty {
+        <nz-empty [nzNotFoundContent]="'::homeHoliday:search:noData' | abpLocalization"  class="block w-full mx-auto"></nz-empty>
+
+    }
+
+  </div>
+}

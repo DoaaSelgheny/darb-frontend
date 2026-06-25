@@ -1,0 +1,31 @@
+<h2 class="text-lg text-[#3C3C3CE3] mt-3 mb-6 font-bold">مراجعة البيانات</h2>
+<div class="grid lg:grid-cols-2 xl:grid-cols-2 grid-cols-1 gap-8">
+  <div>
+    <p class="text-greyDark mb-2">اسم بيت العطلة</p>
+    <p class="text-base">{{ vacationHome?.vacationHome?.name }}</p>
+  </div>
+  <div>
+    <p class="text-greyDark mb-2">المدينة</p>
+    <p class="text-base">{{ vacationHome?.city?.name }}</p>
+  </div>
+  <div>
+    <p class="text-greyDark mb-2">نوع بيت العطلة</p>
+    <p class="text-base">{{ vacationHome?.vacationHomeType?.name }}</p>
+  </div>
+  <div>
+    <p class="text-greyDark mb-2">الحي</p>
+    <p class="text-base">{{ vacationHome?.vacationHome?.district }}</p>
+  </div>
+
+  @if (vacationHome?.vacationHome?.mapLink) {
+    <div>
+      <p class="text-greyDark mb-2">الموقع على خرائط جوجل</p>
+      <a
+        class="text-base text-ellipsis w-64 whitespace-nowrap overflow-hidden"
+        target="_blank"
+        href="{{ vacationHome.vacationHome.mapLink }}"
+        >{{ vacationHome.vacationHome.mapLink }}</a
+      >
+    </div>
+  }
+</div>

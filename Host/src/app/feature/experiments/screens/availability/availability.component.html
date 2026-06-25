@@ -1,0 +1,62 @@
+<h2 class="text-lg text-[#122466E3] mt-3 mb-6 font-bold">التوافر</h2>
+<div class="grid lg:grid-cols-2 grid-cols-1 gap-16" [formGroup]="form">
+  <div class="lg:ms-4 mt-4 lg:mt-0 w-full lg:w-[400px]">
+    <app-field-label label="ساعة الدخول"></app-field-label>
+    <nz-select
+      nzShowSearch
+      nzAllowClear
+      class="xl-select w-full lg:min-w-[400px]"
+      formControlName="checkInTime"
+    >
+      <nz-option [nzLabel]="'12AM-02AM'" [nzValue]="'1900-01-01T00:00:00'"></nz-option>
+      <nz-option [nzLabel]="'02AM-04AM'" [nzValue]="'1900-01-01T02:00:00'"></nz-option>
+      <nz-option [nzLabel]="'04AM-06AM'" [nzValue]="'1900-01-01T04:00:00'"></nz-option>
+      <nz-option [nzLabel]="'06AM-08AM'" [nzValue]="'1900-01-01T06:00:00'"></nz-option>
+      <nz-option [nzLabel]="'08AM-10AM'" [nzValue]="'1900-01-01T08:00:00'"></nz-option>
+      <nz-option [nzLabel]="'10AM-12PM'" [nzValue]="'1900-01-01T10:00:00'"></nz-option>
+      <nz-option [nzLabel]="'12PM-02PM'" [nzValue]="'1900-01-01T12:00:00'"></nz-option>
+      <nz-option [nzLabel]="'02PM-04PM'" [nzValue]="'1900-01-01T14:00:00'"></nz-option>
+      <nz-option [nzLabel]="'04PM-06PM'" [nzValue]="'1900-01-01T16:00:00'"></nz-option>
+      <nz-option [nzLabel]="'06PM-08PM'" [nzValue]="'1900-01-01T18:00:00'"></nz-option>
+      <nz-option [nzLabel]="'08PM-10PM'" [nzValue]="'1900-01-01T20:00:00'"></nz-option>
+      <nz-option [nzLabel]="'10PM-12AM'" [nzValue]="'1900-01-01T22:00:00'"></nz-option>
+    </nz-select>
+  </div>
+  <div class="lg:ms-4 mt-4 lg:mt-0 w-full lg:w-[400px]">
+    <app-field-label label="ساعة الخروج"></app-field-label>
+    <nz-select
+      formControlName="checkOutTime"
+      nzShowSearch
+      nzAllowClear
+      class="xl-select w-full lg:min-w-[300px]"
+    >
+      <nz-option [nzLabel]="'12AM-02AM'" [nzValue]="'1900-01-01T00:00:00'"></nz-option>
+      <nz-option [nzLabel]="'02AM-04AM'" [nzValue]="'1900-01-01T02:00:00'"></nz-option>
+      <nz-option [nzLabel]="'04AM-06AM'" [nzValue]="'1900-01-01T04:00:00'"></nz-option>
+      <nz-option [nzLabel]="'06AM-08AM'" [nzValue]="'1900-01-01T06:00:00'"></nz-option>
+      <nz-option [nzLabel]="'08AM-10AM'" [nzValue]="'1900-01-01T08:00:00'"></nz-option>
+      <nz-option [nzLabel]="'10AM-12PM'" [nzValue]="'1900-01-01T10:00:00'"></nz-option>
+      <nz-option [nzLabel]="'12PM-02PM'" [nzValue]="'1900-01-01T12:00:00'"></nz-option>
+      <nz-option [nzLabel]="'02PM-04PM'" [nzValue]="'1900-01-01T14:00:00'"></nz-option>
+      <nz-option [nzLabel]="'04PM-06PM'" [nzValue]="'1900-01-01T16:00:00'"></nz-option>
+      <nz-option [nzLabel]="'06PM-08PM'" [nzValue]="'1900-01-01T18:00:00'"></nz-option>
+      <nz-option [nzLabel]="'08PM-10PM'" [nzValue]="'1900-01-01T20:00:00'"></nz-option>
+      <nz-option [nzLabel]="'10PM-12AM'" [nzValue]="'1900-01-01T22:00:00'"></nz-option>
+    </nz-select>
+  </div>
+  <div class="lg:ms-4 mt-4 lg:mt-0 w-full lg:w-[400px]">
+    <app-field-label label="من تاريخ :"></app-field-label>
+    <nz-date-picker class="w-full h-14 rounded-lg" formControlName="availableFrom"></nz-date-picker>
+  </div>
+  <div class="lg:ms-4 mt-4 lg:mt-0 w-full lg:w-[400px]">
+    <app-field-label label="حتى تاريخ :"></app-field-label>
+    <nz-date-picker class="w-full h-14 rounded-lg" formControlName="availableTo"></nz-date-picker>
+  </div>
+  <label nz-checkbox class="flex items-center mt-4" formControlName="isAvailableAllYear">
+    <span class="text-base font-normal"> جعله متوفرًا طوال العام </span>
+  </label>
+  <div></div>
+  <!-- <div class="lg:ms-4 mt-4 lg:mt-0 w-full lg:w-[400px]">
+    <app-date-picker label="الأيام الغير متوفرة:"></app-date-picker>
+  </div> -->
+</div>

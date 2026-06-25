@@ -1,0 +1,49 @@
+<nz-breadcrumb class="pb-4">
+  <nz-breadcrumb-item class="cursor-pointer" routerLink="/holiday-homes"
+    >الرئيسية</nz-breadcrumb-item
+  >
+  <nz-breadcrumb-item>الأعدادات</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<div class="flex flex-col lg:flex-row">
+  <div>
+    <ng-container [ngTemplateOutlet]="menuButtons"></ng-container>
+  </div>
+  <div class="lg:ms-4 mt-4 lg:mt-0 w-full">
+    <router-outlet> </router-outlet>
+  </div>
+</div>
+
+<ng-template #menuButtons>
+  <div
+    class="flex flex-row lg:flex-col w-full overflow-x-scroll lg:overflow-x-hidden lg:w-[318px] pb-0 p-4 lg:p-4 bg-white rounded-2xl shrink-0"
+  >
+    @for (setting of settings; track $index) {
+      <button
+        nz-button
+        (click)="selectItem(setting)"
+        [routerLink]="setting.path"
+        [ngClass]="{ '!text-white !bg-secondary': setting.select }"
+        class="bg-gray-50 font-bold border-gray-200 relative justify-between me-3 last:me-0 min-w-[176px] lg:me-0 lg:mb-3 lg:last:mb-0 text-gray-600 h-14 rounded-lg hover:border-gray-300 hover:text-secondary focus:text-gray-600 focus:border-gray-300"
+      >
+        <p>
+          {{ setting.name }}
+          <span
+            *ngIf="setting.select"
+            class="absolute top-1/2 -translate-y-1/2 left-5 -rotate-90 lg:rotate-0"
+            nz-icon
+            nzType="arrow-left"
+            nzTheme="outline"
+          ></span>
+        </p>
+      </button>
+    }
+    <button
+      *ngIf="false"
+      nz-button
+      class="bg-[#FDEAE9] font-bold border-[#F9BFBB] relative justify-between me-3 last:me-0 min-w-[176px] lg:me-0 lg:mb-3 lg:last:mb-0 text-primary h-14 rounded-lg"
+    >
+      حذف الحساب
+    </button>
+  </div>
+</ng-template>

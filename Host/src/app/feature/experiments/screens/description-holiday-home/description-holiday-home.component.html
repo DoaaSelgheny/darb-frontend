@@ -1,0 +1,353 @@
+<h2 class="text-sm text-[#334155] mt-3 font-bold flex items-center">
+  {{ '::experienceDetail' | abpLocalization }}
+
+</h2>
+
+<form [formGroup]="form">
+  <div class="grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 gap-4">
+    <div class="mt-5 lg:col-span-3 md:col-span-2">
+      <div class="flex items-baseline flex-row">
+        <app-field-label
+          class="block"
+          label="  {{ '::experienceDesc' | abpLocalization }}"
+          [control]="form | getControl: 'description'"
+        ></app-field-label>
+        <span
+          nz-icon
+          nzType="info-circle"
+          nz-popover
+          nzPopoverTitle="{{ '::Host:Vacation:Example' | abpLocalization }}"
+          nzPopoverContent="{{ '::Host:Vacation2:DescText' | abpLocalization }}"
+          nzTheme="outline"
+          class="text-[#3B82F6] mx-2"
+        ></span>
+      </div>
+      <app-textarea
+        formControlName="description"
+        [control]="form | getControl: 'description'"
+        placeholder=" {{ '::experienceDesc' | abpLocalization }}"
+        [suppressValidationWithMessage]="{
+          minlength: 'Host:VacationHome:Step5:Title:Validation:MinLengh',
+          maxlength: 'Host:VacationHome:Step5:Title:Validation:MaxLengh'
+        }"
+        [maxlength]="250"
+        [minlength]="30"
+        class="relative"
+      >
+        <div
+          class="absolute bg-white bottom-0"
+          [ngClass]="lang === 'ar' ? 'right-auto left-5' : 'right-5 left-auto'"
+        >
+          <nz-progress
+            [nzPercent]="((form | getControl: 'description').value?.length / 250) * 100"
+            [nzWidth]="30"
+            [nzStrokeWidth]="2"
+            [nzShowInfo]="false"
+            nzType="circle"
+          >
+          </nz-progress>
+          <p class="top-1/2 absolute left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#B6BBD0]">
+            {{ 250 - (form | getControl: 'description').value?.length }}
+          </p>
+        </div>
+      </app-textarea>
+    </div>
+  </div>
+  <div class="mt-5">
+    <app-field-label
+      class="block"
+      label=" {{ '::experienceLanguage' | abpLocalization }}"
+      [control]="form | getControl: 'languageType'"
+    ></app-field-label>
+  </div>
+  <div class="grid md:grid-cols-4 lg:grid-cols-4 grid-cols-1 gap-7">
+    <div
+      class="rounded-lg border border-[#1E3A8A] w-full p-4 shadow-md bg-[#FAFAFA]"
+      (click)="selectType(languageTypeEnum.Ar)"
+      role="button"
+      [ngClass]="{ '!bg-[#1E3A8A]': isTypeSelected(languageTypeEnum.Ar) }"
+    >
+      <div class="text-center w-full ">
+        <p
+          class="text-black text-sm text-[#1E3A8A] bg-[#FAFAFA]"
+          [ngClass]="{ '!bg-[#1E3A8A] !text-[#FAFAFA]': isTypeSelected(languageTypeEnum.Ar) }"
+        >
+        {{ '::Ar' | abpLocalization }}
+        </p>
+      </div>
+    </div>
+    <div
+      class="rounded-lg border border-[#1E3A8A] w-full p-4 shadow-md bg-[#FAFAFA]"
+      (click)="selectType(languageTypeEnum.En)"
+      role="button"
+      [ngClass]="{ '!bg-[#1E3A8A]': isTypeSelected(languageTypeEnum.En) }"
+    >
+      <div class="text-center w-full ">
+        <p
+          class="text-black text-sm text-[#1E3A8A] bg-[#FAFAFA]"
+          [ngClass]="{ '!bg-[#1E3A8A] !text-[#FAFAFA]': isTypeSelected(languageTypeEnum.En) }"
+        >
+        {{ '::en' | abpLocalization }}
+        </p>
+      </div>
+    </div>
+    <div
+    class="rounded-lg border border-[#1E3A8A] w-full p-4 shadow-md bg-[#FAFAFA]"
+    (click)="selectType(languageTypeEnum.Both)"
+    role="button"
+    [ngClass]="{ '!bg-[#1E3A8A]': isTypeSelected(languageTypeEnum.Both) }"
+  >
+    <div class="text-center w-full ">
+      <p
+        class="text-black text-sm text-[#1E3A8A] bg-[#FAFAFA]"
+        [ngClass]="{ '!bg-[#1E3A8A] !text-[#FAFAFA]': isTypeSelected(languageTypeEnum.Both) }"
+      >
+      {{ '::languageBoth' | abpLocalization }}
+      </p>
+    </div>
+  </div>
+    <app-validation
+      class="block mt-4"
+      [message]="'Validation.'"
+      [control]="form | getControl: 'cancellationAndReturnPolicyId'"
+    ></app-validation>
+  </div>
+  <div class="mt-11">
+    <app-field-label
+      label=" {{ '::selectCategory' | abpLocalization }}"
+      [control]="form | getControl: 'attendanceType'"
+    ></app-field-label>
+    <div class="grid lg:grid-cols-6 gap-2 md:grid-cols-4 sm:grid-cols-3 grid-cols-2">
+      <div
+        class="grid grid-cols-subgrid gap-4 lg:col-span-4 md:col-span-4 sm:col-span-3 col-span-2"
+      >
+        <div
+        role="button"
+          class="rounded-full border border-[#D4D4D440] w-full p-2 shadow-md"
+          (click)="selectTypeAttance(attendanceTypeEnum.Men)"
+        >
+          <div class="flex items-center justify-between w-full">
+            <p class="text-black text-sm">{{ '::men' | abpLocalization }}</p>
+            <div
+              class="rounded-full border border-[#A1AEBE] bg-white w-[22px] h-[22px]"
+              *ngIf="!isTypeSelectedAttance(attendanceTypeEnum.Men)"
+            ></div>
+            <nz-icon
+              nz-icon
+              nzType="check-circle"
+              class="text-2xl text-[#007AFF]"
+              *ngIf="isTypeSelectedAttance(attendanceTypeEnum.Men)"
+              nzTheme="fill"
+            ></nz-icon>
+          </div>
+        </div>
+        <div
+        role="button"
+          class="rounded-full border border-[#D4D4D440] w-full p-2 shadow-md"
+          (click)="selectTypeAttance(attendanceTypeEnum.Women)"
+        >
+          <div class="flex items-center justify-between w-full">
+            <p class="text-black text-sm">{{ '::women' | abpLocalization }}</p>
+            <div
+              class="rounded-full border border-[#A1AEBE] bg-white w-[22px] h-[22px]"
+              *ngIf="!isTypeSelectedAttance(attendanceTypeEnum.Women)"
+            ></div>
+            <nz-icon
+              nz-icon
+              nzType="check-circle"
+              class="text-2xl text-[#007AFF]"
+              *ngIf="isTypeSelectedAttance(attendanceTypeEnum.Women)"
+              nzTheme="fill"
+            ></nz-icon>
+          </div>
+        </div>
+        <div
+        role="button"
+          class="rounded-full border border-[#D4D4D440] w-full p-2 shadow-md"
+          (click)="selectTypeAttance(attendanceTypeEnum.Children)"
+        >
+          <div class="flex items-center justify-between w-full">
+            <p class="text-black text-sm">{{ '::childern' | abpLocalization }}</p>
+            <div
+              class="rounded-full border border-[#A1AEBE] bg-white w-[22px] h-[22px]"
+              *ngIf="!isTypeSelectedAttance(attendanceTypeEnum.Children)"
+            ></div>
+            <nz-icon
+              nz-icon
+              nzType="check-circle"
+              class="text-2xl text-[#007AFF]"
+              *ngIf="isTypeSelectedAttance(attendanceTypeEnum.Children)"
+              nzTheme="fill"
+            ></nz-icon>
+          </div>
+        </div>
+        <div
+        role="button"
+          class="rounded-full border border-[#D4D4D440] w-full p-2 shadow-md"
+          (click)="selectTypeAttance(attendanceTypeEnum.Adults)"
+        >
+          <div class="flex items-center justify-between w-full">
+            <p class="text-black text-sm">{{ '::adult' | abpLocalization }}</p>
+            <div
+              class="rounded-full border border-[#A1AEBE] bg-white w-[22px] h-[22px]"
+              *ngIf="!isTypeSelectedAttance(attendanceTypeEnum.Adults)"
+            ></div>
+            <nz-icon
+              nz-icon
+              nzType="check-circle"
+              class="text-2xl text-[#007AFF]"
+              *ngIf="isTypeSelectedAttance(attendanceTypeEnum.Adults)"
+              nzTheme="fill"
+            ></nz-icon>
+          </div>
+        </div>
+        <div
+        role="button"
+          class="rounded-full border border-[#D4D4D440] w-full p-2 shadow-md"
+          (click)="selectTypeAttance(attendanceTypeEnum.All)"
+        >
+          <div class="flex items-center justify-between w-full">
+            <p class="text-black text-sm">{{ '::all' | abpLocalization }}</p>
+            <div
+              class="rounded-full border border-[#A1AEBE] bg-white w-[22px] h-[22px]"
+              *ngIf="!isTypeSelectedAttance(attendanceTypeEnum.All)"
+            ></div>
+            <nz-icon
+              nz-icon
+              nzType="check-circle"
+              class="text-2xl text-[#007AFF]"
+              *ngIf="isTypeSelectedAttance(attendanceTypeEnum.All)"
+              nzTheme="fill"
+            ></nz-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-validation
+      class="block mt-4"
+      [message]="'Validation.'"
+      [control]="form | getControl: 'experienceTypeId'"
+    ></app-validation>
+  </div>
+  <div class="mt-5">
+    <app-field-label
+      class="block"
+      label="{{ '::attendees' | abpLocalization }}"
+      [control]="form | getControl: 'meanIds'"
+    ></app-field-label>
+  </div>
+  <div class="grid lg:grid-cols-5 gap-3 sm:grid-cols-2">
+    @for (type of means; track $index) {
+      <div
+      role="button"
+        class="rounded-lg border border-[#1E3A8A] w-full p-4 shadow-md bg-[#FAFAFA]"
+        (click)="toggleSelectType(type.id)"
+        [ngClass]="{ '!bg-[#1E3A8A]': isTypeSelectedMeans(type.id) }"
+      >
+        <div class="text-center w-full ">
+          <p
+            class="text-black text-sm text-[#1E3A8A] bg-[#FAFAFA]"
+            [ngClass]="{ '!bg-[#1E3A8A] !text-[#FAFAFA]': isTypeSelectedMeans(type.id) }"
+          >
+            {{ type.name }}
+          </p>
+        </div>
+      </div>
+    }
+    <app-validation
+      class="block mt-4"
+      [message]="'Validation.'"
+      [control]="form | getControl: 'meanIds'"
+    ></app-validation>
+  </div>
+  <!-- <div class="grid md:grid-cols-2 lg:grid-cols-2 grid-cols-1 gap-4">
+    <div class="mt-5">
+      <app-field-label
+        class="block"
+        label="{{ '::Host:Vacation:HomeCategory' | abpLocalization }}"
+        [control]="form | getControl: 'vacationHomeCategoryType'"
+      ></app-field-label>
+      <nz-select
+        class="w-full rounded-md xl-select"
+        nzAllowClear
+        formControlName="vacationHomeCategoryType"
+        [nzPlaceHolder]="
+          { key: '::Host:Vacation:chooseCateogry' }
+            | abpLocalization
+        "
+      >
+        <nz-option
+          [nzValue]="0"
+          nzLabel="{{ '::Host:Vacation:SinglesAndMarried' | abpLocalization }}"
+        ></nz-option>
+        <nz-option
+          [nzValue]="1"
+          nzLabel="{{ '::Host:Vacation:Married' | abpLocalization }}"
+        ></nz-option>
+        <nz-option
+          [nzValue]="2"
+          nzLabel="{{ '::Host:Vacation:Singles' | abpLocalization }}"
+        ></nz-option>
+      </nz-select>
+    </div>
+  </div> -->
+
+  <div class="mt-24 flex justify-between items-center flex-col sm:flex-row">
+    <app-button size="md" (click)="goBack()">
+      <span>
+        {{
+          {
+            key: '::Host:VacationHome:Wizard:Back'
+          } | abpLocalization
+        }}
+      </span>
+    </app-button>
+    <div class="flex flex-row mt-3 sm:mt-0">
+      <app-button class="ms-3" (click)="saveDraft()" size="md" [outline]="true" [secondary]="true">
+        {{
+          {
+            key: '::Host:VacationHome:SaveDraft'
+          } | abpLocalization
+        }}
+      </app-button>
+      <app-button size="md" class="mx-2" (click)="goNext()" [disabled]="!validateCurrentPage()">
+        {{
+          {
+            key: '::Host:VacationHome:Wizard:Next'
+          } | abpLocalization
+        }}
+      </app-button>
+    </div>
+  </div>
+  <app-confrontation-popup
+    [visible]="isVisibleSaveAndExit"
+    (cancel)="isVisibleSaveAndExit = false"
+    title="  {{
+      {
+        key: '::Host:VacationHome2:Popup:SaveDraft:Title'
+      } | abpLocalization
+    }}"
+    description="  {{
+      {
+        key: '::Host:VacationHome2:Popup:SaveDraft:Description'
+      } | abpLocalization
+    }}"
+  >
+    <div buttons class="flex items-center flex-col w-full px-10">
+      <app-button size="md" class="block mb-6 w-full" (click)="saveAndExit()">
+        {{
+          {
+            key: '::General:Confirm'
+          } | abpLocalization
+        }}
+      </app-button>
+      <app-button class="w-full" (click)="isVisibleSaveAndExit = false" size="md" [outline]="true">
+        {{
+          {
+            key: '::General:Cancel'
+          } | abpLocalization
+        }}
+      </app-button>
+    </div>
+  </app-confrontation-popup>
+</form>

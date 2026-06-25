@@ -1,0 +1,32 @@
+<ng-template #alert>
+  <div class="flex items-center">
+    <p
+      class="text-sm"
+      [ngClass]="{
+        'text-danger ': type === 'error',
+        'text-success ': type === 'success',
+        'text-warning ': type === 'warning'
+      }"
+    >
+      <ng-content></ng-content>
+    </p>
+    <i
+      class="fa-regular text-sm ms-auto"
+      [ngClass]="{
+        'text-warning': type === 'warning',
+        'fa-check': type === 'success',
+        'text-success': type === 'success',
+        'fa-circle-info': type === 'error' || 'warning',
+        'fa-solid  fa-circle-xmark redIcon': type === 'error'
+      
+      }"
+      nz-tooltip
+      [nzTooltipTitle]="tootTipTitle"
+      nzTooltipPlacement="bottomLeft"
+      [nzTooltipArrowPointAtCenter]="true"
+      nzTooltipColor="#fff"
+    ></i>
+  </div>
+</ng-template>
+
+<nz-alert [nzType]="type" class="mt-5" [nzMessage]="alert"></nz-alert>

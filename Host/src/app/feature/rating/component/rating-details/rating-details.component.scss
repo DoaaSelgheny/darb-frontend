@@ -1,0 +1,40 @@
+.block-name {
+  background-image: url("/assets/host/imgs/card/profileAr.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color:#FAFAFA ;
+  // background-position: center;
+  @media (max-width: 768px) {
+    background-image:none;
+  }
+}
+.block-nameEn {
+  background-image: url("/assets/host/imgs/card/profileEn.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+ background-position: right;
+ background-color:#FAFAFA ;
+
+ @media (max-width: 768px) {
+  background-image:none;
+}
+}
+::ng-deep{
+ .ant-card-body {
+    padding-left: 0rem !important;
+    padding-right: 0rem !important;
+    padding-bottom: 1rem;
+}}
+
+.rating-badge{
+    color: white;
+    background-color: #122466;
+    border: 1px solid #122466 ;
+    border-radius: 4px;
+    text-align: center;
+    padding:4px;
+    margin-right: 2px;
+    margin-left: 2px;
+  height: 28px;
+  width: 28px;
+}

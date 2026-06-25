@@ -1,0 +1,25 @@
+::ng-deep {
+  app-upload {
+    .avatar-upload {
+      span {
+        margin-top: 14px !important;
+      }
+    }
+    .ant-upload.ant-upload-select-picture-card {
+      @apply w-full m-0;
+    }
+    .ant-upload.ant-upload-drag:not(.ant-upload-disabled) {
+      border: none !important;
+    }
+    .ant-upload {
+      background: transparent;
+    }
+    .ant-upload-disabled {
+      @apply bg-gray-100;
+    }
+    // Hide control buttons
+    .ant-upload-list-item-card-actions.picture {
+      display: none !important;
+    }
+  }
+}

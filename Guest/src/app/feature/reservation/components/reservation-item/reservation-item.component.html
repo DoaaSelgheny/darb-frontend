@@ -1,0 +1,152 @@
+<div class="grid md:grid-cols-4 grid-cols-1 gap-3 my-3">
+  <div class=" md:col-span-2 col-span-1">
+    <div class="flex flex-row  items-center">
+
+      <img [src]="item.image" alt="reservation" class="md:w-[120px] md:h-[120px] w-[60px] h-[60px] rounded-md" />
+      <div class="mx-2 mt-2">
+          <p class="text-xl	font-bold text-[#171717] mb-1">
+            {{item.reservationType == reserveType.VacationHome ? item.vacationHomeName : item.experienceName}}
+          </p>
+       
+        <div class="flex flex-col ">
+       
+          @if(item.reservationType == reserveType.Experience){
+            <div class="flex flex-row items-center justify-between mb-1">
+              <span class="text-[#262626] text-sm">{{"::Guest:Explore:price:ExperienceDate" | abpLocalization}} </span>
+              <span class="text-[#262626] text-sm mx-2">{{item.startDate | date:'dd-MM-yyyy'}}</span>
+            </div>
+            <div class="flex flex-row items-center justify-between mb-1">
+              <span class="text-[#262626] text-sm">{{"::Guest:Explore:price:ExperienceTime" | abpLocalization}} </span>
+              <span class="text-[#262626] text-sm mx-2">{{item.checkIn | timeFormat}} - {{item.checkOut | timeFormat}}</span>
+            </div>
+          }
+          @if(item.reservationType == reserveType.VacationHome){
+            <div class="flex flex-row items-center justify-between mb-1">
+              <span class="text-[#262626] text-sm">{{"::Guest:Explore:price:CheckInDate" | abpLocalization}} </span>
+              <span class="text-[#262626] text-sm mx-2">{{item.startDate| date:'dd-MM-yyyy'}}</span>
+            </div>
+            <div class="flex flex-row items-center justify-between mb-1">
+              <span class="text-[#262626] text-sm">{{"::Guest:Explore:price:CheckOutDate" | abpLocalization}} </span>
+              <span class="text-[#262626] text-sm mx-2">{{item.endDate| date:'dd-MM-yyyy'}}</span>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="md:col-span-2 col-span-1 flex sm:justify-between justify-center  
+    sm:items-end flex-col">
+    <div class="flex flex-row sm:justify-center justify-between items-center">
+      <div class="flex flex-row">
+        <!-- Rating large screens-->
+         @if(item.reservationStatus === ReservationStatus.Complete && item.canRating){
+
+           <button nz-button nzType="primary" 
+           class="h-[30px] border-[1px] hidden sm:block  hover:bg-[#60A5FA] hover:border-[#60A5FA] mt-2 rounded-md text-white border-[#1E3A8A] bg-[#1E3A8A]"
+           (click)="rating(item) ">
+            <p class="flex items-center flex-row justify-center">
+               {{ '::guest:reserve.rating' | abpLocalization }}
+            </p>
+            
+          </button>
+         }
+        <!--Price-->
+        <div class="h-[30px] bg-[#EFF6FF] p-2 mx-1 sm:mx-2 mt-2 flex items-center rounded-md">
+          <!-- <p class="sm:text-base text-[#171717] text-xs">
+            {{item.totalPrice}} 
+            {{"::Guset:Explore:sar"|abpLocalization}}
+          </p> -->
+          <div class="flex flex-row" style="direction: rtl;">
+            <p class="sm:text-base text-[#171717] text-xs"> {{item.totalPrice}} </p>
+            <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+          </div>
+        </div>
+        <!--Status-->
+        @if(item.reservationStatus === ReservationStatus.Approved){
+          <div class="h-[30px] border-[1px] px-4 py-1 mt-2 rounded-md border-[#16A34A] text-[#16A34A] sm:text-base text-xs sm:mx-2 mx-1">{{"::guest:reserve.Approved" | abpLocalization}}</div>
+        }@else if (item.reservationStatus === ReservationStatus.Complete) {
+          <div class="h-[30px] border-[1px] px-4 py-1 mt-2 rounded-md border-[#3B82F6] text-[#3B82F6] sm:text-base text-xs sm:mx-2 mx-1">{{"::guest:reserve.Complete" | abpLocalization}}</div>
+        }@else if(item.reservationStatus === ReservationStatus.CanceledAndRefunded){
+          <div class="h-[30px] border-[1px] px-1 py-1 mt-2  rounded-md border-[#ED3024] text-[#ED3024] sm:text-base text-xs sm:mx-2 mx-1">{{"::guest:reserve.CanceledAndRefunded" | abpLocalization}}</div>
+        }
+        <div>
+          <!--Past reservation -->
+          @if(reservationTime !== 'past'){
+            <!--pay Way-->
+            <div class="h-[30px] border-[1px] sm:px-4 px-1 py-1 mt-2 rounded-md border-[#3B82F6] text-[#3B82F6] sm:text-base text-xs sm:mx-2 mx-1 flex items-center flex-row">
+              
+  <img src="assets/imgs/details/img36.svg" alt="img" class="me-2">
+
+              @if(item.amountPay === AmountPay.Partial){
+                
+                {{"::guest:reserve.Partial" | abpLocalization}}
+              }
+              @if(item.amountPay === AmountPay.Total ){
+                {{"::guest:reserve.Total" | abpLocalization}}
+    
+              }
+              
+            </div>
+    
+          }@else {
+          <!--Present reservation -->
+  
+            @if(item.canRebooking){
+              <!--Rereserve Button-->
+              <button nz-button nzType="default" class="h-[30px] border-[1px]  mt-2 rounded-md border-[#3B82F6] text-[#3B82F6] hover:text-[#122466] hover:border-[#122466]"
+               (click)="reBooking(item.reservationType) ">
+                <p class="flex items-center flex-row">
+                 
+                <img src="assets/imgs/details/img37.svg" alt="img" class="me-2 hidden sm:block">
+                  
+                {{ '::guest:reserve.reReserve' | abpLocalization }}
+                </p>
+                
+              </button>
+            }@else {
+              <!-- reserve Button-->
+              <button nz-button nzType="default" class="h-[30px] border-[1px]  mt-2 rounded-md border-[#3B82F6] text-[#3B82F6] hover:text-[#122466] hover:border-[#122466]"
+              (click)="explore(item.reservationType)">
+               <p class="flex items-center flex-row">
+                 
+                <img src="assets/imgs/details/img38.svg" alt="img" class="me-2 hidden sm:visibe">
+
+                 
+               {{ '::guest:reserve.reserve' | abpLocalization }}
+               </p>
+               
+             </button>
+            }
+          }
+        </div>
+      </div>
+    </div>
+    <div class="flex align-items " 
+    [ngClass]="item.reservationStatus === ReservationStatus.Complete && item.canRating ? 'justify-between':'justify-end'">
+      <!-- Rating mobile screens-->
+      @if(item.reservationStatus === ReservationStatus.Complete && item.canRating){
+
+        <button nz-button nzType="primary" 
+        class="h-[30px] border-[1px] sm:hidden block  mt-2 hover:border-[#60A5FA] rounded-md text-white border-[#1E3A8A] bg-[#1E3A8A] hover:bg-[#60A5FA]"
+        (click)="rating(item) ">
+          <p class="flex items-center flex-row justify-center">
+            {{ '::guest:reserve.rating' | abpLocalization }}
+          </p>
+          
+        </button>
+      }
+      <div class="cursor-pointer mt-2" (click)="goToDetails(item.reservationType)"
+      >
+        <span class="mx-2">{{"::guest:invoice.breadcrumbBookingDetails"|abpLocalization}}</span>
+        @if(lang == 'ar'){
+          <i class="fa-solid fa-arrow-left"></i>
+        }@else {
+          <i class="fa-solid fa-arrow-right"></i>
+        }
+      </div>
+    </div>
+    
+      
+  </div>
+</div>
+<hr/>

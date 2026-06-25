@@ -1,0 +1,19 @@
+<button
+  [disabled]="disabled"
+  [nzLoading]="_loading"
+  [ngClass]="{
+    'h-14': size === 'lg',
+    'h-10': size === 'md',
+    '!border-solid': disabled,
+    '!border  !border-solid bg-white text-primary': !!outline && !disabled,
+    'text-secondary bg-secondary border-secondary font-normal': secondary,
+    'text-[#FAFAFA] bg-[#60A5FA] border-[#60A5FA] font-normal':secondaryBabyBlue
+  }"
+  class="w-full mx-auto rounded-md block font-bold"
+  nz-button
+  nzType="primary"
+>
+  <ng-content select="*"></ng-content>
+</button>
+
+<!-- border-secondary active:border-secondary active:bg-secondary after:bg-secondary hover:bg-secondary focus:border-secondary focus:bg-secondary bg-secondary -->

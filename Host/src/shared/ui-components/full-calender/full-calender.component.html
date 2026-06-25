@@ -1,0 +1,166 @@
+<div class='demo-app'>
+  <!-- Breadcrumb -->
+   <nz-breadcrumb>
+     <nz-breadcrumb-item class="cursor-pointer" routerLink="/"
+       >{{"::homeHoliday:search:home" | abpLocalization}}</nz-breadcrumb-item
+     >
+     <nz-breadcrumb-item>{{"::calendar:calendar" | abpLocalization}}</nz-breadcrumb-item>
+   </nz-breadcrumb>
+   <div class="flex items-center justify-between">
+     <!--Title-->
+     <div class="text-lg text-[#0F172A] font-bold my-5">{{ reservationDetail?.name}}</div>
+     <!--Button Sync-->
+     <app-button size="md" class="block mx-2" (click)="addSyncCalendar()">
+       {{
+         {
+           key: '::calendar:sync',
+         } | abpLocalization
+       }}
+     </app-button>
+   </div>
+  <div class="sm:flex items-center justify-between">
+    <div >
+      <!--Search -->
+      <div class="grid sm:grid-cols-2 grid-cols-1 gap-2">
+        <nz-select
+          [(ngModel)]="id"
+          (ngModelChange)="getCalendarDetails()"
+          nzPlaceHolder="{{ '::calendar:chooseHome' | abpLocalization }}"
+          class="sm:min-w-[173px] mt-4 lg:mt-0 flex-1 xl:flex-none lg:ms-4 rounded-md lg-select"
+        >
+          <nz-option
+            *ngFor="let s of names"
+            [nzLabel]="s.name"
+            [nzValue]="s.id"
+          ></nz-option>
+        </nz-select>
+        <nz-select
+          [(ngModel)]="syncDataId"
+          (ngModelChange)="getCalendarDetails()"
+          nzPlaceHolder="{{ '::calendar:chooseCalendar' | abpLocalization }}"
+          class="sm:min-w-[173px] mt-4 lg:mt-0 flex-1 xl:flex-none lg:ms-4 rounded-md lg-select"
+        >
+        <nz-option
+        [nzLabel]="'::experience:search:all' | abpLocalization"
+        [nzValue]="null"
+      ></nz-option>
+          <nz-option
+            *ngFor="let s of syncData"
+            [nzLabel]="s.displayName"
+            [nzValue]="s.id"
+          ></nz-option>
+        </nz-select>
+      </div>
+
+
+    </div>
+    <div class="sm:flex  items-center justify-center mt-2">
+      <div class="flex flex-col">
+
+        <div>{{"::calendar:calendarKey" | abpLocalization}}</div>
+        <div class="flex flex-row items-center mt-2">
+          <span class="bg-[#fafafa] text-[#171717] rounded-lg w-[26px]
+            h-[26px] flex justify-center items-center">01</span>
+          <span class="text-[#171717] mx-2">{{"::calendar:available" | abpLocalization}}</span>
+        </div>
+        <div class="flex flex-row items-center mt-2" >
+          <span class="bg-[#16A34A] text-[#fafafa] rounded-lg w-[26px]
+            h-[26px] flex justify-center items-center">02</span>
+          <span class="text-[#16A34A] mx-2">{{"::calendar:confirm" | abpLocalization}}</span>
+        </div>
+        <div class="flex flex-row items-center mt-2">
+          <span class="bg-[#ED3024] text-[#fafafa] rounded-lg w-[26px]
+            h-[26px] flex justify-center items-center">03</span>
+          <span class="text-[#ED3024] mx-2">{{"::calendar:exernal" | abpLocalization}}</span>
+        </div>
+        <div class="flex flex-row items-center mt-2">
+          <span class="bg-[#1E3A8A] text-[#fafafa] rounded-lg w-[26px]
+            h-[26px] flex justify-center items-center">04</span>
+          <span class="text-[#1E3A8A] mx-2">{{"::calendar:completed" | abpLocalization}}</span>
+        </div>
+        <div class="flex flex-row items-center mt-2">
+          <span class="bg-[#E2E2E2] text-[#737373] rounded-lg w-[26px]
+            h-[26px] flex justify-center items-center">05</span>
+          <span class="text-[#737373] mx-2">{{"::calendar:occupied" | abpLocalization}}</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <div class='demo-app-main'>
+    <full-calendar [options]='calendarOptions()'>
+      <ng-template #eventContent let-arg>
+        <div (click)="doaa(arg.event.id)"
+        [ngClass]="{
+          'bg-blue-300': selectedOccupiedIds.includes(arg.event.id),
+          'doaa': arg.event.extendedProps.status === reservationStatusEnum.Occupied
+        }">
+
+          @if(arg.event.extendedProps.status === reservationStatusEnum.Approved){
+            <div class="bg-[#22C55E] h-[25px] w-full rounded-md py-1 px-2" (click)="goToReserve(arg.event.id)" >
+              {{"::calendar:confirm"|abpLocalization}}
+            </div>
+          }@else if(arg.event.extendedProps.status === reservationStatusEnum.Complete){
+            <div class="bg-[#1E3A8A] h-[25px] w-full rounded-md py-1 px-2" (click)="goToReserve(arg.event.id)">
+              {{"::calendar:completed"|abpLocalization}}
+            </div>
+          }@else if(arg.event.extendedProps.status === reservationStatusEnum.Occupied){
+            <div class="bg-[#E2E2E2] h-[25px] text-[#737373] w-full rounded-md py-1 px-2">
+              {{"::calendar:occupied"|abpLocalization}}
+            </div>
+          }@else if(arg.event.extendedProps.status === reservationStatusEnum.ThirdParty){
+            <div class="bg-[#ED3024] h-[25px] w-full text-white rounded-md py-1 px-2" >
+              {{arg.event.extendedProps.thirdPartyName}}
+            </div>
+          }
+        </div>
+
+
+
+      </ng-template>
+    </full-calendar>
+  </div>
+  <div class="grid grid-cols-2 gap-2 mt-5">
+    <button (click)="isVisibleSaveAndExit = true;typeOfSelected = DayAvailabilityStatusEnum.Occupied" nzBlock [disabled]="selectedDates.length === 0"
+      class="bg-[#60A5FA] text-white border px-4 py-2 rounded mt-2">
+      {{"::calendar:occupied"|abpLocalization}}
+    </button>
+    <button (click)="isVisibleSaveAndExit = true;typeOfSelected = DayAvailabilityStatusEnum.Free" nzBlock [disabled]="selectedOccupiedIds.length === 0"
+    class="bg-[#FAFAFA] text-[#171717] border border-[#E5E5E5] px-4 py-2 rounded mt-2">
+      {{"::calendar:available"|abpLocalization}}
+    </button>
+  </div>
+</div>
+<!--POPUP SAVE DRAFT-->
+<app-confrontation-popup
+  [visible]="isVisibleSaveAndExit"
+  (cancel)="isVisibleSaveAndExit = false"
+  title="  {{
+    {
+      key: '::calendar:verify:title',
+    } | abpLocalization
+  }}"
+  description="  {{
+    {
+      key: '::calendar:verify:msg',
+    } | abpLocalization
+  }}"
+>
+  <div buttons class="flex items-center flex-row w-full px-10">
+    <app-button size="md" class="block mx-2 w-full" (click)="addEventsToSelectedDates(typeOfSelected)">
+      {{
+        {
+          key: '::General:Confirm',
+        } | abpLocalization
+      }}
+    </app-button>
+    <app-button class="w-full" (click)="isVisibleSaveAndExit = false ;selectedDates = [];selectedOccupiedIds=[]" size="md" [outline]="true">
+      {{
+        {
+          key: '::General:Cancel',
+        } | abpLocalization
+      }}
+    </app-button>
+  </div>
+</app-confrontation-popup>

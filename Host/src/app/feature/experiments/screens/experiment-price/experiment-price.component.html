@@ -1,0 +1,47 @@
+<h2 class="text-lg text-[#3C3C3CE3] mt-3 mb-6 font-bold">التسعير</h2>
+
+<div class="grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-4" [formGroup]="form">
+  <app-field
+    label="{{'::priceExperience'|abpLocalization}}"
+    [keypressValidation]="vaidationTypeEnum.numberOnly"
+    placeholder="ادخل السعر "
+    [control]="form | getControl: 'basicPrice'"
+    formControlName="basicPrice"
+  >
+    <!-- <span class="text-greyDark"> {{'::Host:VacationPrice:SaudiCurrency'|abpLocalization}}</span> -->
+
+      <img src="assets/host/icons/riyal-black.svg" alt="riyal">
+  </app-field>
+  <div class="mt-4 lg:mt-0 w-full">
+    <app-field-label label="نوع الإسترداد"></app-field-label>
+    <nz-select
+      nzShowSearch
+      nzAllowClear
+      class="xl-select w-full lg:min-w-[300px]"
+      nzPlaceHolder="اختر نوع الإسترداد"
+      formControlName="cancellationAndReturnPolicyId"
+    >
+      <nz-option
+        *ngFor="let type of cancellationAndReturnPolicies"
+        [nzLabel]="type.displayName"
+        [nzValue]="type.id"
+      ></nz-option>
+    </nz-select>
+  </div>
+  <div class="mt-4 lg:mt-0 w-full">
+    <app-field-label label="نوع الحجز"></app-field-label>
+    <nz-select
+      nzShowSearch
+      nzAllowClear
+      class="xl-select w-full lg:min-w-[300px]"
+      nzPlaceHolder="اختر نوع الحجز"
+      formControlName="experienceReservationWay"
+    >
+      <nz-option
+        *ngFor="let type of experienceReservationWays"
+        [nzLabel]="type.displayName"
+        [nzValue]="type.id"
+      ></nz-option>
+    </nz-select>
+  </div>
+</div>

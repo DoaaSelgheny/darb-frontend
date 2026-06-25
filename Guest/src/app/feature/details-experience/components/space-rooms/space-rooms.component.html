@@ -1,0 +1,51 @@
+
+<ul class="mt-2">
+  <li class="flex mt-2 items-center">
+   
+      <img src="assets/imgs/details/img5.svg" alt="img">
+      <p class="text-lg mx-3">
+        {{"::Guest:Explore:experience"| abpLocalization}}{{experience?.experience.attendanceType === attendanceTypeEnum.Men
+          ? ('::men' | abpLocalization)
+          : experience?.experience.attendanceType === attendanceTypeEnum.Women
+            ? ('::women' | abpLocalization)
+            : experience?.experience.attendanceType === attendanceTypeEnum.Children
+              ? ('::childern' | abpLocalization)
+              : experience?.experience.attendanceType === attendanceTypeEnum.Adults
+                ? ('::adult' | abpLocalization)
+                : experience?.experience.attendanceType === attendanceTypeEnum.All
+                  ? ('::all' | abpLocalization)
+                  : ''}}      </p>      
+
+  </li>
+  <li class="flex mt-2 items-center">
+   
+      <img src="assets/imgs/details/img6.svg" alt="img">
+      
+      @if(experience?.means){
+
+        <p class="text-lg mx-3">
+          {{"::guest:abouthyyak.ExceedExpectations" | abpLocalization}}
+          @for(mean of experience?.means;track mean){
+            {{mean.name}} ,
+          }
+        </p>      
+      }@else {
+        <p class="text-lg mx-3">
+          {{'::Guest:Explore:Aminities:noHospitality'|abpLocalization}} 
+        </p> 
+      }
+      
+  </li>
+  <li class="flex mt-2 items-center">
+   
+      <img src="assets/imgs/details/img7.svg" alt="img">
+
+      <p class="text-lg mx-3"> {{"::Guest:Explore:service"| abpLocalization}}{{experience?.experience.languageType === languageTypeEnum.Ar
+      ? ('::Ar' | abpLocalization)
+      : experience?.experience.languageType === languageTypeEnum.En? ('::en' | abpLocalization)
+      :('::languageBoth' | abpLocalization)}}
+      </p>
+  </li>
+</ul>
+
+

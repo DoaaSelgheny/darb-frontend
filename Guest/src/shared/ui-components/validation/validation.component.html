@@ -1,0 +1,13 @@
+<div class="w-full text-red-600" *ngIf="control && control.dirty">
+  <p *ngFor="let error of getErrors()">
+
+  @if(getSuppressMessage(error); as value)
+  {
+    {{ '::' + value | abpLocalization }}
+  }
+  @else{
+  
+      {{ '::' + message + error | abpLocalization }}
+   
+  } </p>
+</div>

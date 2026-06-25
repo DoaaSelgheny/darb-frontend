@@ -1,0 +1,83 @@
+<div class="text-xl text-[#171717] font-bold mt-2">
+    {{isVacation ? ("::Guest:Explore:tab:vacationRate"|abpLocalization) : ("::Guest:Explore:tab:experienceRate"|abpLocalization)}}
+</div>
+<!--Rating Average-->
+@if(rating?.averageRatingsList.length){
+
+    <div class="grid md:grid-cols-4 grid-cols-1 gap-2 mt-2">
+        <div class="flex items-center justify-center flex-col col-span-1">
+            <p class="flex flex-row items-center">
+                
+  <img src="assets/imgs/details/img30.svg" alt="img">
+
+                <span class="text-5xl font-bold">
+                    {{ratingAverage | number: '1.1-1'}}
+                </span>
+            </p>
+            <p class="text-sm text-[#737373]">
+                {{rating?.ratingsCount}} {{'::guest:explore:rating:rate' | abpLocalization}}
+            </p>
+        </div>
+        <div class="col-span-3">
+            
+            @for(rate of rating?.averageRatingsList;track rate){
+                <div class="grid grid-cols-3 my-5">
+    
+                    <span class="text-sm text-[#171717] font-bold mx-3 col-span-1">
+                        {{rate.name}}
+                    </span>
+                    <nz-progress [nzPercent]="rate.averageRating *10" [nzStrokeColor]="'#FFC62A'"
+                     class="col-span-2" [nzFormat]="formatData"></nz-progress>
+                </div>
+    
+            }
+          
+        </div>
+    </div>
+    
+}@else {
+    <div class="flex items-center justify-center mt-4">
+        <nz-empty
+        nzNotFoundImage="assets\imgs\rating\noData.svg"
+        [nzNotFoundContent]="'::guest:explore:rating:noData'| abpLocalization"
+        class="flex flex-col items-center"
+        ></nz-empty>
+    </div>
+}
+<!--Reviews-->
+@if(reviews.length){
+    <hr class="my-3"/>
+    <div class="text-xl text-[#171717] font-bold mt-2 mb-4">
+        {{"::Guest:Explore:tab:reviews"|abpLocalization}}
+    </div>
+    <div class="mx-5">
+    
+        @for(review of reviews;track review;let last = $last){
+        
+            <app-chat-model [review]="review"></app-chat-model>
+            @if(review.hostReply){
+                <div class="bg-[#F5F5F5] rounded-xl px-4 py-2 my-2 sm:ms-16 ms-10">
+        
+                    <app-chat-model [review]="review" [isHost]="true"></app-chat-model>
+                </div>
+            }
+            @if(!last){
+        
+                <hr class="my-3"/>
+            }
+        }
+    </div>
+}
+
+<!--Pagination-->
+@if(totalCount > itemsPerPage){
+
+    <div class="mx-auto mt-12 flex justify-center pb-8">
+        <nz-pagination
+        (nzPageIndexChange)="getReviews($event)"
+        [nzTotal]="totalCount"
+        [nzPageIndex]="page"
+        [nzPageSize]="itemsPerPage"
+        ></nz-pagination>
+      </div>
+}

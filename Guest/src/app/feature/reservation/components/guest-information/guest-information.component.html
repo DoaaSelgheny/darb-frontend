@@ -1,0 +1,30 @@
+<nz-card class="block w-full rounded-2xl p-3 mt-3">
+
+    <div class="px-4 flex items-center justify-between font-bold ">
+      <p class="font-bold text-lg text-[#171717] border-0">{{'::guest:reserveDetails:guestInfo'|abpLocalization}} </p>
+     </div>
+
+       <div class="px-4 py-2 flex items-center justify-between  ">
+         <p class="font-bold text-base text-[#171717] ">{{'::guest:reserveDetails:guestName'|abpLocalization}}</p>
+         <p class=" text-base text-[#171717] ">{{ data?.host.name }}</p>
+       </div>
+       <div class="px-4 py-2 flex items-center justify-between">
+        <p class="font-bold text-base text-[#171717] ">
+          {{'::guest:reserveDetails:guestContact'|abpLocalization}} 
+        </p>
+        <p class=" text-base text-[#171717] flex items-center flex-row left-direction">
+          <a [href]="'https://wa.me/'+mobile" target="_blank" class="whatsapp-icon">
+   
+           <i class="fa-brands fa-whatsapp" style="font-size:24px; color:green;"></i>
+              
+          </a>
+         
+  <img src="assets/imgs/details/img33.svg" alt="img" class="px-1">
+
+            <span><bdi>{{ data?.host.phoneNumber}}</bdi></span>
+           
+            
+        </p>
+      </div>  
+  </nz-card>
+  

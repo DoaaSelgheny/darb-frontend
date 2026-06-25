@@ -1,0 +1,12 @@
+<div id="invoice-container">
+
+  @if(isTax == 'false'){
+    <app-no-tax-invoice [data]="data" [hasTax]="false"></app-no-tax-invoice>
+  }@else {
+    <app-no-tax-invoice [data]="data" [hasTax]="true"></app-no-tax-invoice>
+  <div class="page-break">
+
+    <app-tax-invoice [dataTax]="dataTax"></app-tax-invoice>
+  </div>
+  }
+</div>

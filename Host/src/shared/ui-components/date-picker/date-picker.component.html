@@ -1,0 +1,32 @@
+<app-field-label [label]="label" [control]="control"></app-field-label>
+<nz-date-picker
+  [(ngModel)]="value"
+  (ngModelChange)="changeValue()"
+  [nzInputReadOnly]="readonly"
+  [nzDisabled]="disabled"
+  [nzPlaceHolder]="placeholder"
+  class="w-full h-12 rounded-lg {{ classes }} custom-time-picker"
+  [ngClass]="readonly && 'bg-gray-100'"
+  [nzFormat]="dateFormat"
+  [nzDisabledTime]="isDisabledSecond"
+  [nzDisabledDate]="disabledDate"
+  [nzDefaultPickerValue]="nzDefaultValue"
+  [nzShowToday]="showToday"
+  [nzShowTime]="showTime"
+
+></nz-date-picker>
+<app-validation
+  *ngIf="!!control"
+  class="block mt-4"
+  [control]="control"
+></app-validation>
+<style>
+  .custom-time-picker .ant-time-picker-panel {
+    max-height: 50px; /* Adjust as needed */
+  }
+  
+  .custom-time-picker .ant-time-picker-panel-column {
+    max-height: 50px; /* Adjust as needed for hours, minutes, seconds */
+  }
+  
+</style>

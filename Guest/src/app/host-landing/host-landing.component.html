@@ -1,0 +1,354 @@
+<!-- Header -->
+<app-header style="z-index: 99;
+    position: relative;"></app-header>
+<div class="relative ">
+    <!-- <img [src]="lang === 'ar' ?'assets/imgs/test.svg' : 'assets/imgs/testen.svg'" class="absolute fixed" style="z-index:9;top: -39px; -->
+
+<!-- Banner -->
+ <div class="banner h-[693px] md:h-[630px] lg:px-20 lg:py-20 p-5" [ngClass]="lang == 'ar' ?'ar' :''">
+    <div class="card-container grid grid-cols-5 mt-10">
+        <div class="md:col-span-2 col-span-4">
+            <div class="text-4xl text-white font-bold pb-5">
+                {{ '::Host:landing:banner:mainTitle' | abpLocalization }}
+            </div>
+            <div class="grid lg:grid-cols-2 gap-x-3 grid-cols-1 gap-y-6">
+                <div class="flex flex-col">
+                    <img src="assets/imgs/host/icons/banner1.svg" class="md:w-[40px] md:h-[40px] w-[25px] h-[25px]">
+                    <div class="text-sm font-bold text-white md:py-3 py-1">
+                        {{ '::Host:landing:banner:section1:title' | abpLocalization }}
+                    </div>
+                    <div class="text-sm font-normal text-white">
+                        {{ '::Host:landing:banner:section1:body' | abpLocalization }}
+
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <img src="assets/imgs/host/icons/banner2.svg" class="md:w-[40px] md:h-[40px] w-[25px] h-[25px]">
+                    <div class="text-sm font-bold text-white md:py-3 py-1">
+                        {{ '::Host:landing:banner:section2:title' | abpLocalization }}
+                        
+                    </div>
+                    <div class="text-sm font-normal text-white">
+                        {{ '::Host:landing:banner:section2:body' | abpLocalization }}
+
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <img src="assets/imgs/host/icons/banner4.svg" class="md:w-[40px] md:h-[40px] w-[25px] h-[25px]">
+                    <div class="text-sm font-bold text-white md:py-3 py-1">
+                        {{ '::Host:landing:banner:section3:title' | abpLocalization }}
+
+                    </div>
+                    <div class="text-sm font-normal text-white">
+                        {{ '::Host:landing:banner:section3:body' | abpLocalization }}
+
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <img src="assets/imgs/host/icons/banner3.svg" class="md:w-[40px] md:h-[40px] w-[25px] h-[25px]">
+                    <div class="text-sm font-bold text-white md:py-3 py-1">
+                        {{ '::Host:landing:banner:section4:title' | abpLocalization }}
+
+                    </div>
+                    <div class="text-sm font-normal text-white">
+                        {{ '::Host:landing:banner:section4:body' | abpLocalization }}
+
+                    </div>
+                </div>
+                <button 
+                (click)="goToLogin()"
+                class="ms-0 lg:mt-0 mt-3 w-1/2  bg-btnBg h-[40px] p-2 text-white rounded
+                md:hidden"
+              >
+              {{'::Host:Header:Host' | abpLocalization }} 
+              </button>
+            </div>
+        </div>
+    </div>
+ </div>
+<!-- Calculate -->
+ <div class="bg-greyBg calculate md:py-10 md:px-20 p-5"  [ngClass]="lang == 'ar' ?'' :'en'">
+    <div class="text-4xl font-bold text-black">
+        {{ '::Host:landing:calculate:title' | abpLocalization }}
+    </div>
+    <div class="text-xl text-black pt-3">
+        {{ '::Host:landing:calculate:subTitle' | abpLocalization }}
+    </div>
+    <div class="card-container mt-7 grid grid-cols-3 tabs-lending">
+        <nz-tabset nzType="card" class="lg:col-span-2 md:col-span-3 col-span-3 rounded-tl-xl" (nzSelectChange)="selectTab($event)">
+          @for (tab of tabs; track tab) {
+            <nz-tab [nzTitle]="titleTemplate">
+                <ng-template #titleTemplate>
+                  @if(tab.id === 1){
+                   
+        <img src="assets/imgs/details/img20.svg" alt="img">
+
+                  }@else{
+                    
+        <img src="assets/imgs/details/img21.svg" alt="img">
+
+                  }
+                  {{ tab.name }}
+                </ng-template>
+                    <div class="grid grid-cols-1 md:grid-cols-3 md:gap-x-10 lg:gap-x-18 items-center justify-center
+                        lg:py-10 lg:px-16 py-6 px-3">
+                        <div class="md:h-32 flex flex-col col-span-1 items-center justify-self-center self-center justify-center w-1/2 md:w-full p-3 border-2 rounded-lg border-secondary
+                            hover:bg-secondary tab-btn">
+                           
+        <img src="assets/imgs/details/img22.svg" alt="img">
+
+                            <nz-select [ngModel]="type" (ngModelChange)="selectType($event)" nzBorderless class="text-base text-secondary
+                                font-bold mt-3 ">
+                                <nz-option nzValue="" [nzLabel]="'::Host:landing:calculate:tab:type' | abpLocalization"></nz-option>
+                                <nz-option
+                                *ngFor="let option of categortTypes"
+                                [nzValue]="option.id"
+                                [nzLabel]="'::'+ option.name | abpLocalization"
+                                >
+                            </nz-option>
+                            </nz-select>
+                        </div>
+                        <div class="md:h-32 my-5 flex flex-col col-span-1 items-center justify-self-center self-center p-3 border-2 w-1/2 md:w-full rounded-lg border-secondary
+                            hover:bg-secondary tab-btn">
+                           
+        <img src="assets/imgs/details/img23.svg" alt="img">
+                                
+                            <nz-select [ngModel]="country" (ngModelChange)="selectCountry($event)"
+                             nzBorderless class="text-base text-secondary
+                                font-bold mt-3 ">
+                                <nz-option nzValue="" [nzLabel]="'::Host:landing:calculate:tab:country' | abpLocalization"></nz-option>
+                                <nz-option
+                                *ngFor="let option of countries"
+                                [nzValue]="option.id"
+                                [nzLabel]="'::'+ option.name | abpLocalization"
+                                >
+                            </nz-option>
+                            </nz-select>
+                        </div>
+                        <div class="md:h-32 grid grid-cols-1 text-center w-1/2 md:w-full justify-self-center self-center" [ngClass]="selectedprice ?'':'divide-y-2 divide-black'">
+                            <div class="text-black font-bold p-3">
+                                {{ '::Host:landing:calculate:tab:expectedMoney' | abpLocalization }}
+                            </div>
+                            <div class="text-black font-bold p-3" *ngIf="selectedprice">
+                                {{selectedprice}}
+                            </div>
+                            <div class="text-black font-bold p-3">
+                                {{ '::Host:landing:calculate:tab:sar' | abpLocalization }}
+
+                            </div>
+
+                        </div>
+                    </div>
+              </nz-tab>
+          }
+        </nz-tabset>
+    </div>
+   
+
+</div>
+<!-- Steps -->
+<div class="text-center py-10 bg-white md:px-20 px-10">
+    <p class="text-2xl font-bold text-black mb-3">
+        {{ '::Host:landing:steps:title' | abpLocalization }}
+    </p>
+    <p class="text-lg font-normal text-black mb-5">
+        {{ '::Host:landing:steps:subTitle' | abpLocalization }}
+    </p>
+    <div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 gap-x-16 gap-y-8">
+        <div class="border rounded-lg border-secondary text-start relative card-bg pb-16 
+            shadow-[0_14px_24px_0px_#00000021]">
+            <div class=" text-btnBg text-sm font-extrabold px-5 pt-5 ">01</div>
+            <div class="text-xl	text-secondary font-bold px-5 py-4">
+                {{ '::Host:landing:steps:section01:title' | abpLocalization }}
+            </div>
+            <div class="text-sm	text-black font-normal px-5">
+                {{ '::Host:landing:steps:section01:body' | abpLocalization }}
+            </div>
+        </div>
+        <div class="border rounded-lg border-secondary text-start relative card-bg pb-16
+        shadow-[0_14px_24px_0px_#00000021]">
+            <div class=" text-btnBg text-sm font-extrabold px-5 pt-5">02</div>
+            <div class="text-xl	text-secondary font-bold px-5 py-4">
+                {{ '::Host:landing:steps:section02:title' | abpLocalization }}
+            </div>
+            <div class="text-sm	text-black font-normal px-5">
+                {{ '::Host:landing:steps:section02:body' | abpLocalization }}
+            </div>
+        </div>
+        <div class="border rounded-lg border-secondary text-start relative card-bg pb-16
+        shadow-[0_14px_24px_0px_#00000021]">
+            <div class=" text-btnBg text-sm font-extrabold px-5 pt-5">03</div>
+            <div class="text-xl	text-secondary font-bold px-5 py-4">
+                {{ '::Host:landing:steps:section03:title' | abpLocalization }}
+            </div>
+            <div class="text-sm	text-black font-normal px-5">
+                {{ '::Host:landing:steps:section03:body' | abpLocalization }}
+            </div>
+        </div>
+        <div class="border rounded-lg border-secondary text-start relative card-bg pb-16
+        shadow-[0_14px_24px_0px_#00000021]">
+            <div class=" text-btnBg text-sm font-extrabold px-5 pt-5">04</div>
+            <div class="text-xl	text-secondary font-bold px-5 py-4">
+                {{ '::Host:landing:steps:section04:title' | abpLocalization }}
+            </div>
+            <div class="text-sm	text-black font-normal px-5">
+                {{ '::Host:landing:steps:section04:body' | abpLocalization }}
+            </div>
+        </div>
+        <div class="border rounded-lg border-secondary text-start relative card-bg pb-16
+        shadow-[0_14px_24px_0px_#00000021]">
+            <div class=" text-btnBg text-sm font-extrabold px-5 pt-5">05</div>
+            <div class="text-xl	text-secondary font-bold px-5 py-4">
+                {{ '::Host:landing:steps:section05:title' | abpLocalization }}
+            </div>
+            <div class="text-sm	text-black font-normal px-5">
+                {{ '::Host:landing:steps:section05:body' | abpLocalization }}
+            </div>
+        </div>
+        <div class="border rounded-lg border-secondary text-start relative card-bg pb-16
+        shadow-[0_14px_24px_0px_#00000021]">
+            <div class=" text-btnBg text-sm font-extrabold px-5 pt-5">06</div>
+            <div class="text-xl	text-secondary font-bold px-5 py-4">
+                {{ '::Host:landing:steps:section06:title' | abpLocalization }}
+            </div>
+            <div class="text-sm	text-black font-normal px-5">
+                {{ '::Host:landing:steps:section06:body' | abpLocalization }}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Reservation -->
+ <div class="bg-secondary ">
+    <div class="grid md:grid-cols-3 grid-cols-1">
+        <div class="md:px-20 px-10 col-span-2 py-8">
+            <div class="text-white text-4xl	pb-8">
+                {{ '::Host:landing:reserve:title' | abpLocalization }}
+                
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2">
+                <div class="flex items-center mt-4">
+                    <img src="assets/imgs/host/icons/icon1.svg" class="bg-white rounded p-2 ">
+                    <div class="text-base text-white mx-2">
+                {{ '::Host:landing:reserve:topic01' | abpLocalization }}
+
+                    </div>
+                </div>
+                <div class="flex items-center mt-4">
+                    <img src="assets/imgs/host/icons/icon2.svg" class="bg-white rounded p-2 ">
+                    <div class="text-base text-white mx-2">
+                {{ '::Host:landing:reserve:topic02' | abpLocalization }}
+
+                    </div>
+                </div>
+                <div class="flex items-center mt-4">
+                    <img src="assets/imgs/host/icons/icon3.svg" class="bg-white rounded p-2 ">
+                    <div class="text-base text-white mx-2">
+                {{ '::Host:landing:reserve:topic03' | abpLocalization }}
+
+                    </div>
+                </div>
+                <div class="flex items-center mt-4">
+                    <img src="assets/imgs/host/icons/icon4.svg" class="bg-white rounded p-2 ">
+                    <div class="text-base text-white mx-2">
+                {{ '::Host:landing:reserve:topic04' | abpLocalization }}
+
+                    </div>
+                </div>
+                <div class="flex items-center mt-4">
+                    <img src="assets/imgs/host/icons/icon5.svg" class="bg-white rounded p-2 ">
+                    <div class="text-base text-white mx-2">
+                {{ '::Host:landing:reserve:topic05' | abpLocalization }}
+
+                    </div>
+                </div>
+                <div class="flex items-center mt-4">
+                    <img src="assets/imgs/host/icons/icon6.svg" class="bg-white rounded p-2 ">
+                    <div class="text-base text-white mx-2">
+                {{ '::Host:landing:reserve:topic06' | abpLocalization }}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-img hidden md:block">
+        </div>
+
+    </div>
+ </div>
+<!-- Questions -->
+ <div class="text-center py-10 bg-white md:px-20 px-0">
+    <p class="text-2xl font-bold text-black mb-3">
+        {{ "::Host:landing:questions:title" | abpLocalization }}
+    </p>
+    <p class="text-lg font-normal text-black mb-5">
+        {{ "::Host:landing:questions:subTitle" | abpLocalization }}
+
+    </p>
+    <div class="container mx-auto tabs-lending ">
+        <nz-card [nzTitle]="''" class="block w-full border-0 rounded-2xl">
+            <div
+              *ngFor="let questionsAnswer of questionsAnswers; let i = index"
+              (click)="selectQuestionsAnswersItem(questionsAnswer)"
+              class=" mt-4 first:mt-0  p-4 cursor-pointer  border-black "
+              [ngClass]="lang === 'ar' ? 'border-r-2' :'border-l-2'"
+            >
+              <div class="flex justify-between items-center ">
+                <p
+                  class="font-extrabold lg:text-base text-black text-sm"
+                >
+                  {{ '::'+questionsAnswer.title | abpLocalization }}
+                </p>
+                <i
+                  class="fa-solid fa-plus text-black lg:text-base"
+                  *ngIf="!questionsAnswer.open"
+                ></i>
+                <i
+                  class="fa-solid fa-minus text-secondary lg:text-base"
+                  *ngIf="questionsAnswer.open"
+                ></i>
+              </div>
+              <p class="text-black lg:text-sm w-11/12 mt-2 text-start" *ngIf="questionsAnswer.open"
+              [innerHtml]="'::'+questionsAnswer.description | abpLocalization ">
+              </p>
+            </div>
+          </nz-card>
+    </div>
+ </div>
+<!-- Partners -->
+ <!-- <div class="text-center py-10 bg-greyBg">
+    <div class="flex items-center justify-center flex-col md:mx-28 sm:mx-6 mx-20">
+
+        <p class="lg:text-3xl text-lg font-bold text-black mb-5">
+            {{ "::Host:landing:partners:title" | abpLocalization }}
+        </p>
+        <div class="w-full relative ">
+            <div class="swiper centered-slide-carousel">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" *ngFor="let item of slides">
+                        <img [src]="item.src">
+                    </div>
+                </div>
+                <div class="swiper-pagination "></div>
+            </div>
+        </div>
+    </div>
+ </div> -->
+<!-- Contact Us -->
+ <div class="text-center py-10 bg-white">
+    <p class="text-xl font-bold text-black mt-2">
+        {{ "::Host:landing:contact:title" | abpLocalization }}
+    </p>
+    <p class="text-xl font-bold text-black mt-2">
+        {{ "::Host:landing:contact:subTitle" | abpLocalization }}
+
+    </p>
+    <button class="mt-7 px-20 text-sm py-2 border border-btnBg rounded 
+        text-btnBg bg-greyBg hover:bg-btnBg hover:text-greyBg"
+        (click)="openContact()">
+        {{ "::Host:landing:contact:btn" | abpLocalization }}
+
+    </button>
+ </div>
+ </div>
+<!-- Footer -->
+<app-footer></app-footer>

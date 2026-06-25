@@ -1,0 +1,60 @@
+<div class="bg-[#FAFAFA] py-[84px]">
+  <div class="container mx-auto px-6">
+    <p class="font-bold text-[37px]">
+      {{ '::guest:tourismPrograms.reviewsTitle' | abpLocalization }}
+    </p>
+    <div class="mt-[77px] lg:flex">
+      <div class="shrink-0 max-h-[450px] overflow-y-scroll scroll-box pe-2">
+        @for (user of comments; let i = $index; track i) {
+          <div
+            class="rounded-[10px] w-auto lg:w-[400px] xl:w-[553px]"
+            (click)="handelActiveUser(i)"
+            [ngClass]="{ 'bg-white shadow-[0px_3px_30px_0px_rgba(216,216,216,0.16)]': user.active }"
+          >
+            <div class="flex items-center p-[24px]">
+              <img
+                class="w-[95px] h-[95px] rounded-full"
+                [src]="user.img || 'assets/imgs/user.png'"
+              />
+              <div class="ms-[40px]">
+                <p class="text-base font-bold">{{ user.name }}</p>
+                <p class="text-[#8A8889] text-base mt-[15px] font-normal">{{ user.traval }}</p>
+              </div>
+            </div>
+            <div class="lg:hidden" *ngIf="user.active">
+              <ng-container
+                *ngTemplateOutlet="comment; context: { description: user.description }"
+              ></ng-container>
+            </div>
+          </div>
+        } @empty {
+          <nz-empty
+            nzNotFoundContent="{{ '::guest:explore.noServicesAdded' | abpLocalization }}"
+            class="block w-full py-12 mx-auto"
+          ></nz-empty>
+        }
+        <!-- TODO I18N -->
+      </div>
+      <div class="hidden lg:block lg:ms-12 xl:ms-[112px]">
+        <ng-container
+          *ngTemplateOutlet="comment; context: { description: activeComments.description }"
+        ></ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #comment let-description="description">
+  <div class="mt-6 lg:mt-0 px-12 pb-12">
+    <p class="text-[#122466] font-bold text-[25px]">
+      {{ '::guest:tourismPrograms.commentTitle' | abpLocalization }}
+    </p>
+    <div class="text-black text-base font-bold mt-[10px]">
+      <i class="fa-solid fa-star text-[#FCB751]"></i>
+      {{ '::guest:tourismPrograms.rating' | abpLocalization }}
+    </div>
+    <p class="lg:text-base text-sm lg:mt-[62px] mt-[40px] max-w-[550px] !leading-7">
+      {{ description }}
+    </p>
+  </div>
+</ng-template>

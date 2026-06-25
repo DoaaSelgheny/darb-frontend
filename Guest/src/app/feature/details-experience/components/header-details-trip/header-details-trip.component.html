@@ -1,0 +1,33 @@
+<div
+  class="w-full flex flex-col lg:flex-row lg:items-center justify-between rounded-2xl mt-8"
+>
+  <div>
+    <!--Name-->
+    <div class="flex sm:items-center sm:flex-row flex-col items-baselne">
+
+      <p class="text-[#171717] font-extrabold text-xl lg:text-[32px] me-4">
+        {{ experience?.experience?.name }}
+      </p>
+      <div class="flex  items-center">
+        <img src="assets/imgs/details/img1.svg" alt="img">
+        <p class=" text-[#737373]  text-xs mx-1"> 
+          {{ experience?.city?.name}} <span class="mx-1">/</span> {{"::Guest:Explore:district" | abpLocalization}} {{experience?.district?.name}}
+        </p>
+          
+        <p class=" flex items-center flex-row mx-1">
+          <img src="assets/imgs/details/img2.svg" alt="img">
+
+          <span class="mx-1 text-xs text-[#666666]">
+            {{experience?.ratingsAverage  | number: '1.1-1'}} / {{experience?.ratingsCount}} {{'::guest:explore:rating:rate' |abpLocalization}}
+          </span>
+            
+        </p>
+      </div>
+    </div>
+    <!-- ID -->
+    <p class="text-[#737373] text-sm mt-4">
+      {{"::Guest:Explore:experienceid" | abpLocalization}} ({{experience?.experience?.serialNumber}})
+    </p>
+  
+  </div>
+ </div>

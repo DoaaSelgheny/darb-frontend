@@ -1,0 +1,92 @@
+<div class="container">
+  <nz-breadcrumb class="mt-[26px]">
+    <nz-breadcrumb-item class="cursor-pointer" routerLink="/">{{
+      '::guest:explore.breadcrumbHome' | abpLocalization
+    }}</nz-breadcrumb-item>
+      <nz-breadcrumb-item class="cursor-pointer" routerLink="/reservation"
+      >{{
+        '::guest:reserve.recervation' | abpLocalization
+      }}</nz-breadcrumb-item
+    >
+  </nz-breadcrumb>
+  <div class=" mt-9 shadow-greyBox mb-12">
+    <nz-tabset>
+      <nz-tab [nzTitle]="'::guest:reserve.upcoming' | abpLocalization"  
+        (nzClick)="reserveTimeType === ReservationTimeFrame.Upcoming;getReservationList(1,ReservationTimeFrame.Upcoming)">
+        <div class="py-12 px-6 bg-white">
+          @for (item of reservations; track $index) {
+                <app-reservation-item
+                  class="block mt-3 first:mt-0"
+                  [item]="item"
+                  (ratingEvent)="getReservationList(page,ReservationTimeFrame.Upcoming)"
+                ></app-reservation-item> 
+          } @empty {
+            <nz-empty
+            nzNotFoundImage="assets\imgs\noData.svg"
+            [nzNotFoundContent]="'::guest:reserve.noData'| abpLocalization"
+            class="flex flex-col items-center"
+            ></nz-empty>
+          }
+          @if(reservations.length){
+
+            <div class="mx-auto mt-12 flex justify-center pb-8">
+              <nz-pagination
+              (nzPageIndexChange)="getReservationList($event,ReservationTimeFrame.Upcoming)"
+              [nzTotal]="totalCount"
+              [nzPageIndex]="page"
+              [nzPageSize]="itemsPerPage"
+              ></nz-pagination>
+            </div>
+          }
+        </div>
+
+      </nz-tab>
+      <nz-tab [nzTitle]=" '::guest:reserve.past' | abpLocalization" 
+        (nzClick)="reserveTimeType === ReservationTimeFrame.Past;getReservationList(1,ReservationTimeFrame.Past)">
+        <div class="py-12 px-6 bg-white">
+          @for (item of reservations; track $index) {
+              <app-reservation-item
+                class="block mt-3 first:mt-0"
+                [item]="item"
+                [reservationTime]="'past'"
+                (ratingEvent)="getReservationList(page,ReservationTimeFrame.Past)"
+              ></app-reservation-item>
+            
+          } @empty {
+            <nz-empty
+            nzNotFoundImage="assets\imgs\noData.svg"
+              [nzNotFoundContent]="'::guest:reserve.noData'| abpLocalization"
+              class="flex flex-col items-center"
+            ></nz-empty>
+          }
+          @if(reservations.length){
+
+            <div class="mx-auto mt-12 flex justify-center pb-8">
+              <nz-pagination
+              (nzPageIndexChange)="getReservationList($event,ReservationTimeFrame.Past)"
+              [nzTotal]="totalCount"
+              [nzPageIndex]="page"
+              [nzPageSize]="itemsPerPage"
+              ></nz-pagination>
+            </div>
+          }
+        </div>
+      </nz-tab>
+    </nz-tabset>
+  </div>
+</div>
+<!-- Cofirm congratulation payment -->
+<app-confrontation-popup [confrontationType]="confrontationTypesEnum.success"
+ [visible]="isVisibleCongratulationReservation" (cancel)="isVisibleCongratulationReservation = false" [title]="
+    { key: '::guest:payment:success:title' }
+      | abpLocalization
+  " [description]="
+    {
+      key: '::guest:payment:success:description'
+    } | abpLocalization
+  ">
+  <!-- <div buttons class="flex items-center flex-col w-full px-3">
+    <app-button size="md" class="block mb-3 w-full" > {{'::Menu:HomePage'|abpLocalization}} </app-button>
+  
+  </div> -->
+</app-confrontation-popup>

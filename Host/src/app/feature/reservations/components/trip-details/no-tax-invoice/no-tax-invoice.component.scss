@@ -1,0 +1,88 @@
+.invoice-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  font-family: 'Arial', sans-serif;
+  direction: rtl;
+  text-align: right;
+}
+
+.header {
+  text-align: center;
+}
+.logo{
+  margin-bottom: 25px;
+}
+.logo img {
+  max-width: 100px;
+}
+
+// .invoice-details,
+// .vendor-details,
+// .buyer-details {
+//   margin-bottom: 20px;
+// }
+
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+
+
+}
+
+.invoice-table th,
+.invoice-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+.total-section {
+  margin-top: 20px;
+}
+
+.qr-code  {
+  margin-top: 25px;
+  display: block;
+
+  border-top: 1px solid #999999 ;
+  padding: 15px;
+  div{
+
+    display: flex
+;
+    justify-content: center;
+    margin: auto;
+  }
+}
+.title {
+  font-size: 20px;
+  font-weight: 700;
+
+  text-align: center;
+
+  color: #171717;
+}
+
+.title2 {
+  font-size: 16px;
+  font-weight: 700;
+
+  text-align: center;
+
+  color: #171717;
+}
+
+div{
+  color:#171717 !important
+}
+.spanDesign{
+  padding-inline-start: 5%;
+}
+
+::ng-deep{
+  tbody{
+    background: #E5E5E5 !important;
+  }}

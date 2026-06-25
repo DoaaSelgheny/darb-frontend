@@ -1,0 +1,40 @@
+<div class="mt-3">
+  <div class="border-gray-200 rounded-lg p-4 border">
+    <label nz-checkbox class="flex items-center">
+      <span class="text-base text-gray-600 font-bold">
+        يجب ان يكون المستضيف قادر على ادخال شرط للحجز ويكون حقل نصي لا يتجاوز عن 200 كلمة
+      </span>
+    </label>
+    <label nz-checkbox class="flex items-center mt-4">
+      <span class="text-base text-gray-600 font-bold">
+        عند نقر المستضيف على زر " حفظ " يتم حفظ شروط الحجز ويتم اظهارها في تفاصيل الخدمة من جهة
+        الضيف للخدمة التي تم اختيارها
+      </span>
+    </label>
+    <label nz-checkbox class="flex items-center mt-4">
+      <span class="text-base text-gray-600 font-bold">
+        يمكن للمستضيف اضافة اكثر من شرط لاكثر من خدمة مختلفة
+      </span>
+    </label>
+    <label nz-checkbox class="flex items-start mt-4">
+      <span class="text-base text-gray-600 font-bold">
+        الخدمة المراد تطبيق السعر الجديد عليها :
+        <ul class="ps-4 list-disc">
+          <li>قائمة منسدلة بها جميع الخدمات</li>
+          <li>واعلى خيار يكون الجميع</li>
+          <li>يمكن للمستضيف اختيار اكثر من خيار</li>
+          <li>يتم تطبيق السعر على الخيار الذي يتم اختياره</li>
+        </ul>
+      </span>
+    </label>
+  </div>
+
+  <div class="flex">
+    <app-button class="mt-6 w-full md:w-auto">
+      <span class="flex items-center">
+        <span nz-icon class="text-lg me-1 leading-none" nzType="save" nzTheme="outline"></span>
+        حفظ التغييرات
+      </span>
+    </app-button>
+  </div>
+</div>

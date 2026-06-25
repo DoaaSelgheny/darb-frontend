@@ -1,0 +1,66 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item class="cursor-pointer" routerLink="/holiday-homes"
+    >الرئيسية</nz-breadcrumb-item
+  >
+  <nz-breadcrumb-item>الأسئلة الأكثر تداولاً</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<div class="flex flex-col xl:flex-row my-14">
+  <div>
+    <ng-container [ngTemplateOutlet]="menuButtons"></ng-container>
+  </div>
+  <div class="lg:ms-4 mt-4 lg:mt-0 w-full">
+    <nz-card [nzTitle]="''" class="block w-full border-0 rounded-2xl">
+      @for (questionsAnswer of questionsAnswers; track $index) {
+        <div
+          (click)="selectQuestionsAnswersItem(questionsAnswer)"
+          class="border border-[#EEE] bg-[#FCFCFC] mt-4 first:mt-0 rounded-lg p-4 cursor-pointer"
+          [ngClass]="{ '!border-[#B6BBD0] !bg-[#F3F8FB]': questionsAnswer.open }"
+        >
+          <div class="flex justify-between items-center">
+            <p
+              class="font-extrabold lg:text-base text-[#444] text-sm"
+              [ngClass]="{ ' text-secondary': questionsAnswer.open }"
+            >
+              {{ questionsAnswer.title }}
+            </p>
+            <i
+              class="fa-solid fa-plus text-[#999999] lg:text-[22px]"
+              *ngIf="!questionsAnswer.open"
+            ></i>
+            <i
+              class="fa-solid fa-minus text-secondary lg:text-[22px]"
+              *ngIf="questionsAnswer.open"
+            ></i>
+          </div>
+          <p class="text-[#666] lg:text-lg w-11/12 mt-2" *ngIf="questionsAnswer.open">
+            {{ questionsAnswer.description }}
+          </p>
+        </div>
+      }
+    </nz-card>
+  </div>
+</div>
+
+<ng-template #menuButtons>
+  <div
+    class="flex flex-row xl:flex-col w-full overflow-x-scroll xl:overflow-x-hidden xl:w-[378px] p-4 lg:p-4 bg-white rounded-2xl shrink-0"
+  >
+    @for (setting of settings; track $index) {
+      <button
+        nz-button
+        (click)="selectItem(setting)"
+        [ngClass]="{ '!text-white !bg-secondary': setting.select }"
+        class="bg-gray-50 font-bold border-gray-200 shrink-0 relative justify-between me-3 last:me-0 min-w-[179px] lg:min-w-[345px] xl:me-0 lg:mb-3 xl:last:mb-0 text-gray-600 h-14 rounded-lg hover:border-gray-300 hover:text-secondary focus:text-gray-600 focus:border-gray-300"
+      >
+        <p class="lg:text-base font-bold text-sm">
+          {{ setting.name }}
+          <i
+            *ngIf="setting.select"
+            class="fa-solid fa-arrow-left absolute top-1/2 -translate-y-1/2 left-5 -rotate-90 lg:rotate-0"
+          ></i>
+        </p>
+      </button>
+    }
+  </div>
+</ng-template>

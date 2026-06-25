@@ -1,0 +1,116 @@
+<div class="grid grid-cols-2">
+    <div class="contact relative col-span-2 sm:col-span-1" [ngClass]="lang === 'ar'?'borderAr':'borderEn'">
+        <img src="assets/imgs/rating/logoBlack.svg" class="m-5" alt="logo">    
+    </div>
+    <div class="col-span-2 sm:col-span-1">
+      <nz-card
+        class="block relative w-full border-0 mt-6 sm:mt-12 rounded-2xl"
+        [formGroup]="form"
+      >
+      <div class="flex items-center mb-3 mt-5">
+          <img [src]="data.item.image" alt="img" class="w-[71px] h-[71px] rounded-lg">
+        
+        <div class="flex  flex-col mx-2">
+          <p class="text-[#171717] font-extrabold text-base  me-4">
+            {{data.item.reservationType == reserveType.Experience ? data.item.experienceName : data.item?.vacationHomeName }}
+          </p>
+          <p class=" text-[#737373]  text-xs mt-2 mx-1 flex flex-row"> 
+           
+  <img src="assets/imgs/details/img34.svg" alt="img" class="px-1">
+
+            <span class="mx-2">
+    
+              {{data.item?.city?.name}} 
+              <span class="mx-1">/</span> {{"::Guest:Explore:district" | abpLocalization}}
+               {{data.item?.district?.name}}
+            </span>
+          </p>
+            
+          <p class=" flex items-center flex-row mx-1 mt-2">
+            
+  <img src="assets/imgs/details/img35.svg" alt="img" >
+
+            <span class="mx-1 text-xs text-[#666666]">
+              {{data.item.ratingsAverage  | number: '1.1-1'}} / {{data.item.ratingsCount}} {{'::guest:explore:rating:rate' |abpLocalization}}
+            </span>
+              
+          </p>
+        </div>
+      </div>
+      <p class="text-sm text-[#171717] mb-3">{{"::guest:reserve:rating:hint" | abpLocalization}}</p>
+       
+      <div formArrayName="facilityRatings">
+        <div *ngFor="let control of facilityControls; let i = index" [formGroupName]="i">
+          <div class="flex items-center">
+            <app-field-label
+              [control]="form | getControl: 'ratingValue'"
+              [label]="control.get('facilityName')?.value"          
+            ></app-field-label>
+            @if(!control.get('ratingValue')?.value){
+              <img alt="required" class="ms-1" src="/assets/icons/required.svg" />
+            }
+          </div>
+          <div class="rating-buttons mb-2">
+            <button
+              *ngFor="let rating of ratings"
+              type="button"
+              [class.selected]="control.get('ratingValue')?.value === rating"
+              (click)="setRating(i, rating)"
+            >
+              {{ rating }}
+            </button>
+          </div>
+        </div>
+      </div>
+        <!--Message -->
+        <app-field-label
+          [control]="form | getControl: 'guestOpinion'"
+          [label]="data.item.reservationType === reserveType.VacationHome ? ( '::guest:reserve:rating:YourMessage' | abpLocalization) : ( '::guest:reserve:rating:YourMessageExp' | abpLocalization)"          
+        ></app-field-label>
+        <app-textarea
+        formControlName="guestOpinion"
+        [control]="form | getControl: 'guestOpinion'"
+        placeholder=" {{ '::guest:reserve:rating:opinion' | abpLocalization }}"
+        [changeRow]="true"
+        [suppressValidationWithMessage]="{
+          maxlength: 'Host:VacationHome:Step5:Title:Validation:MaxLengh',
+          minlength: 'Host:VacationHome:Step5:Title:Validation:MinLengh'
+        }"
+        [maxlength]="250"
+        [minlength]="30"
+
+        class="relative"
+      >
+        <div
+          class="absolute bg-white bottom-1"
+          [ngClass]="lang === 'ar' ? 'right-auto left-5' : 'right-5 left-auto'"
+        >
+          <nz-progress
+            [nzPercent]="((form | getControl: 'guestOpinion').value?.length / 250) * 100"
+            [nzWidth]="30"
+            [nzStrokeWidth]="2"
+            [nzShowInfo]="false"
+            nzType="circle"
+          >
+          </nz-progress>
+          <p class="top-1/2 absolute left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#B6BBD0]">
+            {{ 250 - (form | getControl: 'guestOpinion').value?.length }}
+          </p>
+        </div>
+      </app-textarea>
+
+       <!--btn-->
+       <app-button class="text-center" [size]="'md'" (click)="sendMessage()">
+          <p class="text-base font-bold">
+            {{ '::guest:reserve:rating:SendButton' | abpLocalization }}
+            @if(lang == 'ar'){
+              <i class="fa-solid fa-arrow-left"></i>
+            }@else {
+              <i class="fa-solid fa-arrow-right"></i>
+            }
+          </p>
+      </app-button>
+      </nz-card>
+    </div>
+  </div>
+ 

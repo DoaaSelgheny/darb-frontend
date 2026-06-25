@@ -1,0 +1,61 @@
+:host ::ng-deep {
+  .ant-tabs > .ant-tabs-nav .ant-tabs-nav-list {
+    background-color: #ffffff;
+
+  }
+  .ant-tabs > .ant-tabs-nav {
+
+    color:#122466;
+
+    .ant-tabs-nav-more {
+      padding: 3px;
+    }
+  }
+  .ant-tabs > .ant-tabs-nav .ant-tabs-nav-wrap{
+    justify-content: center;
+  }
+  .ant-tabs-tab{
+    background-color: #fff;
+
+  }
+  .ant-tabs-tab-active {
+    background-color: #122466;
+    border-bottom: none;
+    border-top-right-radius:10px;
+    border-top-left-radius:10px;
+
+    .ant-tabs-tab-btn {
+      color:#fff;
+    }
+    .ant-tag{
+      background-color: #3B82F6;
+    }
+  }
+  .ant-tabs-ink-bar {
+    background-color: transparent;
+  }
+  .ant-form-item-label > label::after {
+    display: none;
+  }
+  .ant-tabs-top > .ant-tabs-nav::before{
+    border-bottom: none;
+  }
+  .ant-select-single .ant-select-selector {
+    align-items: end;
+}
+.ant-tabs-rtl .ant-tabs-nav .ant-tabs-tab{
+  margin: 0;
+  padding-inline: 3rem;
+  height:40px
+}
+.ant-tabs-top > .ant-tabs-nav {
+  border-bottom:1px solid #E3E3E3;
+}
+.ant-modal-title {
+ font-weight: bold;
+  text-align: center;
+}
+nz-switch button.ant-switch.ant-switch-checked {
+  background-color: #2563EB;
+}
+}

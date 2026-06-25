@@ -1,0 +1,29 @@
+<nz-modal
+  [(nzVisible)]="isVisible"
+  [nzClassName]="'custom-model'"
+  [nzFooter]="null"
+  [nzClosable]="false"
+  [nzMaskClosable]="false"
+  (nzOnCancel)="onCancel()"
+>
+<ng-container *nzModalContent>
+
+
+    <!-- Modal Content -->
+    <div class="user-info">
+      <p><strong>Host national ID:</strong> {{ saudiID }}</p>
+      <p><strong>Date of Birth:</strong> {{ dateOfBirth }}</p>
+    </div>
+  
+    <!-- Scrollable User Agreement Text -->
+    <div class="scrollable-agreement">
+      <p>{{ policyText }}</p>
+    </div>
+  
+    <!-- Modal Footer Buttons -->
+    <div class="modal-footer">
+      <button nz-button nzType="default" (click)="onCancel()">Cancel</button>
+      <button nz-button nzType="primary" (click)="onAccept()">Accept</button>
+    </div>
+</ng-container>
+</nz-modal>

@@ -1,0 +1,55 @@
+<div class="bg-gradient xl:min-h-[100vh] min-h-[900px] lg:min-h-[70vh] md:min-h-[80vh] relative">
+  <div
+    class="container xl:h-[80vh] lg:h-[100vh] relative rtl:bg-left ltr:bg-right bg-[url('/assets/imgs/side-cover.png')] h-[700px] md:h-[80vh] bg-no-repeat cover-img xl:px-0 mx-auto flex flex-col"
+  >
+    <div class="absolute w-full h-full overlay z-10 block lg:hidden"></div>
+    <div
+      class="h-full flex flex-col z-20 justify-center lg:pt-[10vh] md:pt-[0vh] pt-[10vh] lg:p-0 p-6"
+    >
+      <p class="text-2xl lg:text-[40px] font-bold text-white">
+        {{ '::guest:tourismPrograms.Title' | abpLocalization }}
+      </p>
+      <p
+        class="text-white lg:text-2xl text-xl mt-[34px] font-normal leading-[47px] xl:w-[578px] md:w-[480px] w-full"
+      >
+        {{ '::guest:tourismPrograms.Description' | abpLocalization }}
+      </p>
+      <div class="flex mt-[66px]">
+        <app-button classes="px-10 text-base" (click)="scrollToComponent()">{{
+          '::guest:tourismPrograms.RequestNowButton' | abpLocalization
+        }}</app-button>
+      </div>
+    </div>
+  </div>
+  <div
+    class="bg-[#122466] lg:h-[198px] min-h-[130px] z-20 absolute flex flex-col items-center bottom-0 w-full"
+  >
+    <p class="text-center font-bold text-base mt-[22px] text-white">
+      {{ '::guest:tourismPrograms.HighlightedClients' | abpLocalization }}
+    </p>
+    <div
+      class="container grid md:grid-cols-4 mx-auto grid-cols-4 lg:px-4 justify-between mb-6 mt-8"
+    >
+      <div class="flex items-center mx-auto mt-4 ms-4">
+        <img
+          src="assets/imgs/saudi-tourism-authority.svg"
+          alt="saudi-tourism-authority"
+          title="saudi-tourism-authority"
+        />
+      </div>
+      <div class="flex items-center mx-auto mt-4">
+        <img
+          src="assets/imgs/Abdulaziz-bin-Talal-Foundation.svg"
+          alt="Abdulaziz-bin-Talal-Foundation"
+          title="Abdulaziz-bin-Talal-Foundation"
+        />
+      </div>
+      <div class="flex items-center mx-auto mt-4">
+        <img src="assets/imgs/flynas.svg" alt="flynas" title="flynas" />
+      </div>
+      <div class="flex items-center mx-auto mt-4">
+        <img src="assets/imgs/undp.svg" alt="undp" title="undp" />
+      </div>
+    </div>
+  </div>
+</div>

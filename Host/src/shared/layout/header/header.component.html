@@ -1,0 +1,140 @@
+<div class="h-[64px] bg-white shadow-greyBox flex items-center relative z-[60]">
+  <div class="container justify-end mx-auto flex px-4 lg:px-0">
+    <div class="flex items-center w-full justify-between lg:justify-end">
+      <button nz-button nzType="text" class="lg:hidden block" (click)="toggleMenu()">
+        <i class="fa-solid fa-bars text-xl text-secondary"></i>
+      </button>
+      <!-- LOGO -->
+      <div class="block me-auto	 max-w-[90px] max-h-[40px]">
+        <img src="/assets/host/imgs/logo.png" alt="logo" />
+      </div>
+      <div class="flex items-center justify-end">
+        <!-- <ng-container [ngTemplateOutlet]="changeCurrency"></ng-container> -->
+        <app-select-language class="hidden lg:block me-6"></app-select-language>
+        <nz-badge *ngIf="false" [nzCount]="5" [nzOffset]="[0, 0]" nz-dropdown [nzDropdownMenu]="menu"
+          [nzPlacement]="'bottomCenter'" class="!mx-5 block">
+          <i class="fa-light fa-bell text-[#AAB2C5] text-xl"></i>
+        </nz-badge>
+
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <div
+            class="bg-white w-[500px] shadow-[4px_4px_20px_0px_rgba(0,0,0,0.25)] h-[70vh] overflow-y-auto rounded-lg">
+            <div class="flex items-center justify-between px-6 py-4">
+              <p class="font-extrabold text-lg">الأشعارات</p>
+              <button nz-button nzType="text" [routerLink]="['/notifications']">
+                <span class="underline text-secondary">عرض الكل</span>
+              </button>
+            </div>
+            <ng-container *ngTemplateOutlet="divider; context: { name: 'اليوم' }"></ng-container>
+            @for (item of [1, 2, 3]; track $index) {
+            <app-notification-item></app-notification-item>
+            }
+            <ng-container *ngTemplateOutlet="divider; context: { name: 'أمس' }"></ng-container>
+            @for (item of [1, 2, 3]; track $index) {
+            <app-notification-item></app-notification-item>
+            }
+          </div>
+        </nz-dropdown-menu>
+
+        <ng-container [ngTemplateOutlet]="profileMenu"></ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #profileMenu>
+  <div class="h-12 justify-between cursor-pointer flex items-center p-1">
+    <div class="flex items-center" [ngClass]="{'is-authenticated': !isAccountVerification}" nz-button nz-dropdown
+      [nzDropdownMenu]="menu">
+      <div *ngIf="isAccountVerification"
+        class="rounded-full bg-secondaryLight flex items-center justify-center w-[24px] h-[24px]">
+        <i class="fa-regular fa-user text-secondary text-sm"></i>
+      </div>
+      <div *ngIf="!isAccountVerification"
+        class="rounded-full bg-secondaryLight flex items-center justify-center w-[24px] h-[24px]">
+        <img src="assets/host/icons/notverified.svg" class="me-2" alt="currency" />
+      </div>
+
+      <div class="ms-2 hidden md:block" *ngIf="isAccountVerification">
+        <p class="text-sm text-[#3D3935]">{{ currentUser.name + ' ' + currentUser.surName }}</p>
+        <p class="text-xs text-neutral60">ID {{userVerificationInfo?.hyyakId || 'No ID Stored'}}</p>
+      </div> 
+      <div class="ms-2 hidden md:block" *ngIf="!isAccountVerification">
+        <p class="text-sm text-[#3D3935]">{{ isSiteLangauageArabic ? 'حسابك غير موثق' : 'Not Verfied' }}</p>
+      </div>
+
+
+      <div class="mx-2 hidden md:block">
+        <button nz-button nzType="text"
+          class="w-4 h-4 flex p-0 justify-center items-center hover:border-neutral60 border-neutral60 border rounded-full">
+          <i class="fa-solid text-[8px] fa-angle-down"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu class="rounded-lg max-w-56">
+      <li nz-menu-item (click)="loginToGuest()">
+        <div class="flex items-center py-[14px] separator">
+          <i class="fa-solid fa-crown text-sm text-secondary me-3"></i>
+          <!-- <i class="fa-regular fa-door-open text-sm text-secondary me-3"></i> -->
+          <p class="text-sm text-secondary">{{ '::guest:header.guestAccount' | abpLocalization }}</p>
+        </div>
+      </li>
+      <li nz-menu-item>
+        <div class="flex items-center py-[14px] separator" [routerLink]="['./profile']">
+          <i class="fa-regular fa-user text-sm text-secondary me-3"></i>
+          <p class="text-sm text-secondary">{{ '::guest:header.profile' | abpLocalization }}</p>
+        </div>
+      </li>
+      <li nz-menu-item>
+        <div class="flex items-center py-[14px] separator" [routerLink]="['./account-verification']">
+          <!-- <i class="fa-regular fa-badge-check text-sm text-secondary me-3"></i> -->
+<i class="fa-solid fa-circle-check  me-3" style="color: #63E6BE;"></i>
+          <p class="text-sm text-secondary">{{"::Menu:Verification"| abpLocalization}}</p>
+        </div>
+      </li>
+      <li nz-menu-item>
+        <div (click)="logOut()" class="flex items-center py-[14px] text-primary">
+          <!-- <i class="fa-regular fa-right-from-bracket text-sm text-primary me-3"></i> -->
+            <i class="fa-regular fa-arrow-left-from-bracket text-sm text-primary me-3"></i>
+          <p class="text-sm text-primary">{{ '::guest:header.logOut' | abpLocalization }}</p>
+        </div>
+      </li>
+    </ul>
+  </nz-dropdown-menu>
+</ng-template>ِ
+
+<ng-template #changeCurrency>
+  <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu"
+    class="me-5 items-center border-none hidden lg:flex border-[#E7E4EC] rounded-md p-3 h-9 justify-between">
+    <img src="assets/host/icons/saudi-arabia.svg" class="me-2" alt="currency" />
+    <span class="text-sm text-gray-600"> {{ isSiteLangauageArabic ? 'ريال سعودي' : 'SAR' }}</span>
+    <i class="fa-solid text-base text-gray-600 ms-1 fa-angle-down"></i>
+
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item>
+          <img src="assets/host/icons/saudi-arabia.svg" class="me-2" style="display: inline-block" alt="currency" />
+          <span class="text-sm text-gray-600">
+            {{ isSiteLangauageArabic ? 'ريال سعودي' : 'SAR' }}</span>
+        </li>
+        <li nz-menu-item>
+          <img src="assets/host/icons/usa-flag-icon.png" class="me-2"
+            style="display: inline-block; width: 19px; border-radius: 3px" alt="currency" />
+          <span class="text-sm text-gray-600">
+            {{ isSiteLangauageArabic ? 'دولار امريكي' : 'USD' }}</span>
+        </li>
+      </ul>
+    </nz-dropdown-menu>
+  </button>
+</ng-template>
+
+<ng-template #divider let-name="name">
+  <nz-divider class="px-4" nzPlain [nzText]="textDay">
+    <ng-template #textDay>
+      <nz-tag class="bg-[#E7E9F0] px-4 py-2 rounded-full text-xs border-0">{{ name }}</nz-tag>
+    </ng-template>
+  </nz-divider>
+</ng-template>

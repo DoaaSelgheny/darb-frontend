@@ -1,0 +1,313 @@
+<h2 class="text-sm text-[#334155] mt-3 font-bold flex items-center">
+  {{'::Host:VacationHome2:Step8:Header:Info' | abpLocalization}}
+  <img alt="required" *ngIf="this.images.length === 0" class="ms-1" src="/assets/host/icons/required.svg" />
+</h2>
+
+<!-- Delete & Selet Buttons-->
+<div class="flex justify-between items-center mt-3" *ngIf="images.length">
+  <p>  {{'::Host:VacationHome:Step8:subHead' | abpLocalization}}</p>
+  <div class="flex flex-row items-center">
+
+    <span
+    *ngIf="selectedImages.length > 0"
+    (click)="isDeletePopupOpen =true"
+    [disabled]="selectedImages.length === 0"
+    role="button"
+      nz-icon nzType="delete" nzTheme="outline" class="text-primary mx-2"
+    ></span>
+    <div (click)="applyToSelect()" role="button"  *ngIf="selectedImages.length === 0">
+
+      <span nz-icon nzType="check-square" nzTheme="outline"></span>
+      {{'::Host:VacationHome:Step8:select' | abpLocalization}}
+    </div>
+    <div (click)="Deselect()" role="button"  *ngIf="selectedImages.length > 0">
+
+      {{'::Host:VacationHome:Step8:deselect' | abpLocalization}}
+    </div>
+
+  </div>
+</div>
+
+
+<div class="mt-8">
+
+  <ng-container *ngTemplateOutlet="contentList; context: { title: vacationHomePhotosLabel }"></ng-container>
+</div>
+
+
+<!-- Content List -->
+<ng-template #contentList let-title="title">
+  <div class="grid md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 grid-cols-1 gap-3">
+    <div *ngIf="mainImage.value" class="relative">
+      <input
+        type="checkbox"
+        class="absolute top-2 z-10"
+        [ngClass]="isSiteLanguageArabic ? 'right-2 ' :'left-2'"
+        (change)="toggleSelection(mainImage.value, $event)"
+        [checked]="selectedImages.includes(mainImage.value)"
+        *ngIf="isSelectedAppear"
+      />
+      <ng-container *ngTemplateOutlet="imgItem; context: { data: { img: mainImage.value, index: 'main' } }"></ng-container>
+    </div>
+    <ng-container *ngFor="let item of images.controls; let idx = index">
+      <div class="relative">
+        <!-- Checkbox for selecting image -->
+        <input
+          type="checkbox"
+          class="absolute top-2 z-10"
+          [ngClass]="isSiteLanguageArabic ? 'right-2 ' :'left-2'"
+          (change)="toggleSelection(item.value, $event)"
+          *ngIf="isSelectedAppear"
+
+        />
+
+        <!-- Image Item -->
+        <ng-container *ngTemplateOutlet="imgItem; context: { data: { img: item.value, index: idx } }"></ng-container>
+
+      </div>
+
+    </ng-container>
+
+
+    <!-- Allow adding new images if less than 15 images -->
+
+    <div *ngIf="mainImage ? (images.controls.length) < 14 :  (images.controls.length) < 15"
+    [ngClass]="!mainImage.value && images.controls.length === 0 ?'md:col-span-2 lg:col-span-4 xl:col-span-4 col-span-1':''">
+      <ng-container *ngTemplateOutlet="addNewImg"></ng-container>
+    </div>
+  </div>
+
+</ng-template>
+
+<!-- Image Template -->
+<ng-template #imgItem let-data="data">
+  <div class="h-[180px] relative">
+    <img class="w-full h-full rounded-lg"  [nzSrc]="data.img" nz-image />
+    <p *ngIf="data.index === 'main'"
+      class="absolute top-5 bg-[#51BEFC] text-white rounded-full px-3 py-1"
+      [ngClass]="isSiteLanguageArabic ? 'right-5 ' :'left-5'"
+      >
+      {{"::Host:VacationHome:mainImageLabel" |abpLocalization}}
+    </p>
+    <div class=" ">
+      <button
+        nz-button
+        nz-dropdown
+        [nzDropdownMenu]="menu"
+        class="top-2 rtl:left-2 ltr:right-2 w-9 border-0 h-9 bg-white opacity-60 leading-none backdrop-blur rounded-full absolute"
+      >
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu>
+            <!-- <li
+            nz-menu-item
+            class="border border-t border-b-0 text-[#334155]"
+            (click)="edit(data.index)"
+          >
+          <span class="flex justify-between items-center">
+
+          {{'::Host:VacationHome:edit' | abpLocalization}}
+          <span nz-icon nzType="reload" nzTheme="outline"></span>
+          </span>
+          </li> -->
+            <li
+              *ngIf="data.index !== 'main'"
+              nz-menu-item
+              class="border border-t border-b-0 text-[#334155] "
+              (click)="addMainImage(data.img,data.index)"
+            >
+            <span class="flex justify-between items-center">
+
+              {{'::Host:VacationHome:addMainImage' | abpLocalization}}
+              <span nz-icon nzType="check" nzTheme="outline"></span>
+            </span>
+            </li>
+
+          <li
+          nz-menu-item
+          class="border border-t border-b-0 text-[#ED3024]"
+          (click)="deleteOne(data.index);isDeleteOnePopupOpen=true"
+        >
+        <span class="flex justify-between items-center">
+
+        {{'::Host:VacationHome:Delete' | abpLocalization}}
+        <span nz-icon nzType="delete" nzTheme="outline"></span>
+        </span>
+        </li>
+          </ul>
+        </nz-dropdown-menu>
+        <span nz-icon nzType="more" class="font-bold text-xl text-secondary" nzTheme="outline"></span>
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Add New Image Template -->
+<ng-template #addNewImg let-data="data">
+  <div
+  class="w-100 h-[180px]  mx-auto overflow-hidden rounded-md border border-dashed border-[#B6BBD0]">
+    <app-upload
+      [sizeMB]="10"
+      [accept]="'image/png, image/jpeg, image/jpg'"
+      [checkDim]="true"
+      [uploadAction]="uploadPhotoUrl" (handleChange)="addImage($event)">
+      <ng-container uploadState>
+        <img class="mx-auto" src="assets/host/icons/image.svg" />
+      </ng-container>
+
+      <div class="flex items-center justify-center flex-col px-4 text-secondary">
+
+        <p class="text-[#737373] text-sm">
+          {{
+            { key: '::Host:VacationHome:Step8:addPic' } | abpLocalization
+          }}
+          <span class="text-[#60A5FA] text-sm underline">
+          {{
+            { key: '::Host:VacationHome:Step8:fromDevice' } | abpLocalization
+          }}
+          </span>
+        </p>
+        <p class="text-[#737373] text-xs pt-2">
+          {{
+            { key: '::Host:VacationHome:Step8:ValidatePic' } | abpLocalization
+          }}
+        </p>
+        <p class="text-[#737373] text-xs pt-2">
+          {{
+            { key: '::Host:VacationHome:Step8:size' } | abpLocalization
+          }}
+        </p>
+        <!-- <p class="text-[#737373] text-xs pt-2">
+          {{
+            { key:'::Host:VacationHome:Step8:dimension'} |abpLocalization
+          }}
+        </p> -->
+      </div>
+    </app-upload>
+  </div>
+</ng-template>
+
+<!-- Buttons -->
+<div class="mt-24 flex justify-between items-center flex-col md:flex-row">
+  <app-button
+  size="md"
+  (click)="goBack()"
+>
+  <span>
+    {{
+      {
+        key: '::Host:VacationHome:Wizard:Back'
+      } | abpLocalization
+    }}
+  </span>
+</app-button>
+  <div class="flex flex-row  mt-3 sm:mt-0">
+
+    <app-button
+      class="ms-3"
+      (click)="saveDraft()"
+      size="md"
+      [outline]="true"
+      [secondary]="true"
+    >
+      {{
+        {
+          key: '::Host:VacationHome:SaveDraft'
+        } | abpLocalization
+      }}
+    </app-button>
+    <app-button size="md" class="mx-2" (click)="goNext()" [disabled]="!validateCurrentPage()">
+      {{
+        {
+          key: '::Host:VacationHome:Wizard:Next'
+        } | abpLocalization
+      }}
+    </app-button>
+  </div>
+</div>
+<app-confrontation-popup
+  [visible]="isVisibleSaveAndExit"
+  (cancel)="isVisibleSaveAndExit = false"
+  title="  {{
+    {
+      key: '::Host:VacationHome2:Popup:SaveDraft:Title'
+    } | abpLocalization
+  }}"
+  description="  {{
+    {
+      key: '::Host:VacationHome2:Popup:SaveDraft:Description'
+    } | abpLocalization
+  }}"
+>
+  <div buttons class="flex items-center flex-col w-full px-10">
+    <app-button size="md" class="block mb-6 w-full" (click)="saveAndExit()">
+      {{
+        {
+          key: '::General:Confirm'
+        } | abpLocalization
+      }}
+    </app-button>
+    <app-button class="w-full" (click)="isVisibleSaveAndExit = false" size="md" [outline]="true">
+      {{
+        {
+          key: '::General:Cancel'
+        } | abpLocalization
+      }}
+    </app-button>
+  </div>
+</app-confrontation-popup>
+<!-- POPUP ON DELETE Selection -->
+<app-confrontation-popup
+  [visible]="isDeletePopupOpen"
+  (cancel)="isDeletePopupOpen = false"
+  [confrontationType]="confrontationTypesEnum.warning"
+  [title]="
+    { key: '::Host:vacation:delete:Pic:AreSure' } | abpLocalization
+  "
+  [description]="
+    {
+      key: '::Host:vacation:delete:Pic:SendConfirmation',
+      defaultValue: 'بنحذف الصور اللي حددتها!'
+    } | abpLocalization
+  "
+>
+  <div buttons class="flex items-center flex-col w-full sm:px-10">
+    <app-button
+      size="md"
+      class="block mb-6 w-full"
+      (click)="deleteSelectedImages();isDeletePopupOpen = false"
+    >
+      {{ { key: '::Host:vacation:delete:Pic:Confirm' } | abpLocalization }}
+    </app-button>
+    <app-button class="w-full" (click)="isDeletePopupOpen = false" size="md" [outline]="true">
+      {{ { key: '::Host:vacation:delete:Pic:Cancel'} | abpLocalization }}
+    </app-button>
+  </div>
+</app-confrontation-popup>
+<!-- POPUP ON DELETE ONE-->
+<app-confrontation-popup
+  [visible]="isDeleteOnePopupOpen"
+  (cancel)="isDeleteOnePopupOpen = false"
+  [confrontationType]="confrontationTypesEnum.warning"
+  [title]="
+    { key: '::Host:vacation:delete:Pic:AreSure' } | abpLocalization
+  "
+  [description]="
+    {
+      key: '::Host:vacation:delete:Pic:SendConfirmation',
+      defaultValue: 'بنحذف الصور اللي حددتها!'
+    } | abpLocalization
+  "
+>
+  <div buttons class="flex items-center flex-col w-full sm:px-10">
+    <app-button
+      size="md"
+      class="block mb-6 w-full"
+      (click)="delete(deletedIndex);isDeleteOnePopupOpen = false"
+    >
+      {{ { key: '::Host:vacation:delete:Pic:Confirm' } | abpLocalization }}
+    </app-button>
+    <app-button class="w-full" (click)="isDeleteOnePopupOpen = false" size="md" [outline]="true">
+      {{ { key: '::Host:vacation:delete:Pic:Cancel'} | abpLocalization }}
+    </app-button>
+  </div>
+</app-confrontation-popup>

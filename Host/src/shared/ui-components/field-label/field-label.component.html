@@ -1,0 +1,24 @@
+<div *ngIf="!!label" class="flex items-start">
+  <p class="flex items-start text-sm font-bold mb-2 text-[#0F172A]" [ngClass]="classLabelOverride">{{ label }}</p>
+  <img
+    alt="required"
+    *ngIf="control && control.hasError('required')"
+    class="ms-1"
+    src="/assets/host/icons/required.svg"
+  />
+  @if (options?.valid) {
+    <img alt="valid" class="ms-1" src="/assets/host/icons/valid.svg" />
+  }
+  @if (options?.info) {
+    <div class="relative group">
+      <img alt="valid" class="ms-1" src="/assets/host/icons/info.svg" />
+
+      <div
+        id="tooltip"
+        class="group-hover:block hidden w-[25ch] border rounded-md p-3 -translate-x-2/4 md:translate-x-0 absolute z-10 bg-white shadow-sm text-base text-greyDark"
+      >
+        {{ options.info }}
+      </div>
+    </div>
+  }
+</div>

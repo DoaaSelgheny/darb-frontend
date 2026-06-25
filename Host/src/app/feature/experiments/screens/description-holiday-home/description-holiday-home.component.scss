@@ -1,0 +1,9 @@
+select:first-child {
+  text-indent: 24%;
+  direction: rtl;
+  padding-right: 7px;
+}
+
+select option {
+  direction: rtl;
+}

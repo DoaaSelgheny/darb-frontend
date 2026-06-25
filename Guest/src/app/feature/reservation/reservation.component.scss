@@ -1,0 +1,48 @@
+:host ::ng-deep {
+    .ant-tabs > .ant-tabs-nav .ant-tabs-nav-list {
+      background-color: #122466;
+  
+    }
+    .ant-tabs > .ant-tabs-nav {
+      // background-color: #ffffff00;
+      // color:#fff;
+      // background-color: #fff;
+      color:#122466;
+
+      .ant-tabs-nav-more {
+        padding: 3px;
+      }
+    }
+    .ant-tabs-tab{
+      background-color: #fff;
+
+    }
+    .ant-tabs-tab-active {
+      background-color: #ffffff00;
+      border-bottom: none;
+      .ant-tabs-tab-btn {
+        color:#fff;
+      }
+      .ant-tag{
+        background-color: #3B82F6;
+      }
+    }
+    .ant-tabs-ink-bar {
+      background-color: transparent;
+    }
+    .ant-form-item-label > label::after {
+      display: none;
+    }
+    .ant-tabs-top > .ant-tabs-nav::before{
+      border-bottom: none;
+    }
+    .ant-select-single .ant-select-selector {
+      align-items: end;
+  }
+  .ant-tabs-rtl .ant-tabs-nav .ant-tabs-tab{
+    margin: 0;
+  }
+  .ant-tabs-top > .ant-tabs-nav {
+    margin: 0;
+  }
+}
