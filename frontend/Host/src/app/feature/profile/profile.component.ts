@@ -52,10 +52,10 @@ export class ProfileComponent implements OnInit {
   isVerified: boolean = false;
   CountryISO = CountryISO;
   PhoneNumberFormat = PhoneNumberFormat;
-  onlySaudiCountry = CountryISO.SaudiArabia;
-  selectedCountryISO: string = CountryISO.SaudiArabia;
+  onlySaudiCountry = CountryISO.Syria;
+  selectedCountryISO: string = CountryISO.Syria;
   SearchCountryField = SearchCountryField;
-  preferredCountries = [CountryISO.SaudiArabia, CountryISO.Egypt];
+  preferredCountries = [CountryISO.Syria, CountryISO.Egypt];
   otpType = HyyakOtpType;
   genderEnum=Gender;
   lang: string;

@@ -37,7 +37,7 @@ export class UpdatedAccountDetailsComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (this.contactInfo?.type == this.otpType.ChangePhoneNumber) {
       const mobileNumber = this.contactInfo?.value.split(' ');
-      this.selectedCountryISO = this.contactInfo?.countryCode || CountryISO.SaudiArabia;
+      this.selectedCountryISO = this.contactInfo?.countryCode || CountryISO.Syria;
       mobileNumber.shift();
 
       this.form.controls['previousPhoneNumber']?.disable();

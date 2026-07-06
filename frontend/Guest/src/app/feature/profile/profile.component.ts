@@ -82,10 +82,10 @@ export class ProfileComponent implements OnInit {
   userInterest: any[];
   CountryISO = CountryISO;
   PhoneNumberFormat = PhoneNumberFormat;
-  onlySaudiCountry = CountryISO.SaudiArabia;
+  onlySaudiCountry = CountryISO.Syria;
   SearchCountryField = SearchCountryField;
-  preferredCountries = [CountryISO.SaudiArabia, CountryISO.Egypt];
-  selectedCountryISO = CountryISO.SaudiArabia;
+  preferredCountries = [CountryISO.Syria, CountryISO.Egypt];
+  selectedCountryISO = CountryISO.Syria;
   eighteenYearsAgo = EIGHTEEN_YEARS_AGO;
   subscriptions: Subscription = new Subscription();
   

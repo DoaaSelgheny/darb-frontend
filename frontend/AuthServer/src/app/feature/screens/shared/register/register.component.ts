@@ -47,10 +47,10 @@ export class RegisterComponent {
   form: FormGroup;
   CountryISO = CountryISO;
   PhoneNumberFormat = PhoneNumberFormat;
-  onlySaudiCountry = CountryISO.SaudiArabia;
+  onlySaudiCountry = CountryISO.Syria;
   SearchCountryField = SearchCountryField;
-  preferredCountries = [CountryISO.SaudiArabia, CountryISO.Egypt];
-  selectedCountryISO = CountryISO.SaudiArabia;
+  preferredCountries = [CountryISO.Syria, CountryISO.Egypt];
+  selectedCountryISO = CountryISO.Syria;
   showErrorTerms: boolean;
   loginMethod: LoginMethod;
   loginMethodEnum = LoginMethod;

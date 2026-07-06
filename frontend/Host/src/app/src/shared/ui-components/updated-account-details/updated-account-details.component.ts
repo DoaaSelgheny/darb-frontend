@@ -35,7 +35,7 @@ export class UpdatedAccountDetailsComponent implements OnInit, OnChanges {
   form: FormGroup = new FormGroup({});
   selectedCountryISO;
   otpType = HyyakOtpType;
-  onlySaudiCountry = CountryISO.SaudiArabia;
+  onlySaudiCountry = CountryISO.Syria;
   PhoneNumberFormat = PhoneNumberFormat;
   submitted: boolean = false;
 
@@ -47,7 +47,7 @@ export class UpdatedAccountDetailsComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (this.contactInfo?.type == this.otpType.ChangePhoneNumber) {
       const mobileNumber = this.contactInfo?.value.split(' ');
-      this.selectedCountryISO = this.contactInfo?.countryCode || CountryISO.SaudiArabia;
+      this.selectedCountryISO = this.contactInfo?.countryCode || CountryISO.Syria;
       mobileNumber.shift();
       this.form.controls['previousPhoneNumber']?.disable();
       this.form.controls['previousPhoneNumber']?.setValue(mobileNumber.join(' '));

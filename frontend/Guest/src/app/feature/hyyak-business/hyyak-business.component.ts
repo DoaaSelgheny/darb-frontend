@@ -45,10 +45,10 @@ export class HyyakBusinessComponent implements AfterViewInit, OnInit {
   showMessage: boolean;
   CountryISO = CountryISO;
   PhoneNumberFormat = PhoneNumberFormat;
-  onlySaudiCountry = CountryISO.SaudiArabia;
+  onlySaudiCountry = CountryISO.Syria;
   SearchCountryField = SearchCountryField;
-  preferredCountries = [CountryISO.SaudiArabia, CountryISO.Egypt];
-  selectedCountryISO = CountryISO.SaudiArabia;
+  preferredCountries = [CountryISO.Syria, CountryISO.Egypt];
+  selectedCountryISO = CountryISO.Syria;
   constructor(
     private localizationService: LocalizationService,
     private fb: FormBuilder,

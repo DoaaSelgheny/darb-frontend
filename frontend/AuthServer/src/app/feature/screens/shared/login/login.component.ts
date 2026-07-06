@@ -57,10 +57,10 @@ export class LoginComponent {
   captchaResponse: boolean = false;
   CountryISO = CountryISO;
   phoneNumberFormat = PhoneNumberFormat.International;
-  onlySaudiCountry = CountryISO.SaudiArabia;
+  onlySaudiCountry = CountryISO.Syria;
   SearchCountryField = SearchCountryField;
-  preferredCountries = [CountryISO.SaudiArabia, CountryISO.Egypt];
-  selectedCountryISO = CountryISO.SaudiArabia;
+  preferredCountries = [CountryISO.Syria, CountryISO.Egypt];
+  selectedCountryISO = CountryISO.Syria;
   form: FormGroup;
   loading = false;
   isSend = false;

@@ -34,10 +34,10 @@ export class ContactUsComponent {
   confrontationTypesEnum = ConfrontationTypes;
   CountryISO = CountryISO;
   PhoneNumberFormat = PhoneNumberFormat;
-  onlySaudiCountry = CountryISO.SaudiArabia;
+  onlySaudiCountry = CountryISO.Syria;
   SearchCountryField = SearchCountryField;
-  preferredCountries = [CountryISO.SaudiArabia, CountryISO.Egypt];
-  selectedCountryISO = CountryISO.SaudiArabia;
+  preferredCountries = [CountryISO.Syria, CountryISO.Egypt];
+  selectedCountryISO = CountryISO.Syria;
 lang = this.localizationService.currentLang;
   constructor(
     private toaster: ToasterService,
