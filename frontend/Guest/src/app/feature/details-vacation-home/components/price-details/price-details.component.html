@@ -4,7 +4,7 @@
       {{ payment?.pricePerNight }}
     </p>
     <div class="flex flex-row">
-      <img src="assets/imgs/reyal.svg" class="mx-2" alt="riyal">
+      <span class="mx-2 text-lg font-bold text-btnBg">{{"::Guset:Explore:sar"|abpLocalization}}</span>
       <p  class="font-bold text-lg text-btnBg"> / {{"::Guest:Explore:price:night" |abpLocalization}}</p>
     </div>
     <!-- <p class="font-bold text-lg text-btnBg">
@@ -68,12 +68,12 @@
       <!-- {{ payment?.pricePerNight }} {{"::Guset:Explore:sar" |abpLocalization}} -->
       <div style="direction: rtl;" class="flex">
         <p class="font-normal text-dark text-sm"> {{ payment?.pricePerNight }} </p>
-        <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+        <span class="mx-2 text-sm">{{"::Guset:Explore:sar"|abpLocalization}}</span>
       </div>
     </div>
     <div class="flex flex-row" style="direction: rtl;">
       <p class="font-normal text-dark text-sm">{{ payment?.subTotalPrice }} </p>
-      <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+      <span class="mx-2 text-sm">{{"::Guset:Explore:sar"|abpLocalization}}</span>
     </div>
     <!-- <p class="font-normal text-dark text-sm">
       {{ payment?.subTotalPrice }} 
@@ -86,7 +86,7 @@
       <p class=" font-bold text-sm text-[#3A3A3A] ">{{'::Host:taxValue'|abpLocalization}}</p>
       <div style="direction: rtl;" class="flex">
         <p class="text-dark font-normal text-sm">  {{ payment?.valueAddedTax}}  </p>
-        <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+        <span class="mx-2 text-sm">{{"::Guset:Explore:sar"|abpLocalization}}</span>
       </div>
       <!-- <p class=" text-dark font-normal text-sm">
         {{ payment?.valueAddedTax}} 
@@ -100,7 +100,7 @@
     <p class="font-bold text-sm text-[#3A3A3A]">{{"::Guest:Explore:price:tax" |abpLocalization}}</p>
     <div style="direction: rtl;" class="flex">
       <p class="text-dark font-normal text-sm">  {{ payment?.serviceFeeIncludeTax}}  </p>
-      <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+      <span class="mx-2 text-sm">{{"::Guset:Explore:sar"|abpLocalization}}</span>
     </div>
     <!-- <p class="text-dark font-normal text-sm">
       {{ payment?.serviceFeeIncludeTax }} 
@@ -118,7 +118,7 @@
         </p> -->
         <div style="direction: rtl;" class="flex">
           <p class=" text-dark text-base">  {{ payment?.totalPrice}}  </p>
-          <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+          <span class="mx-2 text-base">{{"::Guset:Explore:sar"|abpLocalization}}</span>
         </div>
     </div>
   </div>
@@ -133,7 +133,7 @@
         </p> -->
         <div style="direction: rtl;" class="flex">
           <p class="text-dark text-base">  {{ payment?.payNow}}  </p>
-          <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+          <span class="mx-2 text-base">{{"::Guset:Explore:sar"|abpLocalization}}</span>
         </div>
       </div>
     }

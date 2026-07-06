@@ -1,3 +1,4 @@
+import { LocalizationService } from '@abp/ng.core';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -8,8 +9,11 @@ import { environment } from 'src/environments/environment';
   styleUrl: './host-with-us.component.scss',
 })
 export class HostWithUsComponent {
+  lang = this.localizationService.currentLang;
   constructor(
-    private router: Router,){}
+    private router: Router,
+    private localizationService: LocalizationService,
+  ){}
   loginToHost() {
     let url = environment.hostUrl + '/auth/login/?no-email';
 

@@ -90,5 +90,7 @@ export class ActivitiesSectionComponent implements OnInit,AfterViewInit {
 navigateToExperience(id:any){
   this.router.navigate(['/explore', { type:2,vacationHomeTypeId: id }]);
 }
-  
+  exploreExperiences() {
+    this.router.navigate(['/explore', { type: 2 }]);
+  }
 }

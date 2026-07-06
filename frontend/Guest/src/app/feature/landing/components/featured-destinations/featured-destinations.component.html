@@ -1,0 +1,130 @@
+<section class="py-20 bg-ivory" appAppearOnScroll>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <span class="text-heritage font-medium text-sm tracking-wider uppercase">
+        {{ lang === 'ar' ? 'وجهاتنا المختارة' : 'Our featured destinations' }}
+      </span>
+      <h2 class="text-4xl md:text-5xl font-bold text-navy mt-3 mb-4 font-naskh">
+        {{ lang === 'ar' ? 'اكتشف جمال سوريا' : 'Discover the beauty of Syria' }}
+      </h2>
+      <p class="text-navy-light max-w-2xl mx-auto">
+        {{
+          lang === 'ar'
+            ? 'من الأزقة الضيقة لدمشق القديمة إلى شواطئ البحر المتوسط، كل وجهة تحكي قصة'
+            : 'From the narrow alleys of Old Damascus to the shores of the Mediterranean, every destination tells a story'
+        }}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Damascus -->
+      <div class="card-premium bg-white rounded-3xl overflow-hidden shadow-card">
+        <div class="img-zoom h-72 relative overflow-hidden">
+          <img src="assets/darb/pic4.jpeg" alt="Umayyad Mosque" class="w-full h-full object-cover" />
+          <div class="hover-reveal">
+            <span class="text-white text-sm font-medium flex items-center gap-2">
+              <img src="assets/darb/compass.svg" width="16" height="16" alt="" />
+              {{ lang === 'ar' ? 'اكتشف الوجهة' : 'Discover destination' }}
+            </span>
+          </div>
+          <div class="absolute top-4 end-4">
+            <span class="badge-premium text-white text-xs px-3 py-1.5 rounded-full font-medium">
+              {{ lang === 'ar' ? 'الأكثر زيارة' : 'Most visited' }}
+            </span>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <img src="assets/darb/map-pin.svg" width="16" height="16" alt="" />
+            <span class="text-navy-light text-sm">{{ lang === 'ar' ? 'دمشق القديمة' : 'Old Damascus' }}</span>
+          </div>
+          <h3 class="text-2xl font-bold text-navy mb-2 font-naskh">{{ lang === 'ar' ? 'المسجد الأموي' : 'The Umayyad Mosque' }}</h3>
+          <p class="text-navy-light text-sm leading-relaxed mb-4">
+            {{
+              lang === 'ar'
+                ? 'تجول في أزقة المدينة الأقدم في التاريخ، حيث الياسمين الدمشقي والبيوت العتيقة'
+                : 'Wander the alleys of one of the oldest cities in history, where Damascene jasmine and old houses meet'
+            }}
+          </p>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-1">
+              <img src="assets/darb/star-gold.svg" width="16" height="16" alt="rating" />
+              <span class="text-navy font-medium">4.9</span>
+              <span class="text-navy-light text-sm">&nbsp;({{ lang === 'ar' ? '128 تقييم' : '128 reviews' }})</span>
+            </div>
+            <a routerLink="/explore" class="text-primary font-medium text-sm hover:underline">
+              {{ lang === 'ar' ? 'اكتشف المزيد' : 'Discover more' }}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aleppo Citadel -->
+      <div class="card-premium bg-white rounded-3xl overflow-hidden shadow-card">
+        <div class="img-zoom h-72 relative overflow-hidden">
+          <img src="assets/darb/pic5.jpg" alt="Aleppo Citadel" class="w-full h-full object-cover" />
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <img src="assets/darb/map-pin.svg" width="16" height="16" alt="" />
+            <span class="text-navy-light text-sm">{{ lang === 'ar' ? 'حلب' : 'Aleppo' }}</span>
+          </div>
+          <h3 class="text-2xl font-bold text-navy mb-2 font-naskh">{{ lang === 'ar' ? 'قلعة حلب' : 'Aleppo Citadel' }}</h3>
+          <p class="text-navy-light text-sm leading-relaxed mb-4">
+            {{
+              lang === 'ar'
+                ? 'شاهد عظمة الحضارة السورية في واحدة من أقدم القلاع في العالم'
+                : 'Witness the grandeur of Syrian civilization at one of the oldest citadels in the world'
+            }}
+          </p>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-1">
+              <img src="assets/darb/star-gold.svg" width="16" height="16" alt="rating" />
+              <span class="text-navy font-medium">4.8</span>
+              <span class="text-navy-light text-sm">&nbsp;({{ lang === 'ar' ? '96 تقييم' : '96 reviews' }})</span>
+            </div>
+            <a routerLink="/explore" class="text-primary font-medium text-sm hover:underline">
+              {{ lang === 'ar' ? 'اكتشف المزيد' : 'Discover more' }}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Palmyra -->
+      <div class="card-premium bg-white rounded-3xl overflow-hidden shadow-card">
+        <div class="img-zoom h-72 relative overflow-hidden">
+          <img src="assets/darb/pic6.jpg" alt="Ruins of Palmyra" class="w-full h-full object-cover" />
+          <div class="absolute top-4 end-4">
+            <span class="bg-primary text-white text-xs px-3 py-1.5 rounded-full font-medium">
+              {{ lang === 'ar' ? 'تراث عالمي' : 'World heritage' }}
+            </span>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <img src="assets/darb/map-pin.svg" width="16" height="16" alt="" />
+            <span class="text-navy-light text-sm">{{ lang === 'ar' ? 'تدمر' : 'Palmyra' }}</span>
+          </div>
+          <h3 class="text-2xl font-bold text-navy mb-2 font-naskh">{{ lang === 'ar' ? 'آثار تدمر' : 'Ruins of Palmyra' }}</h3>
+          <p class="text-navy-light text-sm leading-relaxed mb-4">
+            {{
+              lang === 'ar'
+                ? 'مدينة القوافل الرومانية في قلب البادية السورية، مهد حضارات ترويها الأعمدة والأقواس'
+                : 'The Roman caravan city in the heart of the Syrian desert, a cradle of civilizations told by its columns and arches'
+            }}
+          </p>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-1">
+              <img src="assets/darb/star-gold.svg" width="16" height="16" alt="rating" />
+              <span class="text-navy font-medium">4.9</span>
+              <span class="text-navy-light text-sm">&nbsp;({{ lang === 'ar' ? '112 تقييم' : '112 reviews' }})</span>
+            </div>
+            <a routerLink="/explore" class="text-primary font-medium text-sm hover:underline">
+              {{ lang === 'ar' ? 'اكتشف المزيد' : 'Discover more' }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

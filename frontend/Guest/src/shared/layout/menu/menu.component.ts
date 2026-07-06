@@ -64,7 +64,7 @@ export class MenuComponent {
       selected: false,
     },
     {
-      name: 'عن حياك',
+      name: 'عن درب',
       path: '/about-hyyak',
       selected: false,
     },
@@ -79,7 +79,7 @@ export class MenuComponent {
       selected: false,
     },
     {
-      name: 'حيّاك للأعمال',
+      name: 'درب للأعمال',
       path: '/hyyak-business',
       selected: false,
     },
@@ -111,12 +111,12 @@ export class MenuComponent {
       selected: false,
     },
     {
-      name: ' About Hyyak  ',
+      name: ' About Darb  ',
       path: '/about-hyyak',
       selected: false,
     },
     {
-      name: 'Hayyak Business',
+      name: 'Darb Business',
       path: '/hyyak-business',
       selected: false,
     },
@@ -139,7 +139,7 @@ export class MenuComponent {
       selected: false,
     },
     {
-      name: 'Hayyak Business',
+      name: 'Darb Business',
       path: '/hyyak-business',
       selected: false,
     },
@@ -151,7 +151,7 @@ export class MenuComponent {
       selected: false,
     },
     {
-      name: 'حيّاك للأعمال',
+      name: 'درب للأعمال',
       path: '/hyyak-business',
       selected: false,
     },

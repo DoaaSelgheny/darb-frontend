@@ -1,193 +1,82 @@
-<div
-  id="filter"
-  class="w-full px-9 sm:px-8 md:px-4 lg:px-12 xl:px-12 2xl:px-24 tabs-lending mx-auto absolute
-   -bottom-20  left-1/2 -translate-x-1/2"
->
-  <nz-tabset [nzSelectedIndex]="index" (nzSelectedIndexChange)="changeTab($event)">
-    <nz-tab [nzTitle]="title1">
-      <ng-template #title1>
-        <div class="text-base">
-          <i class="fa-light fa-campground me-1"></i>
-          {{ '::guest:landing.VacationHomes' | abpLocalization }}
-        </div>
-      </ng-template>
-
-      <div class="py-9 bg-white  w-full px-9 " [ngClass]="lang === 'ar' ? 'rounded-tl-xl' :'rounded-tr-lg'">
-        <div class="grid lg:grid-cols-5 xl:grid-cols-5 sm:grid-cols-2 grid-cols-1 sm:gap-3" >
-          <nz-select
-            [(ngModel)]="selectedVacationHomeType"
-            nzAllowClear
-            nzPlaceHolder=" {{ '::guest:landing.vacationHomeType' | abpLocalization }}    "
-            class="xl-select flex-1 mt-4 md:mt-0 col-span-1"
-          >
-            <nz-option
-              *ngFor="let vhType of vacationHomeTypes"
-              [nzLabel]="vhType.displayName"
-              [nzValue]="vhType.id"
-            ></nz-option>
-          </nz-select>
-          <nz-select
-            [(ngModel)]="selectedVacationHomeCity"
-            nzAllowClear
-            [nzShowSearch]="true"
-            nzPlaceHolder="{{ '::guest:landing.city' | abpLocalization }}"
-            class="xl-select flex-1 mt-4 md:mt-0 col-span-1"
-            (ngModelChange)="getDistricts($event)"
-          >
-            <nz-option
-              *ngFor="let city of cities"
-              [nzLabel]="city.name"
-              [nzValue]="city.id"
-            ></nz-option>
-          </nz-select>
-
-          <nz-select
-          [(ngModel)]="selectedVacationHomeDistrict"
-            [nzDisabled]="!selectedVacationHomeCity"
-            nzAllowClear
-            [nzShowSearch]="true"
-            nzPlaceHolder="{{ '::guest:landing.district' | abpLocalization }}"
-            class="xl-select flex-1 mt-4 md:mt-0 col-span-1"
-          >
-            <nz-option
-              *ngFor="let vhType of districts"
-              [nzLabel]="vhType.name"
-              [nzValue]="vhType.id"
-            ></nz-option>
-          </nz-select>
-          <button
-          *ngIf="!showCalander"
-          (click)="showCalander = !showCalander"
-          nz-button
-          [ngClass]="{ showCalander: showCalander }"
-            class="col-span-1 bg-white mb-3 sm:mb-3 md:mb-3 border-gray-200
-            lg:mb-3 xl:last:mb-0 mt-4 md:mt-0 
-            text-[#0f172a] h-14 rounded-lg ">
-            <p class="lg:text-sm font-bold text-sm">
-              {{ '::guest:landing:section2:date' | abpLocalization }}
-              <i class="fa-solid fa-plus absolute top-1/2 -translate-y-1/2 -rotate-90 lg:rotate-0">
-              </i>
-            </p>
-          </button>
-          <nz-range-picker
-            *ngIf="showCalander"
-            [nzPlaceHolder]="[
-              '::guest:landing.start' | abpLocalization,
-              '::guest:landing.end' | abpLocalization
-            ]"
-            classes="bg-white"
-            class="xl-select flex-1 mt-4 md:mt-0 mb-3 text-black col-span-1  h-[55px]"
-            ngModel
-            (ngModelChange)="changeVacationHomeDate($event)"
-            [nzDisabledDate]="disabledDate"
-            [nzDateRender]="tplRender"
-            ></nz-range-picker>
-            <ng-template #tplRender let-current>
-              <div
-                class="ant-picker-cell-inner"
-                [class.disable]="isdisabledDate(current)"
-              >
-                {{ current.getDate() }}
-              </div>
-            </ng-template>
-          <app-button class="block" (click)="searchVacationHome()">
-            {{ '::guest:landing.search' | abpLocalization }}
-          </app-button>
-        </div>
-      </div>
-    </nz-tab>
-    <nz-tab [nzTitle]="title2">
-      <ng-template #title2>
-        <div class="text-base">
-          <i class="fa-light fa-person-hiking me-1"></i>
-          {{ '::guest:landing.experiences' | abpLocalization }}
-        </div>
-      </ng-template>
-
-      <div class="py-9 bg-white  w-full px-9 " [ngClass]="lang === 'ar' ? 'rounded-tl-xl' :'rounded-tr-lg'">
-        <div class="grid lg:grid-cols-5 xl:grid-cols-5 sm:grid-cols-2 grid-cols-1 sm:gap-3">
-          <nz-select
-            [(ngModel)]="selectedExperienceType"
-            nzAllowClear
-            nzPlaceHolder=" {{ '::guest:landing.experiences' | abpLocalization }}    "
-            class="xl-select flex-1 mt-4 md:mt-0 col-span-1"
-          >
-            <nz-option
-              *ngFor="let vhType of experienceTypes"
-              [nzLabel]="vhType.name"
-              [nzValue]="vhType.id"
-            ></nz-option>
-          </nz-select>
-          <nz-select
-            [(ngModel)]="selectedExperienceCity"
-            nzAllowClear
-            [nzShowSearch]="true"
-            nzPlaceHolder="{{ '::guest:landing.city' | abpLocalization }}"
-            class="xl-select flex-1 mt-4 md:mt-0 col-span-1"
-            (ngModelChange)="getDistricts($event)"
-          >
-            <nz-option
-              *ngFor="let city of cities"
-              [nzLabel]="city.name"
-              [nzValue]="city.id"
-            ></nz-option>
-          </nz-select>
-
-          <nz-select
-          [(ngModel)]="selectedExperienceDistrict"
-            [nzDisabled]="!selectedExperienceCity"
-            nzAllowClear            
-            [nzShowSearch]="true"
-            nzPlaceHolder="{{ '::guest:landing.district' | abpLocalization }}"
-            class="xl-select flex-1 mt-4 md:mt-0 col-span-1"
-          >
-            <nz-option
-              *ngFor="let vhType of districts"
-              [nzLabel]="vhType.name"
-              [nzValue]="vhType.id"
-            ></nz-option>
-          </nz-select>
-
-        <button
-        (click)="showCalanderExp = !showCalanderExp"
-        nz-button
-        *ngIf="!showCalanderExp"
-        class="col-span-1 bg-white mb-3 sm:mb-3 md:mb-3 border-gray-200
-        lg:mb-3 xl:last:mb-0 mt-4 md:mt-0 
-        text-[#0f172a] h-14 rounded-lg "
+<div id="filter" class="w-full max-w-4xl mx-auto px-4">
+  <div
+    class="rounded-2xl p-3 bg-white/95 backdrop-blur-xl shadow-[0_20px_60px_-12px_rgba(0,0,0,0.25)]"
+  >
+    <div class="grid lg:grid-cols-5 xl:grid-cols-5 sm:grid-cols-2 grid-cols-1 gap-3">
+      <nz-select
+        [(ngModel)]="searchType"
+        (ngModelChange)="changeSearchType($event)"
+        class="xl-select flex-1"
       >
-        <p class="lg:text-sm font-bold text-sm">
-          {{ '::guest:landing:section2:date' | abpLocalization }}
-          <i class="fa-solid fa-plus absolute top-1/2 -translate-y-1/2 -rotate-90 lg:rotate-0">
-          </i>
-        </p>
+        <nz-option [nzLabel]="lang === 'ar' ? 'بيت عطلات' : 'Vacation home'" [nzValue]="1"></nz-option>
+        <nz-option [nzLabel]="lang === 'ar' ? 'تجربة' : 'Experience'" [nzValue]="2"></nz-option>
+      </nz-select>
+
+      <nz-select
+        *ngIf="searchType === 1"
+        [(ngModel)]="selectedType"
+        nzAllowClear
+        nzPlaceHolder=" {{ '::guest:landing.vacationHomeType' | abpLocalization }}    "
+        class="xl-select flex-1"
+      >
+        <nz-option
+          *ngFor="let vhType of vacationHomeTypes"
+          [nzLabel]="vhType.displayName"
+          [nzValue]="vhType.id"
+        ></nz-option>
+      </nz-select>
+      <nz-select
+        *ngIf="searchType === 2"
+        [(ngModel)]="selectedType"
+        nzAllowClear
+        nzPlaceHolder=" {{ '::guest:landing.experiences' | abpLocalization }}    "
+        class="xl-select flex-1"
+      >
+        <nz-option
+          *ngFor="let expType of experienceTypes"
+          [nzLabel]="expType.name"
+          [nzValue]="expType.id"
+        ></nz-option>
+      </nz-select>
+
+      <nz-select
+        [(ngModel)]="selectedCity"
+        nzAllowClear
+        [nzShowSearch]="true"
+        nzPlaceHolder="{{ '::guest:landing.city' | abpLocalization }}"
+        class="xl-select flex-1"
+      >
+        <nz-option *ngFor="let city of cities" [nzLabel]="city.name" [nzValue]="city.id"></nz-option>
+      </nz-select>
+
+      <button
+        *ngIf="!showCalendar"
+        type="button"
+        (click)="showCalendar = true"
+        nz-button
+        class="bg-white border-gray-200 text-[#0f172a] h-14 rounded-lg flex items-center justify-center gap-2"
+      >
+        <span nz-icon nzType="calendar" nzTheme="outline"></span>
+        <span class="lg:text-sm font-bold text-sm">{{ '::guest:landing:section2:date' | abpLocalization }}</span>
       </button>
       <nz-range-picker
-        *ngIf="showCalanderExp"
+        *ngIf="showCalendar"
         [nzPlaceHolder]="[
           '::guest:landing.start' | abpLocalization,
           '::guest:landing.end' | abpLocalization
         ]"
-        classes="bg-white"
-        class="xl-select flex-1 mt-4 md:mt-0 mb-3 text-black col-span-1  h-[55px]"
+        class="xl-select flex-1 text-black h-14"
         ngModel
-        (ngModelChange)="changeExperienceDate($event)"
+        (ngModelChange)="changeDate($event)"
         [nzDisabledDate]="disabledDate"
-        [nzDateRender]="tplRender"
       ></nz-range-picker>
-      <ng-template #tplRender let-current>
-        <div
-          class="ant-picker-cell-inner"
-          [class.line-through]="isdisabledDate(current)"
-        >
-          {{ current.getDate() }}
-        </div>
-      </ng-template>
-      <app-button class="block" (click)="searchExperience()">
-        {{ '::guest:landing.search' | abpLocalization }}
+
+      <app-button class="block" (click)="search()">
+        <span class="flex items-center justify-center gap-2">
+          <span nz-icon nzType="search" nzTheme="outline"></span>
+          {{ '::guest:landing.search' | abpLocalization }}
+        </span>
       </app-button>
-        </div>
-      </div>
-    </nz-tab>
-  </nz-tabset>
+    </div>
+  </div>
 </div>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 148" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6B3F1C"/>
+      <stop offset="50%" stop-color="#B07032"/>
+      <stop offset="100%" stop-color="#D4A55A"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="148" fill="url(#g)"/>
+  <g stroke="rgba(255,255,255,0.18)" stroke-width="0.9" fill="none">
+    <circle cx="100" cy="74" r="52"/><circle cx="100" cy="74" r="37"/><circle cx="100" cy="74" r="21"/>
+  </g>
+  <path d="M100,53 Q85,63 80,74 Q85,85 100,95 Q115,85 120,74 Q115,63 100,53Z" stroke="rgba(255,255,255,0.14)" stroke-width="0.7" fill="none"/>
+  <path d="M80,74 Q62,66 58,74 Q62,82 80,74Z" stroke="rgba(255,255,255,0.14)" stroke-width="0.7" fill="none"/>
+  <path d="M120,74 Q138,66 142,74 Q138,82 120,74Z" stroke="rgba(255,255,255,0.14)" stroke-width="0.7" fill="none"/>
+  <path d="M100,67 L102.5,73 L108,70 L104.5,75 L110,77 L104.5,79 L108,84 L102.5,81 L100,87 L97.5,81 L92,84 L95.5,79 L90,77 L95.5,75 L92,70 L97.5,73 Z" fill="rgba(255,255,255,0.28)" stroke="none"/>
+</svg>

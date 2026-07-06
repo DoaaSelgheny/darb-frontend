@@ -1,53 +1,105 @@
-<div class="container mx-auto py-10 lg:pb-16 px-3 lg:px-0">
-  <div class="flex lg:px-24 sm:px-4 flex-col-reverse md:flex-row items-center justify-between">
-    <div class="w-full px-5">
-      <h2 class="text-base lg:text-5xl md:text-2xl sm:text-base mb-4 font-extrabold w-full ">
-    {{ '::guest:landing.hostwithus.Title' | abpLocalization }} 
-       
-      </h2>
-      <h2 class="text-base lg:text-4xl md:text-2xl sm:text-base font-bold w-full ">
-        {{ '::guest:landing.hostwithus.subTitle' | abpLocalization }} 
-   
-      </h2>
-      <ul class="list-disc text-[#696969] mt-4 text-lg ms-3">
-        <li>{{ '::guest:landing.hostwithus.Benefits.Point1' | abpLocalization }}</li>
-        <li>{{ '::guest:landing.hostwithus.Benefits.Point2' | abpLocalization }}</li>
-        <li>{{ '::guest:landing.hostwithus.Benefits.Point3' | abpLocalization }}</li>
-      </ul>
-      <div class="lg:flex">
-        <app-button (click)="goToHostLanding()" class="mt-9 block">{{
-          '::guest:landing.hostwithus' | abpLocalization
-        }}</app-button>
+<section class="py-24 bg-navy text-white relative overflow-hidden" appAppearOnScroll>
+  <!-- Khatam pattern background -->
+  <div
+    class="absolute inset-0 bg-[url('assets/darb/khatam-pattern.svg')] bg-repeat bg-[length:80px_80px] opacity-[0.04]"
+  ></div>
+  <div class="absolute inset-0 bg-gradient-to-r from-navy via-navy/95 to-navy/85"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div>
+        <span class="text-heritage font-medium text-sm tracking-wider uppercase">
+          {{ lang === 'ar' ? 'التراث السوري' : 'Syrian Heritage' }}
+        </span>
+        <h2 class="text-4xl text-white md:text-5xl font-bold mt-3 mb-6 font-naskh leading-tight">
+          {{ lang === 'ar' ? 'صاحب مكان أو مقدّم' : 'Own a place, or offer' }}<br />
+          <span class="text-heritage">{{ lang === 'ar' ? 'تجربة؟' : 'an experience?' }}</span>
+        </h2>
+        <p class="text-white/70 leading-relaxed mb-8">
+          {{
+            lang === 'ar'
+              ? 'انضم إلى شبكة درب وشارك قصتك مع العالم. سواء كنت تمتلك بيتاً تقليدياً في دمشق القديمة أو تقدم جولات طعام في حلب، نحن هنا لنساعدك.'
+              : 'Join the Darb network and share your story with the world. Whether you own a traditional home in Old Damascus or run food tours in Aleppo, we are here to help.'
+          }}
+        </p>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-center gap-3">
+            <div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+              <img src="assets/darb/check-white.svg" width="14" height="14" alt="check" />
+            </div>
+            <span class="text-white/90">{{ lang === 'ar' ? 'افتح قلبك قبل مكانك' : 'Open your heart before your doors' }}</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+              <img src="assets/darb/check-white.svg" width="14" height="14" alt="check" />
+            </div>
+            <span class="text-white/90">{{ lang === 'ar' ? 'شارك ضيوفك الهوية المحلية' : 'Share the local identity with your guests' }}</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+              <img src="assets/darb/check-white.svg" width="14" height="14" alt="check" />
+            </div>
+            <span class="text-white/90">{{ lang === 'ar' ? 'اكسب دخل إضافي' : 'Earn extra income' }}</span>
+          </div>
+        </div>
+        <button
+          (click)="goToHostLanding()"
+          class="btn-gold px-8 py-3.5 rounded-full font-medium inline-flex items-center gap-2"
+        >
+          {{ lang === 'ar' ? 'انضم معنا' : 'Join us' }}
+          <span nz-icon nzType="arrow-left" nzTheme="outline"></span>
+        </button>
+      </div>
+
+      <div>
+        <div class="relative">
+          <img
+            src="assets/darb/pic4.jpeg"
+            alt="Darb heritage"
+            class="rounded-3xl w-full h-[384px] object-cover bg-[#095c58]"
+          />
+          <!-- Floating stat card -->
+          <div class="absolute -bottom-8 -end-8 bg-white rounded-2xl p-6 shadow-2xl max-w-xs">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="flex -space-x-3 rtl:space-x-reverse">
+                <div class="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center text-white text-sm font-bold bg-primary">أ</div>
+                <div class="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center text-white text-sm font-bold bg-heritage">م</div>
+                <div class="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center text-white text-sm font-bold bg-[linear-gradient(135deg,#095c58,#0b7a75)]">س</div>
+              </div>
+              <div>
+                <div class="font-bold text-navy text-sm">+2000</div>
+                <div class="text-navy-light text-xs">{{ lang === 'ar' ? 'مستضيف' : 'Hosts' }}</div>
+              </div>
+            </div>
+            <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-primary to-heritage w-3/4 rounded-full"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <img
-      ngClass="mt-12 lg:mt-0 px-0 md:w-[56%] w-full flex-1"
-      class="g-image-height"
-      appDefaultImg
-      src="assets/imgs/img-destion.svg"
-    />
   </div>
+</section>
 
-  <div
-    class="flex lg:items-center xl:items-center md:items-center lg:mx-44 sm:mx-6 
-    flex-col md:flex-row justify-between mt-16 p-9 rounded-lg  text-white bg-[#122466]"
-  >
-    <div>
-      <p class="text-2xl font-bold">
-        {{ '::guest:landing.hostwithus.IntegratedTourismPrograms.Title' | abpLocalization }}
-      </p>
-      <p class="mt-4 font-bold md:mb-0">
-        {{ '::guest:landing.hostwithus.IntegratedTourismPrograms.Description' | abpLocalization }}
-      </p>
-      <p class="mt-2 mb-4 md:mb-0">
-        {{ '::guest:landing.hostwithus.IntegratedTourismPrograms.Description2' | abpLocalization }}
-      </p>
-    </div>
+
+
+<section class="py-24 bg-ivory" appAppearOnScroll>
+  <div class="max-w-4xl mx-auto px-4 text-center">
+    <h2 class="text-3xl md:text-5xl font-bold text-navy mb-6 font-naskh">
+      {{ '::guest:landing.hostwithus.IntegratedTourismPrograms.Title' | abpLocalization }}
+    </h2>
+    <p class="text-navy-light text-lg mb-2 leading-relaxed">
+      {{ '::guest:landing.hostwithus.IntegratedTourismPrograms.Description' | abpLocalization }}
+    </p>
+    <p class="text-navy-light text-lg mb-8 leading-relaxed">
+      {{ '::guest:landing.hostwithus.IntegratedTourismPrograms.Description2' | abpLocalization }}
+    </p>
     <button
-    routerLink="/hyyak-business"
-      class="md:whitespace-nowrap bg-[#F5F5F5] h-14 md:mx-auto rounded-md block font-bold text-[#171717] !border-none px-10 hover:text-primary"
+      routerLink="/hyyak-business"
+      class="btn-primary px-10 py-4 rounded-full text-white font-medium text-lg inline-flex items-center gap-2"
     >
       {{ '::guest:landing.hostwithus.IntegratedTourismPrograms.ButtonText' | abpLocalization }}
+      <span nz-icon nzType="arrow-left" nzTheme="outline"></span>
     </button>
   </div>
-</div>
+</section>

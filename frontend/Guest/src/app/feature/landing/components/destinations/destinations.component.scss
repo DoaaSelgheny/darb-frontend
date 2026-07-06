@@ -1,7 +1,17 @@
-.app-bg{
-   
-    background:
-    url('/assets/imgs/phoneAppBg.svg') no-repeat,
-    linear-gradient(90deg, #122466 0%, #1B379A 68.5%, #2448CC 100%);
-    background-position: left center;
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-delay {
+  animation: float 5.5s ease-in-out 1.2s infinite;
 }

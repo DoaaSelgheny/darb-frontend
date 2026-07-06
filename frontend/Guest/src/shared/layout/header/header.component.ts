@@ -4,7 +4,15 @@ import {
   LocalizationService,
   SessionStateService,
 } from '@abp/ng.core';
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { menu } from '../menu';
@@ -21,6 +29,8 @@ import { YakeenVerificationType } from '@proxy/account-verifications/enum';
 })
 export class HeaderComponent implements OnInit {
   headerTransparent: boolean = false;
+  heroHeader: boolean = false;
+  isScrolled: boolean = false;
   menu = [];
   menuHost = [];
   isOpenMenu: boolean = false;
@@ -51,13 +61,28 @@ export class HeaderComponent implements OnInit {
 
     this.router.events.subscribe(event => {
       this.headerTransparent = route.children[0]?.snapshot.data['headerTransparent'];
+      this.heroHeader = route.children[0]?.snapshot.data['heroHeader'];
       if (event instanceof NavigationEnd) {
         this.isVisibleSwitchToHost = false;
+        this.isScrolled = false;
       }
     });
     this.currentUser = this.config.getOne('currentUser');
 
     this.isShowSwitch = this.currentUser.phoneNumber?.startsWith('+966');
+  }
+
+  // Whether the hero header should currently render its light (white text) state -
+  // only relevant before the user scrolls past the hero.
+  get heroHeaderIsTransparent(): boolean {
+    return this.heroHeader && !this.isScrolled;
+  }
+
+  @HostListener('window:scroll')
+  onWindowScroll(): void {
+    if (this.heroHeader) {
+      this.isScrolled = window.scrollY > 60;
+    }
   }
 
   ngOnInit(): void {
@@ -106,7 +131,7 @@ export class HeaderComponent implements OnInit {
   }
   menuAr = [
     {
-      name: 'عن حياك',
+      name: 'عن درب',
       path: '/about-hyyak',
       selected: false,
     },
@@ -121,7 +146,7 @@ export class HeaderComponent implements OnInit {
       selected: false,
     },
     {
-      name: 'حيّاك للأعمال',
+      name: 'درب للأعمال',
       path: '/hyyak-business',
       selected: false,
     },
@@ -139,12 +164,12 @@ export class HeaderComponent implements OnInit {
   ];
   menuEn = [
     {
-      name: ' About Hyyak  ',
+      name: ' About Darb  ',
       path: '/about-hyyak',
       selected: false,
     },
     {
-      name: 'Hayyak Business',
+      name: 'Darb Business',
       path: '/hyyak-business',
       selected: false,
     },
@@ -177,7 +202,7 @@ export class HeaderComponent implements OnInit {
       selected: false,
     },
     {
-      name: 'Hayyak Business',
+      name: 'Darb Business',
       path: '/hyyak-business',
       selected: false,
     },
@@ -189,7 +214,7 @@ export class HeaderComponent implements OnInit {
       selected: false,
     },
     {
-      name: 'حيّاك للأعمال',
+      name: 'درب للأعمال',
       path: '/hyyak-business',
       selected: false,
     },

@@ -17,13 +17,28 @@ module.exports = {
         dark: '#1E1E1E',
         'gray-600': '#666',
         btnBg:'#0B7A75',
+        heritage: {
+          DEFAULT: '#D4A55A',
+          dark: '#B08A4A',
+          light: '#F5E6CC',
+        },
+        navy: {
+          DEFAULT: '#1F2937',
+          light: '#374151',
+        },
+        ivory: {
+          DEFAULT: '#FAF8F2',
+          dark: '#F0EBE0',
+        },
       },
       screens: {},
       fontFamily: {
         Rubik: 'Rubik',
+        naskh: ['"Noto Naskh Arabic"', 'serif'],
       },
       boxShadow: {
         greyBox: '0px 3px 30px #DBDBDB29',
+        card: '0 4px 20px rgba(0, 0, 0, 0.06)',
       },
       container: {
         center: true,

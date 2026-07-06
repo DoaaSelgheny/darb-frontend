@@ -162,13 +162,15 @@ abp-confirmation {
 }
 /* Override the default color of the dots */
 .ant-carousel .slick-dots li button {
-  background-color: var(--primary-color); /* Change to your preferred color */
+          @apply bg-primary;
+
   opacity: 1; /* Ensure the dot is visible */
 }
 
 /* Override the color of the active dot */
 .ant-carousel .slick-dots li.slick-active button {
-  background-color: var(--primary-color); /* Change to your preferred active color */
+          @apply bg-primary;
+
 }
 
 .text-shadow{
@@ -203,9 +205,80 @@ abp-confirmation {
 }
 
 .btn-primary{
-  background: var(--primary-color) !important;
+          @apply bg-primary;
+
+}
+.btn-gold {
+  border: 2px solid #d4a55a;
+  color: #d4a55a;
+  transition: all 0.3s ease;
+}
+.btn-gold:hover {
+  background: #d4a55a;
+  color: white;
+}
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #d4a55a, transparent);
+  opacity: 0.3;
 }
 .ant-carousel .slick-slide img {
   object-fit: contain;
   width: 100%;
+}
+
+.khatam-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0;
+  overflow: hidden;
+}
+.khatam-divider-line {
+  flex: 1;
+  max-width: 320px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(212, 165, 90, 0.35));
+}
+.khatam-divider-line.flip {
+  background: linear-gradient(to left, transparent, rgba(212, 165, 90, 0.35));
+}
+
+@keyframes shimmer {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+.animate-shimmer {
+  animation: shimmer 2.5s ease-in-out infinite;
+}
+
+.appear-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.appear-on-scroll.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .appear-on-scroll {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+@keyframes grad-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.text-gradient-anim {
+  background: linear-gradient(270deg, #e0b96a, #67bfae, #d4a55a, #0b7a75, #d4a55a);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: grad-shift 7s ease infinite;
 }

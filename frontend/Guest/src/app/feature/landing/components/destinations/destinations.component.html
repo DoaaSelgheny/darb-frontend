@@ -1,38 +1,148 @@
-<div class="app-bg">
-  <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3">
-    <div class="px-10 py-5 lg:col-span-2 col-span-1">
-      <img  alt="logo" src="assets/imgs/phoneAppLogo.svg" />
-      <div class="md:ms-14 ms-0 lg:mt-3 md:mt-5">
-        <h2 class="font-bold text-4xl text-white">
-          {{lang === 'ar' ? 'تطبيق درب': 'Darb App'}}
-        </h2>
-        <div class="mt-5 flex flex-row items-center">
-          <span class="text-white md:text-2xl text-xl"
-          >
-          {{lang === 'ar' ? 'عيش كل التجربة من جوالك': 'Enjoy the whole experience on your mobile' }}
-          </span>
-            <img  alt="logo" src="assets/imgs/phoneAppSub.svg" class="mx-2"/>
-        </div>
-        <div class="flex flex-row items-center mt-5">
-          <div class="mt-5" role="button" (click)="openApp('apple')">
-            <img  alt="logo" src="assets/imgs/phoneAppImg.svg" />
+<section class="py-24" appAppearOnScroll>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div
+      class="rounded-[3rem] p-8 md:p-16 relative overflow-hidden bg-[linear-gradient(135deg,#062e2c_0%,#0b7a75_55%,#074542_100%)]"
+    >
+      <!-- Khatam pattern overlay -->
+      <div
+        class="absolute inset-0 pointer-events-none bg-[url('assets/darb/khatam-pattern.svg')] bg-repeat bg-[length:80px_80px] opacity-[0.055]"
+      ></div>
+      <!-- Gold glow orb top-centre -->
+      <div
+        class="absolute pointer-events-none top-[-100px] left-1/2 -translate-x-1/2 w-[500px] h-[400px] bg-[radial-gradient(ellipse,rgba(212,165,90,0.13),transparent_68%)] rounded-full"
+      ></div>
+
+      <div class="relative z-10 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+        <!-- Phone mockup group -->
+        <div class="lg:w-1/2 order-2 lg:order-1">
+          <div class="relative flex justify-center h-[560px]">
+            <img
+              src="assets/darb/app-mockup.svg"
+              alt="Darb app"
+              class="relative z-10 h-[560px]"
+            />
+
+            <!-- Floating: booking confirmed -->
+            <div
+              class="absolute z-20 bg-white rounded-2xl p-3 shadow-xl animate-float top-8 right-[-6px] min-w-[172px]"
+            >
+              <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 bg-green-100">
+                  <img src="assets/darb/check-green.svg" width="14" height="14" alt="check" />
+                </div>
+                <div>
+                  <div class="text-navy text-[11px] font-bold">
+                    {{ lang === 'ar' ? 'تم الحجز!' : 'Booking confirmed!' }}
+                  </div>
+                  <div class="text-gray-500 text-[10px]">
+                    {{ lang === 'ar' ? 'دار الياسمين · دمشق' : 'Dar Al Yasmin · Damascus' }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Floating: app rating -->
+            <div
+              class="absolute z-20 bg-white rounded-2xl flex items-center gap-3 px-4 py-2.5 shadow-xl animate-float-delay bottom-[84px] right-[-14px]"
+            >
+              <span class="text-heritage text-sm">★★★★★</span>
+              <div>
+                <div class="text-navy text-[13px] font-bold">4.9</div>
+                <div class="text-gray-500 text-[10px]">
+                  {{ lang === 'ar' ? 'تقييم التطبيق' : 'App rating' }}
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="mt-5 mx-2" role="button" (click)="openApp('android')">
-            <img  alt="logo" src="assets/imgs/androidAppImg.svg" />
+        </div>
+
+        <!-- Text + CTAs -->
+        <div class="lg:w-1/2 text-white order-1 lg:order-2">
+          <div
+            class="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6 bg-white/10 border border-heritage/[0.32]"
+          >
+            <span class="w-2 h-2 rounded-full bg-heritage animate-pulse"></span>
+            <span class="text-white/[0.85] text-sm">
+              {{ lang === 'ar' ? 'متاح الآن على iOS و Android' : 'Now available on iOS and Android' }}
+            </span>
+          </div>
+
+          <h2 class="text-4xl text-white md:text-5xl font-bold mb-4 font-naskh leading-tight">
+            {{ lang === 'ar' ? 'تطبيق درب' : 'The Darb app' }}<br />
+            <span class="text-heritage">{{ lang === 'ar' ? 'في جيبك دائماً' : 'always in your pocket' }}</span>
+          </h2>
+          <p class="text-white/[0.72] text-lg mb-8 leading-relaxed">
+            {{
+              lang === 'ar'
+                ? 'عيش كل التجربة من جوالك. احجز إقامتك، اكتشف الوجهات، وتواصل مع المضيفين بكل سهولة.'
+                : 'Live the whole experience from your phone. Book your stay, discover destinations, and connect with hosts with ease.'
+            }}
+          </p>
+
+          <div class="space-y-3 mb-10">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center bg-heritage/[0.22]">
+                <img src="assets/darb/check-gold.svg" width="13" height="13" alt="check" />
+              </div>
+              <span class="text-white/[0.85] text-sm">
+                {{ lang === 'ar' ? 'حجز فوري مع تأكيد آني بدون انتظار' : 'Instant booking with immediate confirmation, no waiting' }}
+              </span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center bg-heritage/[0.22]">
+                <img src="assets/darb/check-gold.svg" width="13" height="13" alt="check" />
+              </div>
+              <span class="text-white/[0.85] text-sm">
+                {{ lang === 'ar' ? 'تواصل مباشر مع المضيفين والمرشدين' : 'Direct communication with hosts and guides' }}
+              </span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center bg-heritage/[0.22]">
+                <img src="assets/darb/check-gold.svg" width="13" height="13" alt="check" />
+              </div>
+              <span class="text-white/[0.85] text-sm">
+                {{ lang === 'ar' ? 'اكتشف وجهات جديدة كل أسبوع' : 'Discover new destinations every week' }}
+              </span>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-4 mb-8">
+            <button
+              type="button"
+              (click)="openApp('apple')"
+              class="flex items-center gap-3 px-5 py-3.5 rounded-2xl hover:scale-105 transition-transform bg-white/[0.12] border-[1.5px] border-white/[0.24] backdrop-blur"
+            >
+              <img src="assets/darb/app-store.svg" width="22" height="22" alt="App Store" />
+              <div class="text-right">
+                <div class="text-white/[0.58] text-[11px] leading-none mb-[3px]">
+                  {{ lang === 'ar' ? 'حمّل من' : 'Download on the' }}
+                </div>
+                <div class="text-white font-bold text-sm leading-none">App Store</div>
+              </div>
+            </button>
+            <button
+              type="button"
+              (click)="openApp('android')"
+              class="flex items-center gap-3 px-5 py-3.5 rounded-2xl hover:scale-105 transition-transform bg-white/[0.12] border-[1.5px] border-white/[0.24] backdrop-blur"
+            >
+              <img src="assets/darb/google-play.svg" width="22" height="22" alt="Google Play" />
+              <div class="text-right">
+                <div class="text-white/[0.58] text-[11px] leading-none mb-[3px]">
+                  {{ lang === 'ar' ? 'حمّل من' : 'Get it on' }}
+                </div>
+                <div class="text-white font-bold text-sm leading-none">Google Play</div>
+              </div>
+            </button>
+          </div>
+
+          <div class="flex items-center gap-4 pt-6 border-t border-white/10">
+            <div class="text-sm text-heritage">★★★★★</div>
+            <div class="text-white/[0.62] text-sm">
+              {{ lang === 'ar' ? 'تقييم 4.9 · أكثر من 2,000 مراجعة' : '4.9 rating · over 2,000 reviews' }}
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class=" col-span-1">
-        <div class="flex justify-end" >
-          @if(lang === 'ar'){
-            <img  alt="pic" src="assets/imgs/phoneAppPic.svg" class="ms-14"/>
-          }@else{
-            <img  alt="pic" src="assets/imgs/phoneAppPicEn.svg" class="ms-14" />          
-          }
-          
-        </div>
-    
-    </div>
   </div>
-</div>
+</section>

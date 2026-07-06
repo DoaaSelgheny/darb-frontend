@@ -8,7 +8,7 @@
       {{"::Guset:Explore:sar"|abpLocalization}} / {{"::Guest:Explore:person" |abpLocalization}}
     </p> -->
     <div class="flex flex-row">
-      <img src="assets/imgs/reyal.svg" class="mx-2" alt="riyal">
+      <span class="mx-2 text-lg font-bold text-btnBg">{{"::Guset:Explore:sar"|abpLocalization}}</span>
       <p  class="font-bold text-lg text-btnBg"> / {{"::Guest:Explore:person" |abpLocalization}}</p>
     </div>
   </div>
@@ -139,7 +139,7 @@ class="mt-6 block"
       </span> &#10006; 
       <div style="direction: rtl;" class="flex">
         <p class="font-normal text-dark text-sm">{{pricingDetails ? pricingDetails.pricePerPerson : 0 }} </p>
-        <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+        <span class="mx-2 text-sm">{{"::Guset:Explore:sar"|abpLocalization}}</span>
       </div>
     </div>
     <!-- <p class="font-normal text-dark text-sm">
@@ -148,7 +148,7 @@ class="mt-6 block"
       </p> -->
       <div class="flex flex-row" style="direction: rtl;">
         <p class="font-normal text-dark text-sm">{{ pricingDetails ? pricingDetails.netPrice : 0 }} </p>
-        <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+        <span class="mx-2 text-sm">{{"::Guset:Explore:sar"|abpLocalization}}</span>
       </div>
   </div>
   @if(pricingDetails?.valueAddedTax !== 0){
@@ -161,7 +161,7 @@ class="mt-6 block"
       </p> -->
       <div class="flex flex-row" style="direction: rtl;">
         <p class="font-normal text-dark text-sm">{{ pricingDetails?.valueAddedTax}}  </p>
-        <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+        <span class="mx-2 text-sm">{{"::Guset:Explore:sar"|abpLocalization}}</span>
       </div>
     </div>
   }
@@ -175,7 +175,7 @@ class="mt-6 block"
         </p> -->
         <div class="flex flex-row" style="direction: rtl;">
           <p class="font-normal text-dark text-sm">{{ pricingDetails ? pricingDetails?.serviceFeesIncludesTax  : 0 }}  </p>
-          <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+          <span class="mx-2 text-sm">{{"::Guset:Explore:sar"|abpLocalization}}</span>
         </div>
     </div>
   }
@@ -189,7 +189,7 @@ class="mt-6 block"
       </p> -->
       <div class="flex flex-row" style="direction: rtl;">
         <p class="text-dark text-base">{{ pricingDetails ? pricingDetails?.totalPrice  : 0 }}  </p>
-        <img class="mx-2" src="assets/imgs/riyal-black.svg" alt="riyal">
+        <span class="mx-2 text-base">{{"::Guset:Explore:sar"|abpLocalization}}</span>
       </div>
     </div>
   </div>
