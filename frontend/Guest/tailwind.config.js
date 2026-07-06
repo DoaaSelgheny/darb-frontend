@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#ED3024',
+        primary: '#0B7A75',
         secondary: '#122466',
         greyBg: '#FAFAFA',
         greyBlack: '#393939',
@@ -16,7 +16,7 @@ module.exports = {
         neutral60: '#A7AEB5',
         dark: '#1E1E1E',
         'gray-600': '#666',
-        btnBg:'#ED3024',
+        btnBg:'#0B7A75',
       },
       screens: {},
       fontFamily: {

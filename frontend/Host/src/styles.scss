@@ -74,7 +74,7 @@ app-validation {
 abp-confirmation {
   display: none;
   .icon-container.error {
-    background: #f65656;
+    background: var(--primary-color);
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
   }

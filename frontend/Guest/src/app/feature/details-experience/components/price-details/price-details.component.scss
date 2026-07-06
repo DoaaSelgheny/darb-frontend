@@ -1,6 +1,6 @@
 :host ::ng-deep {
     .ant-btn-primary[disabled]{
-        color: rgb(237 48 36);
+        color: var(--primary-color);
         border-color: #fffbfb;
         background: #ffd5d2;
     }

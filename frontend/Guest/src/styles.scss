@@ -152,7 +152,7 @@ background-color: #fafafa;
 abp-confirmation {
   display: none;
   .icon-container.error {
-    background: #f65656;
+    background: var(--primary-color);
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
   }
@@ -162,13 +162,13 @@ abp-confirmation {
 }
 /* Override the default color of the dots */
 .ant-carousel .slick-dots li button {
-  background-color: #ccc; /* Change to your preferred color */
+  background-color: var(--primary-color); /* Change to your preferred color */
   opacity: 1; /* Ensure the dot is visible */
 }
 
 /* Override the color of the active dot */
 .ant-carousel .slick-dots li.slick-active button {
-  background-color: #ff5722; /* Change to your preferred active color */
+  background-color: var(--primary-color); /* Change to your preferred active color */
 }
 
 .text-shadow{
@@ -203,7 +203,7 @@ abp-confirmation {
 }
 
 .btn-primary{
-  background: red !important;
+  background: var(--primary-color) !important;
 }
 .ant-carousel .slick-slide img {
   object-fit: contain;
