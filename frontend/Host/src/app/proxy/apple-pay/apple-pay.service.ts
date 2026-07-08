@@ -5,23 +5,22 @@ import type { IActionResult } from '../microsoft/asp-net-core/mvc/models';
 @Injectable({
   providedIn: 'root',
 })
-export class ProfilePictureService {
+export class ApplePayService {
   apiName = 'Default';
   
 
-  getByUserId = (userId: string, config?: Partial<Rest.Config>) =>
+  html = (config?: Partial<Rest.Config>) =>
     this.restService.request<any, IActionResult>({
       method: 'GET',
-      url: '/api/app/profile-picture',
-      params: { userId },
+      url: '/apple-pay.html',
     },
     { apiName: this.apiName,...config });
   
 
-  hasProfilePicture = (userId: string, config?: Partial<Rest.Config>) =>
-    this.restService.request<any, boolean>({
-      method: 'POST',
-      url: `/api/app/profile-picture/has-profile-picture/${userId}`,
+  wellKnow = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, IActionResult>({
+      method: 'GET',
+      url: '/.well-known/apple-developer-merchantid-domain-association.txt',
     },
     { apiName: this.apiName,...config });
 

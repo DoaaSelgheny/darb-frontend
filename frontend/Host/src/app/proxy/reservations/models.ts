@@ -43,11 +43,8 @@ export interface ReservationAdminTransactionDto {
   transferFailureReason?: string;
   reservationType: ReservationType;
   reservationStatus: ReservationStatus;
-  accountNo?: string;
   ammountToTransfer: number;
-  bankAccount?: string;
   hostEmail?: string;
-  iban?: string;
   phoneNumber?: string;
   reservationDate?: string;
   invoiceNumber?: string;

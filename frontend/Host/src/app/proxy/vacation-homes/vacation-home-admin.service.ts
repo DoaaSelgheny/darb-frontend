@@ -1,4 +1,4 @@
-import type { ChangeVacationHomeStatusDto, GetVacationHomesInputForGuest, VacationHomeDto, VacationHomeFilter, VacationHomeWithNavigationPropertiesDto } from './models';
+import type { ChangeVacationHomeStatusDto, GetVacationHomesInputForGuest, VacationHomeDto, VacationHomeWithNavigationPropertiesDto } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import type { PagedResultDto } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
@@ -50,16 +50,6 @@ export class VacationHomeAdminService {
     { apiName: this.apiName,...config });
   
 
-  getListAsExcelFile = (input: VacationHomeFilter, config?: Partial<Rest.Config>) =>
-    this.restService.request<any, Blob>({
-      method: 'GET',
-      responseType: 'blob',
-      url: '/api/app/vacation-home-admin/tourism-ministry-excel',
-      params: { filterText: input.filterText, vacationHomeStatus: input.vacationHomeStatus, cityId: input.cityId, vacationHomeTypeId: input.vacationHomeTypeId, showOnHome: input.showOnHome },
-    },
-    { apiName: this.apiName,...config });
-  
-
   getVacationHomeTypeLookup = (input: LookupRequestDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, LookupDto<number>>({
       method: 'GET',
@@ -82,22 +72,6 @@ export class VacationHomeAdminService {
     this.restService.request<any, VacationHomeWithNavigationPropertiesDto>({
       method: 'GET',
       url: `/api/app/vacation-home-admin/${id}`,
-    },
-    { apiName: this.apiName,...config });
-  
-
-  publishVacationHomeById = (id: number, config?: Partial<Rest.Config>) =>
-    this.restService.request<any, VacationHomeDto>({
-      method: 'PUT',
-      url: `/api/app/vacation-home-admin/publish/${id}`,
-    },
-    { apiName: this.apiName,...config });
-  
-
-  rejecthVacationHomeById = (id: number, config?: Partial<Rest.Config>) =>
-    this.restService.request<any, VacationHomeDto>({
-      method: 'PUT',
-      url: `/api/app/vacation-home-admin/reject/${id}`,
     },
     { apiName: this.apiName,...config });
   

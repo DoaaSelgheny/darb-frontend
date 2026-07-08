@@ -1,34 +1,22 @@
 {
+   ::Menu:Home
    ::Menu:Verification
    ::Host:Verification:HeaderVerify
-   ::Host:Verification:HeaderIdentity
-   ::Host:Verification:PlaceHolder:Id
-   ::Host:Verification:Id
-   ::Host:Verification:Verified
-   ::Host:Verification:NotVerified
-   ::Host:Verification:PlaceHolder:BirthDate
-   ::Host:Verification:BirthDate
-   ::Host:Verification:Verify
-   ::Host:Verification:PlaceHolder:FullName
-   ::Host:Verification:FullName
-   ::Host:Verification:PlaceHolder:IbanNumber
-   ::Host:Verification:IbanNumber
-   ::Host:Verification:PlaceHolder:AccountNumber
-   ::Host:Verification:AccountNumber
-   ::Host:Verification:PlaceHolder:Bank
-   ::Host:Verification:IbanUpload
+   ::Host:Verification:VerificationHeaderIdentity
+   ::Host:Verification:Alert:Success
+   ::Host:Verification:Tooltip:Danger
+   ::Host:Verification:Alert:Danger
+   ::Host:Verification:Tooltip:Warning
+   ::Host:Verification:Alert:Warning
+   ::Host:Verification:RejectionReason
+   ::Host:Verification:UploadFront
+   ::Host:Verification:UploadBack
    ::Host:Verification:Browse
-   ::Host:Verification:MinistryOfTourismLicense
-   ::Host:Verification:LicenseUpload
-   ::Host:Verification:LisenteAgreement
-   ::Host:Verification:Back
-   ::Host:Verification:Save
+   ::Host:Verification:Download
+   ::Host:Verification:Send
    ::Host:Verification:SendConfirmation
    ::Host:Verification:Description:SendConfirmation
    ::Host:Verification:Cancel
    ::Host:Verification:DataConfirmed
-   ::Host:Verification:Description:DataConfirmed
-   ::Host:Verification:NavigateToMainPage
-   ::Host:Verification:VerificationDataSent
-   ::Host:Verification:SaveAndExit
+   ::Host:Verification:MoveToMainPage
 }

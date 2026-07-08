@@ -86,7 +86,7 @@ export class ExperienceAdminService {
     this.restService.request<any, PagedResultDto<ExperienceWithNavigationPropertiesDto>>({
       method: 'GET',
       url: '/api/app/experiences-admin',
-      params: { cityIds: input.cityIds, experienceTypeIds: input.experienceTypeIds, dateFrom: input.dateFrom, dateTo: input.dateTo, showOnHome: input.showOnHome, filterText: input.filterText, name: input.name, experienceStatus: input.experienceStatus, district: input.district, postalCode: input.postalCode, lngMin: input.lngMin, lngMax: input.lngMax, latMin: input.latMin, latMax: input.latMax, description: input.description, moreDetails: input.moreDetails, experienceReservationType: input.experienceReservationType, adultPriceMin: input.adultPriceMin, adultPriceMax: input.adultPriceMax, childPriceMin: input.childPriceMin, childPriceMax: input.childPriceMax, numberOfHoursMin: input.numberOfHoursMin, numberOfHoursMax: input.numberOfHoursMax, numberOfDaysMin: input.numberOfDaysMin, numberOfDaysMax: input.numberOfDaysMax, basicPriceMin: input.basicPriceMin, basicPriceMax: input.basicPriceMax, minNumberOfAdultsMin: input.minNumberOfAdultsMin, minNumberOfAdultsMax: input.minNumberOfAdultsMax, maxNumberOfAdultsMin: input.maxNumberOfAdultsMin, maxNumberOfAdultsMax: input.maxNumberOfAdultsMax, minNumberOfChildrenMin: input.minNumberOfChildrenMin, minNumberOfChildrenMax: input.minNumberOfChildrenMax, maxNumberOfChildrenMin: input.maxNumberOfChildrenMin, maxNumberOfChildrenMax: input.maxNumberOfChildrenMax, experienceReservationWay: input.experienceReservationWay, experienceTypeId: input.experienceTypeId, cityId: input.cityId, experienceRefundTypeId: input.experienceRefundTypeId, meanId: input.meanId, sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
+      params: { cityIds: input.cityIds, experienceTypeIds: input.experienceTypeIds, dateFrom: input.dateFrom, dateTo: input.dateTo, showOnHome: input.showOnHome, filterText: input.filterText, name: input.name, experienceStatus: input.experienceStatus, district: input.district, postalCode: input.postalCode, lngMin: input.lngMin, lngMax: input.lngMax, latMin: input.latMin, latMax: input.latMax, description: input.description, moreDetails: input.moreDetails, experienceReservationType: input.experienceReservationType, experienceReservationWay: input.experienceReservationWay, experienceTypeId: input.experienceTypeId, cityId: input.cityId, meanId: input.meanId, sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
     },
     { apiName: this.apiName,...config });
   
@@ -103,24 +103,6 @@ export class ExperienceAdminService {
     this.restService.request<any, ExperienceWithNavigationPropertiesDto>({
       method: 'GET',
       url: `/api/app/experiences-admin/with-navigation-properties/${id}`,
-    },
-    { apiName: this.apiName,...config });
-  
-
-  publishExperienceById = (id: number, config?: Partial<Rest.Config>) =>
-    this.restService.request<any, ExperienceDto>({
-      method: 'PUT',
-      url: '/api/app/experiences-admin/publish',
-      params: { id },
-    },
-    { apiName: this.apiName,...config });
-  
-
-  rejecthExperienceByIdAndRejectionReason = (id: number, rejectionReason: string, config?: Partial<Rest.Config>) =>
-    this.restService.request<any, ExperienceDto>({
-      method: 'PUT',
-      url: '/api/app/experiences-admin/reject',
-      params: { id, rejectionReason },
     },
     { apiName: this.apiName,...config });
   

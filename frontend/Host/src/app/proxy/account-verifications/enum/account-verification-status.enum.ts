@@ -1,10 +1,9 @@
 import { mapEnumToOptions } from '@abp/ng.core';
 
 export enum AccountVerificationStatus {
-  Draft = 1,
-  UnderStudy = 2,
-  Approved = 3,
-  Reject = 4,
+  UnderStudy = 1,
+  Approved = 2,
+  Reject = 3,
 }
 
 export const accountVerificationStatusOptions = mapEnumToOptions(AccountVerificationStatus);

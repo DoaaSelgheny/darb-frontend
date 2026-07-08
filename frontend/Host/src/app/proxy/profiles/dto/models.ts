@@ -13,7 +13,7 @@ export interface GuestProfileDto {
   interestVacations: UserInterestVacationHomeDto[];
   profilePicture: ProfilePictureSourceDto;
   hyyakId?: string;
-  isYakeenVerified: boolean;
+  hasSubmittedIdentityDocuments: boolean;
 }
 
 export interface HostProfileDto {

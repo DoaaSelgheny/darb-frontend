@@ -70,7 +70,6 @@ export interface ExperienceDto extends ExperienceDtoBase {
   serialNumber?: string;
   pricePerPerson: number;
   visibleStatus: VisibleStatus;
-  isVerifiedMinistryTourism: boolean;
   experienceType: ExperienceTypeDto;
   signingAgreement: boolean;
   isPublished: boolean;
@@ -205,8 +204,7 @@ export interface ExperienceWithNavigationPropertiesDtoBase {
   numberOfConfirmedReservations?: number;
   district: DistrictDto;
   means: MeanDto[];
-  isVerifiedMinistryTourism: boolean;
-  isYakeenVerified: boolean;
+  hasSubmittedIdentityDocuments: boolean;
   ratingsCount: number;
   ratingsAverage: number;
 }
@@ -220,12 +218,6 @@ export interface GeDetailsReservationPricingForGuestDto {
   serviceFees: number;
   tax: number;
   valueAddedTax: number;
-}
-
-export interface GetExperienceAvailability {
-  experienceId: number;
-  adults: number;
-  children: number;
 }
 
 export interface GetExperienceAvailabilityTimeSlotDto {
@@ -273,28 +265,9 @@ export interface GetExperiencesInputBase extends PagedAndSortedResultRequestDto 
   description?: string;
   moreDetails?: string;
   experienceReservationType?: ExperienceReservationType;
-  adultPriceMin?: number;
-  adultPriceMax?: number;
-  childPriceMin?: number;
-  childPriceMax?: number;
-  numberOfHoursMin?: number;
-  numberOfHoursMax?: number;
-  numberOfDaysMin?: number;
-  numberOfDaysMax?: number;
-  basicPriceMin?: number;
-  basicPriceMax?: number;
-  minNumberOfAdultsMin?: number;
-  minNumberOfAdultsMax?: number;
-  maxNumberOfAdultsMin?: number;
-  maxNumberOfAdultsMax?: number;
-  minNumberOfChildrenMin?: number;
-  minNumberOfChildrenMax?: number;
-  maxNumberOfChildrenMin?: number;
-  maxNumberOfChildrenMax?: number;
   experienceReservationWay?: ExperienceReservationWay;
   experienceTypeId?: number;
   cityId?: number;
-  experienceRefundTypeId?: number;
   meanId?: number;
 }
 

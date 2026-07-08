@@ -15,15 +15,6 @@ export class VacationHomeGuestService {
   apiName = 'Default';
   
 
-  checkForAvailabilityByInput = (input: GetVacationHomeAvailability, config?: Partial<Rest.Config>) =>
-    this.restService.request<any, boolean>({
-      method: 'GET',
-      url: '/api/app/vacation-home-guests/check-for-availability',
-      params: { vacationHomeId: input.vacationHomeId, dateFrom: input.dateFrom, dateTo: input.dateTo },
-    },
-    { apiName: this.apiName,...config });
-  
-
   getCityLookup = (input: LookupRequestDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, CityDto[]>({
       method: 'GET',

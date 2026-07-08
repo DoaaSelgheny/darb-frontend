@@ -30,6 +30,22 @@ export class B2BPayoutService {
       url: '/api/app/b2BPayout/batch',
     },
     { apiName: this.apiName,...config });
+  
+
+  resendErrorBatch = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, void>({
+      method: 'POST',
+      url: '/api/app/b2BPayout/resend-error-batch',
+    },
+    { apiName: this.apiName,...config });
+  
+
+  resendFaildBatch = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, void>({
+      method: 'POST',
+      url: '/api/app/b2BPayout/resend-faild-batch',
+    },
+    { apiName: this.apiName,...config });
 
   constructor(private restService: RestService) {}
 }

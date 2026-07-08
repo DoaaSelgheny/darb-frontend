@@ -25,7 +25,7 @@ export const environment = {
   oAuthConfig,
   apis: {
     default: {
-      url: "https://localhost:44371/",
+      url: "https://localhost:44371",
       rootNamespace: 'Hyyak',
     },
     AbpAccountPublic: {

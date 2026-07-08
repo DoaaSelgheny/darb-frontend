@@ -14,7 +14,7 @@ import type { VacationHomeTypeDto } from '../vacation-home-types/models';
 })
 export class VacationHomeHostService {
   apiName = 'Default';
-
+  
 
   agreeById = (id: number, config?: Partial<Rest.Config>) =>
     this.restService.request<any, void>({
@@ -22,7 +22,7 @@ export class VacationHomeHostService {
       url: `/api/app/vacation-home-hosts/agree/${id}`,
     },
     { apiName: this.apiName,...config });
-
+  
 
   agreementInformationById = (id: number, config?: Partial<Rest.Config>) =>
     this.restService.request<any, AgreementInformationDto>({
@@ -30,7 +30,7 @@ export class VacationHomeHostService {
       url: `/api/app/vacation-home-hosts/agreement-information/${id}`,
     },
     { apiName: this.apiName,...config });
-
+  
 
   changeVacationHomePublishStatusByInput = (input: ChangeVacationHomeStatusDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, VacationHomeDto>({
@@ -39,16 +39,7 @@ export class VacationHomeHostService {
       body: input,
     },
     { apiName: this.apiName,...config });
-
-
-  delete = (id: number, config?: Partial<Rest.Config>) =>
-    this.restService.request<any, void>({
-      method: 'DELETE',
-      url: '/api/app/vacation-home-hosts',
-      params: { id },
-    },
-    { apiName: this.apiName,...config });
-
+  
 
   deleteImagesByInput = (input: number, config?: Partial<Rest.Config>) =>
     this.restService.request<any, void>({
@@ -57,7 +48,7 @@ export class VacationHomeHostService {
       params: { input },
     },
     { apiName: this.apiName,...config });
-
+  
 
   download = (fileName: string, config?: Partial<Rest.Config>) =>
     this.restService.request<any, IActionResult>({
@@ -65,7 +56,7 @@ export class VacationHomeHostService {
       url: `/api/app/vacation-home-hosts/download/${fileName}`,
     },
     { apiName: this.apiName,...config });
-
+  
 
   downloadByCalendarName = (calendarName: string, config?: Partial<Rest.Config>) =>
     this.restService.request<any, IActionResult>({
@@ -74,7 +65,7 @@ export class VacationHomeHostService {
       params: { calendarName },
     },
     { apiName: this.apiName,...config });
-
+  
 
   draftStep1ByInput = (input: VacationHomeDraftStep1, config?: Partial<Rest.Config>) =>
     this.restService.request<any, VacationHomeDto>({
@@ -83,7 +74,7 @@ export class VacationHomeHostService {
       body: input,
     },
     { apiName: this.apiName,...config });
-
+  
 
   draftStep2ByInput = (input: VacationHomeDraftStep2, config?: Partial<Rest.Config>) =>
     this.restService.request<any, VacationHomeDto>({
@@ -92,7 +83,7 @@ export class VacationHomeHostService {
       body: input,
     },
     { apiName: this.apiName,...config });
-
+  
 
   draftStep3ByInput = (input: VacationHomeDraftStep3, config?: Partial<Rest.Config>) =>
     this.restService.request<any, VacationHomeDto>({
@@ -101,7 +92,7 @@ export class VacationHomeHostService {
       body: input,
     },
     { apiName: this.apiName,...config });
-
+  
 
   draftStep8ByInput = (input: VacationHomeDraftStep8, config?: Partial<Rest.Config>) =>
     this.restService.request<any, VacationHomeDto>({
@@ -110,7 +101,7 @@ export class VacationHomeHostService {
       body: input,
     },
     { apiName: this.apiName,...config });
-
+  
 
   draftStep9ByInput = (input: VacationHomeDraftStep9, config?: Partial<Rest.Config>) =>
     this.restService.request<any, VacationHomeDto>({
@@ -119,7 +110,7 @@ export class VacationHomeHostService {
       body: input,
     },
     { apiName: this.apiName,...config });
-
+  
 
   getAmmenetiesByInput = (input: LookupRequestDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, AmenitiesDto[]>({
@@ -128,7 +119,7 @@ export class VacationHomeHostService {
       params: { filter: input.filter, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
     },
     { apiName: this.apiName,...config });
-
+  
 
   getCalendarListByFilter = (filter: VacationHomeHostCalendarFilterDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, PagedResultDto<VacationHomeHostCalendarDto>>({
@@ -137,7 +128,7 @@ export class VacationHomeHostService {
       params: { filterText: filter.filterText, publishStatus: filter.publishStatus, typeId: filter.typeId, sorting: filter.sorting, skipCount: filter.skipCount, maxResultCount: filter.maxResultCount },
     },
     { apiName: this.apiName,...config });
-
+  
 
   getCancellationAndReturnPolicyLookup = (input: LookupRequestDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, LookupDto<number>>({
@@ -146,7 +137,7 @@ export class VacationHomeHostService {
       params: { filter: input.filter, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
     },
     { apiName: this.apiName,...config });
-
+  
 
   getCityLookup = (input: LookupRequestDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, CityDto[]>({
@@ -155,7 +146,7 @@ export class VacationHomeHostService {
       params: { filter: input.filter, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
     },
     { apiName: this.apiName,...config });
-
+  
 
   getCount = (config?: Partial<Rest.Config>) =>
     this.restService.request<any, VacationHomeCountDto>({
@@ -163,7 +154,7 @@ export class VacationHomeHostService {
       url: '/api/app/vacation-home-hosts/count',
     },
     { apiName: this.apiName,...config });
-
+  
 
   getList = (input: GetVacationHomesInputForHost, config?: Partial<Rest.Config>) =>
     this.restService.request<any, PagedResultDto<VacationHomeWithNavigationPropertiesDto>>({
@@ -172,7 +163,7 @@ export class VacationHomeHostService {
       params: { filterText: input.filterText, vacationHomeStatus: input.vacationHomeStatus, cityId: input.cityId, vacationHomeTypeId: input.vacationHomeTypeId, showOnHome: input.showOnHome, sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
     },
     { apiName: this.apiName,...config });
-
+  
 
   getNames = (config?: Partial<Rest.Config>) =>
     this.restService.request<any, HostVacationHomeNameDto[]>({
@@ -180,7 +171,7 @@ export class VacationHomeHostService {
       url: '/api/app/vacation-home-hosts/names',
     },
     { apiName: this.apiName,...config });
-
+  
 
   getVacationHomeStatusLookup = (config?: Partial<Rest.Config>) =>
     this.restService.request<any, LookupDto<number>>({
@@ -188,7 +179,7 @@ export class VacationHomeHostService {
       url: '/api/app/vacation-home-hosts/vacation-home-status-lookup',
     },
     { apiName: this.apiName,...config });
-
+  
 
   getVacationHomeTypeLookup = (input: LookupRequestDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, LookupDto<number>>({
@@ -197,7 +188,7 @@ export class VacationHomeHostService {
       params: { filter: input.filter, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
     },
     { apiName: this.apiName,...config });
-
+  
 
   getVacationHomeTypes = (input: LookupRequestDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, VacationHomeTypeDto[]>({
@@ -206,7 +197,7 @@ export class VacationHomeHostService {
       params: { filter: input.filter, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
     },
     { apiName: this.apiName,...config });
-
+  
 
   getVactionHomeTypesCount = (config?: Partial<Rest.Config>) =>
     this.restService.request<any, VacationHomeCountTypesDto>({
@@ -214,7 +205,7 @@ export class VacationHomeHostService {
       url: '/api/app/vacation-home-hosts/vacation-home-types-counts',
     },
     { apiName: this.apiName,...config });
-
+  
 
   getWithNavigationProperties = (id: number, config?: Partial<Rest.Config>) =>
     this.restService.request<any, VacationHomeWithNavigationPropertiesDto>({
@@ -222,7 +213,7 @@ export class VacationHomeHostService {
       url: `/api/app/vacation-home-hosts/${id}`,
     },
     { apiName: this.apiName,...config });
-
+  
 
   publishVacationHomeById = (id: number, config?: Partial<Rest.Config>) =>
     this.restService.request<any, VacationHomeDto>({
@@ -230,7 +221,7 @@ export class VacationHomeHostService {
       url: `/api/app/vacation-home-hosts/publish/${id}`,
     },
     { apiName: this.apiName,...config });
-
+  
 
   saveStep1ByInput = (input: VacationHomeStep1, config?: Partial<Rest.Config>) =>
     this.restService.request<any, VacationHomeDto>({
@@ -239,7 +230,7 @@ export class VacationHomeHostService {
       body: input,
     },
     { apiName: this.apiName,...config });
-
+  
 
   saveStep2ByInput = (input: VacationHomeStep2, config?: Partial<Rest.Config>) =>
     this.restService.request<any, VacationHomeDto>({
@@ -248,7 +239,7 @@ export class VacationHomeHostService {
       body: input,
     },
     { apiName: this.apiName,...config });
-
+  
 
   saveStep3ByInput = (input: VacationHomeStep3, config?: Partial<Rest.Config>) =>
     this.restService.request<any, VacationHomeDto>({
@@ -257,7 +248,7 @@ export class VacationHomeHostService {
       body: input,
     },
     { apiName: this.apiName,...config });
-
+  
 
   saveStep4ByInput = (input: VacationHomeStep4, config?: Partial<Rest.Config>) =>
     this.restService.request<any, VacationHomeDto>({
@@ -266,7 +257,7 @@ export class VacationHomeHostService {
       body: input,
     },
     { apiName: this.apiName,...config });
-
+  
 
   saveStep5ByInput = (input: VacationHomeStep5, config?: Partial<Rest.Config>) =>
     this.restService.request<any, VacationHomeDto>({
@@ -275,7 +266,7 @@ export class VacationHomeHostService {
       body: input,
     },
     { apiName: this.apiName,...config });
-
+  
 
   saveStep6ByInput = (input: VacationHomeStep6, config?: Partial<Rest.Config>) =>
     this.restService.request<any, VacationHomeDto>({
@@ -284,7 +275,7 @@ export class VacationHomeHostService {
       body: input,
     },
     { apiName: this.apiName,...config });
-
+  
 
   saveStep7ByInput = (input: VacationHomeStep7, config?: Partial<Rest.Config>) =>
     this.restService.request<any, VacationHomeDto>({
@@ -293,7 +284,7 @@ export class VacationHomeHostService {
       body: input,
     },
     { apiName: this.apiName,...config });
-
+  
 
   saveStep8ByInput = (input: VacationHomeStep8, config?: Partial<Rest.Config>) =>
     this.restService.request<any, VacationHomeDto>({
@@ -302,7 +293,7 @@ export class VacationHomeHostService {
       body: input,
     },
     { apiName: this.apiName,...config });
-
+  
 
   saveStep9ByInput = (input: VacationHomeStep9, config?: Partial<Rest.Config>) =>
     this.restService.request<any, VacationHomeDto>({
@@ -311,7 +302,7 @@ export class VacationHomeHostService {
       body: input,
     },
     { apiName: this.apiName,...config });
-
+  
 
   upload = (file: FormData, config?: Partial<Rest.Config>) =>
     this.restService.request<any, BlobDto>({

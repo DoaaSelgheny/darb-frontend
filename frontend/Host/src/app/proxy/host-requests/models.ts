@@ -18,50 +18,10 @@ export interface GetHostRequestsInputBase extends PagedAndSortedResultRequestDto
   isVacationHome: boolean;
 }
 
-export interface HostRequestCreateDto extends HostRequestCreateDtoBase {
-}
-
-export interface HostRequestCreateDtoBase {
-  hostName?: string;
-  hostPhone?: string;
-  requestType: RequestType;
-  requestStatus: RequestStatus;
-  vacationHomeId?: number;
-  experienceId?: number;
-}
-
 export interface HostRequestDto extends HostRequestDtoBase {
 }
 
 export interface HostRequestDtoBase extends FullAuditedEntityDto<string> {
-  hostName?: string;
-  hostPhone?: string;
-  requestType: RequestType;
-  requestStatus: RequestStatus;
-  vacationHomeId?: number;
-  experienceId?: number;
-  concurrencyStamp?: string;
-}
-
-export interface HostRequestExcelDownloadDto extends HostRequestExcelDownloadDtoBase {
-}
-
-export interface HostRequestExcelDownloadDtoBase {
-  downloadToken?: string;
-  filterText?: string;
-  hostName?: string;
-  hostPhone?: string;
-  requestType?: RequestType;
-  requestStatus?: RequestStatus;
-  vacationHomeId?: number;
-  experienceId?: number;
-  isVacationHome: boolean;
-}
-
-export interface HostRequestUpdateDto extends HostRequestUpdateDtoBase {
-}
-
-export interface HostRequestUpdateDtoBase {
   hostName?: string;
   hostPhone?: string;
   requestType: RequestType;

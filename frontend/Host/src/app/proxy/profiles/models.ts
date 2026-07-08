@@ -1,6 +1,4 @@
-import type { DateType } from './date-type.enum';
 import type { Gender } from './gender.enum';
-import type { YakeenVerificationType } from '../account-verifications/enum/yakeen-verification-type.enum';
 
 export interface ExtendedProfileDto {
   email?: string;
@@ -12,17 +10,10 @@ export interface ExtendedProfileDto {
   phoneNumber?: string;
   phoneNumberConfirmed: boolean;
   isExternal: boolean;
-  isVerifiedBy3rdParty?: boolean;
-  nationalID?: string;
-  isDocumented?: boolean;
-  birthDateType?: DateType;
-  dateOfBirth?: string;
   gender?: Gender;
-  yakeenVerificationType?: YakeenVerificationType;
   hyyakId?: string;
   countryCode?: string;
   countryKey?: string;
-  isVerifiedMinistryTourism?: boolean;
 }
 
 export interface ProfileGuestUpdateDto {

@@ -69,7 +69,7 @@ export class HeaderComponent implements OnInit {
     });
     this.currentUser = this.config.getOne('currentUser');
 
-    this.isShowSwitch = this.currentUser.phoneNumber?.startsWith('+966');
+    this.isShowSwitch = this.currentUser.phoneNumber?.startsWith('+963');
   }
 
   // Whether the hero header should currently render its light (white text) state -
@@ -100,7 +100,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.isSiteLangauageArabic = this.localizationService.currentLang == 'ar';
-
+    console.log(this.currentUser);
+    
     if (this.currentUser.isAuthenticated) {
       this.profileService.getGuestProfile().subscribe(res => {
         this.profileData = res;

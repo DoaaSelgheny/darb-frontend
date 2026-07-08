@@ -38,7 +38,7 @@ export class OtpComponent implements OnChanges {
   @Input() contactInfo;
   @Input() verified: boolean;
   @Output() openChange = new EventEmitter<boolean>();
-  @Output() verifiedOtp = new EventEmitter<ProfileDto>();
+  @Output() verifiedOtp = new EventEmitter<any>();
 
   @ViewChild('ngOtpInput') ngOtpInputRef: any;
   form: FormGroup;
