@@ -20,7 +20,7 @@ export const environment = {
   production: false,
   application: {
     baseUrl,
-    name: 'Hyyak',
+    name: 'Darb',
   },
   oAuthConfig,
   apis: {

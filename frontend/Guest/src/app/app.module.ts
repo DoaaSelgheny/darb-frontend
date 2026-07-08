@@ -71,7 +71,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   textColor: '#ffffff',
   textPosition: 'center-center',
   minTime: 300,
-  logoUrl: '../assets/imgs/hlogoloading.svg',
+  logoUrl: '../assets/darb/logo.svg',
   logoPosition: 'center-center',
   fastFadeOut: true,
   logoSize: 90,

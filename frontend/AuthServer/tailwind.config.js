@@ -17,10 +17,16 @@ module.exports = {
         dark: '#1E1E1E',
         'gray-600': '#666',
         btnBg:'#0B7A75',
+        heritage: {
+          DEFAULT: '#D4A55A',
+          dark: '#B08A4A',
+          light: '#F5E6CC',
+        },
       },
       screens: {},
       fontFamily: {
         Rubik: 'Rubik',
+        naskh: ['"Noto Naskh Arabic"', 'serif'],
       },
       boxShadow: {
         greyBox: '0px 3px 30px #DBDBDB29',

@@ -14,6 +14,12 @@ body,
   font-family: 'Almarai', sans-serif;
 }
 
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #d4a55a, transparent);
+  opacity: 0.3;
+}
+
 .iti {
   display: block !important;
 }

@@ -8,6 +8,7 @@ import { ChangeDetectorRef, Component, Input } from '@angular/core';
 })
 export class SelectLanguageComponent {
   @Input() classes = '';
+  @Input() iconClasses = 'text-secondary';
   selectLang: string = this.sessionState.getLanguage() || 'ar';
 
   constructor(

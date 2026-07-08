@@ -19,7 +19,7 @@ export const environment = {
   hostUrl,
   application: {
     baseUrl,
-    name: 'Hyyak',
+    name: 'Darb',
   },
   oAuthConfig,
   apis: {

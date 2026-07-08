@@ -9,7 +9,7 @@ import { eAccountRouteNames } from '@volo/abp.ng.account/public/config';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'hyyak';
+  title = 'Darb';
   constructor(
     private router: Router,
     private authService: AuthService,

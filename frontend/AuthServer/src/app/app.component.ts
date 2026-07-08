@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'hyyak';
+  title = 'darb';
 
   constructor(
     private router: Router,

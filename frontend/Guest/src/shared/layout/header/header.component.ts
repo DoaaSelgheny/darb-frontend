@@ -78,6 +78,19 @@ export class HeaderComponent implements OnInit {
     return this.heroHeader && !this.isScrolled;
   }
 
+  // A single exhaustive class string per state - NgClass resolves a shared class token
+  // by whichever object key evaluates it last, so headerTransparent/heroHeader can't
+  // share tokens (top-0, w-full, ...) across separate keys without one silently winning.
+  get headerPositionClasses(): string {
+    if (this.headerTransparent) {
+      return '!bg-white !absolute inset-x-0 top-0 w-full z-20 shadow-none';
+    }
+    if (this.heroHeader) {
+      return 'fixed inset-x-0 top-0 w-full' + (this.isScrolled ? ' shadow-greyBox' : '');
+    }
+    return 'bg-white shadow-greyBox';
+  }
+
   @HostListener('window:scroll')
   onWindowScroll(): void {
     if (this.heroHeader) {

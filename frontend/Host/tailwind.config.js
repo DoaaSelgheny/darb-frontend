@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#ED3024',
+        primary: '#0B7A75',
         secondary: '#122466',
         greyBg: '#FAFAFA',
         greyBlack: '#393939',
@@ -17,11 +17,21 @@ module.exports = {
         'gray-600': '#666',
         success: '#1B998B',
         warning: '#FFC62A',
-        blackTxt:'#262626'
+        blackTxt:'#262626',
+        heritage: {
+          DEFAULT: '#D4A55A',
+          dark: '#B08A4A',
+          light: '#F5E6CC',
+        },
+        navy: {
+          DEFAULT: '#1F2937',
+          light: '#374151',
+        },
       },
       screens: {},
       fontFamily: {
         Rubik: 'Rubik',
+        naskh: ['"Noto Naskh Arabic"', 'serif'],
       },
       boxShadow: {
         greyBox: '0px 3px 30px rgba(226, 226, 226, 0.16)',

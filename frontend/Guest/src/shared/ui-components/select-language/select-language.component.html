@@ -5,9 +5,9 @@
   [nzDropdownMenu]="menu"
   class="hover:border-transparent w-full active:border-transparent focus:border-transparent border border-transparent rounded-md flex items-center p-3 h-9 justify-between"
 >
-  <span nz-icon nzType="down" class="text-secondary" nzTheme="outline"></span>
+  <span nz-icon nzType="down" class="{{ iconClasses }}" nzTheme="outline"></span>
   <span class="text-base uppercase {{ classes }}"> {{ selectLang }}</span>
-  <span nz-icon class="text-secondary" nzType="global" nzTheme="outline"></span>
+  <span nz-icon class="{{ iconClasses }}" nzType="global" nzTheme="outline"></span>
 
   <nz-dropdown-menu #menu="nzDropdownMenu">
     <ul nz-menu>
