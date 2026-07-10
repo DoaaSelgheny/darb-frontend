@@ -1,7 +1,8 @@
 import type { ExtendedProfileDto, ProfileGuestUpdateDto, ProfileHostUpdateDto, UserInterestExperienceDto, UserInterestVacationHomeDto } from './models';
 import { RestService, Rest } from '@abp/ng.core';
+import type { PagedResultDto } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
-import type { UserVerificationInfoDto } from '../users/models';
+import type { UserInformationDto, UserInformationFilterDto, UserVerificationInfoDto } from '../users/models';
 import type { ProfileDto, ProfilePictureSourceDto } from '../volo/abp/account/models';
 
 @Injectable({
@@ -63,6 +64,15 @@ export class ProfileService {
     this.restService.request<any, UserVerificationInfoDto>({
       method: 'GET',
       url: '/api/app/profile/verification-info',
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getUsersInformationByFilter = (filter: UserInformationFilterDto, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, PagedResultDto<UserInformationDto>>({
+      method: 'GET',
+      url: '/api/app/profile/users-information',
+      params: { search: filter.search, sorting: filter.sorting, skipCount: filter.skipCount, maxResultCount: filter.maxResultCount },
     },
     { apiName: this.apiName,...config });
   

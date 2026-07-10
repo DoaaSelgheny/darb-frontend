@@ -1,5 +1,6 @@
 import type { FullAuditedEntityDto, PagedAndSortedResultRequestDto } from '@abp/ng.core';
 import type { RequestType } from '../shared/enums/request-type.enum';
+import type { RequestStatus, RequestType } from '../shared/enums/models';
 import type { RequestStatus } from '../shared/enums/request-status.enum';
 import type { VacationHomeDto } from '../vacation-homes/models';
 import type { ExperienceDto } from '../experiences/models';

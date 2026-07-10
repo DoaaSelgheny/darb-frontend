@@ -1,5 +1,6 @@
 import type { FullAuditedEntityDto, PagedAndSortedResultRequestDto } from '@abp/ng.core';
 import type { DiscountType } from '../shared/enums/discount-type.enum';
+import type { DiscountType } from '../shared/enums/models';
 import type { VacationHomeDto } from '../vacation-homes/models';
 import type { ExperienceDto } from '../experiences/models';
 

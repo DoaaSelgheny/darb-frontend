@@ -20,7 +20,7 @@ import { ProfileService } from 'src/app/feature/profile/profiles';
 import { ConfigurationService } from './configuration/configuration.service';
 import { ContactUsComponent } from 'src/app/feature/contact-us/contact-us.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { YakeenVerificationType } from '@proxy/account-verifications/enum';
+import { YakeenVerificationType } from 'src/app/feature/profile/account-verifications/enum';
 
 @Component({
   selector: 'app-header',

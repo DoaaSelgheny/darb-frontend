@@ -105,9 +105,9 @@ export class PaymentComponent implements OnInit {
   }
   getDataVerification() {
     this.profileService.getGuestProfile().subscribe(data => {
-      if (data?.isVerifiedBy3rdParty ) {
-        this.isAccountVerification = true;
-      }
+      // if (data?.isVerifiedBy3rdParty ) {
+      //   this.isAccountVerification = true;
+      // }
     });
   }
   getPayments() {
@@ -132,6 +132,7 @@ export class PaymentComponent implements OnInit {
         paymentMethod: this.paymentMethod,
         method: this.paymentMethod === 'Credit' ? {method:PaymentMethods.Credit} : {method:PaymentMethods.Settlement},
         applyPayToken: null,
+        isHandledByFront: true,
       })
       .subscribe(x => {
         this.paymentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(x.paymentUrl)
@@ -166,6 +167,7 @@ export class PaymentComponent implements OnInit {
       paymentMethod: this.paymentMethod,
       method: this.paymentMethod === 'Credit' ? {method:PaymentMethods.Credit} : {method:PaymentMethods.Settlement},
       applyPayToken: null,
+      isHandledByFront: true,
     };
 
     this.experienceGuestService.paymentByInput(obj).subscribe(x => {

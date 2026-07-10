@@ -4,8 +4,7 @@ import type { CityDto } from '../cities/models';
 import type { DistrictDto } from '../districts/models';
 import type { VacationHomeStatus } from './vacation-home-status.enum';
 import type { VacationHomeAmenitiesType } from './vacation-home-amenities-type.enum';
-import type { AmenitiesType } from '../amenitiess/amenities-type.enum';
-import type { LightAmenitiesDto, LightSubAmenitiesDto } from '../amenitiess/models';
+import type {  LightAmenitiesDto, LightSubAmenitiesDto } from '../amenitiess/models';
 import type { VacationHomeReservationWay } from './vacation-home-reservation-way.enum';
 import type { VacationHomeCategoryType } from './vacation-home-category-type.enum';
 import type { VacationHomeMeanDto } from '../vacation-home-means/models';
@@ -13,6 +12,7 @@ import type { VacationHomeTypeDto } from '../vacation-home-types/models';
 import type { VacationHomeImageDto } from '../vacation-home-images/models';
 import type { CurrencyDto } from '../currencies/models';
 import type { RegionLookupDto } from '../regions/models';
+import { AmenitiesType } from '@proxy/amenitiess';
 
 export interface AmintiesVacationHome {
   amintieId?: string;
@@ -65,8 +65,6 @@ export interface GetVacationHomeDetailsForGuestResponseDto {
   vacationHome: VacationHomeForGuestDto;
   city: CityDto;
   district: DistrictDto;
-  licenseNumber?: string;
-  permitNumber?: string;
   cancellationAndReturnPolicy?: string;
   ratingsCount: number;
   ratingsAverage: number;
@@ -222,8 +220,8 @@ export interface VacationHomeDto extends FullAuditedEntityDto<number> {
   vacationHomeAmenities: VacationHomeAmenitiesDto[];
   vacationHomeMeans: VacationHomeMeanDto[];
   serialNumber?: string;
-  vacationHomeType: VacationHomeTypeDto;
   bookingTypeId: number;
+  vacationHomeType: VacationHomeTypeDto;
   accessTime?: string;
   leaveTime?: string;
   minimumHomeReservationAmount?: number;
@@ -251,14 +249,6 @@ export interface VacationHomeDto extends FullAuditedEntityDto<number> {
   street?: string;
 }
 
-export interface VacationHomeFilter {
-  filterText?: string;
-  vacationHomeStatus?: VacationHomeStatus;
-  cityId?: number;
-  vacationHomeTypeId?: number;
-  showOnHome?: boolean;
-}
-
 export interface VacationHomeForGuestDto {
   id: number;
   name?: string;
@@ -266,6 +256,7 @@ export interface VacationHomeForGuestDto {
   areaString?: string;
   area?: number;
   serialNumber?: string;
+  bookingTypeId: number;
   vacationHomeMeans: VacationHomeMeanDto[];
   description?: string;
   vacationHomeTypeId?: number;
@@ -279,7 +270,6 @@ export interface VacationHomeForGuestDto {
   primaryImage?: string;
   accessTime?: string;
   leaveTime?: string;
-  bookingTypeId: number;
   minimumHomeReservationAmount?: number;
   vacationHomeReservationWay?: VacationHomeReservationWay;
 }
@@ -405,8 +395,7 @@ export interface VacationHomeWithNavigationPropertiesDto {
   numberOfConfirmedReservations?: number;
   district: DistrictDto;
   region: RegionLookupDto;
-  isYakeenVerified: boolean;
-  isVerifiedMinistryTourism: boolean;
+  hasSubmittedIdentityDocuments: boolean;
   ratingsCount: number;
   ratingsAverage: number;
 }

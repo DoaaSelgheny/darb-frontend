@@ -9,14 +9,14 @@ export class DistributedNotificationService {
   apiName = 'Default';
   
 
-  // sendEmail = (type: NotificationType, data: string, subjectData: string, toEmail: string, toName?: string, context?: any<string, string>, config?: Partial<Rest.Config>) =>
-  //   this.restService.request<any, boolean>({
-  //     method: 'POST',
-  //     url: '/api/app/distributed-notification/send-email',
-  //     params: { type, data, subjectData, toEmail, toName },
-  //     body: context,
-  //   },
-  //   { apiName: this.apiName,...config });
+  sendEmail = (type: NotificationType, data: string, subjectData: string, toEmail: string, toName?: string, context?: any, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, boolean>({
+      method: 'POST',
+      url: '/api/app/distributed-notification/send-email',
+      params: { type, data, subjectData, toEmail, toName },
+      body: context,
+    },
+    { apiName: this.apiName,...config });
   
 
   sendHtmlEmail = (data: string, toEmail: string, toName?: string, subject?: string, cancellationToken?: any, config?: Partial<Rest.Config>) =>

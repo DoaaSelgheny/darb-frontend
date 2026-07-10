@@ -1,5 +1,6 @@
 import type { AuditedEntityDto, PagedAndSortedResultRequestDto } from '@abp/ng.core';
 import type { NotificationType } from '../notificaitons/notification-type.enum';
+import type { NotificationStatus, NotificationType } from '../notificaitons/models';
 import type { NotificationStatus } from '../notificaitons/notification-status.enum';
 
 export interface GetNotificationsInput extends GetNotificationsInputBase {

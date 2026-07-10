@@ -70,7 +70,6 @@ export interface ExperienceDto extends ExperienceDtoBase {
   serialNumber?: string;
   pricePerPerson: number;
   visibleStatus: VisibleStatus;
-  isVerifiedMinistryTourism: boolean;
   experienceType: ExperienceTypeDto;
   signingAgreement: boolean;
   isPublished: boolean;
@@ -205,8 +204,7 @@ export interface ExperienceWithNavigationPropertiesDtoBase {
   numberOfConfirmedReservations?: number;
   district: DistrictDto;
   means: MeanDto[];
-  isVerifiedMinistryTourism: boolean;
-  isYakeenVerified: boolean;
+  hasSubmittedIdentityDocuments: boolean;
   ratingsCount: number;
   ratingsAverage: number;
 }

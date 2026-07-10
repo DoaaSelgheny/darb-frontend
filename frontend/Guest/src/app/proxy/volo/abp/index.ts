@@ -1,2 +1,4 @@
 import * as Account from './account';
-export { Account };
+import * as Content from './content';
+import * as Identity from './identity';
+export { Account, Content, Identity };

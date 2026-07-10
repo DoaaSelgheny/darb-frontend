@@ -1,3 +1,4 @@
+import type { OtpResponse } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
 import type { HyyakOtpType } from '../shared/enums/hyyak-otp-type.enum';
@@ -18,7 +19,7 @@ export class ConfigurationService {
   
 
   sendOtp = (otpType: HyyakOtpType, contactInfo: string, config?: Partial<Rest.Config>) =>
-    this.restService.request<any, void>({
+    this.restService.request<any, OtpResponse>({
       method: 'GET',
       url: '/api/app/configuration/send-otp',
       params: { otpType, contactInfo },

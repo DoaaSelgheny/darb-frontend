@@ -1,4 +1,4 @@
-import type { ChangeVacationHomeStatusDto, GetVacationHomesInputForGuest, VacationHomeDto, VacationHomeFilter, VacationHomeWithNavigationPropertiesDto } from './models';
+import type { ChangeVacationHomeStatusDto, GetVacationHomesInputForGuest, VacationHomeDto, VacationHomeWithNavigationPropertiesDto } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import type { PagedResultDto } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
@@ -46,16 +46,6 @@ export class VacationHomeAdminService {
       method: 'GET',
       url: '/api/app/vacation-home-admin',
       params: { filterText: input.filterText, priceFrom: input.priceFrom, priceTo: input.priceTo, cityId: input.cityId, vacationHomeTypeId: input.vacationHomeTypeId, cityIds: input.cityIds, vacationHomeTypeIds: input.vacationHomeTypeIds, dateFrom: input.dateFrom, dateTo: input.dateTo, showOnHome: input.showOnHome, sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
-    },
-    { apiName: this.apiName,...config });
-  
-
-  getListAsExcelFile = (input: VacationHomeFilter, config?: Partial<Rest.Config>) =>
-    this.restService.request<any, Blob>({
-      method: 'GET',
-      responseType: 'blob',
-      url: '/api/app/vacation-home-admin/tourism-ministry-excel',
-      params: { filterText: input.filterText, vacationHomeStatus: input.vacationHomeStatus, cityId: input.cityId, vacationHomeTypeId: input.vacationHomeTypeId, showOnHome: input.showOnHome },
     },
     { apiName: this.apiName,...config });
   

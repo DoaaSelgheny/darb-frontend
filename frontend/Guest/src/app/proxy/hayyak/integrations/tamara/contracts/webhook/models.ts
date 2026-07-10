@@ -5,4 +5,5 @@ export interface WebhookPayload {
   order_number?: string;
   event_type?: string;
   data: object;
+  comment?: string;
 }

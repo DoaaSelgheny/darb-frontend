@@ -27,7 +27,7 @@
     </div>
     <!-- ID -->
     <p class="text-[#737373] text-sm mt-4">
-      @if(vacationHome.permitNumber){
+      <!-- @if(vacationHome.permitNumber){
         {{"::guest:reserveDetails:tourismNoPermit"  | abpLocalization}}:
         {{vacationHome.permitNumber}}
       }@else if(vacationHome.licenseNumber){
@@ -35,8 +35,8 @@
         {{vacationHome.licenseNumber}}
       }@else {
         {{ "::Host:VacationHome:Step10:None" | abpLocalization}}
-      }
-      | 
+      } 
+      | -->
       {{"::Guest:Explore:vacationid" | abpLocalization}} ({{vacationHome.vacationHome.serialNumber}})
     </p>
     
