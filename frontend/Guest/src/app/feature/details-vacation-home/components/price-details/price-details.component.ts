@@ -1,12 +1,11 @@
 import { SessionStateService } from '@abp/ng.core';
 import { DatePipe } from '@angular/common';
 import {  Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   GetVacationHomeCheckOutResponseDto,
   VacationHomeGuestService,
 } from '@proxy/vacation-homes';
-import { NzModalService } from 'ng-zorro-antd/modal';
 import { TimeFormatPipe } from 'src/shared/pipes/time-format.pipe';
 import { UiComponentsModule } from 'src/shared/ui-components/ui-components.module';
 
@@ -33,9 +32,9 @@ export class PriceDetailsComponent implements OnInit {
   constructor(
     private service: VacationHomeGuestService,
     private route: ActivatedRoute,
+    private router: Router,
     private datepipe:DatePipe,
     private sessionState:SessionStateService,
-    private modalService: NzModalService,
   ) {
     this.tomorrow.setDate(this.Today.getDate() + 1); 
     this.id = this.route.snapshot.params['id']
@@ -105,24 +104,15 @@ export class PriceDetailsComponent implements OnInit {
   }
 
   pay() {
-    // this.router.navigate([
-    //   'payment',
-    //   {
-    //     id: this.id,
-    //     dateFrom: this.datepipe.transform(this.dateFrom, 'yyyy-MM-dd'),
-    //     dateTo: this.datepipe.transform(this.dateTo, 'yyyy-MM-dd'),
-    //     type: 'vacation-home',
-    //   },
-    // ]);
-    const isEnglish = this.lang === 'en';
-    this.modalService.warning({
-      nzTitle: isEnglish ? 'Request Pending Approval' : 'طلبك قيد المراجعة',
-      nzContent: isEnglish
-        ? 'Your booking request has been submitted and is now pending approval. We will notify you once it has been reviewed.'
-        : 'تم إرسال طلب الحجز الخاص بك وهو الآن قيد الموافقة، سنقوم بإعلامك فور الرد عليه.',
-      nzOkText: isEnglish ? 'OK' : 'حسنًا',
-      nzCentered: true,
-    });
+    this.router.navigate([
+      'payment',
+      {
+        id: this.id,
+        dateFrom: this.datepipe.transform(this.dateFrom, 'yyyy-MM-dd'),
+        dateTo: this.datepipe.transform(this.dateTo, 'yyyy-MM-dd'),
+        type: 'vacation-home',
+      },
+    ]);
   }
 
   // Normalize a date to midnight UTC and convert to 'YYYY-MM-DD'
@@ -134,7 +124,7 @@ export class PriceDetailsComponent implements OnInit {
     // Check if a date is in the disabled dates array
     isDateDisabled(date: Date): boolean {
       const formattedDate = this.normalizeDateToUTC(date);
-      return !!this.reservedDates?.includes(formattedDate);
+      return this.reservedDates.includes(formattedDate);
     }
   
     // Disable date logic

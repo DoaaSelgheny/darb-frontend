@@ -11,6 +11,7 @@ import { TimeFormatPipe } from 'src/shared/pipes/time-format.pipe';
 import Swiper from 'swiper';
 import { SwiperOptions } from 'swiper/types/swiper-options';
 import { CarouselModalContentComponent } from '../carousel-modal/carousel-modal.component';
+import { CreateExperiencePaymentDto } from '@proxy/payments';
 
 @Component({
   selector: 'app-price-details',
@@ -45,7 +46,8 @@ export class PriceDetailsComponent implements OnInit{
       private datepipe:DatePipe,
       private sessionState:SessionStateService,
       private modalservice:NzModalService,
-      private localizationService:LocalizationService
+      private localizationService:LocalizationService,
+
     ) {
       this.id = this.route.snapshot.params['id']
       const _dateFrom = this.route.snapshot.params['dateFrom'];
@@ -159,6 +161,30 @@ export class PriceDetailsComponent implements OnInit{
         },
       ]);
     }
+    payExperience() {
+        let obj: CreateExperiencePaymentDto = {
+          
+          experienceId: this.id,
+           date: this.dateFrom,
+        checkInTime:this.TimeSlotChoosen().checkInTime,
+        checkOutTime:this.TimeSlotChoosen().checkOutTime,
+          numberOfPeople: this.pricingDetails.numberOfPerson,
+          
+        
+        };
+    
+        this.service.paymentByInput(obj).subscribe(x => {
+           const isEnglish = this.lang === 'en';
+        this.modalservice.warning({
+          nzTitle: isEnglish ? 'Request Pending Approval' : 'طلبك قيد المراجعة',
+          nzContent: isEnglish
+            ? 'Your booking request has been submitted and is now pending approval. We will notify you once it has been reviewed.'
+            : 'تم إرسال طلب الحجز الخاص بك وهو الآن قيد الموافقة، سنقوم بإعلامك فور الرد عليه.',
+          nzOkText: isEnglish ? 'OK' : 'حسنًا',
+          nzCentered: true,
+        });
+        });
+      }
   
   // Normalize a date to midnight UTC and convert to 'YYYY-MM-DD'
   normalizeDateToUTC(date: Date): string {

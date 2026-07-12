@@ -6,6 +6,7 @@ import type { PaymentType } from '../../reservation-users/payment-type.enum';
 import type { LocationDto } from '../../districts/models';
 import type { VacationHomePublishStatus } from '../../vacation-homes/vacation-home-publish-status.enum';
 
+
 export interface GuestVacationHomeReservationDetailsDto {
   id: number;
   vacationHomeSummary: GuestVacationHomeSummaryDto;
@@ -40,6 +41,9 @@ export interface GuestVacationHomeReservationSummaryDto {
   ratingsCount: number;
   ratingsAverage: number;
   valueAddedTax: number;
+  paymentUrl?: string;
+  paymentDeadline?: string;
+  canRetryPayment: boolean;
 }
 
 export interface GuestVacationHomeSummaryDto {

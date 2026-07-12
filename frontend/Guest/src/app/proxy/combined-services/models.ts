@@ -3,6 +3,7 @@ import type { PagedAndSortedResultRequestDto, PagedResultRequestDto } from '@abp
 import type { CategoryType } from '../categories/category-type.enum';
 import type { VacationHomePublishStatus } from '../vacation-homes/vacation-home-publish-status.enum';
 
+
 export interface CombinedServiceDto {
   vacationHome: GuestVacationHomeDto;
   experience: GuestExperienceDto;
