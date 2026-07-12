@@ -169,7 +169,7 @@ export class PriceDetailsComponent implements OnInit{
     // Check if a date is in the disabled dates array
     isDateDisabled(date: Date): boolean {
       const formattedDate = this.normalizeDateToUTC(date);
-      return this.reservedDates.includes(formattedDate);
+      return !!this.reservedDates?.includes(formattedDate);
     }
  disabledDate = (current: Date): boolean => {
       const todayDate = new Date(this.normalizeDateToUTC(new Date())); // Normalize today's date
