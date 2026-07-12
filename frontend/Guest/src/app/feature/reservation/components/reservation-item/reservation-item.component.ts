@@ -52,6 +52,11 @@ export class ReservationItemComponent {
     }
 
   }
+  pay(){
+    if(this.item.paymentUrl){
+      window.open(this.item.paymentUrl, '_blank');
+    }
+  }
   explore(type){
     if(type  == this.reserveType.VacationHome ){
       this.router.navigate([`/explore`,{type:type}])
