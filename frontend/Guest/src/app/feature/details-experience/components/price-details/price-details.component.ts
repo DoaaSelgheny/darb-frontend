@@ -161,30 +161,7 @@ export class PriceDetailsComponent implements OnInit{
         },
       ]);
     }
-    payExperience() {
-        let obj: CreateExperiencePaymentDto = {
-          
-          experienceId: this.id,
-           date: this.dateFrom,
-        checkInTime:this.TimeSlotChoosen().checkInTime,
-        checkOutTime:this.TimeSlotChoosen().checkOutTime,
-          numberOfPeople: this.pricingDetails.numberOfPerson,
-          
-        
-        };
-    
-        this.service.paymentByInput(obj).subscribe(x => {
-           const isEnglish = this.lang === 'en';
-        this.modalservice.warning({
-          nzTitle: isEnglish ? 'Request Pending Approval' : 'طلبك قيد المراجعة',
-          nzContent: isEnglish
-            ? 'Your booking request has been submitted and is now pending approval. We will notify you once it has been reviewed.'
-            : 'تم إرسال طلب الحجز الخاص بك وهو الآن قيد الموافقة، سنقوم بإعلامك فور الرد عليه.',
-          nzOkText: isEnglish ? 'OK' : 'حسنًا',
-          nzCentered: true,
-        });
-        });
-      }
+   
   
   // Normalize a date to midnight UTC and convert to 'YYYY-MM-DD'
   normalizeDateToUTC(date: Date): string {
