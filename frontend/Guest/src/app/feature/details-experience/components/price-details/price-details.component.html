@@ -233,14 +233,43 @@ class="mt-6 block"
         </div>
       }@empty {
         <div class="col-span-2 flex items-center flex-col">
-          
+
             <img src="assets/imgs/details/img4.svg" alt="img">
-            
-            
-          <p class="mt-3">{{"::Guest:Explore:price:noTimeSlot" |abpLocalization}}</p>            
+
+
+          <p class="mt-3">{{"::Guest:Explore:price:noTimeSlot" |abpLocalization}}</p>
         </div>
       }
     </div>
   </ng-container>
 </nz-modal>
+
+<!-- Confirm login -->
+<app-confrontation-popup
+  [visible]="isVisibleLogin" (cancel)="isVisibleLogin = false" [title]="
+    { key: '::guest:payment:loginverify:title' }
+      | abpLocalization
+  " [description]="
+    {
+      key: '::guest:payment:loginverify:description'
+    } | abpLocalization
+  ">
+  <div buttons class="flex items-center flex-col w-full px-3">
+    <app-button size="md" class="block mb-3 w-full" (click)="goToAuth()"> {{'::guest:payment:loginverify:login'|abpLocalization}} </app-button>
+  </div>
+</app-confrontation-popup>
+
+<!-- Confirm verify -->
+<app-confrontation-popup [visible]="isVisibleVerfied" (cancel)="isVisibleVerfied = false"
+[title]="
+    { key: '::guest:payment:Authenticatedverify:title'}
+      | abpLocalization
+  " [description]="
+    {
+      key: '::guest:payment:Authenticatedverify:description'
+    } | abpLocalization">
+  <div buttons class="flex items-center flex-col w-full px-1">
+    <app-specific-verification-type [fromPayment]="true" (verfySuccess)="handleverfySuccess($event)"></app-specific-verification-type>
+  </div>
+</app-confrontation-popup>
 

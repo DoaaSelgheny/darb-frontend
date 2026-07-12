@@ -1,4 +1,4 @@
-import { LocalizationService, SessionStateService } from '@abp/ng.core';
+import { AuthService, LocalizationService, SessionStateService } from '@abp/ng.core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component,  Input,  OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -12,11 +12,13 @@ import Swiper from 'swiper';
 import { SwiperOptions } from 'swiper/types/swiper-options';
 import { CarouselModalContentComponent } from '../carousel-modal/carousel-modal.component';
 import { CreateExperiencePaymentDto } from '@proxy/payments';
+import { ProfileService } from '@proxy/profiles';
+import { SpecificVerificationTypeComponent } from 'src/app/feature/profile/specific-verification-type/specific-verification-type.component';
 
 @Component({
   selector: 'app-price-details',
   standalone: true,
-  imports: [UiComponentsModule, RouterModule,NzModalModule,TimeFormatPipe,CommonModule],
+  imports: [UiComponentsModule, RouterModule,NzModalModule,TimeFormatPipe,CommonModule, SpecificVerificationTypeComponent],
   templateUrl: './price-details.component.html',
   styleUrl: './price-details.component.scss',
 })
@@ -39,6 +41,11 @@ export class PriceDetailsComponent implements OnInit{
   reservedDates:string[]
   selectedDate:string
   experienceDatesType:number = this.experienceDatesTypeEnum.Specific
+  isLogin: boolean = this.authService.isAuthenticated;
+  isAccountVerification: boolean = true;
+  isVisibleLogin: boolean = false;
+  isVisibleVerfied: boolean = false;
+  paymentMethod: string | null = null;
    constructor(
       private service: ExperienceGuestService,
       private route: ActivatedRoute,
@@ -47,6 +54,8 @@ export class PriceDetailsComponent implements OnInit{
       private sessionState:SessionStateService,
       private modalservice:NzModalService,
       private localizationService:LocalizationService,
+      private authService: AuthService,
+      private profileService: ProfileService,
 
     ) {
       this.id = this.route.snapshot.params['id']
@@ -58,6 +67,9 @@ export class PriceDetailsComponent implements OnInit{
     availableSchedualeDates:string[]
   
     ngOnInit(): void {
+        if (this.isLogin) {
+          this.getDataVerification();
+        }
         this.getPayments();
        setTimeout(() => {
         this.experienceDatesType = this.experience?.experience.experienceDatesType
@@ -144,25 +156,59 @@ export class PriceDetailsComponent implements OnInit{
         }
       })
     }
-    pay() {
-      localStorage.setItem('payment',JSON.stringify({
-        date: this.dateFrom,
-        checkInTime:this.TimeSlotChoosen().checkInTime,
-        checkOutTime:this.TimeSlotChoosen().checkOutTime,
-        cartAmount:this.pricingDetails.totalPrice,
-        numberOfPeople:this.pricingDetails.numberOfPerson,
-        seatsNo:this.seatsNo
-      }))
-      this.router.navigate([
-        'payment',
-        {
-          id: this.id,
-          type:'experience',
-        },
-      ]);
+    getDataVerification() {
+      this.profileService.getGuestProfile().subscribe(data => {
+        this.isAccountVerification = true;
+      });
     }
-   
-  
+
+    pay(method?: string) {
+      if (!this.isLogin) {
+        localStorage.setItem('reserveUrl', window.location.href);
+        this.isVisibleLogin = true;
+      } else if (!this.isAccountVerification) {
+        this.isVisibleVerfied = true;
+      } else {
+        this.payExperience();
+      }
+    }
+
+    payExperience() {
+      let obj: CreateExperiencePaymentDto = {
+        experienceId: this.id,
+        date: this.dateFrom,
+        numberOfPeople: this.pricingDetails.numberOfPerson,
+        checkInTime: this.TimeSlotChoosen().checkInTime,
+        checkOutTime: this.TimeSlotChoosen().checkOutTime,
+      };
+
+      this.service.paymentByInput(obj).subscribe(x => {
+        const isEnglish = this.lang === 'en';
+        this.modalservice.warning({
+          nzTitle: isEnglish ? 'Request Pending Approval' : 'طلبك قيد المراجعة',
+          nzContent: isEnglish
+            ? 'Your booking request has been submitted and is now pending approval. We will notify you once it has been reviewed.'
+            : 'تم إرسال طلب الحجز الخاص بك وهو الآن قيد الموافقة، سنقوم بإعلامك فور الرد عليه.',
+          nzOkText: isEnglish ? 'OK' : 'حسنًا',
+          nzCentered: true,
+          nzOnOk: () => this.router.navigate(['/reservation']),
+        });
+      });
+    }
+
+    goToAuth() {
+      this.authService.navigateToLogin();
+    }
+
+    handleverfySuccess(value: boolean) {
+      if (value) {
+        this.isVisibleVerfied = false;
+        this.getDataVerification();
+        this.pay(this.paymentMethod ?? undefined);
+      }
+    }
+
+
   // Normalize a date to midnight UTC and convert to 'YYYY-MM-DD'
   normalizeDateToUTC(date: Date): string {
     const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));

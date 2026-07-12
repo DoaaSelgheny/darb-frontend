@@ -54,7 +54,19 @@ export class ReservationItemComponent {
   }
   pay(){
     if(this.item.paymentUrl){
-      window.open(this.item.paymentUrl, '_blank');
+      const isVacationHome = this.item.reservationType === this.reserveType.VacationHome;
+      this.router.navigate(
+        [
+          '/payment',
+          {
+            id: isVacationHome ? this.item.vacationHomeId : this.item.experienceId,
+            dateFrom: this.item.startDate,
+            dateTo: this.item.endDate,
+            type: isVacationHome ? 'vacation-home' : 'experience',
+          },
+        ],
+        { queryParams: { paymentUrl: this.item.paymentUrl } },
+      );
     }
   }
   explore(type){

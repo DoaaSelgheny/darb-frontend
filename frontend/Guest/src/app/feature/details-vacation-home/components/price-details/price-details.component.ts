@@ -1,4 +1,4 @@
-import { SessionStateService } from '@abp/ng.core';
+import { AuthService, SessionStateService } from '@abp/ng.core';
 import { DatePipe } from '@angular/common';
 import {  Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,11 +8,14 @@ import {
 } from '@proxy/vacation-homes';
 import { TimeFormatPipe } from 'src/shared/pipes/time-format.pipe';
 import { UiComponentsModule } from 'src/shared/ui-components/ui-components.module';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { ProfileService } from '@proxy/profiles';
+import { SpecificVerificationTypeComponent } from 'src/app/feature/profile/specific-verification-type/specific-verification-type.component';
 
 @Component({
   selector: 'app-price-details',
   standalone: true,
-  imports: [UiComponentsModule,TimeFormatPipe],
+  imports: [UiComponentsModule, TimeFormatPipe, SpecificVerificationTypeComponent],
   templateUrl: './price-details.component.html',
   styleUrl: './price-details.component.scss',
 })
@@ -29,12 +32,20 @@ export class PriceDetailsComponent implements OnInit {
   reservedDates:string[]
   payment: GetVacationHomeCheckOutResponseDto = null;
   dateModel: Date[] = [];
+  isLogin: boolean = this.authService.isAuthenticated;
+  isAccountVerification: boolean = true;
+  isVisibleLogin: boolean = false;
+  isVisibleVerfied: boolean = false;
+  paymentMethod: string | null = null;
   constructor(
     private service: VacationHomeGuestService,
     private route: ActivatedRoute,
     private router: Router,
     private datepipe:DatePipe,
     private sessionState:SessionStateService,
+    private authService: AuthService,
+    private profileService: ProfileService,
+    private modalservice: NzModalService,
   ) {
     this.tomorrow.setDate(this.Today.getDate() + 1); 
     this.id = this.route.snapshot.params['id']
@@ -63,12 +74,19 @@ export class PriceDetailsComponent implements OnInit {
   }
  
   ngOnInit(): void {
-    
+    if (this.isLogin) {
+      this.getDataVerification();
+    }
 
     setTimeout(() => {
       this.getPayments();
       this.getReservedDates()
     }, 1000);
+  }
+  getDataVerification() {
+    this.profileService.getGuestProfile().subscribe(data => {
+      this.isAccountVerification = true;
+    });
   }
   getReservedDates(){
     this.service.getReservedDatesByVacationHomeId(this.id).subscribe({
@@ -103,16 +121,48 @@ export class PriceDetailsComponent implements OnInit {
     
   }
 
-  pay() {
-    this.router.navigate([
-      'payment',
-      {
-        id: this.id,
-        dateFrom: this.datepipe.transform(this.dateFrom, 'yyyy-MM-dd'),
-        dateTo: this.datepipe.transform(this.dateTo, 'yyyy-MM-dd'),
-        type: 'vacation-home',
-      },
-    ]);
+  pay(method?: string) {
+    if (!this.isLogin) {
+      localStorage.setItem('reserveUrl', window.location.href);
+      this.isVisibleLogin = true;
+    } else if (!this.isAccountVerification) {
+      this.isVisibleVerfied = true;
+    } else {
+      this.payHomeHoliday();
+    }
+  }
+
+  payHomeHoliday() {
+    this.service
+      .paymentByInput({
+        vacationHomeId: this.id,
+        dateFrom: this.dateFrom,
+        dateTo: this.dateTo,
+      })
+      .subscribe(x => {
+        const isEnglish = this.lang === 'en';
+        this.modalservice.warning({
+          nzTitle: isEnglish ? 'Request Pending Approval' : 'طلبك قيد المراجعة',
+          nzContent: isEnglish
+            ? 'Your booking request has been submitted and is now pending approval. We will notify you once it has been reviewed.'
+            : 'تم إرسال طلب الحجز الخاص بك وهو الآن قيد الموافقة، سنقوم بإعلامك فور الرد عليه.',
+          nzOkText: isEnglish ? 'OK' : 'حسنًا',
+          nzCentered: true,
+          nzOnOk: () => this.router.navigate(['/reservation']),
+        });
+      });
+  }
+
+  goToAuth() {
+    this.authService.navigateToLogin();
+  }
+
+  handleverfySuccess(value: boolean) {
+    if (value) {
+      this.isVisibleVerfied = false;
+      this.getDataVerification();
+      this.pay(this.paymentMethod ?? undefined);
+    }
   }
 
   // Normalize a date to midnight UTC and convert to 'YYYY-MM-DD'
