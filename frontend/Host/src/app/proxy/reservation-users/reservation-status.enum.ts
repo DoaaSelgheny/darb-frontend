@@ -7,6 +7,11 @@ export enum ReservationStatus {
   CanceledAndRefunded = 3,
   Occupied = 4,
   ThirdParty = 5,
+  PendingApproval = 6,
+  Rejected = 7,
+  AwaitingPayment = 8,
+  PaymentFailed = 9,
+  CancelledPaymentTimeout = 10,
 }
 
 export const reservationStatusOptions = mapEnumToOptions(ReservationStatus);

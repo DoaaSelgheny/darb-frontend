@@ -40,6 +40,9 @@ export interface GuestVacationHomeReservationSummaryDto {
   ratingsCount: number;
   ratingsAverage: number;
   valueAddedTax: number;
+  paymentUrl?: string;
+  paymentDeadline?: string;
+  canRetryPayment: boolean;
 }
 
 export interface GuestVacationHomeSummaryDto {

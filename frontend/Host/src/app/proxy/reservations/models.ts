@@ -26,6 +26,8 @@ export interface ReservationAdminDto {
   ratingsCount: number;
   ratingsAverage: number;
   valueAddedTax: number;
+  canApprove: boolean;
+  canReject: boolean;
 }
 
 export interface ReservationAdminTransactionDto {
@@ -75,6 +77,9 @@ export interface ReservationGuestDto {
   city: CityDto;
   district: DistrictDto;
   valueAddedTax: number;
+  paymentUrl?: string;
+  paymentDeadline?: string;
+  canRetryPayment: boolean;
 }
 
 export interface ReservationHostDto {
@@ -92,6 +97,8 @@ export interface ReservationHostDto {
   ratingsCount: number;
   rating: number;
   valueAddedTax: number;
+  canApprove: boolean;
+  canReject: boolean;
 }
 
 export interface ReservationHostExcelDownloadDto {

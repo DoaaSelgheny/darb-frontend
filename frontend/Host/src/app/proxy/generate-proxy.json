@@ -19360,8 +19360,8 @@
                 }
               ],
               "returnValue": {
-                "type": "Hyyak.Files.BlobDto",
-                "typeSimple": "Hyyak.Files.BlobDto"
+                "type": "Microsoft.AspNetCore.Mvc.IActionResult",
+                "typeSimple": "Microsoft.AspNetCore.Mvc.IActionResult"
               },
               "allowAnonymous": null,
               "implementFrom": "Hyyak.Controllers.VacationHomes.VacationHomeHostController"
@@ -19888,6 +19888,100 @@
                   "defaultValue": null,
                   "constraintTypes": null,
                   "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Microsoft.AspNetCore.Mvc.IActionResult",
+                "typeSimple": "Microsoft.AspNetCore.Mvc.IActionResult"
+              },
+              "allowAnonymous": true,
+              "implementFrom": "Hyyak.Controllers.Webhooks.WebhookController"
+            },
+            "FakePaymentPageByReservationId": {
+              "uniqueName": "FakePaymentPageByReservationId",
+              "name": "FakePaymentPage",
+              "httpMethod": "GET",
+              "url": "api/app/webhook/fake-payment/{reservationId}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "reservationId",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "reservationId",
+                  "name": "reservationId",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Microsoft.AspNetCore.Mvc.IActionResult",
+                "typeSimple": "Microsoft.AspNetCore.Mvc.IActionResult"
+              },
+              "allowAnonymous": true,
+              "implementFrom": "Hyyak.Controllers.Webhooks.WebhookController"
+            },
+            "ReservationPaymentCallbackByReservationIdAndSuccess": {
+              "uniqueName": "ReservationPaymentCallbackByReservationIdAndSuccess",
+              "name": "ReservationPaymentCallback",
+              "httpMethod": "GET",
+              "url": "api/app/webhook/reservation-payment",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "reservationId",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "success",
+                  "typeAsString": "System.Boolean, System.Private.CoreLib",
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "reservationId",
+                  "name": "reservationId",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "success",
+                  "name": "success",
+                  "jsonName": null,
+                  "type": "System.Boolean",
+                  "typeSimple": "boolean",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
                   "descriptorName": ""
                 }
               ],
@@ -22855,6 +22949,247 @@
               },
               "allowAnonymous": false,
               "implementFrom": "Hyyak.Reservations.ReservationsHostAppService"
+            }
+          }
+        },
+        "Hyyak.Reservations.ReservationWorkflowAppService": {
+          "controllerName": "ReservationWorkflow",
+          "controllerGroupName": "ReservationWorkflow",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "Hyyak.Reservations.ReservationWorkflowAppService",
+          "interfaces": [
+            {
+              "type": "Hyyak.Reservations.IReservationWorkflowAppService",
+              "name": "IReservationWorkflowAppService",
+              "methods": [
+                {
+                  "name": "ApproveReservationAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "reservationId",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                },
+                {
+                  "name": "RejectReservationAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "reservationId",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "reason",
+                      "typeAsString": "System.String, System.Private.CoreLib",
+                      "type": "System.String",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                },
+                {
+                  "name": "RetryPaymentAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "reservationId",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                },
+                {
+                  "name": "HandlePaymentCallbackAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "reservationId",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "success",
+                      "typeAsString": "System.Boolean, System.Private.CoreLib",
+                      "type": "System.Boolean",
+                      "typeSimple": "boolean",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                },
+                {
+                  "name": "CancelExpiredAwaitingPaymentsAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "ApproveReservationAsyncByReservationId": {
+              "uniqueName": "ApproveReservationAsyncByReservationId",
+              "name": "ApproveReservationAsync",
+              "httpMethod": "POST",
+              "url": "api/app/reservation-workflow/approve-reservation/{reservationId}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "reservationId",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "reservationId",
+                  "name": "reservationId",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "Hyyak.Reservations.IReservationWorkflowAppService"
+            },
+            "RejectReservationAsyncByReservationIdAndReason": {
+              "uniqueName": "RejectReservationAsyncByReservationIdAndReason",
+              "name": "RejectReservationAsync",
+              "httpMethod": "POST",
+              "url": "api/app/reservation-workflow/reject-reservation/{reservationId}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "reservationId",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "reason",
+                  "typeAsString": "System.String, System.Private.CoreLib",
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "reservationId",
+                  "name": "reservationId",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "reason",
+                  "name": "reason",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "Hyyak.Reservations.IReservationWorkflowAppService"
+            },
+            "RetryPaymentAsyncByReservationId": {
+              "uniqueName": "RetryPaymentAsyncByReservationId",
+              "name": "RetryPaymentAsync",
+              "httpMethod": "POST",
+              "url": "api/app/reservation-workflow/retry-payment/{reservationId}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "reservationId",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "reservationId",
+                  "name": "reservationId",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "Hyyak.Reservations.IReservationWorkflowAppService"
             }
           }
         },
@@ -35822,6 +36157,42 @@
           "minimum": null,
           "maximum": null,
           "regex": null
+        },
+        {
+          "name": "PaymentUrl",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PaymentDeadline",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CanRetryPayment",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
         }
       ]
     },
@@ -36761,6 +37132,42 @@
           "jsonName": null,
           "type": "System.Decimal",
           "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PaymentUrl",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PaymentDeadline",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CanRetryPayment",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -38815,360 +39222,6 @@
         }
       ]
     },
-    "Hyyak.Payments.ApplyPayToken": {
-      "baseType": null,
-      "isEnum": false,
-      "enumNames": null,
-      "enumValues": null,
-      "genericArguments": null,
-      "properties": [
-        {
-          "name": "isSuccess",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "isPending",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "billingDetails",
-          "jsonName": null,
-          "type": "Hyyak.Payments.Billingdetails",
-          "typeSimple": "Hyyak.Payments.Billingdetails",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "cartAmount",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "paymentinfo",
-          "jsonName": null,
-          "type": "Hyyak.Payments.Paymentinfo",
-          "typeSimple": "Hyyak.Payments.Paymentinfo",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "transactionReference",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "transactionType",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "paymentResult",
-          "jsonName": null,
-          "type": "Hyyak.Payments.Paymentresult",
-          "typeSimple": "Hyyak.Payments.Paymentresult",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "cartID",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "trace",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "isAuthorized",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "profileld",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "isProcessed",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "merchantld",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "tranCurrency",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "cartCurrency",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "cartDescription",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "serviceld",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "isOnHold",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "tranTotal",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        }
-      ]
-    },
-    "Hyyak.Payments.Billingdetails": {
-      "baseType": null,
-      "isEnum": false,
-      "enumNames": null,
-      "enumValues": null,
-      "genericArguments": null,
-      "properties": [
-        {
-          "name": "name",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "city",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "phone",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "zip",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "email",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "countryCode",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "addressLine",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "state",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        }
-      ]
-    },
     "Hyyak.Payments.CreateExperiencePaymentDto": {
       "baseType": null,
       "isEnum": false,
@@ -39176,18 +39229,6 @@
       "enumValues": null,
       "genericArguments": null,
       "properties": [
-        {
-          "name": "ReturnUrl",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
         {
           "name": "ExperienceId",
           "jsonName": null,
@@ -39247,54 +39288,6 @@
           "minimum": null,
           "maximum": null,
           "regex": null
-        },
-        {
-          "name": "PaymentMethod",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": true,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Method",
-          "jsonName": null,
-          "type": "Hyyak.Payments.PaymentMethod",
-          "typeSimple": "Hyyak.Payments.PaymentMethod",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "ApplyPayToken",
-          "jsonName": null,
-          "type": "Hyyak.Payments.ApplyPayToken",
-          "typeSimple": "Hyyak.Payments.ApplyPayToken",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "IsHandledByFront",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
         }
       ]
     },
@@ -39305,18 +39298,6 @@
       "enumValues": null,
       "genericArguments": null,
       "properties": [
-        {
-          "name": "ReturnUrl",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
         {
           "name": "VacationHomeId",
           "jsonName": null,
@@ -39352,54 +39333,6 @@
           "minimum": null,
           "maximum": null,
           "regex": null
-        },
-        {
-          "name": "PaymentMethod",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": true,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Method",
-          "jsonName": null,
-          "type": "Hyyak.Payments.PaymentMethod",
-          "typeSimple": "Hyyak.Payments.PaymentMethod",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "ApplyPayToken",
-          "jsonName": null,
-          "type": "Hyyak.Payments.ApplyPayToken",
-          "typeSimple": "Hyyak.Payments.ApplyPayToken",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "IsHandledByFront",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
         }
       ]
     },
@@ -39411,10 +39344,10 @@
       "genericArguments": null,
       "properties": [
         {
-          "name": "PaymentUrl",
+          "name": "ReservationId",
           "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
+          "type": "System.Int32",
+          "typeSimple": "number",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -39601,205 +39534,6 @@
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        }
-      ]
-    },
-    "Hyyak.Payments.Paymentinfo": {
-      "baseType": null,
-      "isEnum": false,
-      "enumNames": null,
-      "enumValues": null,
-      "genericArguments": null,
-      "properties": [
-        {
-          "name": "payment_method",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "cardType",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "paymentDescription",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "expiryMonth",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "cardScheme",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "expiryYear",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        }
-      ]
-    },
-    "Hyyak.Payments.PaymentMethod": {
-      "baseType": null,
-      "isEnum": false,
-      "enumNames": null,
-      "enumValues": null,
-      "genericArguments": null,
-      "properties": [
-        {
-          "name": "Method",
-          "jsonName": null,
-          "type": "Hyyak.Payments.PaymentMethods",
-          "typeSimple": "Hyyak.Payments.PaymentMethods",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        }
-      ]
-    },
-    "Hyyak.Payments.PaymentMethods": {
-      "baseType": "System.Enum",
-      "isEnum": true,
-      "enumNames": [
-        "Credit",
-        "ApplePay",
-        "Settlement"
-      ],
-      "enumValues": [
-        1,
-        2,
-        3
-      ],
-      "genericArguments": null,
-      "properties": null
-    },
-    "Hyyak.Payments.Paymentresult": {
-      "baseType": null,
-      "isEnum": false,
-      "enumNames": null,
-      "enumValues": null,
-      "genericArguments": null,
-      "properties": [
-        {
-          "name": "responseCode",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "transactionTime",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "acquirerMessage",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "acquirerRRN",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "responseMessage",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "responseStatus",
-          "jsonName": null,
-          "type": "System.Object",
-          "typeSimple": "object",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -44259,6 +43993,30 @@
           "minimum": null,
           "maximum": null,
           "regex": null
+        },
+        {
+          "name": "CanApprove",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CanReject",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
         }
       ]
     },
@@ -44793,6 +44551,42 @@
           "minimum": null,
           "maximum": null,
           "regex": null
+        },
+        {
+          "name": "PaymentUrl",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PaymentDeadline",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CanRetryPayment",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
         }
       ]
     },
@@ -44964,6 +44758,30 @@
           "jsonName": null,
           "type": "System.Decimal",
           "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CanApprove",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CanReject",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -45515,7 +45333,12 @@
         "Complete",
         "CanceledAndRefunded",
         "Occupied",
-        "ThirdParty"
+        "ThirdParty",
+        "PendingApproval",
+        "Rejected",
+        "AwaitingPayment",
+        "PaymentFailed",
+        "CancelledPaymentTimeout"
       ],
       "enumValues": [
         0,
@@ -45523,7 +45346,12 @@
         2,
         3,
         4,
-        5
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
       ],
       "genericArguments": null,
       "properties": null

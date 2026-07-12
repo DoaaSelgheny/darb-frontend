@@ -4,7 +4,6 @@ import type { PagedResultDto } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
 import type { AmenitiesDto } from '../amenitiess/models';
 import type { CityDto } from '../cities/models';
-import type { BlobDto } from '../files/models';
 import type { IActionResult } from '../microsoft/asp-net-core/mvc/models';
 import type { AgreementInformationDto, LookupDto, LookupRequestDto } from '../shared/models';
 import type { VacationHomeTypeDto } from '../vacation-home-types/models';
@@ -305,7 +304,7 @@ export class VacationHomeHostService {
   
 
   upload = (file: FormData, config?: Partial<Rest.Config>) =>
-    this.restService.request<any, BlobDto>({
+    this.restService.request<any, IActionResult>({
       method: 'POST',
       url: '/api/app/vacation-home-hosts/upload',
       body: file,
