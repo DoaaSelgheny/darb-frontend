@@ -172,3 +172,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .clock-face__container {
   margin-left: 106px !important;
 }
+// ngx-intl-tel-input country flags
+.iti-flag.sy,
+.iti__flag.iti__sy {
+  background-image: url('assets/authUi/syria.jpg') !important;
+  background-position: 0 0 !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+}
