@@ -10,15 +10,15 @@
      <!-- region -->
      <div class="w-full">
       <div class="mt-4 lg:mt-0 w-full">
-        <app-field-label
+        <!-- <app-field-label
           label="  {{
             {
               key: '::Host:VacationHome:Step02:region'
             } | abpLocalization
           }}"
           [control]="form | getControl: 'regionId'"
-        ></app-field-label>
-        <nz-select
+        ></app-field-label> -->
+        <!-- <nz-select
           nzShowSearch
           [nzAllowClear]="true"
 
@@ -37,7 +37,7 @@
           (ngModelChange)="getCityLookUp($event)"
         >
           <nz-option *ngFor="let c of regions" [nzLabel]="lang === 'ar' ? c.nameAr : c.nameEn" [nzValue]="c.id"></nz-option>
-        </nz-select>
+        </nz-select> -->
         <app-validation
           class="block mt-4"
           [message]="'Validation.'"

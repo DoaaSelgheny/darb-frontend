@@ -24,7 +24,7 @@ export class HomeLocationComponent implements OnInit,OnDestroy {
   @Output() emitNext = new EventEmitter<string>();
   @Input() id:any
   @Input() vacationHome:any
-  @Input() regionId:number
+  // @Input() regionId:number
   cities: CityDto[] = [];
   districts=[]
 
@@ -39,7 +39,7 @@ export class HomeLocationComponent implements OnInit,OnDestroy {
   isVisibleSaveAndExit :boolean = false
   form = new FormGroup({
     id:new FormControl(null),
-    regionId: new FormControl(null, Validators.required),
+    // regionId: new FormControl(null, Validators.required),
     cityId: new FormControl(null, Validators.required),
     districtId: new FormControl(null, [Validators.required]),
     mapLink:new FormControl(null),
@@ -72,11 +72,11 @@ export class HomeLocationComponent implements OnInit,OnDestroy {
     this.id =this.route.snapshot.paramMap.get('id')
 
     if(this.vacationHome){
-      this.getCityLookUp(this.regionId)
+      this.getCityLookUp()
       this.getDistrictsLookUp(this.vacationHome.cityId)
       this.setValueToFormGroup(this.form as FormGroup, this.vacationHome);
       this.form.patchValue({
-        regionId:this.regionId
+      
       })
       this.form.get('mapLink').disable()
       const lat = this.form.value['lat'] ;
@@ -97,8 +97,8 @@ export class HomeLocationComponent implements OnInit,OnDestroy {
     })
 
   }
-  getCityLookUp(regionId:number){
-    this.cityserice.getLookupByInput({ maxResultCount: 1000,regionId:regionId }).subscribe(data => {
+  getCityLookUp(){
+    this.cityserice.getLookupByInput({ maxResultCount: 1000}).subscribe(data => {
       this.cities = data;
     });
     this.form.patchValue({
@@ -212,7 +212,7 @@ setValueToFormGroup(form: FormGroup, data: any) {
       return;
     }
     this.isVisibleSaveAndExit = false;
-    if (this.isSubset({...this.vacationHome,regionId:this.regionId}, this.form.value)) {
+    if (this.isSubset({...this.vacationHome}, this.form.value)) {
       this.emitNext.emit('2');
     }else{
     this.getCurrentSaveAction(true).subscribe(x => {

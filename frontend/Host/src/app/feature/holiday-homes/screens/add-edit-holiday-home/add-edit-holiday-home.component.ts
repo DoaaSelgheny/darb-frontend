@@ -43,7 +43,7 @@ export class AddEditHolidayHomeComponent implements OnInit, OnDestroy {
       }
     });
   }
-  regionId
+  
   //get data by Id
   private GetData(id: any, firstLoad: boolean = false) {
     this.holidayHomeService.getWithNavigationProperties(Number(id)).subscribe((data: any) => {
@@ -52,7 +52,7 @@ export class AddEditHolidayHomeComponent implements OnInit, OnDestroy {
             {
               this.router.navigate(['/holiday-homes/view-holiday-home',id]);
             }
-      if(data.region) this.regionId = data.region.id
+      // if(data.region) this.regionId = data.region.id
       if (firstLoad) {
         this.currentStep = this.vacationHome.currentStep ? this.vacationHome.currentStep - 1  : 0;
 
