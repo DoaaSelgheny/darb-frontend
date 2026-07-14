@@ -16,7 +16,7 @@ const oAuthConfig = {
 
 export const environment = {
   guestUrl,
-  production: false,
+  production: true,
   application: {
     baseUrl,
     name: 'Darb',

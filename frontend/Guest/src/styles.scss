@@ -10,7 +10,15 @@ background-color: #fafafa;
 * {
   font-family: 'Almarai', sans-serif;
 }
-
+.pay-btn{
+  border-radius: 4px;
+    padding: 2px 24px 2px 24px;
+    /* padding: 10px; */
+    background: var(--antd-wave-shadow-color);
+    color: white;
+    max-width: 147px !important;
+    max-height: 32px !important;
+}
 // overrides all icons of toaster messages
 .ant-message-notice-content {
   @apply p-0;
@@ -190,14 +198,14 @@ abp-confirmation {
   }
 }
 .ant-pagination-item-active:hover {
-  border-color: #122466;
+  border-color: #0b7a75;
   a{
     color :#fff;
   }
 }
 .ant-pagination-item-active {
-  background-color: #122466;
-  border-color: #122466;
+  background-color: #0b7a75;
+  border-color: #0b7a75;
   a {
 
     color:#fff

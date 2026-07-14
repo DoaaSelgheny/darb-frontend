@@ -61,7 +61,7 @@
       @if(isVaction && data?.summary.status !== ReservationStatus.CanceledAndRefunded){
         <app-terms-information [data]="data"></app-terms-information>
       }
-      <app-payment-information  [data]="data" [isVaction]="isVaction"></app-payment-information>
+      <!-- <app-payment-information  [data]="data" [isVaction]="isVaction"></app-payment-information> -->
       @if(isVaction && data?.summary.insurance && data?.summary.status !== ReservationStatus.CanceledAndRefunded){
         <app-deposite-information [data]="data"></app-deposite-information>
       }

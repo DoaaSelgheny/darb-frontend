@@ -56,6 +56,7 @@ export class DetailsVacationHomeComponent implements OnInit {
   }
   images=[]
   ngOnInit(): void {
+    localStorage.removeItem('reserveUrl');
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart && event.navigationTrigger === 'popstate') {
         location.reload();

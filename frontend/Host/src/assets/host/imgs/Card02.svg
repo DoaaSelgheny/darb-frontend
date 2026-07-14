@@ -4,7 +4,7 @@
 <rect x="24" y="10" width="192" height="88" rx="12" fill="white"/>
 <path d="M49.1577 141.822H4.11895L4 68H49.0387C69.0559 68 85.3355 84.5401 85.3683 104.911C85.4011 125.282 69.1749 141.822 49.1577 141.822Z" fill="#ED3024"/>
 </g>
-<rect x="24.5" y="10.5" width="191" height="87" rx="11.5" stroke="#122466"/>
+<rect x="24.5" y="10.5" width="191" height="87" rx="11.5" stroke="#0b7a75"/>
 </g>
 <defs>
 <filter id="filter0_d_9260_327764" x="0" y="0" width="240" height="136" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">

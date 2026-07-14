@@ -25,22 +25,22 @@
   }
  
     .ant-radio-checked .ant-radio-inner {
-      border-color: #122466;
+      border-color: #0b7a75;
   }
   .ant-radio-inner::after {
-    background-color: #122466;
+    background-color: #0b7a75;
   }
   
   
 }
 .custom-radio:checked {
-  background-color: #122466 !important;
+  background-color: #0b7a75 !important;
   /* Color for the selected state */
-  border-color: #122466 !important;
+  border-color: #0b7a75 !important;
   /* Border color when checked */
 }
 
 .custom-radio:hover {
-  border-color: #122466 !important;
+  border-color: #0b7a75 !important;
   /* Border color on hover */
 }

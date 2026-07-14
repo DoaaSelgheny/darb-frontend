@@ -144,8 +144,8 @@ export class PriceDetailsComponent implements OnInit {
         this.modalservice.warning({
           nzTitle: isEnglish ? 'Request Pending Approval' : 'طلبك قيد المراجعة',
           nzContent: isEnglish
-            ? 'Your booking request has been submitted and is now pending approval. We will notify you once it has been reviewed.'
-            : 'تم إرسال طلب الحجز الخاص بك وهو الآن قيد الموافقة، سنقوم بإعلامك فور الرد عليه.',
+            ? 'Your booking request has been submitted and is currently pending approval. You will be notified via WhatsApp once your request has been reviewed.'
+            : 'تم إرسال طلب الحجز الخاص بك وهو الآن قيد الموافقة، سنقوم بإعلامك فور الرد عليه برسالة واتساب .',
           nzOkText: isEnglish ? 'OK' : 'حسنًا',
           nzCentered: true,
           nzOnOk: () => this.router.navigate(['/reservation']),

@@ -71,8 +71,8 @@
         }@else if(item.reservationStatus === ReservationStatus.PendingApproval){
           <div class="h-[30px] border-[1px] px-4 py-1 mt-2 rounded-md border-[#F59E0B] text-[#F59E0B] sm:text-base text-xs sm:mx-2 mx-1">{{"::guest:reserve.Pending" | abpLocalization}}</div>
         }@else if(item.reservationStatus === ReservationStatus.AwaitingPayment){
-          <app-button class="block mt-4" (click)="pay()">
-            <div class="flex items-center justify-center">
+          <button class="block mt-2 pay-btn" (click)="pay()">
+            <div class="flex items-center justify-center ">
               <p class="text-base font-bold">الدفع</p>
               <svg
                 width="25"
@@ -88,7 +88,7 @@
                 />
               </svg>
             </div>
-      </app-button> 
+      </button> 
         }@else if (item.reservationStatus === ReservationStatus.Rejected) {
           <div class="h-[30px] border-[1px] px-4 py-1 mt-2 rounded-md border-red-500 text-red-500 sm:text-base text-xs sm:mx-2 mx-1">{{"::guest:reserve.Rejected" | abpLocalization}}</div>
         }
@@ -116,7 +116,7 @@
   
             @if(item.canRebooking){
               <!--Rereserve Button-->
-              <button nz-button nzType="default" class="h-[30px] border-[1px]  mt-2 rounded-md border-[#3B82F6] text-[#3B82F6] hover:text-[#122466] hover:border-[#122466]"
+              <button nz-button nzType="default" class="h-[30px] border-[1px]  mt-2 rounded-md border-[#3B82F6] text-[#3B82F6] hover:text-[#0b7a75] hover:border-[#0b7a75]"
                (click)="reBooking(item.reservationType) ">
                 <p class="flex items-center flex-row">
                  
@@ -128,7 +128,7 @@
               </button>
             }@else {
               <!-- reserve Button-->
-              <button nz-button nzType="default" class="h-[30px] border-[1px]  mt-2 rounded-md border-[#3B82F6] text-[#3B82F6] hover:text-[#122466] hover:border-[#122466]"
+              <button nz-button nzType="default" class="h-[30px] border-[1px]  mt-2 rounded-md border-[#3B82F6] text-[#3B82F6] hover:text-[#0b7a75] hover:border-[#0b7a75]"
               (click)="explore(item.reservationType)">
                <p class="flex items-center flex-row">
                  
