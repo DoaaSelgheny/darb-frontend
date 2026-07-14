@@ -96,6 +96,7 @@ export class ViewHolidayHomeInformationComponent implements OnInit {
     return `${hours}:${minutes}`; // Return only hours and minutes
   }
   getInfo() {
+
     this.service.getWithNavigationProperties(this.id).subscribe({
       next: data => {
         // get the information about the vacation home from API
@@ -106,6 +107,8 @@ export class ViewHolidayHomeInformationComponent implements OnInit {
           this.isSame = true;
         }
         this.vacationHome = data;
+        
+        
     
      
         this.isAcceptTerms = this.vacationHome?.experience?.signingAgreement;
@@ -126,16 +129,16 @@ export class ViewHolidayHomeInformationComponent implements OnInit {
         // Booking type
         this.bookingTypeText = this.getLocalizedBookingTypeName();
 
-        if (!this.vacationHome.isVerifiedMinistryTourism) {
-          this.Description = this.localizationService.instant(
-            '::Host:VacationHome:Popup:Publish:confirmAccountDescriptionTourism',
-          );
-        }
-        if (!this.vacationHome.isYakeenVerified) {
-          this.Description = this.localizationService.instant(
-            '::Host:VacationHome:Popup:Publish:confirmAccountDescriptionYakan',
-          );
-        }
+        // if (!this.vacationHome.isVerifiedMinistryTourism) {
+        //   this.Description = this.localizationService.instant(
+        //     '::Host:VacationHome:Popup:Publish:confirmAccountDescriptionTourism',
+        //   );
+        // }
+        // if (!this.vacationHome.isYakeenVerified) {
+        //   this.Description = this.localizationService.instant(
+        //     '::Host:VacationHome:Popup:Publish:confirmAccountDescriptionYakan',
+        //   );
+        // }
         this.mapCenter = this.mapMarkerPosition = {
           lat: this.vacationHome.experience.lat,
           lng: this.vacationHome.experience.lng,
@@ -307,9 +310,11 @@ export class ViewHolidayHomeInformationComponent implements OnInit {
     this.router.navigate(['/account-verification']);
   }
   isTermsVisible: boolean = false;
+  isAccountVerification:boolean = localStorage.getItem('isAccountVerification') === 'true'?true:false;
   publishData() {
-    if (this.isAcceptTerms || this.vacationHome.experience.signingAgreement) {
-      if (!this.vacationHome.isYakeenVerified) {
+   
+    if (this.isAcceptTerms ) {
+      if (!this.isAccountVerification) {
         this.isVisiblePublishExit = true;
       } else {
         this.publish();

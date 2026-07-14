@@ -56,7 +56,7 @@ export class ViewHolidayHomeInformationComponent implements OnInit {
   AmenitiesType = '';
   isAcceptTerms: boolean = false;
   AmenitiesTypeEnum = AmenitiesType;
-  isSame=false;
+  isSame = false;
   constructor(
     private holidayHomeService: VacationHomeHostService,
     private amenitiesService: AmenitiesService,
@@ -67,30 +67,31 @@ export class ViewHolidayHomeInformationComponent implements OnInit {
     private toaster: TosterService,
     private modalService: NzModalService,
     private cdr: ChangeDetectorRef,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.language = this.localizationService.currentLang;
     this.getInfo();
     this.getTermsData();
   }
-
+isAccountVerification:boolean = localStorage.getItem('isAccountVerification') === 'true'?true:false;
   getInfo() {
     this.holidayHomeService.getWithNavigationProperties(this.id).subscribe({
       next: data => {
         // get the information about the vacation home from API
         this.vacationHome = data;
+        
         this.isAcceptTerms = this.vacationHome.vacationHome.signingAgreement;
-        if (!this.vacationHome.isVerifiedMinistryTourism) {
-          this.Description = this.localizationService.instant(
-            '::Host:VacationHome:Popup:Publish:confirmAccountDescriptionTourism',
-          );
-        }
-        if (!this.vacationHome.isYakeenVerified) {
-          this.Description = this.localizationService.instant(
-            '::Host:VacationHome:Popup:Publish:confirmAccountDescriptionYakan',
-          );
-        }
+        // if (!this.vacationHome.isVerifiedMinistryTourism) {
+        //   this.Description = this.localizationService.instant(
+        //     '::Host:VacationHome:Popup:Publish:confirmAccountDescriptionTourism',
+        //   );
+        // }
+        // if (!this.vacationHome.isYakeenVerified) {
+        //   this.Description = this.localizationService.instant(
+        //     '::Host:VacationHome:Popup:Publish:confirmAccountDescriptionYakan',
+        //   );
+        // }
         this.mapCenter = this.mapMarkerPosition = {
           lat: this.vacationHome.vacationHome.lat,
           lng: this.vacationHome.vacationHome.lng,
@@ -178,8 +179,8 @@ export class ViewHolidayHomeInformationComponent implements OnInit {
         // Booking category
         this.bookingCategoryAbpLocalizationText = this.getAbpLocalizedBestForTextName();
         if (this.vacationHome.vacationHome.vacationHomeStatus === VacationHomeStatus.WaitingModificationToCompleted
-           ||this.vacationHome.vacationHome.vacationHomeStatus === VacationHomeStatus.UnComplete) {
- this.isSame=true;
+          || this.vacationHome.vacationHome.vacationHomeStatus === VacationHomeStatus.UnComplete) {
+          this.isSame = true;
         }
       },
     });
@@ -294,8 +295,8 @@ export class ViewHolidayHomeInformationComponent implements OnInit {
   }
   isTermsVisible: boolean = false;
   publishData() {
-    if (this.isAcceptTerms || this.vacationHome.vacationHome.signingAgreement) {
-      if (!this.vacationHome.isVerifiedMinistryTourism || !this.vacationHome.isYakeenVerified) {
+    if (this.isAcceptTerms ) {
+      if ( !this.isAccountVerification) {
         this.isVisiblePublishExit = true;
       } else {
         this.publish();

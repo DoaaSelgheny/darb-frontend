@@ -49,6 +49,7 @@ export class HeaderComponent implements OnInit {
       this.userVerificationInfo = data;
       if (this.userVerificationInfo?.status === this.status.Approved) {
         this.isAccountVerification = true;
+        localStorage.setItem('isAccountVerification', 'true');
       }
     });
   }
