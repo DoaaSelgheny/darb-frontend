@@ -67,7 +67,7 @@
         }@else if (item.reservationStatus === ReservationStatus.Complete) {
           <div class="h-[30px] border-[1px] px-4 py-1 mt-2 rounded-md border-[#3B82F6] text-[#3B82F6] sm:text-base text-xs sm:mx-2 mx-1">{{"::guest:reserve.Complete" | abpLocalization}}</div>
         }@else if(item.reservationStatus === ReservationStatus.CanceledAndRefunded){
-          <div class="h-[30px] border-[1px] px-1 py-1 mt-2  rounded-md border-[#ED3024] text-[#ED3024] sm:text-base text-xs sm:mx-2 mx-1">{{"::guest:reserve.CanceledAndRefunded" | abpLocalization}}</div>
+          <div class="h-[30px] border-[1px] px-1 py-1 mt-2  rounded-md border-[#0b7a75] text-[#0b7a75] sm:text-base text-xs sm:mx-2 mx-1">{{"::guest:reserve.CanceledAndRefunded" | abpLocalization}}</div>
         }@else if(item.reservationStatus === ReservationStatus.PendingApproval){
           <div class="h-[30px] border-[1px] px-4 py-1 mt-2 rounded-md border-[#F59E0B] text-[#F59E0B] sm:text-base text-xs sm:mx-2 mx-1">{{"::guest:reserve.Pending" | abpLocalization}}</div>
         }@else if(item.reservationStatus === ReservationStatus.AwaitingPayment){

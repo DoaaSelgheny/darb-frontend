@@ -22,7 +22,7 @@
       }@else if (data?.summary.status === ReservationStatus.Complete) {
         <div class="border-[1px] px-4 py-1 rounded-md border-[#3B82F6] text-[#3B82F6] text-base mx-3">{{"::guest:reserve.Complete" | abpLocalization}}</div>
       }@else if(data?.summary.status === ReservationStatus.CanceledAndRefunded){
-        <div class="border-[1px] px-4 py-1 rounded-md border-[#ED3024] text-[#ED3024] text-base mx-3">{{"::guest:reserve.CanceledAndRefunded" | abpLocalization}}</div>
+        <div class="border-[1px] px-4 py-1 rounded-md border-[#0b7a75] text-[#0b7a75] text-base mx-3">{{"::guest:reserve.CanceledAndRefunded" | abpLocalization}}</div>
       }
       <!-- Rating-->
       @if(data?.summary.status === ReservationStatus.Complete && data.canRating){

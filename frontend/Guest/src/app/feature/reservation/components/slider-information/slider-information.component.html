@@ -44,7 +44,7 @@
       @if(disableDetailBtn){
         <button nz-button [nzType]="data?.summary.status === ReservationStatus.Approved ? 'default' : 'primary'" 
           class="w-full border-[1px] rounded-md  text-center"
-          [ngClass]="data?.summary.status === ReservationStatus.Approved ? 'border-[#E5E5E5] text-[#171717] bg-[#FAFAFA]' : 'border-[#ED3024] text-[#fafafa] bg-[#ED3024]'"
+          [ngClass]="data?.summary.status === ReservationStatus.Approved ? 'border-[#E5E5E5] text-[#171717] bg-[#FAFAFA]' : 'border-[#0b7a75] text-[#fafafa] bg-[#0b7a75]'"
           (click)="goToExplore()">
             <p class="flex items-center flex-row  justify-center ">
                   {{'::guest:reserve.reReserve' |abpLocalization}}           
@@ -60,7 +60,7 @@
 
         <button nz-button [nzType]="data?.summary.status === ReservationStatus.Approved ? 'default' : 'primary'" 
           class="w-full border-[1px] rounded-md  text-center"
-          [ngClass]="data?.summary.status === ReservationStatus.Approved ? 'border-[#E5E5E5] text-[#171717] bg-[#FAFAFA]' : 'border-[#ED3024] text-[#fafafa] bg-[#ED3024]'"
+          [ngClass]="data?.summary.status === ReservationStatus.Approved ? 'border-[#E5E5E5] text-[#171717] bg-[#FAFAFA]' : 'border-[#0b7a75] text-[#fafafa] bg-[#0b7a75]'"
             (click)="goToDetails()"
             [disabled]="disableDetailBtn">
               <p class="flex items-center flex-row  justify-center ">

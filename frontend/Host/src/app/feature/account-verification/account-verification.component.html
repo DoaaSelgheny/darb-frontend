@@ -65,7 +65,7 @@
       </app-alert>
     }
     @if (form.value.status == accountVerificationStatus.Reject && form.value.rejectionReason) {
-      <p class="text-[#ED3024] font-bold text-sm mt-2 md:col-span-2">
+      <p class="text-[#0b7a75] font-bold text-sm mt-2 md:col-span-2">
         {{
           { key: '::Host:Verification:RejectionReason', defaultValue: 'سبب الرفض' } | abpLocalization
         }}: {{ form.value.rejectionReason }}
