@@ -13,13 +13,13 @@
 .banner {
 
   // height: 630px;
-  background-image: url('/assets/imgs/host/banner.jpg');
+  background-image: url('/assets/imgs/host/review.png');
 
   &.ar {
-    background-image: url('/assets/imgs/host/banner2.jpg');
+    background-image: url('/assets/imgs/host/review.png');
   }
   background-repeat: no-repeat;
-  background-position: center;
+  // background-position: top top;
   background-size: cover;
 
 }
