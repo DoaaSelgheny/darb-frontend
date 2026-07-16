@@ -107,15 +107,15 @@
     <div class="grid lg:grid-cols-10 gap-4 sm:grid-cols-2">
       @for (type of depositPercentage; track $index) {
         <div
-          class="rounded-lg border border-[#1E3A8A] w-full p-2 shadow-md bg-[#FAFAFA]
+          class="rounded-lg border border-[#0b7a75] w-full p-2 shadow-md bg-[#FAFAFA]
           flex items-center justify-center"
           (click)="selectType(type)"
-          [ngClass]="{ '!bg-[#1E3A8A]': isTypeSelected(type) }"
+          [ngClass]="{ '!bg-[#0b7a75]': isTypeSelected(type) }"
         >
           <div class="text-center w-full">
             <p
-              class=" text-sm text-[#1E3A8A] bg-[#FAFAFA]"
-              [ngClass]="{ '!bg-[#1E3A8A] !text-[#FAFAFA]': isTypeSelected(type) }"
+              class=" text-sm text-[#0b7a75] bg-[#FAFAFA]"
+              [ngClass]="{ '!bg-[#0b7a75] !text-[#FAFAFA]': isTypeSelected(type) }"
             >
               {{ type }}%
             </p>

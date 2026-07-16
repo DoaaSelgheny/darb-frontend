@@ -62,45 +62,45 @@
   </div>
   <div class="grid md:grid-cols-4 lg:grid-cols-4 grid-cols-1 gap-7">
     <div
-      class="rounded-lg border border-[#1E3A8A] w-full p-4 shadow-md bg-[#FAFAFA]"
+      class="rounded-lg border border-[#0b7a75] w-full p-4 shadow-md bg-[#FAFAFA]"
       (click)="selectType(languageTypeEnum.Ar)"
       role="button"
-      [ngClass]="{ '!bg-[#1E3A8A]': isTypeSelected(languageTypeEnum.Ar) }"
+      [ngClass]="{ '!bg-[#0b7a75]': isTypeSelected(languageTypeEnum.Ar) }"
     >
       <div class="text-center w-full ">
         <p
-          class="text-black text-sm text-[#1E3A8A] bg-[#FAFAFA]"
-          [ngClass]="{ '!bg-[#1E3A8A] !text-[#FAFAFA]': isTypeSelected(languageTypeEnum.Ar) }"
+          class="text-black text-sm text-[#0b7a75] bg-[#FAFAFA]"
+          [ngClass]="{ '!bg-[#0b7a75] !text-[#FAFAFA]': isTypeSelected(languageTypeEnum.Ar) }"
         >
         {{ '::Ar' | abpLocalization }}
         </p>
       </div>
     </div>
     <div
-      class="rounded-lg border border-[#1E3A8A] w-full p-4 shadow-md bg-[#FAFAFA]"
+      class="rounded-lg border border-[#0b7a75] w-full p-4 shadow-md bg-[#FAFAFA]"
       (click)="selectType(languageTypeEnum.En)"
       role="button"
-      [ngClass]="{ '!bg-[#1E3A8A]': isTypeSelected(languageTypeEnum.En) }"
+      [ngClass]="{ '!bg-[#0b7a75]': isTypeSelected(languageTypeEnum.En) }"
     >
       <div class="text-center w-full ">
         <p
-          class="text-black text-sm text-[#1E3A8A] bg-[#FAFAFA]"
-          [ngClass]="{ '!bg-[#1E3A8A] !text-[#FAFAFA]': isTypeSelected(languageTypeEnum.En) }"
+          class="text-black text-sm text-[#0b7a75] bg-[#FAFAFA]"
+          [ngClass]="{ '!bg-[#0b7a75] !text-[#FAFAFA]': isTypeSelected(languageTypeEnum.En) }"
         >
         {{ '::en' | abpLocalization }}
         </p>
       </div>
     </div>
     <div
-    class="rounded-lg border border-[#1E3A8A] w-full p-4 shadow-md bg-[#FAFAFA]"
+    class="rounded-lg border border-[#0b7a75] w-full p-4 shadow-md bg-[#FAFAFA]"
     (click)="selectType(languageTypeEnum.Both)"
     role="button"
-    [ngClass]="{ '!bg-[#1E3A8A]': isTypeSelected(languageTypeEnum.Both) }"
+    [ngClass]="{ '!bg-[#0b7a75]': isTypeSelected(languageTypeEnum.Both) }"
   >
     <div class="text-center w-full ">
       <p
-        class="text-black text-sm text-[#1E3A8A] bg-[#FAFAFA]"
-        [ngClass]="{ '!bg-[#1E3A8A] !text-[#FAFAFA]': isTypeSelected(languageTypeEnum.Both) }"
+        class="text-black text-sm text-[#0b7a75] bg-[#FAFAFA]"
+        [ngClass]="{ '!bg-[#0b7a75] !text-[#FAFAFA]': isTypeSelected(languageTypeEnum.Both) }"
       >
       {{ '::languageBoth' | abpLocalization }}
       </p>
@@ -240,14 +240,14 @@
     @for (type of means; track $index) {
       <div
       role="button"
-        class="rounded-lg border border-[#1E3A8A] w-full p-4 shadow-md bg-[#FAFAFA]"
+        class="rounded-lg border border-[#0b7a75] w-full p-4 shadow-md bg-[#FAFAFA]"
         (click)="toggleSelectType(type.id)"
-        [ngClass]="{ '!bg-[#1E3A8A]': isTypeSelectedMeans(type.id) }"
+        [ngClass]="{ '!bg-[#0b7a75]': isTypeSelectedMeans(type.id) }"
       >
         <div class="text-center w-full ">
           <p
-            class="text-black text-sm text-[#1E3A8A] bg-[#FAFAFA]"
-            [ngClass]="{ '!bg-[#1E3A8A] !text-[#FAFAFA]': isTypeSelectedMeans(type.id) }"
+            class="text-black text-sm text-[#0b7a75] bg-[#FAFAFA]"
+            [ngClass]="{ '!bg-[#0b7a75] !text-[#FAFAFA]': isTypeSelectedMeans(type.id) }"
           >
             {{ type.name }}
           </p>

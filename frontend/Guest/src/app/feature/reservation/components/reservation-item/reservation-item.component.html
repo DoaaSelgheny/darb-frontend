@@ -42,7 +42,7 @@
          @if(item.reservationStatus === ReservationStatus.Complete && item.canRating){
 
            <button nz-button nzType="primary" 
-           class="h-[30px] border-[1px] hidden sm:block  hover:bg-[#60A5FA] hover:border-[#60A5FA] mt-2 rounded-md text-white border-[#1E3A8A] bg-[#1E3A8A]"
+           class="h-[30px] border-[1px] hidden sm:block  hover:bg-[#60A5FA] hover:border-[#60A5FA] mt-2 rounded-md text-white border-[#0b7a75] bg-[#0b7a75]"
            (click)="rating(item) ">
             <p class="flex items-center flex-row justify-center">
                {{ '::guest:reserve.rating' | abpLocalization }}
@@ -150,7 +150,7 @@
       @if(item.reservationStatus === ReservationStatus.Complete && item.canRating){
 
         <button nz-button nzType="primary" 
-        class="h-[30px] border-[1px] sm:hidden block  mt-2 hover:border-[#60A5FA] rounded-md text-white border-[#1E3A8A] bg-[#1E3A8A] hover:bg-[#60A5FA]"
+        class="h-[30px] border-[1px] sm:hidden block  mt-2 hover:border-[#60A5FA] rounded-md text-white border-[#0b7a75] bg-[#0b7a75] hover:bg-[#60A5FA]"
         (click)="rating(item) ">
           <p class="flex items-center flex-row justify-center">
             {{ '::guest:reserve.rating' | abpLocalization }}

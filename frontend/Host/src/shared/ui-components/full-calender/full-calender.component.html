@@ -74,9 +74,9 @@
           <span class="text-[#ED3024] mx-2">{{"::calendar:exernal" | abpLocalization}}</span>
         </div>
         <div class="flex flex-row items-center mt-2">
-          <span class="bg-[#1E3A8A] text-[#fafafa] rounded-lg w-[26px]
+          <span class="bg-[#0b7a75] text-[#fafafa] rounded-lg w-[26px]
             h-[26px] flex justify-center items-center">04</span>
-          <span class="text-[#1E3A8A] mx-2">{{"::calendar:completed" | abpLocalization}}</span>
+          <span class="text-[#0b7a75] mx-2">{{"::calendar:completed" | abpLocalization}}</span>
         </div>
         <div class="flex flex-row items-center mt-2">
           <span class="bg-[#E2E2E2] text-[#737373] rounded-lg w-[26px]
@@ -102,7 +102,7 @@
               {{"::calendar:confirm"|abpLocalization}}
             </div>
           }@else if(arg.event.extendedProps.status === reservationStatusEnum.Complete){
-            <div class="bg-[#1E3A8A] h-[25px] w-full rounded-md py-1 px-2" (click)="goToReserve(arg.event.id)">
+            <div class="bg-[#0b7a75] h-[25px] w-full rounded-md py-1 px-2" (click)="goToReserve(arg.event.id)">
               {{"::calendar:completed"|abpLocalization}}
             </div>
           }@else if(arg.event.extendedProps.status === reservationStatusEnum.Occupied){

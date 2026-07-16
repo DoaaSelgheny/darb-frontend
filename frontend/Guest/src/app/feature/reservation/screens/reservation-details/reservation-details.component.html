@@ -28,7 +28,7 @@
       @if(data?.summary.status === ReservationStatus.Complete && data.canRating){
   
         <button nz-button nzType="primary" 
-        class="h-[34px] border-[1px] rounded-md text-white border-[#1E3A8A] bg-[#1E3A8A]
+        class="h-[34px] border-[1px] rounded-md text-white border-[#0b7a75] bg-[#0b7a75]
         hover:bg-[#60A5FA] hover:border-[#60A5FA]"
         (click)="rating(data)">
          <p class="flex items-center flex-row justify-center">
@@ -42,8 +42,8 @@
        </button>
       }
       @if(data.ratedBefore){
-        <div class="border-[1px] flex items-center sm:w-auto w-4/5 sm:px-4 px-2 py-1 rounded-md border-[#1E3A8A]  mx-3">
-          <span class="text-[#1E3A8A] text-base">
+        <div class="border-[1px] flex items-center sm:w-auto w-4/5 sm:px-4 px-2 py-1 rounded-md border-[#0b7a75]  mx-3">
+          <span class="text-[#0b7a75] text-base">
             {{"::guest:reserve.rating:rateDone" | abpLocalization}}
           </span>
          
