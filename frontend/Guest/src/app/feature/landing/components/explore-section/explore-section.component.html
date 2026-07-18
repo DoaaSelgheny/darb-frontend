@@ -41,7 +41,7 @@
           </div>
           <div class="absolute bottom-4 end-4">
             <span class="bg-white/90 backdrop-blur-sm text-navy px-3 py-1.5 rounded-full text-sm font-medium">
-              {{ item.vacationHome?.basicPrice }}
+              {{ item.vacationHome?.averagePrice }}
               <span class="text-navy-light">{{ lang === 'ar' ? '/ ليلة' : '/ night' }}</span>
             </span>
           </div>
@@ -60,10 +60,17 @@
           <div class="flex items-center justify-between pt-4 border-t border-gray-100">
             <div class="flex items-center gap-4 text-navy-light text-sm">
               <span class="flex items-center gap-1">
-                <img src="assets/darb/bed.svg" width="16" height="16" alt="beds" /> {{ item.vacationHome?.numberOfRooms }}
+                <img src="assets/imgs/details/img8.svg" width="16" height="16" alt="area" />
+                {{ item.vacationHome?.areaString }} {{ "::Guest:Explore:Meter" | abpLocalization }}
               </span>
-              <span class="flex items-center gap-1">
-                <img src="assets/darb/bath.svg" width="16" height="16" alt="baths" /> {{ item.vacationHome?.numberOfBathrooms }}
+              <span class="flex items-center gap-1" *ngFor="let amenity of getTopAmenities(item)">
+                <img
+                  [src]="amenity.amenities?.symbol"
+                  width="16"
+                  height="16"
+                  [alt]="lang === 'ar' ? amenity.amenities?.nameAr : amenity.amenities?.nameEn"
+                />
+                {{ amenity.count }}
               </span>
               <span class="flex items-center gap-1">
                 <img src="assets/darb/users.svg" width="16" height="16" alt="guests" /> {{ item.vacationHome?.maxNumberOfGuests }}

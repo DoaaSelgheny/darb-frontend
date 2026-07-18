@@ -26,4 +26,8 @@ export class ExploreSectionComponent implements OnInit {
   goToDetails(item: any): void {
     this.router.navigate(['/vacation-home-details', item.vacationHome.id]);
   }
+
+  getTopAmenities(item: any): any[] {
+    return (item?.vacationHome?.vacationHomeAmenities || []).slice(0, 3);
+  }
 }
