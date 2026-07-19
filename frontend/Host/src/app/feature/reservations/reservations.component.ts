@@ -1,38 +1,50 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { SharedModule } from '../../../shared/shared.module';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { ReservationsHostService } from '@proxy/reservations/reservations-host.service';
+import { ReservationWorkflowService } from '@proxy/reservations/reservation-workflow.service';
 import { ReservationStatus } from '@proxy/reservation-users/reservation-status.enum';
 import { LocalizationService } from '@abp/ng.core';
 import { ReservationType } from '@proxy/reservation-users/reservation-type.enum';
 import { FileManagementService } from 'src/shared/services/file-management.service';
 import { Title } from '@angular/platform-browser';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { ToasterService } from '@abp/ng.theme.shared';
 @Component({
   selector: 'app-reservations',
   standalone: true,
-  imports: [SharedModule, CommonModule, RouterModule],
+  imports: [SharedModule, CommonModule, RouterModule, FormsModule],
   templateUrl: './reservations.component.html',
   styleUrl: './reservations.component.scss',
 })
 export class ReservationsComponent implements OnInit {
-  reservations:any;
-  reservationStatus:any;
-  selectedStatus=null;
+  reservations: any;
+  reservationStatus: any;
+  selectedStatus = null;
   filterText: string;
   currentPage = 1;
   itemsPerPage = 12;
   totalCount = 0;
   loading: boolean = false;
   pageIndex = 1;
-  reservationType=ReservationType;
-  reservationTypeEnum=ReservationType;
-  downloadToken:any;
+  reservationType = ReservationType;
+  reservationTypeEnum = ReservationType;
+   
+  downloadToken: any;
+  rejectionReason = '';
+  selectedRejectionReason = '';
+  @ViewChild('rejectionReasonModal') rejectionReasonModal: TemplateRef<any>;
+  @ViewChild('confirmationModal') confirmationModal: TemplateRef<any>;
   constructor(
-      private service: ReservationsHostService,
-      private localizationService: LocalizationService,
-      private router: Router,
-      private titleService: Title
+    private service: ReservationsHostService,
+    private workflowService: ReservationWorkflowService,
+    private localizationService: LocalizationService,
+    private router: Router,
+    private modalService: NzModalService,
+    private toaster: ToasterService,
+    private titleService: Title
   ) {
 
     this.router.events.subscribe(event => {
@@ -43,63 +55,61 @@ export class ReservationsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("currentPage",this.currentPage)
+    console.log("currentPage", this.currentPage)
     this.titleService.setTitle(this.localizationService.instant('::Host:Title:reversation'));
     this.reservationStatus = Object.keys(ReservationStatus)
-    .filter((key) => !isNaN(Number(ReservationStatus[key as keyof typeof ReservationStatus])))
-    .map((key) => ({ id: Number(ReservationStatus[key as keyof typeof ReservationStatus]), displayName: this.localizationService.instant("::Enum:ReservationStatus."+Number(ReservationStatus[key as keyof typeof ReservationStatus])) })).slice(0,4);
+      .filter((key) => !isNaN(Number(ReservationStatus[key as keyof typeof ReservationStatus])))
+      .map((key) => ({ id: Number(ReservationStatus[key as keyof typeof ReservationStatus]), displayName: this.localizationService.instant("::Enum:ReservationStatus." + Number(ReservationStatus[key as keyof typeof ReservationStatus])) })).slice(0, 4);
 
-      this.getReservation(this.currentPage);
+    this.getReservation(this.currentPage);
 
   }
-getReservation(pageIndex: number)
-{
-  let dataSearch = JSON.parse(sessionStorage.getItem('dataSearch'))
-    if(dataSearch){
+  getReservation(pageIndex: number) {
+    let dataSearch = JSON.parse(sessionStorage.getItem('dataSearch'))
+    if (dataSearch) {
       this.selectedStatus = dataSearch.selectedStatus
       this.filterText = dataSearch.filterText
-      pageIndex =dataSearch.currentPage
+      pageIndex = dataSearch.currentPage
     }
 
-  this.loading = true;
-  this.service.getReservationListByFilter({
+    this.loading = true;
+    this.service.getReservationListByFilter({
 
-    reservationStatus:this.selectedStatus,
-    filterText:this.filterText,
-    maxResultCount: this.itemsPerPage,
-    skipCount: (pageIndex - 1) * this.itemsPerPage,
-
-  } as any).subscribe(data => {
-    this.reservations = data.items;
-    this.totalCount = data.totalCount;
-  });
-  sessionStorage.removeItem('dataSearch')
-  setTimeout(() => {
-    this.currentPage = pageIndex
-  }, 2000);
-}
-
-export()
-{
-
-  this.service.getDownloadToken().subscribe(data => {
-    this.downloadToken = data.token;
-    this.service.getListAsExcelFile({
-
-      reservationStatus:this.selectedStatus,
-      filterText:this.filterText,
-      downloadToken:data.token
+      reservationStatus: this.selectedStatus,
+      filterText: this.filterText,
+      maxResultCount: this.itemsPerPage,
+      skipCount: (pageIndex - 1) * this.itemsPerPage,
 
     } as any).subscribe(data => {
-      this.downloadBlob(data,'reversation')
+      this.reservations = data.items;
+      this.totalCount = data.totalCount;
     });
-  });
+    sessionStorage.removeItem('dataSearch')
+    setTimeout(() => {
+      this.currentPage = pageIndex
+    }, 2000);
+  }
+
+  export() {
+
+    this.service.getDownloadToken().subscribe(data => {
+      this.downloadToken = data.token;
+      this.service.getListAsExcelFile({
+
+        reservationStatus: this.selectedStatus,
+        filterText: this.filterText,
+        downloadToken: data.token
+
+      } as any).subscribe(data => {
+        this.downloadBlob(data, 'reversation')
+      });
+    });
 
 
-}
+  }
 
 
- downloadBlob(blob, fileName) {
+  downloadBlob(blob, fileName) {
     // Create a temporary URL for the Blob
     const url = URL.createObjectURL(blob);
 
@@ -115,7 +125,7 @@ export()
 
     // Release the Blob URL to free memory
     URL.revokeObjectURL(url);
-}
+  }
   listOfColumn = [
 
     {
@@ -162,14 +172,49 @@ export()
   changeFilter() {
     this.getReservation(this.currentPage);
   }
-  goToDetails(id,reservationType,dta){
-    let dataSearch ={
-      selectedStatus:this.selectedStatus,
-      filterText:this.filterText,
+  goToDetails(id, reservationType, dta) {
+    let dataSearch = {
+      selectedStatus: this.selectedStatus,
+      filterText: this.filterText,
       currentPage: this.currentPage
     }
-    this.router.navigate(['/reservation-details/', id,reservationType,dta])
-    sessionStorage.setItem('dataSearch',JSON.stringify(dataSearch))
+    this.router.navigate(['/reservation-details/', id, reservationType, dta])
+    sessionStorage.setItem('dataSearch', JSON.stringify(dataSearch))
+  }
+  approveReservation(row: any) {
+    this.workflowService.approveReservation(row.id).subscribe(data => {
+      this.toaster.success(this.localizationService.instant('::ReservationApprovedSuccessfully'));
+      this.getReservation(this.currentPage); // Refresh the list
+    });
+  }
+
+  showRejectionReason(row: any) {
+    this.selectedRejectionReason = row?.rejectionReason || row?.reason || row?.rejectReason || this.localizationService.instant('::NoRejectionReason') || 'No rejection reason provided';
+    this.modalService.create({
+      nzContent: this.rejectionReasonModal,
+      nzCentered: true,
+      nzMaskClosable: false,
+      nzKeyboard: false,
+      nzFooter: null,
+    });
+  }
+
+  rejectReservation(row: any) {
+    this.rejectionReason = '';
+    this.modalService.create({
+      nzContent: this.confirmationModal,
+      nzCentered: true,
+      nzMaskClosable: false,
+      nzKeyboard: false,
+      nzOnOk: () => {
+        if (this.rejectionReason?.trim()) {
+          this.workflowService.rejectReservation(row.id, this.rejectionReason.trim()).subscribe(() => {
+            this.toaster.success(this.localizationService.instant('::ReservationRejectedSuccessfully'));
+            this.getReservation(this.currentPage);
+          });
+        }
+      },
+    });
   }
 
 }
