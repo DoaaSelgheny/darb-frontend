@@ -1,0 +1,88 @@
+<section class="hero">
+
+    <img [src]="place.coverImage">
+
+    <div class="overlay">
+
+        <h1>{{place.name}}</h1>
+
+        <span>{{place.city}} - {{place.country}}</span>
+
+    </div>
+
+</section>
+
+<section class="container py-5">
+
+    <div class="card-custom">
+
+        <h2>نبذة</h2>
+
+        <p>{{place.description}}</p>
+
+    </div>
+
+    <div class="card-custom">
+
+        <h2>معرض الصور</h2>
+
+        <div class="gallery">
+
+            <img
+            *ngFor="let img of place.gallery"
+            [src]="img">
+
+        </div>
+
+    </div>
+
+    <div class="card-custom">
+
+        <h2>أهم ما يميزه</h2>
+
+        <ul>
+
+            <li *ngFor="let item of place.features">
+
+                {{item}}
+
+            </li>
+
+        </ul>
+
+    </div>
+
+    <div class="card-custom">
+
+        <h2>الأهمية السياحية</h2>
+
+        <ul>
+            <li *ngFor="let item of place.tourismImportance">
+            {{item}}
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="card-custom">
+
+        <h2>الموقع</h2>
+
+        <p>
+
+            {{place.location.city}} - {{place.location.country}}
+
+        </p>
+
+        <a
+        class="btn map"
+        [href]="place.location.googleMap"
+        target="_blank">
+
+            عرض على Google Maps
+
+        </a>
+
+    </div>
+
+</section>

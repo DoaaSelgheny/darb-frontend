@@ -6,7 +6,6 @@ import { PageNotFoundComponent } from 'src/shared/page-not-found/page-not-found.
 import { AuthGuard } from './auth/auth.guard';
 import { NotAvailablePageComponent } from 'src/shared/not-available-page/not-available-page.component';
 import { AuthLayoutComponent } from './feature/auth/screens/auth-layout/auth-layout.component';
-
 const routes: Routes = [
   { path: 'success', component: SuccessComponent },
   {
@@ -46,6 +45,16 @@ const routes: Routes = [
         loadChildren: () => import('./feature/explore/explore.module').then(m => m.ExploreModule),
         title: '::Guest:Title:explore',
       },
+
+  {
+  path: 'heritage/:id',
+  loadComponent: () =>
+    import('./feature/explore-details/heritage-details/heritage-details.component').then(
+      (c) => c.HeritageDetailsComponent
+    ),
+},
+
+
       {
         path: 'vacation-home-details/:id',
         loadComponent: () =>
