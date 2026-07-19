@@ -120,6 +120,52 @@
               {{ '::Enum:ReservationStatus.' + data?.reservationStatus | abpLocalization }}
             </p>
           </div>
+
+
+
+
+           <div class="flex items-center" *ngIf="data?.reservationStatus === 4">
+            <span class="w-[15px] h-[15px] rounded-full me-1.5 bg-[#FB923C]"> </span>
+            <p class="text-[#FB923C] font-normal text-sm">
+              {{ '::Enum:ReservationStatus.' + data?.reservationStatus | abpLocalization }}
+            </p>
+          </div>
+          <div class="flex items-center" *ngIf="data?.reservationStatus === 5">
+            <span class="w-[15px] h-[15px] rounded-full me-1.5 bg-[#00AF6C]"> </span>
+            <p class="text-[#00AF6C] font-normal text-sm">
+              {{ '::Enum:ReservationStatus.' + data?.reservationStatus | abpLocalization }}
+            </p>
+          </div>
+          <div class="flex items-center" *ngIf="data?.reservationStatus === 6">
+            <span class="w-[15px] h-[15px] rounded-full me-1.5 bg-[#3B82F6]"> </span>
+            <p class="text-[#3B82F6] font-normal text-sm">
+              {{ '::Enum:ReservationStatus.' + data?.reservationStatus | abpLocalization }}
+            </p>
+          </div>
+          <div class="flex items-center" *ngIf="data?.reservationStatus === 7">
+            <span class="w-[15px] h-[15px] rounded-full me-1.5 bg-[#0b7a75]"> </span>
+            <p class="text-[#0b7a75] font-normal text-sm">
+              {{ '::Enum:ReservationStatus.' + data?.reservationStatus | abpLocalization }}
+            </p>
+          </div>
+           <div class="flex items-center" *ngIf="data?.reservationStatus === 8">
+            <span class="w-[15px] h-[15px] rounded-full me-1.5 bg-[#0b7a75]"> </span>
+            <p class="text-[#0b7a75] font-normal text-sm">
+              {{ '::Enum:ReservationStatus.' + data?.reservationStatus | abpLocalization }}
+            </p>
+          </div>
+           <div class="flex items-center" *ngIf="data?.reservationStatus === 9">
+            <span class="w-[15px] h-[15px] rounded-full me-1.5 bg-[#0b7a75]"> </span>
+            <p class="text-[#0b7a75] font-normal text-sm">
+              {{ '::Enum:ReservationStatus.' + data?.reservationStatus | abpLocalization }}
+            </p>
+          </div>
+           <div class="flex items-center" *ngIf="data?.reservationStatus === 10">
+            <span class="w-[15px] h-[15px] rounded-full me-1.5 bg-[#0b7a75]"> </span>
+            <p class="text-[#0b7a75] font-normal text-sm">
+              {{ '::Enum:ReservationStatus.' + data?.reservationStatus | abpLocalization }}
+            </p>
+          </div>
         </td>
         <td>
           <div class="d-flex flex">
@@ -129,13 +175,40 @@
           </div>
         </td>
         <td>
-          <nz-tag
-            role="button"
-            (click)="goToDetails(data.id,data.reservationType,false)"
-            class="bg-[#60A5FA] rounded-lg text-center text-white border-0 !mr-2 w-[81px] h-[40px] flex items-center justify-center"
+          <button
+            nz-button
+            nz-dropdown
+            [nzDropdownMenu]="actionsMenu"
+            nzTrigger="click"
+            class="w-9 h-9 border-0 p-0 bg-transparent leading-none rounded-full"
           >
-            {{ '::details' | abpLocalization }}</nz-tag
-          >
+            <i class="fa-solid fa-ellipsis-vertical text-secondary text-lg"></i>
+            <nz-dropdown-menu #actionsMenu="nzDropdownMenu" class="w-[143px]">
+              <ul nz-menu>
+                <li nz-menu-item (click)="goToDetails(data.id, data.reservationType, false)">
+                  <div class="py-1 flex justify-between items-center w-full">
+                    {{ '::details' | abpLocalization }}
+                    <i class="fa-regular fa-eye ms-3 text-[#55565E]"></i>
+                  </div>
+                </li>
+                <ng-container *ngIf="row?.reservationStatus === 0 || row?.reservationStatus === 6">
+                  <!-- <ng-container> -->
+                <li nz-menu-item (click)="approveReservation(data)">
+                  <div class="py-1 flex justify-between items-center w-full">
+                    {{ '::Approvel' | abpLocalization }}
+                    <i class="fa-regular fa-circle-check ms-3 text-[#00AF6C]"></i>
+                  </div>
+                </li>
+                <li nz-menu-item (click)="rejectReservation(data)">
+                  <div class="py-1 flex justify-between items-center w-full">
+                    {{ '::rejected' | abpLocalization }}
+                    <i class="fa-regular fa-circle-xmark ms-3 text-[#EF4444]"></i>
+                  </div>
+                </li>
+                </ng-container>
+              </ul>
+            </nz-dropdown-menu>
+          </button>
         </td>
       </tr>
     </tbody>
@@ -149,3 +222,23 @@
     (nzPageIndexChange)="getReservation($event)"
   ></nz-pagination>
 </div>
+
+<ng-template #confirmationModal>
+  <div class="p-2">
+    <p class="text-base font-bold mb-3">{{ '::RejectReservation' | abpLocalization }}</p>
+    <textarea
+      nz-input
+      rows="4"
+      [(ngModel)]="rejectionReason"
+      class="w-full rounded-md"
+      placeholder="{{ '::RejectionReasonPlaceholder' | abpLocalization }}"
+    ></textarea>
+  </div>
+</ng-template>
+
+<ng-template #rejectionReasonModal>
+  <div class="p-2">
+    <p class="text-base font-bold mb-3">{{ '::RejectionReason' | abpLocalization }}</p>
+    <p class="text-sm text-[#55565E]">{{ selectedRejectionReason }}</p>
+  </div>
+</ng-template>
