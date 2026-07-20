@@ -58,7 +58,7 @@ export class HyyakBusinessComponent implements AfterViewInit, OnInit {
   ) {}
   slides = [
     {
-      imgSrc: 'assets/imgs/host/mini-logo.svg',
+      imgSrc: 'assets/darb/logo.svg',
       name: this.lang == 'ar' ? 'يانا' : 'Yana',
       work: 'موظفة لدى: 1',
       body:
@@ -67,7 +67,7 @@ export class HyyakBusinessComponent implements AfterViewInit, OnInit {
           : 'It was a wonderful opportunity to share meaningful moments with the local community. My experience in Al-Baha was truly unique—I thoroughly enjoyed discovering the culture, admired the old, creatively crafted buildings, and absolutely loved the authentic traditional cuisine',
     },
     {
-      imgSrc: 'assets/imgs/host/mini-logo.svg',
+      imgSrc: 'assets/darb/logo.svg',
       name: this.lang == 'ar' ? 'محمد العريمي' : 'Mohammed Al-Arimi',
       work: 'موظفة لدى: 2',
       body:
@@ -76,7 +76,7 @@ export class HyyakBusinessComponent implements AfterViewInit, OnInit {
           : 'A luxurious journey with a fully professional team. I was thoroughly impressed by the warm welcome and hospitality from the moment I arrived at the airport to my departure. This exceptional service was reflected in every aspect provided by Hayyak. It was a seven-day experience between Riyadh and Al-Ula, filled with unforgettable moments. Thank you, Hayyak team.',
     },
     {
-      imgSrc: 'assets/imgs/host/mini-logo.svg',
+      imgSrc: 'assets/darb/logo.svg',
       name: this.lang == 'ar' ? 'ربيكا' : 'Rebecca',
       work: 'موظفة لدى: 3',
       body:
@@ -88,32 +88,32 @@ export class HyyakBusinessComponent implements AfterViewInit, OnInit {
   services = [
     {
       name: this.lang === 'ar' ? 'تذاكر الطيران' : 'Air Tickets',
-      img: 'assets/imgs/hyak-business/services/bg1.svg',
+      img: 'assets/imgs/hyak-business/services/bg1.png',
       icon: 'assets/imgs/hyak-business/services/icon1.svg',
     },
     {
       name: this.lang === 'ar' ? 'مواصلات' : 'Transportation',
-      img: 'assets/imgs/hyak-business/services/bg2.svg',
+      img: 'assets/imgs/hyak-business/services/bg2.png',
       icon: 'assets/imgs/hyak-business/services/icon2.svg',
     },
     {
       name: this.lang === 'ar' ? 'أماكن للإقامة' : 'Accommodation',
-      img: 'assets/imgs/hyak-business/services/bg3.svg',
+      img: 'assets/imgs/hyak-business/services/bg3.png',
       icon: 'assets/imgs/hyak-business/services/icon3.svg',
     },
     {
       name: this.lang === 'ar' ? 'ضيافة محلية' : 'Local Hospitality',
-      img: 'assets/imgs/hyak-business/services/bg4.svg',
+      img: 'assets/imgs/hyak-business/services/bg4.png',
       icon: 'assets/imgs/hyak-business/services/icon4.svg',
     },
     {
       name: this.lang === 'ar' ? 'جولات سياحية ' : 'Sightseeing Tours',
-      img: 'assets/imgs/hyak-business/services/bg5.svg',
+      img: 'assets/imgs/hyak-business/services/bg5.png',
       icon: 'assets/imgs/hyak-business/services/icon5.svg',
     },
     {
       name: this.lang === 'ar' ? 'تجارب محلية' : 'Local Experiences',
-      img: 'assets/imgs/hyak-business/services/bg6.svg',
+      img: 'assets/imgs/hyak-business/services/bg6.png',
       icon: 'assets/imgs/hyak-business/services/icon6.svg',
     },
   ];

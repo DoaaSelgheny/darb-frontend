@@ -9,7 +9,7 @@ export class DistributedNotificationService {
   apiName = 'Default';
   
 
-  sendEmail = (type: NotificationType, data: string, subjectData: string, toEmail: string, toName?: string, context?: any<string, string>, config?: Partial<Rest.Config>) =>
+  sendEmail = (type: NotificationType, data: string, subjectData: string, toEmail: string, toName?: string, context?: Record<string, string>, config?: Partial<Rest.Config>) =>
     this.restService.request<any, boolean>({
       method: 'POST',
       url: '/api/app/distributed-notification/send-email',
