@@ -58,7 +58,7 @@
               title="user_profile_iamge"
             />
             }
-       
+
             <p class="text-base text-greyDark text-center mt-2">
               ID: {{ profile?.hyyakId || 'No ID Stored' }}
             </p>
@@ -167,7 +167,7 @@
                 {{ { key: '::Host:Profile:Verify', defaultValue: 'تحقق' } | abpLocalization }}
               </app-button>
             }
-          </div> 
+          </div>
         </div>
       </div>
       <div class="flex flex-col">
@@ -218,7 +218,7 @@
               >
                 {{ { key: '::guest:Profile:Update', defaultValue: 'تعديل' } | abpLocalization }}
               </app-button>
-            } 
+            }
              @if (!form.value.phoneNumberConfirmed) {
               <app-button
                 [disabled]="form.get('phoneNumber').invalid"
@@ -235,11 +235,11 @@
               >
                 {{ { key: '::Host:Profile:Verify', defaultValue: 'تحقق' } | abpLocalization }}
               </app-button>
-            } 
+            }
           </div>
         </div>
       </div>
-      
+
       <div>
         <app-field-label
           [label]="{ key: '::gender', defaultValue: 'gender' } | abpLocalization"
@@ -262,7 +262,7 @@
         </nz-select>
         <app-validation [control]="form | getControl: 'gender'"></app-validation>
       </div>
-      <div  class="row">
+      <!-- <div  class="row">
         <app-field
           *ngIf="form.value.idFullName"
           [readonly]="profile.isVerifiedBy3rdParty"
@@ -275,7 +275,7 @@
             { key: '::Host:Profile:FullName', defaultValue: 'الاسم الكامل' } | abpLocalization
           "
         ></app-field>
-      </div>
+      </div> -->
 
     </section>
     <!-- Profile Description  -->
