@@ -10,19 +10,19 @@ export class WebhookService {
   apiName = 'Default';
   
 
-  fakePaymentPageByReservationId = (reservationId: number, config?: Partial<Rest.Config>) =>
+  moyasar = (config?: Partial<Rest.Config>) =>
     this.restService.request<any, IActionResult>({
-      method: 'GET',
-      url: `/api/app/webhook/fake-payment/${reservationId}`,
+      method: 'POST',
+      url: '/api/app/webhook/moyasar',
     },
     { apiName: this.apiName,...config });
   
 
-  reservationPaymentCallbackByReservationIdAndSuccess = (reservationId: number, success: boolean, config?: Partial<Rest.Config>) =>
+  moyasarReturn = (reservationId: number, config?: Partial<Rest.Config>) =>
     this.restService.request<any, IActionResult>({
       method: 'GET',
-      url: '/api/app/webhook/reservation-payment',
-      params: { reservationId, success },
+      url: '/api/app/webhook/moyasar-return',
+      params: { reservationId },
     },
     { apiName: this.apiName,...config });
   

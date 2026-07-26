@@ -41,6 +41,7 @@ export interface GuestVacationHomeReservationSummaryDto {
   ratingsAverage: number;
   valueAddedTax: number;
   paymentUrl?: string;
+  qrCodeImageUrl?: string;
   paymentDeadline?: string;
   canRetryPayment: boolean;
 }

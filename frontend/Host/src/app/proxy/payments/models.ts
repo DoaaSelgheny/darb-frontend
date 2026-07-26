@@ -1,3 +1,5 @@
+import type { PaymentType } from '../reservation-users/payment-type.enum';
+import type { ReservationStatus } from '../reservation-users/reservation-status.enum';
 
 export interface CreateExperiencePaymentDto {
   experienceId: number;
@@ -43,4 +45,19 @@ export interface PrimaryPaymentDto {
   amount: number;
   tax: number;
   totalAmount: number;
+}
+
+export interface StartPaymentInput {
+  reservationId: number;
+  paymentType: PaymentType;
+}
+
+export interface StartPaymentResultDto {
+  reservationId: number;
+  paymentType: PaymentType;
+  status: ReservationStatus;
+  paymentUrl?: string;
+  qrCodeImageUrl?: string;
+  paymentDeadline?: string;
+  requiresQr: boolean;
 }

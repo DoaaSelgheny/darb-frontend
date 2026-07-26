@@ -9,7 +9,7 @@ export class DistributedNotificationService {
   apiName = 'Default';
   
 
-  sendEmail = (type: NotificationType, data: string, subjectData: string, toEmail: string, toName?: string, context?: Record<string, string>, config?: Partial<Rest.Config>) =>
+  sendEmail = (type: NotificationType, data: string, subjectData: string, toEmail: string, toName?: string, context?: any<string, string>, config?: Partial<Rest.Config>) =>
     this.restService.request<any, boolean>({
       method: 'POST',
       url: '/api/app/distributed-notification/send-email',
@@ -32,6 +32,15 @@ export class DistributedNotificationService {
     this.restService.request<any, boolean>({
       method: 'POST',
       url: '/api/app/distributed-notification/send-sMS',
+      params: { type, data, toPhoneNumber },
+    },
+    { apiName: this.apiName,...config });
+  
+
+  sendWhatsApp = (type: NotificationType, data: string, toPhoneNumber: string, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, boolean>({
+      method: 'POST',
+      url: '/api/app/distributed-notification/send-whats-app',
       params: { type, data, toPhoneNumber },
     },
     { apiName: this.apiName,...config });

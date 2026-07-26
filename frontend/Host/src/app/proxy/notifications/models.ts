@@ -50,3 +50,8 @@ export interface NotificationUpdateDtoBase {
   status: NotificationStatus;
   errorMessage?: string;
 }
+
+export interface OtpDeliveryResult {
+  success: boolean;
+  errorMessage?: string;
+}

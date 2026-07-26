@@ -243,6 +243,7 @@ export interface VacationHomeDto extends FullAuditedEntityDto<number> {
   availableTo?: string;
   isAvailableAllYear: boolean;
   averageDayPrice: number;
+  averagePrice?: number;
   isOwningMultipleUnits: boolean;
   unitNumber: number;
   unitFloor: number;

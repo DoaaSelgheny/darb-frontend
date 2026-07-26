@@ -10,64 +10,34 @@
 
 
 
-<form [formGroup]="documentForm">
-
-  <div class="verification-type mb-6">
-    <label class="form-label required">
-      {{ lang === 'ar' ? 'نوع الوثيقة' : 'Document Type' }}
-    </label>
-
-    <nz-select
-      class="w-full"
-      formControlName="documentType"
-      [nzPlaceHolder]="
-        lang === 'ar'
-          ? 'اختر نوع الوثيقة'
-          : 'Select document type'
-      "
-    >
-      <nz-option
-        *ngFor="let item of documentTypes"
-        [nzLabel]="lang === 'ar' ? item.nameAr : item.nameEn"
-        [nzValue]="item.value">
-      </nz-option>
-    </nz-select>
-
-    <!-- Hint -->
-    <small
-      class="text-[#64748B] text-sm mt-2 block"
-      *ngIf="documentForm.get('documentType')?.value">
-
-      <ng-container [ngSwitch]="documentForm.get('documentType')?.value">
-
-        <span *ngSwitchCase="'passport'">
-          {{ lang === 'ar'
-            ? 'يرجى رفع صورة واحدة من جواز السفر.'
-            : 'Please upload one passport image.' }}
-        </span>
-
-        <span *ngSwitchCase="'personalRegistry'">
-          {{ lang === 'ar'
-            ? 'يرجى رفع صورة واحدة من إخراج القيد.'
-            : 'Please upload one image of the personal registry extract.' }}
-        </span>
-
-        <span *ngSwitchCase="'id'">
-          {{ lang === 'ar'
-            ? 'يرجى رفع صورتين للهوية (الأمام والخلف).'
-            : 'Please upload two ID images (front and back).' }}
-        </span>
-
-      </ng-container>
-
-    </small>
-
-  </div>
-
-</form>
 <section class="mb-4"></section>
 
+
 <nz-card [formGroup]="form" class="block w-full border-0 rounded-2xl">
+
+  <div class="verification-type mb-6">
+  <label class="form-label required">
+    {{ lang === 'ar' ? 'نوع الوثيقة' : 'Document Type' }}
+  </label>
+
+  <nz-select
+    class="w-full"
+    formControlName="identityDocumentType"
+    [nzPlaceHolder]="
+      lang === 'ar'
+        ? 'اختر نوع الوثيقة'
+        : 'Select document type'
+    "
+  >
+    <nz-option
+      *ngFor="let item of identityDocumentTypeOptions"
+      [nzValue]="item.value"
+  [nzLabel]="'::' + item.key | abpLocalization">
+
+    </nz-option>
+  </nz-select>
+</div>
+
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-4">
     <h4 class="text-lg text-dark font-extrabold border-0">
       {{
