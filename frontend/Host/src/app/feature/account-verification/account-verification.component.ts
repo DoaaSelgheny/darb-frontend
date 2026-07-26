@@ -66,6 +66,9 @@ export class AccountVerificationComponent implements OnInit, OnDestroy {
         }
       }),
     );
+
+
+      this.formBuilderverification();
   }
 
   get isReadOnly(): boolean {
@@ -145,4 +148,74 @@ export class AccountVerificationComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
+
+
+  selectedDocumentType: string | null = null;
+
+
+  documentForm!: FormGroup;
+
+requiredImages = 1;
+
+documentTypes = [
+  {
+    value: 'passport',
+    nameAr: 'جواز سفر',
+    nameEn: 'Passport',
+  },
+  {
+    value: 'id',
+    nameAr: 'الهوية',
+    nameEn: 'ID',
+  },
+  {
+    value: 'personalRegistry',
+    nameAr: 'إخراج قيد بيان فردي',
+    nameEn: 'Personal registry extract / Individual statement',
+  },
+];
+
+formBuilderverification() {
+  this.documentForm = this.fb.group({
+    documentType: [null],
+  });
+
+  this.documentForm
+    .get('documentType')
+    ?.valueChanges.subscribe(type => this.onDocumentTypeChange(type));
+}
+
+onDocumentTypeChange(type: string) {
+
+  this.requiredImages = type === 'id' ? 2 : 1;
+
+  this.saudiIDFrontFile = [];
+  this.saudiIDBackFile = [];
+
+  this.form.patchValue({
+    attachedSaudiIDFront: null,
+    attachedSaudiIDBack: null,
+  });
+
+  const frontControl = this.form.get('attachedSaudiIDFront');
+  const backControl = this.form.get('attachedSaudiIDBack');
+
+  frontControl?.clearValidators();
+  backControl?.clearValidators();
+
+  frontControl?.setValidators([Validators.required]);
+
+  if (type === 'id') {
+    backControl?.setValidators([Validators.required]);
+  }
+
+  frontControl?.updateValueAndValidity();
+  backControl?.updateValueAndValidity();
+}
+
+
+get isIdSelected(): boolean {
+  return this.documentForm.get('documentType')?.value === 'id';
+}
+
 }
