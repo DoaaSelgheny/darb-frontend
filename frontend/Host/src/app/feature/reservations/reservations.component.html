@@ -191,7 +191,7 @@
                     <i class="fa-regular fa-eye ms-3 text-[#55565E]"></i>
                   </div>
                 </li>
-                <ng-container *ngIf="row?.reservationStatus === 0 || row?.reservationStatus === 6">
+                <ng-container *ngIf="row?.reservationStatus == 0 || row?.reservationStatus == 6">
                   <!-- <ng-container> -->
                 <li nz-menu-item (click)="approveReservation(data)">
                   <div class="py-1 flex justify-between items-center w-full">
