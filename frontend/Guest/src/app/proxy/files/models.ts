@@ -2,6 +2,7 @@
 export interface BlobDto {
   content: number[];
   name?: string;
+  storageMethod?: string;
 }
 
 export interface GetBlobRequestDto {

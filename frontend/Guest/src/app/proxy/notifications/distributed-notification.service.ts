@@ -35,6 +35,15 @@ export class DistributedNotificationService {
       params: { type, data, toPhoneNumber },
     },
     { apiName: this.apiName,...config });
+  
+
+  sendWhatsApp = (type: NotificationType, data: string, toPhoneNumber: string, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, boolean>({
+      method: 'POST',
+      url: '/api/app/distributed-notification/send-whats-app',
+      params: { type, data, toPhoneNumber },
+    },
+    { apiName: this.apiName,...config });
 
   constructor(private restService: RestService) {}
 }

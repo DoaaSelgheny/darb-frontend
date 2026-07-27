@@ -1,6 +1,6 @@
-import type { Gender } from '../gender.enum';
 import type { UserInterestExperienceDto, UserInterestVacationHomeDto } from '../models';
 import type { ProfilePictureSourceDto } from '../../volo/abp/account/models';
+import { Gender } from '../gender.enum';
 
 export interface GuestProfileDto {
   firstName?: string;

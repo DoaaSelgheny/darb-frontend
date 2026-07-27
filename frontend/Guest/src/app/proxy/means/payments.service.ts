@@ -1,6 +1,6 @@
 import { RestService, Rest } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
-import type { CreateExperiencePaymentDto, CreatePaymentDto, CreatePaymentResultDto, FollowUpTransactionDto, GetReservationStatus } from '../payments/models';
+import type { CreateExperiencePaymentDto, CreatePaymentDto, CreatePaymentResultDto, FollowUpTransactionDto, GetReservationStatus, PaymentOptionDto } from '../payments/models';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +32,14 @@ export class PaymentsService {
       method: 'POST',
       url: '/api/app/payments/follow-up-payment',
       body: input,
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getPaymentOptions = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, PaymentOptionDto[]>({
+      method: 'GET',
+      url: '/api/app/payments/payment-options',
     },
     { apiName: this.apiName,...config });
   

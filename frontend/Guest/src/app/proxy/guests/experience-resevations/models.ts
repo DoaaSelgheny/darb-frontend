@@ -4,7 +4,7 @@ import type { ReservationType } from '../../reservation-users/reservation-type.e
 import type { AmountPay } from '../../reservation-users/amount-pay.enum';
 import type { PaymentType } from '../../reservation-users/payment-type.enum';
 import type { LocationDto } from '../../districts/models';
-import type { VisibleStatus } from '../../experiences/visible-status.enum';
+import { VisibleStatus } from '@proxy/experiences';
 
 export interface GuestExperienceReservationDetailsDto {
   id: number;
@@ -39,6 +39,9 @@ export interface GuestExperienceReservationSummaryDto {
   ratingsAverage: number;
   valueAddedTax: number;
   paymentUrl?: string;
+  qrCodeImageUrl?: string;
+  paymentReceiptFileName?: string;
+  canUploadPaymentReceipt: boolean;
   paymentDeadline?: string;
   canRetryPayment: boolean;
 }

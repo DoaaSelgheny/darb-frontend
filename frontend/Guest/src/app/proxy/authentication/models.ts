@@ -27,6 +27,7 @@ export interface StartSessionResponseDto {
   sessionId?: string;
   otp?: string;
   isNewUser: boolean;
+  message?: string;
 }
 
 export interface VerifyOtpRequestDto {

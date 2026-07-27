@@ -7,7 +7,8 @@
       <p class="text-base text-[#171717] ">
         @if(data?.summary.paymentType === PaymentType.Visa){
           {{'::guest:reserveDetails:card' |abpLocalization}}
-        }@else if(data?.summary.paymentType === PaymentType.CreditCard){
+        }
+        <!-- @else if(data?.summary.paymentType === PaymentType.CreditCard){
           {{'::guest:reserveDetails:creditCard' |abpLocalization}}
         }@else if(data?.summary.paymentType === PaymentType.Mada){
           {{'::guest:reserveDetails:mada' |abpLocalization}}
@@ -19,7 +20,7 @@
         }@else if(data?.summary.paymentType === PaymentType.TamaraSettlement){
           {{'::guest:reserveDetails:tamara' |abpLocalization}}
 
-        }
+        } -->
       </p>
     </div>
     @if(isVaction){
