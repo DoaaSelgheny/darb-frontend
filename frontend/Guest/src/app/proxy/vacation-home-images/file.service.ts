@@ -30,7 +30,7 @@ export class FileService {
   
 
   saveBlob = (input: SaveBlobInputDto, config?: Partial<Rest.Config>) =>
-    this.restService.request<any, void>({
+    this.restService.request<any, BlobDto>({
       method: 'POST',
       url: '/api/app/file/save-blob',
       body: input,

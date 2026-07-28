@@ -1,3 +1,5 @@
+import type { PaymentType } from '../reservation-users/payment-type.enum';
+import type { ReservationStatus } from '../reservation-users/reservation-status.enum';
 
 export interface CreateExperiencePaymentDto {
   experienceId: number;
@@ -37,10 +39,47 @@ export interface GetReservationStatus {
   tranRef?: string;
 }
 
+export interface PaymentOptionDto {
+  type: PaymentType;
+  code?: string;
+  displayName?: string;
+  provider?: string;
+  requiresQr: boolean;
+  requiresReceiptUpload: boolean;
+  qrCodeImageUrl?: string;
+}
+
 export interface PrimaryPaymentDto {
   basicPrice: number;
   numberOfDays: number;
   amount: number;
   tax: number;
   totalAmount: number;
+}
+
+export interface RejectPaymentReceiptInput {
+  reservationId: number;
+  reason: string;
+}
+
+export interface StartPaymentInput {
+  reservationId: number;
+  paymentType: PaymentType;
+}
+
+export interface StartPaymentResultDto {
+  reservationId: number;
+  paymentType: PaymentType;
+  status: ReservationStatus;
+  paymentUrl?: string;
+  qrCodeImageUrl?: string;
+  paymentDeadline?: string;
+  requiresQr: boolean;
+  requiresReceiptUpload: boolean;
+  paymentReceiptFileName?: string;
+}
+
+export interface UploadPaymentReceiptInput {
+  reservationId: number;
+  paymentReceiptFileName: string;
 }

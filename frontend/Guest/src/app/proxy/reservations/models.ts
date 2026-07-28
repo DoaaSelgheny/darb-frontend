@@ -1,5 +1,6 @@
 import type { ReservationType } from '../reservation-users/reservation-type.enum';
 import type { ReservationStatus } from '../reservation-users/reservation-status.enum';
+import type { PaymentType } from '../reservation-users/payment-type.enum';
 import type { TransferStatus } from '../reservation-users/transfer-status.enum';
 import type { AmountPay } from '../reservation-users/amount-pay.enum';
 import type { CityDto } from '../cities/models';
@@ -28,6 +29,11 @@ export interface ReservationAdminDto {
   valueAddedTax: number;
   canApprove: boolean;
   canReject: boolean;
+  rejectionReason?: string;
+  paymentType: PaymentType;
+  paymentReceiptFileName?: string;
+  canConfirmPaymentReceipt: boolean;
+  canRejectPaymentReceipt: boolean;
 }
 
 export interface ReservationAdminTransactionDto {
@@ -78,8 +84,12 @@ export interface ReservationGuestDto {
   district: DistrictDto;
   valueAddedTax: number;
   paymentUrl?: string;
+  qrCodeImageUrl?: string;
+  paymentReceiptFileName?: string;
+  canUploadPaymentReceipt: boolean;
   paymentDeadline?: string;
   canRetryPayment: boolean;
+  paymentType: PaymentType;
 }
 
 export interface ReservationHostDto {
@@ -99,6 +109,10 @@ export interface ReservationHostDto {
   valueAddedTax: number;
   canApprove: boolean;
   canReject: boolean;
+  paymentType: PaymentType;
+  paymentReceiptFileName?: string;
+  canConfirmPaymentReceipt: boolean;
+  canRejectPaymentReceipt: boolean;
 }
 
 export interface ReservationHostExcelDownloadDto {

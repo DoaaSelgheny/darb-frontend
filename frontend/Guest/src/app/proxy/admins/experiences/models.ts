@@ -3,6 +3,7 @@ import type { HostExperienceSummaryDto } from '../../hosts/experience/models';
 import type { ReservationStatus } from '../../reservation-users/reservation-status.enum';
 import type { ReservationType } from '../../reservation-users/reservation-type.enum';
 import type { AmountPay } from '../../reservation-users/amount-pay.enum';
+import type { PaymentType } from '../../reservation-users/payment-type.enum';
 
 export interface AdminExperienceReservationDetailsDto {
   id: number;
@@ -32,6 +33,10 @@ export interface AdminExperienceReservationSummaryDto {
   cancellationAndReturnPolicyName?: string;
   cancellationAndReturnPolicyDescription?: string;
   valueAddedTax: number;
+  paymentType: PaymentType;
+  paymentReceiptFileName?: string;
+  canConfirmPaymentReceipt: boolean;
+  canRejectPaymentReceipt: boolean;
 }
 
 export interface HostExperienceReservationDetailsDto {
@@ -60,4 +65,8 @@ export interface HostExperienceReservationSummaryDto {
   cancellationAndReturnPolicyName?: string;
   cancellationAndReturnPolicyDescription?: string;
   valueAddedTax: number;
+  paymentType: PaymentType;
+  paymentReceiptFileName?: string;
+  canConfirmPaymentReceipt: boolean;
+  canRejectPaymentReceipt: boolean;
 }

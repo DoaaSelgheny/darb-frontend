@@ -1,8 +1,7 @@
+import { CategoryType } from '@proxy/categories';
 import type { GuestExperienceDto, GuestVacationHomeDto } from '../guests/models';
 import type { PagedAndSortedResultRequestDto, PagedResultRequestDto } from '@abp/ng.core';
-import type { CategoryType } from '../categories/category-type.enum';
-import type { VacationHomePublishStatus } from '../vacation-homes/vacation-home-publish-status.enum';
-
+import { VacationHomePublishStatus } from '@proxy/vacation-homes';
 
 export interface CombinedServiceDto {
   vacationHome: GuestVacationHomeDto;

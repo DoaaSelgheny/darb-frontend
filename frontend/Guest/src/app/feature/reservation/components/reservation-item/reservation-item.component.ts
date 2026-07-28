@@ -53,21 +53,17 @@ export class ReservationItemComponent {
 
   }
   pay(){
-    if(this.item.paymentUrl){
-      const isVacationHome = this.item.reservationType === this.reserveType.VacationHome;
-      this.router.navigate(
-        [
-          '/payment',
-          {
-            id: isVacationHome ? this.item.vacationHomeId : this.item.experienceId,
-            dateFrom: this.item.startDate,
-            dateTo: this.item.endDate,
-            type: isVacationHome ? 'vacation-home' : 'experience',
-          },
-        ],
-        { queryParams: { paymentUrl: this.item.paymentUrl } },
-      );
-    }
+    const isVacationHome = this.item.reservationType === this.reserveType.VacationHome;
+    this.router.navigate([
+      '/payment',
+      {
+        id: isVacationHome ? this.item.vacationHomeId : this.item.experienceId,
+        dateFrom: this.item.startDate,
+        dateTo: this.item.endDate,
+        type: isVacationHome ? 'vacation-home' : 'experience',
+        reservationId: this.item.id,
+      },
+    ]);
   }
   explore(type){
     if(type  == this.reserveType.VacationHome ){

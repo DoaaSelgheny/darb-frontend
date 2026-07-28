@@ -41,14 +41,58 @@
       ></app-reservation-summary>
     </div>
 
-    @if(paymentUrl){
+    @if(reservationId){
       <nz-card class="md:col-span-3 col-span-1 border-0 rounded-2xl custom-card" [nzTitle]="cardTitle">
         <ng-template #cardTitle>
           <p class="font-extrabold text-lg">
             {{"::Guest:Explore:payment:payment" | abpLocalization}}
           </p>
         </ng-template>
-        <iframe title="payment frame" [src]="paymentUrl" width="100%" height="600"></iframe>
+
+        @if(!startResult){
+          <p class="font-bold text-base mb-3">{{"::guest:payment:paymentType" | abpLocalization}}</p>
+          <nz-radio-group
+            [ngModel]="selectedPaymentType"
+            [ngModelOptions]="{ standalone: true }"
+            (ngModelChange)="selectPaymentType($event)"
+            class="flex flex-col gap-3"
+          >
+            @for(option of paymentOptions; track option.type){
+              <label nz-radio [nzValue]="option.type" class="text-base">{{ "::"+option.displayName | abpLocalization}}</label>
+            }
+          </nz-radio-group>
+        }
+
+        @if(starting){
+          <nz-skeleton [nzActive]="true" class="mt-4"></nz-skeleton>
+        }
+
+        @if(startResult?.paymentUrl){
+          <iframe title="payment frame" [src]="paymentUrl" width="100%" height="600"></iframe>
+        }
+
+        @if(startResult?.requiresReceiptUpload && !receiptSubmitted){
+          <div class="mt-4">
+            <img [src]="startResult.qrCodeImageUrl" alt="ShamBank QR code" class="mx-auto max-w-[220px]">
+            <p class="text-sm text-[#3A3A3A] mt-3 text-center">{{"::guest:payment:shamBankQrHint" | abpLocalization}}</p>
+
+            <input #receiptInput type="file" class="hidden" accept=".jpg,.jpeg,.png,.pdf" (change)="onFileSelected($event)">
+            <div class="flex items-center gap-3 mt-4">
+              <button nz-button nzType="primary" [nzLoading]="uploading" (click)="receiptInput.click()">
+                {{"::guest:payment:uploadReceipt" | abpLocalization}}
+              </button>
+              @if(receiptFile && !uploading){
+                <span class="text-sm">{{ receiptFile.name }}</span>
+              }
+            </div>
+          </div>
+        }
+
+        @if(receiptSubmitted){
+          <p class="mt-4 font-bold text-[#0b7a75]">
+            {{ ('Enum:ReservationStatus.' + startResult.status) | abpLocalization }}
+          </p>
+        }
       </nz-card>
     }
   </div>
