@@ -103,7 +103,7 @@
 
   <section class="grid grid-cols-1 md:grid-cols-2 gap-x-9 gap-y-4 mt-5">
     <div>
-      <app-field-label
+      <!-- <app-field-label
         [label]="
           {
             key: '::Host:Verification:UploadFront',
@@ -112,7 +112,28 @@
         "
         [control]="form | getControl: 'attachedSaudiIDFront'"
         formControlName="attachedSaudiIDFront"
-      ></app-field-label>
+      ></app-field-label> -->
+
+
+
+<app-field-label
+  [label]="
+    {
+      key:
+        isIdSelected
+          ? '::Host:Verification:UploadFront'
+          : '::Host:Verification:UploadDocument',
+      defaultValue:
+        isIdSelected
+          ? '(PDF, JPG, JPEG, PNG) رفع الوجه الأمامي'
+          : '(PDF, JPG, JPEG, PNG) رفع المستند'
+    } | abpLocalization
+  "
+  [control]="form | getControl: 'attachedSaudiIDFront'"
+  formControlName="attachedSaudiIDFront"
+></app-field-label>
+
+
       <app-upload
         [fileList]="saudiIDFrontFile"
         [isShowUploadList]="true"
@@ -160,7 +181,7 @@
       </div>
     </div>
 
-    <div>
+    <div *ngIf="isIdSelected">
       <app-field-label
         [label]="
           {

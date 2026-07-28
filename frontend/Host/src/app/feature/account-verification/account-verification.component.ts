@@ -53,29 +53,77 @@ export class AccountVerificationComponent implements OnInit, OnDestroy {
     private localizationService: LocalizationService,
   ) {}
 
+  // ngOnInit() {
+  //   this.lang = this.localizationService.currentLang;
+  //   this.formBuilder();
+  //   this.subscriptions.add(
+  //     this.accountVerificationService.getByCreatorId().subscribe(data => {
+  //       if (data) {
+  //         this.form.patchValue(data);
+  //         if (data.attachedSaudiIDFront) {
+  //           this.saudiIDFrontFile = [
+  //             { uid: '-1', name: data.attachedSaudiIDFront, iconType: 'uploading' },
+  //           ];
+  //         }
+  //         if (data.attachedSaudiIDBack) {
+  //           this.saudiIDBackFile = [
+  //             { uid: '-1', name: data.attachedSaudiIDBack, iconType: 'uploading' },
+  //           ];
+  //         }
+  //       }
+  //     }),
+  //   );
+
+
+  // }
+
   ngOnInit() {
-    this.lang = this.localizationService.currentLang;
-    this.formBuilder();
-    this.subscriptions.add(
-      this.accountVerificationService.getByCreatorId().subscribe(data => {
-        if (data) {
-          this.form.patchValue(data);
-          if (data.attachedSaudiIDFront) {
-            this.saudiIDFrontFile = [
-              { uid: '-1', name: data.attachedSaudiIDFront, iconType: 'uploading' },
-            ];
-          }
-          if (data.attachedSaudiIDBack) {
-            this.saudiIDBackFile = [
-              { uid: '-1', name: data.attachedSaudiIDBack, iconType: 'uploading' },
-            ];
-          }
+  this.lang = this.localizationService.currentLang;
+
+  this.formBuilder();
+
+  this.form
+    .get('identityDocumentType')
+    ?.valueChanges.subscribe((value: IdentityDocumentType) => {
+
+      const front = this.form.get('attachedSaudiIDFront');
+      const back = this.form.get('attachedSaudiIDBack');
+
+      front?.setValidators([Validators.required]);
+
+      if (value === IdentityDocumentType.Id) {
+        back?.setValidators([Validators.required]);
+      } else {
+        back?.clearValidators();
+        back?.setValue(null);
+        this.saudiIDBackFile = [];
+      }
+
+      front?.updateValueAndValidity();
+      back?.updateValueAndValidity();
+    });
+
+  this.subscriptions.add(
+    this.accountVerificationService.getByCreatorId().subscribe(data => {
+      if (data) {
+        this.form.patchValue(data);
+
+        if (data.attachedSaudiIDFront) {
+          this.saudiIDFrontFile = [
+            { uid: '-1', name: data.attachedSaudiIDFront, iconType: 'uploading' },
+          ];
         }
-      }),
-    );
 
+        if (data.attachedSaudiIDBack) {
+          this.saudiIDBackFile = [
+            { uid: '-1', name: data.attachedSaudiIDBack, iconType: 'uploading' },
+          ];
+        }
+      }
+    }),
+  );
+}
 
-  }
 
   get isReadOnly(): boolean {
     const status = this.form?.value?.status;
@@ -156,4 +204,9 @@ export class AccountVerificationComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
+
+  get isIdSelected(): boolean {
+  return this.form.get('identityDocumentType')?.value === IdentityDocumentType.Id;
+}
+
 }
