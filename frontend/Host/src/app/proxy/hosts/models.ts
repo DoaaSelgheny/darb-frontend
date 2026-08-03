@@ -1,6 +1,7 @@
 import type { ReservationStatus } from '../reservation-users/reservation-status.enum';
 import type { ReservationType } from '../reservation-users/reservation-type.enum';
 import type { AmountPay } from '../reservation-users/amount-pay.enum';
+import type { PaymentType } from '../reservation-users/payment-type.enum';
 import type { UserSummaryDto } from '../users/models';
 
 export interface AdminVacationHomeReservationSummaryDto {
@@ -24,6 +25,10 @@ export interface AdminVacationHomeReservationSummaryDto {
   cancellationAndReturnPolicyName?: string;
   cancellationAndReturnPolicyDescription?: string;
   valueAddedTax: number;
+  paymentType: PaymentType;
+  paymentReceiptFileName?: string;
+  canConfirmPaymentReceipt: boolean;
+  canRejectPaymentReceipt: boolean;
 }
 
 export interface HostVacationHomeSummaryDto {
@@ -63,4 +68,8 @@ export interface HostVacationHomeReservationSummaryDto {
   cancellationAndReturnPolicyName?: string;
   cancellationAndReturnPolicyDescription?: string;
   valueAddedTax: number;
+  paymentType: PaymentType;
+  paymentReceiptFileName?: string;
+  canConfirmPaymentReceipt: boolean;
+  canRejectPaymentReceipt: boolean;
 }

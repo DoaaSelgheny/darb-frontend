@@ -39,12 +39,27 @@ export interface GetReservationStatus {
   tranRef?: string;
 }
 
+export interface PaymentOptionDto {
+  type: PaymentType;
+  code?: string;
+  displayName?: string;
+  provider?: string;
+  requiresQr: boolean;
+  requiresReceiptUpload: boolean;
+  qrCodeImageUrl?: string;
+}
+
 export interface PrimaryPaymentDto {
   basicPrice: number;
   numberOfDays: number;
   amount: number;
   tax: number;
   totalAmount: number;
+}
+
+export interface RejectPaymentReceiptInput {
+  reservationId: number;
+  reason: string;
 }
 
 export interface StartPaymentInput {
@@ -60,4 +75,11 @@ export interface StartPaymentResultDto {
   qrCodeImageUrl?: string;
   paymentDeadline?: string;
   requiresQr: boolean;
+  requiresReceiptUpload: boolean;
+  paymentReceiptFileName?: string;
+}
+
+export interface UploadPaymentReceiptInput {
+  reservationId: number;
+  paymentReceiptFileName: string;
 }

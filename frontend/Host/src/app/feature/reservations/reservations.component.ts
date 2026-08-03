@@ -12,6 +12,8 @@ import { FileManagementService } from 'src/shared/services/file-management.servi
 import { Title } from '@angular/platform-browser';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ToasterService } from '@abp/ng.theme.shared';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-reservations',
   standalone: true,
@@ -31,7 +33,7 @@ export class ReservationsComponent implements OnInit {
   pageIndex = 1;
   reservationType = ReservationType;
   reservationTypeEnum = ReservationType;
-   
+
   downloadToken: any;
   rejectionReason = '';
   selectedRejectionReason = '';
@@ -44,7 +46,8 @@ export class ReservationsComponent implements OnInit {
     private router: Router,
     private modalService: NzModalService,
     private toaster: ToasterService,
-    private titleService: Title
+    private titleService: Title,
+      private modal2Service: NgbModal,
   ) {
 
     this.router.events.subscribe(event => {
@@ -216,5 +219,74 @@ export class ReservationsComponent implements OnInit {
       },
     });
   }
+
+
+  confirmPaymentReceipt(row: any) {
+    this.workflowService.confirmPaymentReceipt(row.id).subscribe(() => {
+      this.toaster.success(this.localizationService.instant('::ReservationApprovedSuccessfully'));
+      this.getReservation(this.currentPage);
+    });
+  }
+
+  rejectPaymentReceipt(row: any) {
+    this.rejectionReason = '';
+    this.modal2Service.open(this.confirmationModal, {
+      centered: true,
+      backdrop: 'static',
+      keyboard: false
+    }).result.then(
+      (action) => {
+        if (action === 'approve' && this.rejectionReason?.trim()) {
+          this.workflowService.rejectPaymentReceipt({
+            reservationId: row.id,
+            reason: this.rejectionReason.trim(),
+          }).subscribe(() => {
+            this.toaster.success(this.localizationService.instant('::ReservationRejectedSuccessfully'));
+            this.getReservation(this.currentPage);
+          });
+        }
+      },
+      () => {
+        // Modal dismissed, do nothing
+      }
+    );
+  }
+
+  downloadReceipt(row: any) {
+    this.workflowService.downloadPaymentReceipt(row.id).subscribe(result => {
+      if (result?.content) {
+        const blob = this.base64ToBlob(result.content as any, 'application/octet-stream');
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = result.name || `receipt-${row.id}`;
+        link.click();
+        window.URL.revokeObjectURL(url);
+      } else {
+        this.toaster.error(this.localizationService.instant('::FileNotExisted'));
+      }
+    });
+  }
+
+  private base64ToBlob(base64: string, contentType: string): Blob {
+    const byteCharacters = atob(base64);
+    const byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+      const slice = byteCharacters.slice(offset, offset + 512);
+
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+
+    return new Blob(byteArrays, { type: contentType });
+  }
+
+
 
 }

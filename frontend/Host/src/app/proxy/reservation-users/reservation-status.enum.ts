@@ -12,6 +12,7 @@ export enum ReservationStatus {
   AwaitingPayment = 8,
   PaymentFailed = 9,
   CancelledPaymentTimeout = 10,
+  AwaitingReceiptReview = 11,
 }
 
 export const reservationStatusOptions = mapEnumToOptions(ReservationStatus);

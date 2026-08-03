@@ -209,6 +209,72 @@
               </ul>
             </nz-dropdown-menu>
           </button>
+              <button *ngIf="data?.reservationStatus === 3 || data?.reservationStatus === 7" ngbDropdownItem
+                  (click)="showRejectionReason(data)"
+                  class="d-flex align-items-center">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="me-2">
+                    <path
+                      d="M12 5C6.48 5 2 8.58 2 12C2 15.42 6.48 19 12 19C17.52 19 22 15.42 22 12C22 8.58 17.52 5 12 5ZM12 17C8.69 17 5.89 15.17 4.74 12C5.89 8.83 8.69 7 12 7C15.31 7 18.11 8.83 19.26 12C18.11 15.17 15.31 17 12 17Z"
+                      fill="#404040" />
+                    <path
+                      d="M12 8.5C10.07 8.5 8.5 10.07 8.5 12C8.5 13.93 10.07 15.5 12 15.5C13.93 15.5 15.5 13.93 15.5 12C15.5 10.07 13.93 8.5 12 8.5Z"
+                      fill="#404040" />
+                  </svg>
+                  <span>{{ 'سبب الرفض' }}</span>
+                </button>
+                <ng-container *ngIf="data?.reservationStatus === 0 || data?.reservationStatus === 6">
+                  <button ngbDropdownItem *abpPermission="'Hyyak.Currencies.Edit'" (click)="approveReservation(data)"
+                    class="d-flex align-items-center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                      class="me-2">
+                      <path d="M9.00002 16.2L4.80002 12L3.40002 13.4L9.00002 19L21 7.00002L19.6 5.60002L9.00002 16.2Z"
+                        fill="#28A745" />
+                    </svg>
+                    <span>{{ '::Approvel' | abpLocalization }}</span>
+                  </button>
+                  <button ngbDropdownItem *abpPermission="'Hyyak.Currencies.Edit'" (click)="rejectReservation(data)"
+                    class="d-flex align-items-center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                      class="me-2">
+                      <path
+                        d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
+                        fill="#DC3545" />
+                    </svg>
+                    <span>{{ '::rejected' | abpLocalization }}</span>
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="data?.reservationStatus === 11">
+                  <button ngbDropdownItem (click)="downloadReceipt(data)"
+                    class="d-flex align-items-center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                      class="me-2">
+                      <path
+                        d="M12 16L7 11L8.4 9.55L11 12.15V4H13V12.15L15.6 9.55L17 11L12 16ZM6 20C5.45 20 4.979 19.804 4.587 19.412C4.19567 19.0207 4 18.55 4 18V15H6V18H18V15H20V18C20 18.55 19.8043 19.0207 19.413 19.412C19.021 19.804 18.55 20 18 20H6Z"
+                        fill="#404040" />
+                    </svg>
+                    <span>{{ 'تحميل الإيصال' }}</span>
+                  </button>
+                  <button ngbDropdownItem *abpPermission="'Hyyak.Currencies.Edit'" (click)="confirmPaymentReceipt(data)"
+                    class="d-flex align-items-center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                      class="me-2">
+                      <path d="M9.00002 16.2L4.80002 12L3.40002 13.4L9.00002 19L21 7.00002L19.6 5.60002L9.00002 16.2Z"
+                        fill="#28A745" />
+                    </svg>
+                    <span>{{ '::Approvel' | abpLocalization }}</span>
+                  </button>
+                  <button ngbDropdownItem *abpPermission="'Hyyak.Currencies.Edit'" (click)="rejectPaymentReceipt(data)"
+                    class="d-flex align-items-center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                      class="me-2">
+                      <path
+                        d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
+                        fill="#DC3545" />
+                    </svg>
+                    <span>{{ '::rejected' | abpLocalization }}</span>
+                  </button>
+                </ng-container>
         </td>
       </tr>
     </tbody>

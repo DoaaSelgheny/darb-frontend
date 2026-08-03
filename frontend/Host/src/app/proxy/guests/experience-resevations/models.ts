@@ -40,6 +40,8 @@ export interface GuestExperienceReservationSummaryDto {
   valueAddedTax: number;
   paymentUrl?: string;
   qrCodeImageUrl?: string;
+  paymentReceiptFileName?: string;
+  canUploadPaymentReceipt: boolean;
   paymentDeadline?: string;
   canRetryPayment: boolean;
 }

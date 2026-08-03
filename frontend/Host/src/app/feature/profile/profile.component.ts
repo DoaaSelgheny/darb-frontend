@@ -23,7 +23,7 @@ import {
 } from 'src/shared/directives/validation-regex';
 import { markControlsAsDirty } from 'src/shared/utilties/markAsDirty';
 import { HyyakOtpType } from './services/hyyak-otp-type.enum';
-import { Subject, debounceTime, map, merge } from 'rxjs';
+import { Subject, debounceTime, finalize, map, merge } from 'rxjs';
 import { Gender } from '@proxy/profiles';
 import { Title } from '@angular/platform-browser';
 
@@ -196,9 +196,13 @@ this.cdr.detectChanges()
         breif: this.form.value['breif'],
         gender:this.form.value['gender']
       };
-      this.profileService.updateHost(input).subscribe(x => {
-        this.toaster.success('تم حفظ البيانات الملف الشخصي بنجاح');
-      });
+      this.loading = true;
+      this.profileService
+        .updateHost(input)
+        .pipe(finalize(() => (this.loading = false)))
+        .subscribe(x => {
+          this.toaster.success('تم حفظ البيانات الملف الشخصي بنجاح');
+        });
     } else {
       markControlsAsDirty(this.form);
     }

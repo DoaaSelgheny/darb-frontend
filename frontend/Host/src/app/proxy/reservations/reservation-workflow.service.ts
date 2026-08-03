@@ -1,6 +1,7 @@
 import { RestService, Rest } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
-import type { StartPaymentInput, StartPaymentResultDto } from '../payments/models';
+import type { BlobDto } from '../files/models';
+import type { RejectPaymentReceiptInput, StartPaymentInput, StartPaymentResultDto, UploadPaymentReceiptInput } from '../payments/models';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,31 @@ export class ReservationWorkflowService {
     this.restService.request<any, void>({
       method: 'POST',
       url: `/api/app/reservation-workflow/approve-reservation/${reservationId}`,
+    },
+    { apiName: this.apiName,...config });
+  
+
+  confirmPaymentReceipt = (reservationId: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, void>({
+      method: 'POST',
+      url: `/api/app/reservation-workflow/confirm-payment-receipt/${reservationId}`,
+    },
+    { apiName: this.apiName,...config });
+  
+
+  downloadPaymentReceipt = (reservationId: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, BlobDto>({
+      method: 'POST',
+      url: `/api/app/reservation-workflow/download-payment-receipt/${reservationId}`,
+    },
+    { apiName: this.apiName,...config });
+  
+
+  rejectPaymentReceipt = (input: RejectPaymentReceiptInput, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, void>({
+      method: 'POST',
+      url: '/api/app/reservation-workflow/reject-payment-receipt',
+      body: input,
     },
     { apiName: this.apiName,...config });
   
@@ -38,6 +64,15 @@ export class ReservationWorkflowService {
     this.restService.request<any, StartPaymentResultDto>({
       method: 'POST',
       url: '/api/app/reservation-workflow/start-payment',
+      body: input,
+    },
+    { apiName: this.apiName,...config });
+  
+
+  uploadPaymentReceipt = (input: UploadPaymentReceiptInput, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, StartPaymentResultDto>({
+      method: 'POST',
+      url: '/api/app/reservation-workflow/upload-payment-receipt',
       body: input,
     },
     { apiName: this.apiName,...config });

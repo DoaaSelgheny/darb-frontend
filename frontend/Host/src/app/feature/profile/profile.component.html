@@ -82,7 +82,7 @@
     <!-- <app-button size="md" [outline]="true" (click)="isVisibleBackWithoutSave = true">
       {{ { key: '::Host:Profile:Back', defaultValue: 'تراجع' } | abpLocalization }}
     </app-button> -->
-    <app-button size="md" (click)="onSaveButtonClick()"
+    <app-button size="md" [disabled]="loading" [nzLoading]="loading" (click)="onSaveButtonClick()"
       >{{ { key: '::Host:Profile:Save', defaultValue: 'حفظ التغيرات' } | abpLocalization }}
     </app-button>
   </div>
