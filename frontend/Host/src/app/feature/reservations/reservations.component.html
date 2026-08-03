@@ -185,46 +185,50 @@
             <i class="fa-solid fa-ellipsis-vertical text-secondary text-lg"></i>
             <nz-dropdown-menu #actionsMenu="nzDropdownMenu" class="w-[143px]">
               <ul nz-menu>
-                <li nz-menu-item (click)="goToDetails(data.id, data.reservationType, false)">
+                <li *ngIf="data?.reservationStatus === ReservationStatus.Complete ||
+                data?.reservationStatus === ReservationStatus.CanceledAndRefunded ||
+                data?.reservationStatus === ReservationStatus.Approved"
+                nz-menu-item (click)="goToDetails(data.id, data.reservationType, false)">
                   <div class="py-1 flex justify-between items-center w-full">
                     {{ '::details' | abpLocalization }}
                     <i class="fa-regular fa-eye ms-3 text-[#55565E]"></i>
                   </div>
                 </li>
-                <li nz-menu-item *ngIf="data?.reservationStatus === 3 || data?.reservationStatus === 7" (click)="showRejectionReason(data)">
+                <li nz-menu-item *ngIf="data?.reservationStatus === ReservationStatus.CanceledAndRefunded
+                || data?.reservationStatus === ReservationStatus.Rejected" (click)="showRejectionReason(data)">
                   <div class="py-1 flex justify-between items-center w-full">
                     {{ 'سبب الرفض' }}
                     <i class="fa-regular fa-circle-info ms-3 text-[#55565E]"></i>
                   </div>
                 </li>
-                <ng-container *ngIf="data?.reservationStatus === 0 || data?.reservationStatus === 6">
-                  <li nz-menu-item *abpPermission="'Hyyak.Currencies.Edit'" (click)="approveReservation(data)">
+                <ng-container *ngIf="data?.reservationStatus === ReservationStatus.Pending || data?.reservationStatus === ReservationStatus.Rejected">
+                  <li nz-menu-item (click)="approveReservation(data)">
                     <div class="py-1 flex justify-between items-center w-full">
                       {{ '::Approvel' | abpLocalization }}
                       <i class="fa-regular fa-circle-check ms-3 text-[#00AF6C]"></i>
                     </div>
                   </li>
-                  <li nz-menu-item *abpPermission="'Hyyak.Currencies.Edit'" (click)="rejectReservation(data)">
+                  <li nz-menu-item (click)="rejectReservation(data)">
                     <div class="py-1 flex justify-between items-center w-full">
                       {{ '::rejected' | abpLocalization }}
                       <i class="fa-regular fa-circle-xmark ms-3 text-[#EF4444]"></i>
                     </div>
                   </li>
                 </ng-container>
-                <ng-container *ngIf="data?.reservationStatus === 11">
+                <ng-container *ngIf="data?.reservationStatus === ReservationStatus.AwaitingReceiptReview">
                   <li nz-menu-item (click)="downloadReceipt(data)">
                     <div class="py-1 flex justify-between items-center w-full">
                       {{ 'تحميل الإيصال' }}
                       <i class="fa-solid fa-download ms-3 text-[#55565E]"></i>
                     </div>
                   </li>
-                  <li nz-menu-item *abpPermission="'Hyyak.Currencies.Edit'" (click)="confirmPaymentReceipt(data)">
+                  <li nz-menu-item (click)="confirmPaymentReceipt(data)">
                     <div class="py-1 flex justify-between items-center w-full">
                       {{ '::Approvel' | abpLocalization }}
                       <i class="fa-regular fa-circle-check ms-3 text-[#00AF6C]"></i>
                     </div>
                   </li>
-                  <li nz-menu-item *abpPermission="'Hyyak.Currencies.Edit'" (click)="rejectPaymentReceipt(data)">
+                  <li nz-menu-item (click)="rejectPaymentReceipt(data)">
                     <div class="py-1 flex justify-between items-center w-full">
                       {{ '::rejected' | abpLocalization }}
                       <i class="fa-regular fa-circle-xmark ms-3 text-[#EF4444]"></i>

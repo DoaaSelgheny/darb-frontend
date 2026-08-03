@@ -56,7 +56,7 @@ export class ReservationsComponent implements OnInit {
       }
     });
   }
-
+ReservationStatus = ReservationStatus
   ngOnInit(): void {
     console.log("currentPage", this.currentPage)
     this.titleService.setTitle(this.localizationService.instant('::Host:Title:reversation'));
