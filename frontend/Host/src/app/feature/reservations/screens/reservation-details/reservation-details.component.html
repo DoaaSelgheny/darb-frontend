@@ -32,17 +32,16 @@
   </div>
   <div
     class="grid lg:grid-cols-2 grid-cols-1 gap-12 w-full shrink-0 mt-6 lg:mt-0"
-    *ngIf="data?.summary.status === reservationStatus.Approved"
   >
     <div>
       <app-guest-information
-        *ngIf="data?.summary.status === reservationStatus.Approved"
+
         [data]="data"
       ></app-guest-information>
       <app-terms-information *ngIf="isVaction" [data]="data"></app-terms-information>
     </div>
 
-    <app-reservation-summary [isVaction]="isVaction" [data]="data"></app-reservation-summary>
+    <app-reservation-summary [isVaction]="isVaction" [data]="data"  *ngIf="data?.summary.status !== reservationStatus.CanceledAndRefunded"></app-reservation-summary>
   </div>
 
   <div
@@ -67,13 +66,13 @@
       <app-terms-information *ngIf="isVaction" [data]="data"></app-terms-information>
     </div>
   </div>
-  <div
+  <!-- <div
     class="grid lg:grid-cols-2 grid-cols-1 gap-12 w-full shrink-0 mt-6 lg:mt-0"
     *ngIf="data?.summary.status === reservationStatus.Complete"
   >
     <app-reservation-summary [isVaction]="isVaction" [data]="data"></app-reservation-summary>
     <app-terms-information *ngIf="isVaction" [data]="data"></app-terms-information>
-  </div>
+  </div> -->
 </div>
 <div
   class="flex d-flex justify-end pt-4"

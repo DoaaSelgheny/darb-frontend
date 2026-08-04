@@ -166,6 +166,12 @@
               {{ '::Enum:ReservationStatus.' + data?.reservationStatus | abpLocalization }}
             </p>
           </div>
+          <div class="flex items-center" *ngIf="data?.reservationStatus === 11">
+            <span class="w-[15px] h-[15px] rounded-full me-1.5 bg-[#0b7a75]"> </span>
+            <p class="text-[#0b7a75] font-normal text-sm">
+              {{ '::Enum:ReservationStatus.' + data?.reservationStatus | abpLocalization }}
+            </p>
+          </div>
         </td>
         <td>
           <div class="d-flex flex">
@@ -185,9 +191,7 @@
             <i class="fa-solid fa-ellipsis-vertical text-secondary text-lg"></i>
             <nz-dropdown-menu #actionsMenu="nzDropdownMenu" class="w-[143px]">
               <ul nz-menu>
-                <li *ngIf="data?.reservationStatus === ReservationStatus.Complete ||
-                data?.reservationStatus === ReservationStatus.CanceledAndRefunded ||
-                data?.reservationStatus === ReservationStatus.Approved"
+                <li
                 nz-menu-item (click)="goToDetails(data.id, data.reservationType, false)">
                   <div class="py-1 flex justify-between items-center w-full">
                     {{ '::details' | abpLocalization }}
