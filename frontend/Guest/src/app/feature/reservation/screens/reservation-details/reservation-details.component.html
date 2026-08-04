@@ -82,6 +82,10 @@
         <app-reason-cancellation [data]="data"></app-reason-cancellation>
 
       }
+      @if(isVaction && data?.summary.status === ReservationStatus.Rejected){
+        <app-reason-cancellation [data]="data"></app-reason-cancellation>
+
+      }
     </div>
   </div>
 
