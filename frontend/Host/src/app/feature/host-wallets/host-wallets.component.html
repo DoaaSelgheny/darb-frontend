@@ -1,0 +1,132 @@
+<div class="text-lg color-[#252729] font-bold">{{ '::HostWallets' | abpLocalization }}</div>
+<nz-breadcrumb>
+  <nz-breadcrumb-item class="cursor-pointer" routerLink="/holiday-homes">{{
+    '::Menu:Home' | abpLocalization
+  }}</nz-breadcrumb-item>
+  <nz-breadcrumb-item>{{ '::HostWallets' | abpLocalization }}</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div
+  class="flex md:w-auto xl:flex-row flex-col w-full lg:my-10 my-5 justify-end xl:items-center"
+>
+  <div class="flex flex-col lg:flex-row lg:items-center shrink-0">
+    <nz-select
+      [(ngModel)]="selectedStatus"
+      (ngModelChange)="changeFilter()"
+      nzPlaceHolder="{{ '::HostWalletStatus' | abpLocalization }}"
+      class="min-w-[173px] mt-4 lg:mt-0 flex-1 xl:flex-none lg:ms-4 rounded-md lg-select"
+    >
+      <nz-option
+        [nzLabel]="'::experience:search:all' | abpLocalization"
+        [nzValue]="null"
+      ></nz-option>
+      <nz-option
+        *ngFor="let s of walletStatus"
+        [nzLabel]="s.displayName"
+        [nzValue]="s.id"
+      ></nz-option>
+    </nz-select>
+    <app-field
+      [(ngModel)]="filterText"
+      (changeInputValue)="changeFilter()"
+      class="lg:ms-2 mt-4 lg:mt-0 w-full lg:w-[509px]"
+      placeholder="{{ '::searchbyReservation' | abpLocalization }}"
+    >
+      <div class="text-lg absolute rtl:left-3 ltr:right-3 top-1/2 -translate-y-1/2">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M17.6113 16.2966L17.3298 16.6476L17.6493 16.9644L21.3549 20.6401C21.4431 20.7329 21.4924 20.8562 21.4924 20.9844C21.4924 21.113 21.4428 21.2366 21.3541 21.3296C21.3081 21.3754 21.2536 21.4118 21.1937 21.4368C21.1327 21.4621 21.0674 21.4752 21.0014 21.4752C20.9354 21.4752 20.87 21.4621 20.8091 21.4368C20.7482 21.4114 20.6929 21.3742 20.6464 21.3273L20.6449 21.3259L16.9649 17.6459L16.6481 17.329L16.2985 17.6094C14.6027 18.9695 12.4502 19.6281 10.2837 19.4499C8.1171 19.2717 6.10117 18.2702 4.65037 16.6512C3.19958 15.0323 2.42419 12.9191 2.48365 10.746C2.54312 8.57296 3.43291 6.50527 4.97006 4.96811C6.50722 3.43095 8.57491 2.54116 10.748 2.4817C12.921 2.42224 15.0343 3.19762 16.6532 4.64842C18.2721 6.09922 19.2737 8.11515 19.4519 10.2817C19.6301 12.4483 18.9714 14.6008 17.6113 16.2966ZM6.83459 17.2354C8.06796 18.0595 9.51801 18.4994 11.0014 18.4994C12.9905 18.4994 14.8981 17.7092 16.3047 16.3027C17.7112 14.8962 18.5014 12.9885 18.5014 10.9994C18.5014 9.51606 18.0615 8.06601 17.2374 6.83264C16.4133 5.59927 15.2419 4.63798 13.8715 4.07032C12.501 3.50266 10.993 3.35414 9.53819 3.64353C8.08333 3.93292 6.74696 4.64722 5.69807 5.69612C4.64917 6.74501 3.93487 8.08138 3.64548 9.53624C3.35609 10.9911 3.50462 12.4991 4.07227 13.8695C4.63993 15.24 5.60122 16.4113 6.83459 17.2354Z"
+            fill="black"
+            stroke="#666666"
+          />
+        </svg>
+      </div>
+    </app-field>
+  </div>
+</div>
+<div class="w-full overflow-x-auto bg-white">
+  <nz-table class="tabel-custom" [nzData]="wallets" [nzFrontPagination]="false" [nzLoading]="loading">
+    <thead>
+      <tr class="bg-secondary text-center">
+        <th
+          class="text-center"
+          *ngFor="let column of listOfColumn"
+          [nzSortFn]="column?.compare"
+          [nzSortPriority]="column.priority"
+        >
+          {{ column.title }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of wallets">
+        <td>{{ data?.hostName }}</td>
+        <td>#{{ data?.reservationNumber }}</td>
+        <td>
+          <div class="flex items-center justify-center">
+            <div style="direction: rtl;" class="flex flex-row">
+              <p class="text-[#262626] font-bold text-base">{{ data?.amount }}</p>
+              <img class="mx-2" src="assets/host/icons/riyal-black.svg" alt="riyal" width="12"/>
+            </div>
+          </div>
+        </td>
+        <td>
+          {{ data?.creationTime | shortDate }}
+        </td>
+        <td>
+          <div class="flex items-center justify-center" *ngIf="data?.status === 1">
+            <span class="w-[15px] h-[15px] rounded-full me-1.5 bg-[#FB923C]"> </span>
+            <p class="text-[#FB923C] font-normal text-sm">
+              {{ '::Enum:HostWalletStatus.' + data?.status | abpLocalization }}
+            </p>
+          </div>
+          <div class="flex items-center justify-center" *ngIf="data?.status === 2">
+            <span class="w-[15px] h-[15px] rounded-full me-1.5 bg-[#3B82F6]"> </span>
+            <p class="text-[#3B82F6] font-normal text-sm">
+              {{ '::Enum:HostWalletStatus.' + data?.status | abpLocalization }}
+            </p>
+          </div>
+          <div class="flex items-center justify-center" *ngIf="data?.status === 3">
+            <span class="w-[15px] h-[15px] rounded-full me-1.5 bg-[#0b7a75]"> </span>
+            <p class="text-[#0b7a75] font-normal text-sm">
+              {{ '::Enum:HostWalletStatus.' + data?.status | abpLocalization }}
+            </p>
+          </div>
+        </td>
+        <td>
+          <button
+            *ngIf="data?.canConfirmTransfer"
+            nz-button
+            nzType="text"
+            (click)="confirmTransfer(data)"
+            class="text-[#0b7a75] font-normal text-sm"
+          >
+            {{ '::ConfirmTransfer' | abpLocalization }}
+          </button>
+          <button
+            *ngIf="data?.canDownloadTransferReceipt"
+            nz-button
+            nzType="text"
+            (click)="downloadTransferReceipt(data)"
+            class="text-[#3B82F6] font-normal text-sm"
+          >
+            {{ '::DownloadReceipt' | abpLocalization }}
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+<div class="mx-auto mt-12 flex justify-center">
+  <nz-pagination
+    [nzPageIndex]="currentPage"
+    [nzTotal]="totalCount"
+    [nzPageSize]="itemsPerPage"
+    (nzPageIndexChange)="getWallets($event)"
+  ></nz-pagination>
+</div>

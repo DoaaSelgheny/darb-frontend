@@ -65,6 +65,14 @@ export class MenuComponent implements OnInit {
           comingSoon: false,
         },
         {
+
+          path:'/host-wallets',
+          name: this.lang=='ar'?'محافظ المضيفين':'Host Wallets',
+          icon: 'fa-solid fa-wallet',
+          selected: false,
+          comingSoon: false,
+        },
+        {
           path: '/reservations',
           name: this.lang=='ar'?'الحجوزات':'Reservations',
           icon: 'fa-solid fa-pen-to-square',

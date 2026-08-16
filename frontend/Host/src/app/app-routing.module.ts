@@ -142,6 +142,14 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'host-wallets',
+        canActivate: [AuthGuard],
+        loadComponent: () =>
+          import('./feature/host-wallets/host-wallets.component').then(
+            c => c.HostWalletsComponent,
+          ),
+      },
+      {
         path: 'rating',
         canActivate: [AuthGuard],
         loadComponent: () =>
