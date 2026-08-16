@@ -2,15 +2,18 @@ import type { EntityDto, PagedAndSortedResultRequestDto } from '@abp/ng.core';
 import type { CountryDto } from '../countries/models';
 
 export interface CityCreateDto {
-  name: string;
+  nameAr: string;
+  nameEn: string;
   lat?: number;
   lng?: number;
   countryId: number;
+  regionId?: number;
 }
 
 export interface CityDto extends EntityDto<number> {
   name?: string;
   countryId: number;
+  regionId?: number;
   lat?: number;
   lng?: number;
   concurrencyStamp?: string;
@@ -24,8 +27,10 @@ export interface CityExcelDownloadDto {
 }
 
 export interface CityUpdateDto {
-  name: string;
+  nameAr: string;
+  nameEn: string;
   countryId: number;
+  regionId?: number;
   lat?: number;
   lng?: number;
   concurrencyStamp?: string;

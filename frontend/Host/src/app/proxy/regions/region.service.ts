@@ -9,10 +9,10 @@ export class RegionService {
   apiName = 'Default';
   
 
-  getRegions = (config?: Partial<Rest.Config>) =>
+  getRegionsByCountryId = (countryId?: number, config?: Partial<Rest.Config>) =>
     this.restService.request<any, RegionLookupDto[]>({
       method: 'GET',
-      url: '/api/app/region/regions',
+      url: `/api/app/region/regions/${countryId}`,
     },
     { apiName: this.apiName,...config });
 

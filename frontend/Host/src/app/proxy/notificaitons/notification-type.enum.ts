@@ -15,6 +15,8 @@ export enum NotificationType {
   SendCancelVacationHomeGuestReservation = 11,
   SendApprovedVacationHomeGuestReservationWhatsApp = 12,
   SendApprovedExperienceGuestReservationWhatsApp = 13,
+  SendHostWalletTransferAwaitingConfirmation = 14,
+  SendHostWalletTransferAwaitingConfirmationWhatsApp = 15,
 }
 
 export const notificationTypeOptions = mapEnumToOptions(NotificationType);

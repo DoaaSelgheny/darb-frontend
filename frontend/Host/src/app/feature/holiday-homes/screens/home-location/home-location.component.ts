@@ -76,7 +76,7 @@ export class HomeLocationComponent implements OnInit,OnDestroy {
       this.getDistrictsLookUp(this.vacationHome.cityId)
       this.setValueToFormGroup(this.form as FormGroup, this.vacationHome);
       this.form.patchValue({
-      
+
       })
       this.form.get('mapLink').disable()
       const lat = this.form.value['lat'] ;
@@ -90,7 +90,7 @@ export class HomeLocationComponent implements OnInit,OnDestroy {
 
   }
   getRegionLookup() {
-    this.regionservice.getRegions().subscribe({
+    this.regionservice.getRegionsByCountryId(this.vacationHome?.countryId).subscribe({
       next:next=>{
         this.regions = next
       }

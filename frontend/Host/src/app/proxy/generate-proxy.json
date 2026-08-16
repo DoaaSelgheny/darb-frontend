@@ -2859,6 +2859,63 @@
               "allowAnonymous": false,
               "implementFrom": "Hyyak.Controllers.AccountVerifications.AccountVerificationController"
             },
+            "UpdateCommissionPercentagesAsyncByIdAndInput": {
+              "uniqueName": "UpdateCommissionPercentagesAsyncByIdAndInput",
+              "name": "UpdateCommissionPercentagesAsync",
+              "httpMethod": "PUT",
+              "url": "api/app/account-verifications/{id}/commission",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "input",
+                  "typeAsString": "Hyyak.AccountVerifications.UpdateAccountVerificationCommissionDto, Hyyak.Application.Contracts",
+                  "type": "Hyyak.AccountVerifications.UpdateAccountVerificationCommissionDto",
+                  "typeSimple": "Hyyak.AccountVerifications.UpdateAccountVerificationCommissionDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "Hyyak.AccountVerifications.UpdateAccountVerificationCommissionDto",
+                  "typeSimple": "Hyyak.AccountVerifications.UpdateAccountVerificationCommissionDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Hyyak.AccountVerifications.AccountVerificationDto",
+                "typeSimple": "Hyyak.AccountVerifications.AccountVerificationDto"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "Hyyak.Controllers.AccountVerifications.AccountVerificationController"
+            },
             "GetByCreatorIdAsync": {
               "uniqueName": "GetByCreatorIdAsync",
               "name": "GetByCreatorIdAsync",
@@ -9546,7 +9603,7 @@
               "parametersOnMethod": [
                 {
                   "name": "fromDate",
-                  "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                  "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
                   "type": "System.DateTime?",
                   "typeSimple": "string?",
                   "isOptional": false,
@@ -9554,7 +9611,7 @@
                 },
                 {
                   "name": "toDate",
-                  "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                  "typeAsString": "System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
                   "type": "System.DateTime?",
                   "typeSimple": "string?",
                   "isOptional": false,
@@ -12580,7 +12637,7 @@
                   "parametersOnMethod": [
                     {
                       "name": "CancellationAndReturnPolicyIds",
-                      "typeAsString": "System.Collections.Generic.List`1[[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                      "typeAsString": "System.Collections.Generic.List`1[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
                       "type": "System.Collections.Generic.List<System.Int32>",
                       "typeSimple": "[number]",
                       "isOptional": false,
@@ -12859,7 +12916,7 @@
               "parametersOnMethod": [
                 {
                   "name": "CancellationAndReturnPolicyIds",
-                  "typeAsString": "System.Collections.Generic.List`1[[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                  "typeAsString": "System.Collections.Generic.List`1[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
                   "type": "System.Collections.Generic.List<System.Int32>",
                   "typeSimple": "[number]",
                   "isOptional": false,
@@ -16618,7 +16675,7 @@
                   "nameOnMethod": "input",
                   "name": "CityIds",
                   "jsonName": null,
-                  "type": "System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]",
+                  "type": "System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]",
                   "typeSimple": "[number?]",
                   "isOptional": false,
                   "defaultValue": null,
@@ -16630,7 +16687,7 @@
                   "nameOnMethod": "input",
                   "name": "VacationHomeTypeIds",
                   "jsonName": null,
-                  "type": "System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]",
+                  "type": "System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]",
                   "typeSimple": "[number?]",
                   "isOptional": false,
                   "defaultValue": null,
@@ -17185,7 +17242,7 @@
                   "nameOnMethod": "input",
                   "name": "CityIds",
                   "jsonName": null,
-                  "type": "System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]",
+                  "type": "System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]",
                   "typeSimple": "[number?]",
                   "isOptional": false,
                   "defaultValue": null,
@@ -17197,7 +17254,7 @@
                   "nameOnMethod": "input",
                   "name": "VacationHomeTypeIds",
                   "jsonName": null,
-                  "type": "System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]",
+                  "type": "System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]",
                   "typeSimple": "[number?]",
                   "isOptional": false,
                   "defaultValue": null,
@@ -20110,6 +20167,288 @@
             }
           }
         },
+        "Hyyak.HostWallets.HostWalletsAppService": {
+          "controllerName": "HostWallets",
+          "controllerGroupName": "HostWallets",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "Hyyak.HostWallets.HostWalletsAppService",
+          "interfaces": [
+            {
+              "type": "Hyyak.HostWallets.IHostWalletsAppService",
+              "name": "IHostWalletsAppService",
+              "methods": [
+                {
+                  "name": "GetListAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "Hyyak.HostWallets.HostWalletGetListInput, Hyyak.Application.Contracts",
+                      "type": "Hyyak.HostWallets.HostWalletGetListInput",
+                      "typeSimple": "Hyyak.HostWallets.HostWalletGetListInput",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<Hyyak.HostWallets.HostWalletDto>",
+                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<Hyyak.HostWallets.HostWalletDto>"
+                  }
+                },
+                {
+                  "name": "InitiateTransferAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "Hyyak.HostWallets.InitiateHostWalletTransferInput, Hyyak.Application.Contracts",
+                      "type": "Hyyak.HostWallets.InitiateHostWalletTransferInput",
+                      "typeSimple": "Hyyak.HostWallets.InitiateHostWalletTransferInput",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                },
+                {
+                  "name": "ConfirmTransferAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "id",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                },
+                {
+                  "name": "DownloadTransferReceiptAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "id",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "Hyyak.Files.BlobDto",
+                    "typeSimple": "Hyyak.Files.BlobDto"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetListAsyncByInput": {
+              "uniqueName": "GetListAsyncByInput",
+              "name": "GetListAsync",
+              "httpMethod": "GET",
+              "url": "api/app/host-wallets",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "Hyyak.HostWallets.HostWalletGetListInput, Hyyak.Application.Contracts",
+                  "type": "Hyyak.HostWallets.HostWalletGetListInput",
+                  "typeSimple": "Hyyak.HostWallets.HostWalletGetListInput",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "Status",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "FilterText",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "Sorting",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "SkipCount",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "MaxResultCount",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                }
+              ],
+              "returnValue": {
+                "type": "Volo.Abp.Application.Dtos.PagedResultDto<Hyyak.HostWallets.HostWalletDto>",
+                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<Hyyak.HostWallets.HostWalletDto>"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "Hyyak.HostWallets.IHostWalletsAppService"
+            },
+            "InitiateTransferAsyncByInput": {
+              "uniqueName": "InitiateTransferAsyncByInput",
+              "name": "InitiateTransferAsync",
+              "httpMethod": "POST",
+              "url": "api/app/host-wallets/initiate-transfer",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "Hyyak.HostWallets.InitiateHostWalletTransferInput, Hyyak.Application.Contracts",
+                  "type": "Hyyak.HostWallets.InitiateHostWalletTransferInput",
+                  "typeSimple": "Hyyak.HostWallets.InitiateHostWalletTransferInput",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "Hyyak.HostWallets.InitiateHostWalletTransferInput",
+                  "typeSimple": "Hyyak.HostWallets.InitiateHostWalletTransferInput",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "Hyyak.HostWallets.IHostWalletsAppService"
+            },
+            "ConfirmTransferAsyncById": {
+              "uniqueName": "ConfirmTransferAsyncById",
+              "name": "ConfirmTransferAsync",
+              "httpMethod": "POST",
+              "url": "api/app/host-wallets/{id}/confirm-transfer",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "Hyyak.HostWallets.IHostWalletsAppService"
+            },
+            "DownloadTransferReceiptAsyncById": {
+              "uniqueName": "DownloadTransferReceiptAsyncById",
+              "name": "DownloadTransferReceiptAsync",
+              "httpMethod": "POST",
+              "url": "api/app/host-wallets/{id}/download-transfer-receipt",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Hyyak.Files.BlobDto",
+                "typeSimple": "Hyyak.Files.BlobDto"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "Hyyak.HostWallets.IHostWalletsAppService"
+            }
+          }
+        },
         "Hyyak.Invoices.InvoiceHostAppService": {
           "controllerName": "InvoiceHost",
           "controllerGroupName": "InvoiceHost",
@@ -20785,7 +21124,7 @@
                     },
                     {
                       "name": "context",
-                      "typeAsString": "System.ValueTuple`2[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                      "typeAsString": "System.ValueTuple`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
                       "type": "System.ValueTuple<System.String,System.String>",
                       "typeSimple": "System.ValueTuple<string,string>",
                       "isOptional": true,
@@ -20899,7 +21238,7 @@
                 },
                 {
                   "name": "context",
-                  "typeAsString": "System.ValueTuple`2[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                  "typeAsString": "System.ValueTuple`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
                   "type": "System.ValueTuple<System.String,System.String>",
                   "typeSimple": "System.ValueTuple<string,string>",
                   "isOptional": true,
@@ -22087,14 +22426,36 @@
           "type": "Hyyak.Regions.RegionAppService",
           "interfaces": [],
           "actions": {
-            "GetRegions": {
-              "uniqueName": "GetRegions",
+            "GetRegionsByCountryId": {
+              "uniqueName": "GetRegionsByCountryId",
               "name": "GetRegions",
               "httpMethod": "GET",
-              "url": "api/app/region/regions",
+              "url": "api/app/region/regions/{countryId}",
               "supportedVersions": [],
-              "parametersOnMethod": [],
-              "parameters": [],
+              "parametersOnMethod": [
+                {
+                  "name": "countryId",
+                  "typeAsString": "System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib",
+                  "type": "System.Int32?",
+                  "typeSimple": "number?",
+                  "isOptional": true,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "countryId",
+                  "name": "countryId",
+                  "jsonName": null,
+                  "type": "System.Int32?",
+                  "typeSimple": "number?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
               "returnValue": {
                 "type": "System.Collections.Generic.IEnumerable<Hyyak.Regions.RegionLookupDto>",
                 "typeSimple": "[Hyyak.Regions.RegionLookupDto]"
@@ -27650,6 +28011,39 @@
         }
       ]
     },
+    "Hyyak.AccountVerifications.UpdateAccountVerificationCommissionDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "VacationHomeCommissionPercentage",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": "0",
+          "maximum": "100",
+          "regex": null
+        },
+        {
+          "name": "ExperienceCommissionPercentage",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": "0",
+          "maximum": "100",
+          "regex": null
+        }
+      ]
+    },
     "Hyyak.Admins.AdminVacationHomeReservationDetailsDto": {
       "baseType": null,
       "isEnum": false,
@@ -30777,13 +31171,25 @@
       "genericArguments": null,
       "properties": [
         {
-          "name": "Name",
+          "name": "NameAr",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
           "isRequired": true,
           "minLength": null,
-          "maxLength": 50,
+          "maxLength": 100,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "NameEn",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": true,
+          "minLength": null,
+          "maxLength": 100,
           "minimum": null,
           "maximum": null,
           "regex": null
@@ -30823,6 +31229,18 @@
           "minimum": null,
           "maximum": null,
           "regex": null
+        },
+        {
+          "name": "RegionId",
+          "jsonName": null,
+          "type": "System.Int32?",
+          "typeSimple": "number?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
         }
       ]
     },
@@ -30850,6 +31268,18 @@
           "jsonName": null,
           "type": "System.Int32",
           "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "RegionId",
+          "jsonName": null,
+          "type": "System.Int32?",
+          "typeSimple": "number?",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -30960,13 +31390,25 @@
       "genericArguments": null,
       "properties": [
         {
-          "name": "Name",
+          "name": "NameAr",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
           "isRequired": true,
           "minLength": null,
-          "maxLength": 50,
+          "maxLength": 100,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "NameEn",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": true,
+          "minLength": null,
+          "maxLength": 100,
           "minimum": null,
           "maximum": null,
           "regex": null
@@ -30976,6 +31418,18 @@
           "jsonName": null,
           "type": "System.Int32",
           "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "RegionId",
+          "jsonName": null,
+          "type": "System.Int32?",
+          "typeSimple": "number?",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -39512,6 +39966,277 @@
         }
       ]
     },
+    "Hyyak.HostWallets.HostWalletDto": {
+      "baseType": "Volo.Abp.Application.Dtos.EntityDto<System.Int32>",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "HostId",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "HostName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ReservationId",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ReservationNumber",
+          "jsonName": null,
+          "type": "System.Int64",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Amount",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Status",
+          "jsonName": null,
+          "type": "Hyyak.HostWallets.HostWalletStatus",
+          "typeSimple": "Hyyak.HostWallets.HostWalletStatus",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PaymentType",
+          "jsonName": null,
+          "type": "Hyyak.ReservationUsers.PaymentType",
+          "typeSimple": "Hyyak.ReservationUsers.PaymentType",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "TransferReceiptFileName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "TransferReceiptUploadedAt",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "TransferredAt",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ConfirmedAt",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CreationTime",
+          "jsonName": null,
+          "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CanInitiateTransfer",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CanConfirmTransfer",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CanDownloadTransferReceipt",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Hyyak.HostWallets.HostWalletGetListInput": {
+      "baseType": "Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Status",
+          "jsonName": null,
+          "type": "Hyyak.HostWallets.HostWalletStatus?",
+          "typeSimple": "Hyyak.HostWallets.HostWalletStatus?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "FilterText",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Hyyak.HostWallets.HostWalletStatus": {
+      "baseType": "System.Enum",
+      "isEnum": true,
+      "enumNames": [
+        "InWallet",
+        "AwaitingHostConfirmation",
+        "Confirmed"
+      ],
+      "enumValues": [
+        1,
+        2,
+        3
+      ],
+      "genericArguments": null,
+      "properties": null
+    },
+    "Hyyak.HostWallets.InitiateHostWalletTransferInput": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "HostWalletId",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": true,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "TransferReceiptFileName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": true,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
     "Hyyak.Means.GetMeansInput": {
       "baseType": "Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto",
       "isEnum": false,
@@ -39760,7 +40485,9 @@
         "SendApprovedExperienceGuestReservation",
         "SendCancelVacationHomeGuestReservation",
         "SendApprovedVacationHomeGuestReservationWhatsApp",
-        "SendApprovedExperienceGuestReservationWhatsApp"
+        "SendApprovedExperienceGuestReservationWhatsApp",
+        "SendHostWalletTransferAwaitingConfirmation",
+        "SendHostWalletTransferAwaitingConfirmationWhatsApp"
       ],
       "enumValues": [
         0,
@@ -39776,7 +40503,9 @@
         10,
         11,
         12,
-        13
+        13,
+        14,
+        15
       ],
       "genericArguments": null,
       "properties": null
@@ -44471,19 +45200,7 @@
           "regex": null
         },
         {
-          "name": "NameAr",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "NameEn",
+          "name": "Name",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
@@ -46152,6 +46869,18 @@
           "jsonName": null,
           "type": "System.Boolean",
           "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "RejectionReason",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,

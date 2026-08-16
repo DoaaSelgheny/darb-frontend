@@ -113,6 +113,7 @@ export interface ReservationHostDto {
   paymentReceiptFileName?: string;
   canConfirmPaymentReceipt: boolean;
   canRejectPaymentReceipt: boolean;
+  rejectionReason?: string;
 }
 
 export interface ReservationHostExcelDownloadDto {

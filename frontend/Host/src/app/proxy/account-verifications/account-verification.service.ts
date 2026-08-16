@@ -1,4 +1,4 @@
-import type { AccountVerificationDto, AccountVerificationTakeActionDto, GetAccountVerificationsInput, SubmitIdentityVerificationDto } from './models';
+import type { AccountVerificationDto, AccountVerificationTakeActionDto, GetAccountVerificationsInput, SubmitIdentityVerificationDto, UpdateAccountVerificationCommissionDto } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import type { PagedResultDto } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
@@ -59,6 +59,15 @@ export class AccountVerificationService {
       method: 'PUT',
       url: `/api/app/account-verifications/${id}/take-action`,
       body: accountVerificationTakeActionDto,
+    },
+    { apiName: this.apiName,...config });
+  
+
+  updateCommissionPercentages = (id: string, input: UpdateAccountVerificationCommissionDto, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, AccountVerificationDto>({
+      method: 'PUT',
+      url: `/api/app/account-verifications/${id}/commission`,
+      body: input,
     },
     { apiName: this.apiName,...config });
   

@@ -41,3 +41,8 @@ export interface SubmitIdentityVerificationDto {
   attachedSaudiIDFront: string;
   attachedSaudiIDBack?: string;
 }
+
+export interface UpdateAccountVerificationCommissionDto {
+  vacationHomeCommissionPercentage: number;
+  experienceCommissionPercentage: number;
+}
