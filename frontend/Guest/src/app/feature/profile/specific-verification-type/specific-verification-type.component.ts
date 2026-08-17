@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { UiComponentsModule } from "src/shared/ui-components/ui-components.module";
 import { RouterModule } from "@angular/router";
-import { CoreModule } from "@abp/ng.core";
+import { ConfigStateService, CoreModule } from "@abp/ng.core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { SharedModule } from "src/shared/shared.module";
 import { LocalizationService } from "@abp/ng.core";
@@ -31,17 +31,17 @@ import { AccountVerificationService } from "../account-verifications";
   selector: 'app-specific-verification-type',
   standalone: true,
   imports: [
-     RouterModule,
-        UiComponentsModule,
-        CoreModule,
-        SharedModule,
-        NgxIntlTelInputModule,
+    RouterModule,
+    UiComponentsModule,
+    CoreModule,
+    SharedModule,
+    NgxIntlTelInputModule,
   ],
   templateUrl: './specific-verification-type.component.html',
   styleUrl: './specific-verification-type.component.scss'
 })
 export class SpecificVerificationTypeComponent {
-@Input() fromPayment=false;
+  @Input() fromPayment = false;
   @Output() verfySuccess = new EventEmitter<any>();
   form: FormGroup = new FormGroup({});
 
@@ -65,84 +65,91 @@ export class SpecificVerificationTypeComponent {
   lang: string;
 
   subscriptions: Subscription = new Subscription();
-  
+
   disabledDate = (current: Date): boolean =>
     // Can not select days before today and today
     differenceInCalendarDays(current, this.startDate) > 0;
   contactInfo = null;
   isVerified: boolean = false;
   saveSubject = new Subject<void>();
-  profile:any;
- ARABIC_ENGLISH_WITH_SPACES_WITHOUT_NUMBERS = /^[\u0600-\u06FFa-zA-Z\s]+$/;
+  profile: any;
+  currentUser: any;
+  ARABIC_ENGLISH_WITH_SPACES_WITHOUT_NUMBERS = /^[\u0600-\u06FFa-zA-Z\s]+$/;
   constructor(
     private toaster: ToasterService,
     private fb: FormBuilder,
-        private profileService: ProfileService,
+    private config: ConfigStateService,
+    private profileService: ProfileService,
     private accountVerificationService: AccountVerificationService,
     private localizationService: LocalizationService,
 
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-this.form.reset()
+    this.currentUser = this.config.getOne('currentUser');
+    this.form.reset()
     this.lang = this.localizationService.currentLang;
     this.handleForm();
-    this.getProfileData();
+    if (this.currentUser.isAuthenticated) {
+      this.getProfileData();
+    }
+
     this.subscriptions.add(
       this.form
         .get("nationalID")
-       .valueChanges
-        .subscribe(() => { this.validateNationalId();
+        .valueChanges
+        .subscribe(() => {
+          this.validateNationalId();
         })
     );
   }
 
   validateNationalId() {
     const nationalIDControl = this.form.get("nationalID");
-  
+
     // Check if control exists
     if (!nationalIDControl) {
       return;
     }
-  
+
     // Get the value of the control
     const saudiIDValue = nationalIDControl.value;
-  
+
     // // Reset errors
     // nationalIDControl.setErrors(null);
-    if ( saudiIDValue.length ==0) { 
+    if (saudiIDValue.length == 0) {
       nationalIDControl.setErrors({ required: true });
       return;
-    } 
-    if(this.radioValue == YakeenVerificationType.SaudiId || this.radioValue == YakeenVerificationType.Iqama){
-      
-    if (saudiIDValue && saudiIDValue.length < 10) {
-      nationalIDControl.setErrors({ minlength: true });
-      return;
-    } else if (saudiIDValue && saudiIDValue.length > 10) {
-      nationalIDControl.setErrors({ maxlength: true });
-      return;
-    }  
+    }
+    if (this.radioValue == YakeenVerificationType.SaudiId || this.radioValue == YakeenVerificationType.Iqama) {
+
+      if (saudiIDValue && saudiIDValue.length < 10) {
+        nationalIDControl.setErrors({ minlength: true });
+        return;
+      } else if (saudiIDValue && saudiIDValue.length > 10) {
+        nationalIDControl.setErrors({ maxlength: true });
+        return;
+      }
       // Validate pattern
-      if(this.radioValue == YakeenVerificationType.SaudiId){
+      if (this.radioValue == YakeenVerificationType.SaudiId) {
         const pattern = /^[1١][0-9٠-٩]{9}$/; // Adjusted pattern to ensure 10 digits
         if (!pattern.test(saudiIDValue)) {
           nationalIDControl.setErrors({ mustStartWithOne: true });
           return;
         }
       }
-      if(this.radioValue == YakeenVerificationType.Iqama){
+      if (this.radioValue == YakeenVerificationType.Iqama) {
         const pattern = /^[2٢][0-9٠-٩]{9}$/; // Adjusted pattern to ensure 10 digits
         if (!pattern.test(saudiIDValue)) {
           nationalIDControl.setErrors({ mustStartWithTwo: true });
           return;
         }
-      } 
+      }
     }
-  
+
     // Mark the control as touched so the error will be displayed
     nationalIDControl.markAsTouched();
-  
+
     // Update validity
     nationalIDControl.updateValueAndValidity();
   }
@@ -160,14 +167,14 @@ this.form.reset()
     this.form = this.fb.group({
       // TODO add custom validation for each option
       nationalID: this.fb.control("", [Validators.required]),
-      dateOfBirth:this.fb.control("", [Validators.required]),
-      nationality:this.fb.control(""),
+      dateOfBirth: this.fb.control("", [Validators.required]),
+      nationality: this.fb.control(""),
       image: this.fb.control(""),
       hyyakId: this.fb.control(""),
       name: this.fb.control(""),
       surname: this.fb.control(""),
       idFullName: this.fb.control(""),
-    
+
       yakeenVerificationType: this.fb.control(YakeenVerificationType.SaudiId),
       isVerifiedBy3rdParty: this.fb.control(false),
     });
@@ -212,31 +219,31 @@ this.form.reset()
     this.form.updateValueAndValidity();
   }
 
- 
+
   getProfileData() {
     this.profileService.getGuestProfile().subscribe((data) => {
       const responseData = { ...data };
       this.form.patchValue(responseData);
-      this.profile=responseData;
+      this.profile = responseData;
       this.radioValue =
         responseData.yakeenVerificationType || YakeenVerificationType.SaudiId;
 
-   
+
       this.handleDisableDatePicker(data.isVerifiedBy3rdParty);
       // const savedNationalID = localStorage.getItem('nationalID');
       //   if (savedNationalID) {
       //     this.form.patchValue({ nationalID: savedNationalID });
       //   }
 
-        // const savedDateOfBirth = localStorage.getItem('dateOfBirth');
-        // if (savedDateOfBirth) {
-        //   this.form.patchValue({ dateOfBirth: savedDateOfBirth });
-        // }
+      // const savedDateOfBirth = localStorage.getItem('dateOfBirth');
+      // if (savedDateOfBirth) {
+      //   this.form.patchValue({ dateOfBirth: savedDateOfBirth });
+      // }
     });
   }
 
 
- 
+
   handleDisableDatePicker(isVerified) {
     if (isVerified) {
       this.form.controls["dateOfBirth"].disable();
@@ -259,13 +266,13 @@ this.form.reset()
       .yakeenVerification(
         this.form.controls["nationalID"].value,
         dateOfBirth,
-         this.radioValue,
-         this.form.controls["nationality"].value
+        this.radioValue,
+        this.form.controls["nationality"].value
       )
       .subscribe({
         next: (data) => {
           if (data.status) {
-           this.form.controls["isVerifiedBy3rdParty"].setValue(data.status);
+            this.form.controls["isVerifiedBy3rdParty"].setValue(data.status);
             this.form.controls["idFullName"].setValue(data.name);
             // localStorage.setItem('nationalID',  this.form.controls["nationalID"].value);
             // localStorage.setItem('dateOfBirth',  this.form.controls["dateOfBirth"].value);
@@ -275,7 +282,7 @@ this.form.reset()
             // if (localStorage.getItem('reserveUrl')) {
             //   window.location.href=(localStorage.getItem('reserveUrl'))
             //   }
-this.verfySuccess.emit(true)
+            this.verfySuccess.emit(true)
           } else {
             if (this.lang == "ar")
               this.toaster.error("رقم الهويه او تاريخ الميلاد غير صحيح ");
@@ -284,7 +291,7 @@ this.verfySuccess.emit(true)
             this.isVisibleSuccessCheck = false;
             this.isReadOnlyControl = false;
             this.verfySuccess.emit(false)
-          } 
+          }
         },
         error: (error) => {
           this.toaster.error("حدث خطأ أثناء التحقق");
@@ -304,7 +311,7 @@ this.verfySuccess.emit(true)
     this.getProfileData();
   }
   //aray
-  nationaltyArr=[
+  nationaltyArr = [
     {
       "CODE": "101",
       "DESCRIPTION": "الامارات  العربية",

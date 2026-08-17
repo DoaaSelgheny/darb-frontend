@@ -1,6 +1,6 @@
 import { AuthService, LocalizationService, SessionStateService } from '@abp/ng.core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Component,  Input,  OnInit, signal } from '@angular/core';
+import {  Component,  Input,  OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ExperienceDatesType, ExperienceGuestService, GeDetailsReservationPricingForGuestDto, GetExperienceAvailabilityTimeSlotDto, GetExperienceDetailsForGuestResponseDto } from '@proxy/experiences';
 

@@ -69,6 +69,7 @@ export class HeaderComponent implements OnInit {
     });
     this.currentUser = this.config.getOne('currentUser');
 
+
     this.isShowSwitch = this.currentUser.phoneNumber?.startsWith('+963');
   }
 
@@ -103,6 +104,7 @@ export class HeaderComponent implements OnInit {
     console.log(this.currentUser);
     
     if (this.currentUser.isAuthenticated) {
+      alert(this.currentUser.isAuthenticated);
       this.profileService.getGuestProfile().subscribe(res => {
         this.profileData = res;
       });
