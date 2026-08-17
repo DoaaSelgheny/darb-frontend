@@ -39,28 +39,28 @@ export class QuestionsAnswersComponent {
     {
       title:
         this.localizationService.currentLang == 'en'
-          ? 'What is the Hyyak Platform?'
-          : 'وش هي منصة حياك؟',
+          ? 'What is the Darb Platform?'
+          : 'وش هي منصة درب؟',
       description:
         this.localizationService.currentLang == 'en'
-          ? ` <strong>Hyyak </strong> is a licensed tourism platform that offers guests a variety of destinations, including local accommodations, experiences, and activities. It empowers community members to increase their income by taking on a tourism role, welcoming guests, and providing unique local stories. `
-          : 'هي منصة سياحية مرخصة، تقدم للضيوف وجهات مختلفة ومتنوعة من أماكن الإقامة المحلية والتجارب والفعاليات ، حياك تمكّن أفراد المجتمع من زيادة دخلهم بتفعيل  دورهم السياحي لاستقبال الضيوف وعيش قصة محلية مميزة.',
+          ? ` <strong>Darb </strong> is a licensed tourism platform that offers guests a variety of destinations, including local accommodations, experiences, and activities. It empowers community members to increase their income by taking on a tourism role, welcoming guests, and providing unique local stories. `
+          : 'هي منصة سياحية مرخصة، تقدم للضيوف وجهات مختلفة ومتنوعة من أماكن الإقامة المحلية والتجارب والفعاليات ، درب تمكّن أفراد المجتمع من زيادة دخلهم بتفعيل  دورهم السياحي لاستقبال الضيوف وعيش قصة محلية مميزة.',
       open: true,
     },
     {
       title:
         this.localizationService.currentLang == 'en'
-          ? 'Is Registration on the Hyyak Platform Free?  '
-          : 'هل التسجيل في منصة حياك برسوم؟',
+          ? 'Is Registration on the Darb Platform Free?  '
+          : 'هل التسجيل في منصة درب برسوم؟',
       description:
         this.localizationService.currentLang == 'en'
           ? 'Yes, registration is free, with no charges.'
-          : 'التسجيل مجاناً، حياك بدون أي رسوم.',
+          : 'التسجيل مجاناً، درب بدون أي رسوم.',
       open: false,
     },
     {
       title:
-        this.localizationService.currentLang == 'en' ? 'Why Choose Hyyak ?' : 'ليش أختار حياك؟',
+        this.localizationService.currentLang == 'en' ? 'Why Choose Darb ?' : 'ليش أختار درب؟',
       description:
         this.localizationService.currentLang == 'en'
           ? `<p>-Easy exploration, booking, and access to short-term rentals. \n </p>
@@ -111,7 +111,7 @@ export class QuestionsAnswersComponent {
 
 <p> 2-If the cancellation is by the guest at least 48 hours before the booking time (and permitted in the service description), the guest is eligible for a full refund. Cancellations after this period are non-refundable. Note that policies may vary by host, so it’s important to check before requesting a refund. </p> 
 
-<p> 3-Guests may request a refund if the service does not match the written or visual description, pending adequate evidence and Hyyak’s review of the complaint.</p>`
+<p> 3-Guests may request a refund if the service does not match the written or visual description, pending adequate evidence and Darb’s review of the complaint.</p>`
           : `
           <p>١-  في حال كان الإلغاء من المُضيف، يحق للضيف المطالبة باسترجاع كامل المبلغ.
  </p>
@@ -130,8 +130,8 @@ export class QuestionsAnswersComponent {
           : 'هل ممكن أطلب برنامج سياحي متكامل للشركات؟',
       description:
         this.localizationService.currentLang == 'en'
-          ? `Yes, you can visit the <strong>Hyyak</strong> for Business Guests page to register your company’s requirements, and we’ll get back to you shortly.`
-          :'نعم، تقدر تدخل لصفحة حياك لضيوف الأعمال من هنا وتسجّل متطلبات الجهة وبنتواصل معك خلال وقت قصير.',
+          ? `Yes, you can visit the <strong>Darb</strong> for Business Guests page to register your company’s requirements, and we’ll get back to you shortly.`
+          :'نعم، تقدر تدخل لصفحة درب لضيوف الأعمال من هنا وتسجّل متطلبات الجهة وبنتواصل معك خلال وقت قصير.',
       open: false,
     },
   ];

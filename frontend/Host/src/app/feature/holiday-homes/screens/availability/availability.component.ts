@@ -28,7 +28,7 @@ import { vaidationType } from 'src/shared/directives/vaidationTypeEnum';
 export class AvailabilityComponent implements OnInit{
 
   form = new FormGroup({
-      bookingTypeId: new FormControl(null),
+      // bookingTypeId: new FormControl(null),
       vacationHomeReservationWay:new FormControl(null, [Validators.required]),
       accessTime: new FormControl(null, [Validators.required]),
       leaveTime: new FormControl(null, [Validators.required]),
@@ -82,7 +82,7 @@ export class AvailabilityComponent implements OnInit{
     }
 
     setTimeout(() => {
-    
+
       let leaveTime = this.form.get('leaveTime').value;
       let accessTime = this.form.get('accessTime').value;
       if (accessTime && leaveTime &&   this.isTimeEarlier(

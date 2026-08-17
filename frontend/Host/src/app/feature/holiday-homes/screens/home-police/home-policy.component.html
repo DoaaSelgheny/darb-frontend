@@ -133,19 +133,22 @@
     />
     </h2>
     <div class="grid lg:grid-cols-4 sm:grid-cols-2">
-      <app-field
-        *ngIf="this.form.value.isRefunded"
-        [control]="form | getControl: 'deposit'"
-        formControlName="deposit"
-        [isNonZeroFirstInput]="true"
-        [keypressValidation]="vaidationTypeEnum.numberOnly"
-        class="w-full col-span-1"
-        placeholder="  {{
-          { key: '::Host:VacationHome:Step6:Header:depositPlaceHolder' } | abpLocalization
-        }}"
-      >
-      </app-field>
+      <div class="flex items-center flex-row col-span-1" *ngIf="this.form.value.isRefunded">
+        <app-field
+          [control]="form | getControl: 'deposit'"
+          formControlName="deposit"
+          [isNonZeroFirstInput]="true"
+          [keypressValidation]="vaidationTypeEnum.numberOnly"
+          class="w-full"
+          placeholder="  {{
+            { key: '::Host:VacationHome:Step6:Header:depositPlaceHolder' } | abpLocalization
+          }}"
+        >
+        </app-field>
+        <span class="mx-2 text-[#0F172A] bg-[#FAFAFA] p-3 mt-1">$</span>
+      </div>
     </div>
+    <p *ngIf="this.form.value.isRefunded" class="text-xs text-black mt-3" innerHTML="{{ '::Host:VacationHome:Step6:DescText' | abpLocalization }}"></p>
   </div>
 </div>
 

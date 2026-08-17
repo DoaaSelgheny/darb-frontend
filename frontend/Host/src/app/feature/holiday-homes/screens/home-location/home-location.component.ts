@@ -50,7 +50,7 @@ export class HomeLocationComponent implements OnInit,OnDestroy {
     unitFloor:new FormControl(null, [Validators.required]),
     street: new FormControl(null, [Validators.required]),
   })
-  regions:RegionLookupDto[]
+  // regions:RegionLookupDto[]
   constructor(
     // private googleMapsService: GoogleMapsService,
     public holidayHomeService: VacationHomeHostService,
@@ -68,7 +68,7 @@ export class HomeLocationComponent implements OnInit,OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.getRegionLookup()
+    // this.getRegionLookup()
     this.id =this.route.snapshot.paramMap.get('id')
 
     if(this.vacationHome){
@@ -89,14 +89,14 @@ export class HomeLocationComponent implements OnInit,OnDestroy {
     }
 
   }
-  getRegionLookup() {
-    this.regionservice.getRegionsByCountryId(this.vacationHome?.countryId).subscribe({
-      next:next=>{
-        this.regions = next
-      }
-    })
+  // getRegionLookup() {
+  //   this.regionservice.getRegionsByCountryId(this.vacationHome?.countryId).subscribe({
+  //     next:next=>{
+  //       this.regions = next
+  //     }
+  //   })
 
-  }
+  // }
   getCityLookUp(){
     this.cityserice.getLookupByInput({ maxResultCount: 1000}).subscribe(data => {
       this.cities = data;
