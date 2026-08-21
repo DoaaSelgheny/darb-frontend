@@ -52,18 +52,18 @@ export class MenuComponent implements OnInit {
         {
           path: '/experiments',
           name: this.lang=='ar'?'التجارب':'Experiences',
-    
+
           icon: 'fa-solid fa-clipboard-list',
           selected: false,
         },
-        {
+        // {
 
-          path:'/financial-transactions',
-          name: this.lang=='ar'?'المعاملات المالية':'Financial Transactions',
-          icon: 'fa-solid fa-money-bill-transfer',
-          selected: false,
-          comingSoon: false,
-        },
+        //   path:'/financial-transactions',
+        //   name: this.lang=='ar'?'المعاملات المالية':'Financial Transactions',
+        //   icon: 'fa-solid fa-money-bill-transfer',
+        //   selected: false,
+        //   comingSoon: false,
+        // },
         {
 
           path:'/host-wallets',
