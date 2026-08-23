@@ -5,6 +5,28 @@
   }}</nz-breadcrumb-item>
   <nz-breadcrumb-item>{{ '::HostWallets' | abpLocalization }}</nz-breadcrumb-item>
 </nz-breadcrumb>
+<div class="flex md:w-auto xl:flex-row flex-col w-full lg:mt-10 mt-5">
+  <div
+    class="ms-2 mt-2 w-[230px] h-[88px] p-[29px] rounded-2xl"
+    [ngClass]="{ 'block-upcomingTransfers': lang === 'en', 'block-upcomingTransfersAr': lang === 'ar' }"
+  >
+    <p class="text-[#0b7a75] font-bold text-base">{{ '::WalletBalance' | abpLocalization }}</p>
+    <div style="direction: rtl;" class="flex flex-row">
+      <p class="text-[#262626] font-bold text-base">{{ walletBalance }}</p>
+      <img class="mx-2" src="assets/host/icons/riyal-black.svg" alt="riyal" />
+    </div>
+  </div>
+  <div
+    class="ms-2 mt-2 w-[230px] h-[88px] p-[29px] rounded-2xl"
+    [ngClass]="{ 'block-upcomingTransfers': lang === 'en', 'block-upcomingTransfersAr': lang === 'ar' }"
+  >
+    <p class="text-[#0b7a75] font-bold text-base">{{ '::ConfirmedAmounts' | abpLocalization }}</p>
+    <div style="direction: rtl;" class="flex flex-row">
+      <p class="text-[#262626] font-bold text-base">{{ confirmedAmounts }}</p>
+      <img class="mx-2" src="assets/host/icons/riyal-black.svg" alt="riyal" />
+    </div>
+  </div>
+</div>
 <div
   class="flex md:w-auto xl:flex-row flex-col w-full lg:my-10 my-5 justify-end xl:items-center"
 >

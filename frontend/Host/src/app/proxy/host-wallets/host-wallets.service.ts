@@ -1,4 +1,4 @@
-import type { HostWalletDto, HostWalletGetListInput, InitiateHostWalletTransferInput } from './models';
+import type { HostWalletDto, HostWalletGetListInput, HostWalletStatisticDto, InitiateHostWalletTransferInput } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import type { PagedResultDto } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
@@ -32,6 +32,14 @@ export class HostWalletsService {
       method: 'GET',
       url: '/api/app/host-wallets',
       params: { status: input.status, filterText: input.filterText, sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getStatistic = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, HostWalletStatisticDto>({
+      method: 'GET',
+      url: '/api/app/host-wallets/statistic',
     },
     { apiName: this.apiName,...config });
   

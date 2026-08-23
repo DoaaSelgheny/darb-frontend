@@ -25,6 +25,11 @@ export interface HostWalletGetListInput extends PagedAndSortedResultRequestDto {
   filterText?: string;
 }
 
+export interface HostWalletStatisticDto {
+  walletBalance: number;
+  confirmedAmounts: number;
+}
+
 export interface InitiateHostWalletTransferInput {
   hostWalletId: number;
   transferReceiptFileName: string;

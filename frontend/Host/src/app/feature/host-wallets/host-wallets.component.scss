@@ -34,3 +34,35 @@
 td {
   @apply text-base;
 }
+.block-totalTransfersAr {
+  background-image: url('/assets/host/imgs/card/cardAr.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 230px;
+  height: 102px;
+  padding: 20px;
+}
+.block-totalTransfers {
+  background-image: url('/assets/host/imgs/card/carden.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 230px;
+  height: 102px;
+  padding: 20px;
+}
+.block-upcomingTransfersAr {
+  background-image: url('/assets/host/imgs/card/card2ar.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 230px;
+  height: 102px;
+  padding: 20px;
+}
+.block-upcomingTransfers {
+  background-image: url('/assets/host/imgs/card/card2en.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 230px;
+  height: 102px;
+  padding: 20px;
+}

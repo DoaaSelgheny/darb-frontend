@@ -20180,6 +20180,14 @@
               "name": "IHostWalletsAppService",
               "methods": [
                 {
+                  "name": "GetStatisticAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Hyyak.HostWallets.HostWalletStatisticDto",
+                    "typeSimple": "Hyyak.HostWallets.HostWalletStatisticDto"
+                  }
+                },
+                {
                   "name": "GetListAsync",
                   "parametersOnMethod": [
                     {
@@ -20251,6 +20259,21 @@
             }
           ],
           "actions": {
+            "GetStatisticAsync": {
+              "uniqueName": "GetStatisticAsync",
+              "name": "GetStatisticAsync",
+              "httpMethod": "GET",
+              "url": "api/app/host-wallets/statistic",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Hyyak.HostWallets.HostWalletStatisticDto",
+                "typeSimple": "Hyyak.HostWallets.HostWalletStatisticDto"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "Hyyak.HostWallets.IHostWalletsAppService"
+            },
             "GetListAsyncByInput": {
               "uniqueName": "GetListAsyncByInput",
               "name": "GetListAsync",
@@ -40179,6 +40202,39 @@
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Hyyak.HostWallets.HostWalletStatisticDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "WalletBalance",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ConfirmedAmounts",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,

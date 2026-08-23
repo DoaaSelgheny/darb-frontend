@@ -22,6 +22,9 @@ export class HostWalletsComponent implements OnInit {
   itemsPerPage = 8;
   totalCount = 0;
   loading: boolean = false;
+  walletBalance: number;
+  confirmedAmounts: number;
+  lang: any;
 
   constructor(
     private service: HostWalletsService,
@@ -31,6 +34,7 @@ export class HostWalletsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.lang = this.localizationService.currentLang;
     this.titleService.setTitle(this.localizationService.instant('::Host:Title:hostWallets'));
     this.walletStatus = Object.keys(HostWalletStatus)
       .filter(key => !isNaN(Number(HostWalletStatus[key as keyof typeof HostWalletStatus])))
@@ -40,7 +44,15 @@ export class HostWalletsComponent implements OnInit {
           '::Enum:HostWalletStatus.' + Number(HostWalletStatus[key as keyof typeof HostWalletStatus]),
         ),
       }));
+    this.getStatistic();
     this.getWallets(this.currentPage);
+  }
+
+  getStatistic() {
+    this.service.getStatistic().subscribe(data => {
+      this.walletBalance = data.walletBalance;
+      this.confirmedAmounts = data.confirmedAmounts;
+    });
   }
 
   getWallets(pageIndex: number) {
