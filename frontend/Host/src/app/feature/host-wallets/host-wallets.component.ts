@@ -5,6 +5,7 @@ import { SharedModule } from 'src/shared/shared.module';
 import { LocalizationService } from '@abp/ng.core';
 import { ToasterService } from '@abp/ng.theme.shared';
 import { Title } from '@angular/platform-browser';
+import { HostWalletDto } from '@proxy/host-wallets';
 
 @Component({
   selector: 'app-host-wallets',
@@ -111,20 +112,81 @@ export class HostWalletsComponent implements OnInit {
     });
   }
 
-  downloadTransferReceipt(row: any) {
-    this.service.downloadTransferReceipt(row.id).subscribe(result => {
-      if (result?.content) {
-        const byteArray = new Uint8Array(result.content);
-        const blob = new Blob([byteArray], { type: 'application/octet-stream' });
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = result.name || `receipt-${row.id}`;
-        link.click();
-        window.URL.revokeObjectURL(url);
-      } else {
-        this.toaster.error(this.localizationService.instant('::FileNotExisted'));
+    downloadReceipt(row: HostWalletDto) {
+    if (!row.id) {
+      return;
+    }
+
+    this.service.downloadTransferReceipt(row.id).subscribe((result: any) => {
+      if (!result?.content) {
+        return;
       }
+
+      const bytes = this.base64ToBytes(result.content);
+      const extension = this.detectFileExtension(bytes);
+      const fileName = this.ensureFileExtension(
+        row.transferReceiptFileName || result.name || 'transfer-receipt',
+        extension
+      );
+
+      const blob = new Blob([bytes as unknown as BlobPart], {
+        type: this.mimeTypeForExtension(extension),
+      });
+      this.downloadBlob(blob, fileName);
     });
+  }
+
+  private base64ToBytes(base64: string): Uint8Array {
+    const byteCharacters = atob(base64);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    return new Uint8Array(byteNumbers);
+  }
+
+  private detectFileExtension(bytes: Uint8Array): string {
+    const signature = Array.from(bytes.slice(0, 4))
+      .map(byte => byte.toString(16).padStart(2, '0'))
+      .join('');
+
+    if (signature.startsWith('89504e47')) return 'png';
+    if (signature.startsWith('ffd8ff')) return 'jpg';
+    if (signature.startsWith('47494638')) return 'gif';
+    if (signature.startsWith('25504446')) return 'pdf';
+    return '';
+  }
+
+  private ensureFileExtension(fileName: string, extension: string): string {
+    if (!extension || /\.[a-zA-Z0-9]+$/.test(fileName)) {
+      return fileName;
+    }
+    return `${fileName}.${extension}`;
+  }
+
+  private mimeTypeForExtension(extension: string): string {
+    switch (extension) {
+      case 'png':
+        return 'image/png';
+      case 'jpg':
+        return 'image/jpeg';
+      case 'gif':
+        return 'image/gif';
+      case 'pdf':
+        return 'application/pdf';
+      default:
+        return 'application/octet-stream';
+    }
+  }
+
+  private downloadBlob(blob: Blob, fileName: string) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   }
 }
