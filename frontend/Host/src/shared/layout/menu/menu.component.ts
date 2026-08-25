@@ -67,7 +67,7 @@ export class MenuComponent implements OnInit {
         {
 
           path:'/host-wallets',
-          name: this.lang=='ar'?'محافظ المضيفين':'Host Wallets',
+          name: this.lang=='ar'?'المحفظة ':' Wallet',
           icon: 'fa-solid fa-wallet',
           selected: false,
           comingSoon: false,
@@ -101,7 +101,7 @@ export class MenuComponent implements OnInit {
 //         {
 //           path: '/coming-soon',
 //           name: this.lang=='ar'?'المحادثات مع العملاء':'Conversations',
-//           icon: 'fa-regular fa-messages',
+//           icon: 'fa-regular fa-messages'
 //           selected: false,
 //           comingSoon: true,
 //         },
