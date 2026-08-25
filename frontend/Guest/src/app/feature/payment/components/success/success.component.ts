@@ -4,11 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ExperienceGuestService } from '@proxy/experiences';
 import { VacationHomeGuestService } from '@proxy/vacation-homes';
 import { environment } from 'src/environments/environment';
+import { UiComponentsModule } from 'src/shared/ui-components/ui-components.module';
 
 @Component({
   selector: 'app-success',
   standalone: true,
-  imports: [],
+  imports: [UiComponentsModule],
   templateUrl: './success.component.html',
   styleUrl: './success.component.scss',
 })
@@ -77,5 +78,13 @@ export class SuccessComponent implements OnInit {
     sessionStorage.removeItem('experienceId');
     sessionStorage.removeItem('adults');
     sessionStorage.removeItem('children');
+  }
+
+  goToMyReservations() {
+    this.router.navigate(['/reservation']);
+  }
+
+  goToHome() {
+    this.router.navigate(['/']);
   }
 }
