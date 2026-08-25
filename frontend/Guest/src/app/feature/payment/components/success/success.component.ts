@@ -1,6 +1,6 @@
 import { ToasterService } from '@abp/ng.theme.shared';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ExperienceGuestService } from '@proxy/experiences';
 import { VacationHomeGuestService } from '@proxy/vacation-homes';
 import { environment } from 'src/environments/environment';
@@ -25,7 +25,6 @@ export class SuccessComponent implements OnInit {
     private experienceservice: ExperienceGuestService,
     private service: VacationHomeGuestService,
     private alert: ToasterService,
-    private router: Router,
   ) {
     this.vacationHomeId = this.route.snapshot.queryParams['vacationHomeId'];
     this.dateTo = this.route.snapshot.queryParams['dateTo'];
@@ -81,10 +80,10 @@ export class SuccessComponent implements OnInit {
   }
 
   goToMyReservations() {
-    this.router.navigate(['/reservation']);
+    window.top!.location.href = environment.application.baseUrl + '/reservation';
   }
 
   goToHome() {
-    this.router.navigate(['/']);
+    window.top!.location.href = environment.application.baseUrl + '/';
   }
 }
