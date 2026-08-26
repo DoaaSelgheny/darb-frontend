@@ -101,10 +101,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.isSiteLangauageArabic = this.localizationService.currentLang == 'ar';
-    console.log(this.currentUser);
-    
+
     if (this.currentUser.isAuthenticated) {
-      alert(this.currentUser.isAuthenticated);
       this.profileService.getGuestProfile().subscribe(res => {
         this.profileData = res;
       });
@@ -115,10 +113,9 @@ export class HeaderComponent implements OnInit {
     this.authService.navigateToLogin();
   }
   logOut() {
-    //Previously did nothing
-    //Now it revokes the access/refresh token
-    this.authService.logout();
-    this.router.navigate(['/'], { onSameUrlNavigation: 'reload' });
+    this.authService.logout().subscribe(() => {
+      this.router.navigate(['/'], { onSameUrlNavigation: 'reload' });
+    });
   }
   linktoHome(id) {
     this.router.navigate(['/'], { onSameUrlNavigation: 'reload' });

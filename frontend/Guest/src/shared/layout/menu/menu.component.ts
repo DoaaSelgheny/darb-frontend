@@ -54,8 +54,9 @@ export class MenuComponent {
   }
 
   logOut() {
-    this.authService.logout();
+    this.authService.logout().subscribe(() => {
       this.router.navigate(['/'], { onSameUrlNavigation: 'reload' });
+    });
   }
  menuAr = [
     {

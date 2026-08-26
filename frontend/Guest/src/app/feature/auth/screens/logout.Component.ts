@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class LogoutComponent {
   loginType: string = 'email';
-  constructor(private authService: AuthService, private router:Router) {
-    this.authService.logout();
+  constructor(private authService: AuthService, private router: Router) {
+    this.authService.logout().subscribe();
   }
 }
