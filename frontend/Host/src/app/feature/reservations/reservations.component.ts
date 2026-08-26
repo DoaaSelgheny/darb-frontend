@@ -13,6 +13,7 @@ import { Title } from '@angular/platform-browser';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ToasterService } from '@abp/ng.theme.shared';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PaymentType } from '@proxy/reservation-users';
 
 @Component({
   selector: 'app-reservations',
@@ -33,7 +34,7 @@ export class ReservationsComponent implements OnInit {
   pageIndex = 1;
   reservationType = ReservationType;
   reservationTypeEnum = ReservationType;
-
+paymentType = PaymentType
   downloadToken: any;
   rejectionReason = '';
   selectedRejectionReason = '';

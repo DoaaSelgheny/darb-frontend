@@ -1,7 +1,7 @@
 import { LocalizationService } from '@abp/ng.core';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { AmountPay, ReservationStatus, ReservationType } from '@proxy/reservation-users';
+import { AmountPay, PaymentType, ReservationStatus, ReservationType } from '@proxy/reservation-users';
 import { ReservationGuestDto } from '@proxy/reservations';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -25,6 +25,7 @@ export class ReservationItemComponent {
   @Output() ratingEvent = new EventEmitter();
   reserveType = ReservationType
   ReservationStatus = ReservationStatus;
+  paymentType = PaymentType
   AmountPay = AmountPay;
   lang = this.localizationService.currentLang;
 

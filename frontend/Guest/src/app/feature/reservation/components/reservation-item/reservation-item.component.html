@@ -93,6 +93,16 @@
           <div class="h-[30px] border-[1px] px-4 py-1 mt-2 rounded-md border-red-500 text-red-500 sm:text-base text-xs sm:mx-2 mx-1">{{"::guest:reserve.Rejected" | abpLocalization}}</div>
         }@else if (item.reservationStatus === ReservationStatus.AwaitingReceiptReview) {
           <div class="h-[30px] border-[1px] px-4 py-1 mt-2 rounded-md border-red-500 text-red-500 sm:text-base text-xs sm:mx-2 mx-1">{{"::Enum:ReservationStatus.11" | abpLocalization}}</div>
+        }@else if (item.reservationStatus === ReservationStatus.PaymentFailed) {
+          <div class="h-[30px] border-[1px] px-4 py-1 mt-2 rounded-md border-red-500 text-red-500 sm:text-base text-xs sm:mx-2 mx-1">
+            @if(item.paymentType === paymentType.ShamBank){
+
+                {{ '::Enum:ReservationStatus.' + item?.reservationStatus | abpLocalization }}
+              }@else {
+                {{ '::Enum:ReservationStatus.failed.' + item?.reservationStatus | abpLocalization }}
+
+              }
+          </div>
         }
         <div>
           <!--Past reservation -->

@@ -157,7 +157,13 @@
            <div class="flex items-center" *ngIf="data?.reservationStatus === 9">
             <span class="w-[15px] h-[15px] rounded-full me-1.5 bg-[#0b7a75]"> </span>
             <p class="text-[#0b7a75] font-normal text-sm">
-              {{ '::Enum:ReservationStatus.' + data?.reservationStatus | abpLocalization }}
+              @if(data.paymentType === paymentType.ShamBank){
+
+                {{ '::Enum:ReservationStatus.' + data?.reservationStatus | abpLocalization }}
+              }@else {
+                {{ '::Enum:ReservationStatus.failed.' + data?.reservationStatus | abpLocalization }}
+
+              }
             </p>
           </div>
            <div class="flex items-center" *ngIf="data?.reservationStatus === 10">
@@ -198,8 +204,7 @@
                     <i class="fa-regular fa-eye ms-3 text-[#55565E]"></i>
                   </div>
                 </li>
-                <li nz-menu-item *ngIf="data?.reservationStatus === ReservationStatus.CanceledAndRefunded
-                || data?.reservationStatus === ReservationStatus.Rejected" (click)="showRejectionReason(data)">
+                <li nz-menu-item *ngIf="data?.rejectionReason" (click)="showRejectionReason(data)">
                   <div class="py-1 flex justify-between items-center w-full">
                     {{ 'سبب الرفض' }}
                     <i class="fa-regular fa-circle-info ms-3 text-[#55565E]"></i>
