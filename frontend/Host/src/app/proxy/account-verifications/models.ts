@@ -14,6 +14,9 @@ export interface AccountVerificationDto extends FullAuditedEntityDto<string> {
   hasSubmittedIdentityDocuments: boolean;
   rejectionType?: RejectionType;
   rejectionReason?: string;
+  iban?: string;
+  shamBankAccount?: string;
+  shamBankAccountImage?: string;
   vacationHomeCommissionPercentage: number;
   experienceCommissionPercentage: number;
   userPhoneNumber?: string;
@@ -32,6 +35,9 @@ export interface GetAccountVerificationsInput extends PagedAndSortedResultReques
   filterText?: string;
   attachedSaudiIDFront?: string;
   attachedSaudiIDBack?: string;
+  iban?: string;
+  shamBankAccount?: string;
+  shamBankAccountImage?: string;
   status?: AccountVerificationStatus;
   type?: AccountVerificationType;
 }
@@ -40,6 +46,9 @@ export interface SubmitIdentityVerificationDto {
   identityDocumentType: IdentityDocumentType;
   attachedSaudiIDFront: string;
   attachedSaudiIDBack?: string;
+  iban?: string;
+  shamBankAccount?: string;
+  shamBankAccountImage?: string;
 }
 
 export interface UpdateAccountVerificationCommissionDto {

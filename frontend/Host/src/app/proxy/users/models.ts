@@ -21,6 +21,9 @@ export interface UserVerificationInfoDto {
   hyyakId?: string;
   hasSubmittedIdentityDocuments: boolean;
   status?: AccountVerificationStatus;
+  iban?: string;
+  shamBankAccount?: string;
+  shamBankAccountImage?: string;
 }
 
 export interface UserSummaryDto {

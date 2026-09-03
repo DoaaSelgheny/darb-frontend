@@ -2,7 +2,15 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SharedModule } from '../../../shared/shared.module';
 
 import { LocalizationService } from '@abp/ng.core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { UploadTypes } from 'src/shared/ui-components/upload-photo/upload-type.enum';
@@ -41,6 +49,7 @@ export class AccountVerificationComponent implements OnInit, OnDestroy {
   uploadType = UploadTypes.PDF;
   saudiIDFrontFile: NzUploadFile[] = [];
   saudiIDBackFile: NzUploadFile[] = [];
+  shamBankAccountImageFile: NzUploadFile[] = [];
   accountVerificationStatus = AccountVerificationStatus;
   subscriptions: Subscription = new Subscription();
 
@@ -119,6 +128,12 @@ export class AccountVerificationComponent implements OnInit, OnDestroy {
             { uid: '-1', name: data.attachedSaudiIDBack, iconType: 'uploading' },
           ];
         }
+
+        if (data.shamBankAccountImage) {
+          this.shamBankAccountImageFile = [
+            { uid: '-1', name: data.shamBankAccountImage, iconType: 'uploading' },
+          ];
+        }
       }
     }),
   );
@@ -133,14 +148,27 @@ export class AccountVerificationComponent implements OnInit, OnDestroy {
     );
   }
 
+  paymentDetailsValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
+    const iban = group.get('iban')?.value;
+    const shamBankAccount = group.get('shamBankAccount')?.value;
+    const shamBankAccountImage = group.get('shamBankAccountImage')?.value;
+    return iban || shamBankAccount || shamBankAccountImage ? null : { paymentDetailsRequired: true };
+  };
+
   formBuilder() {
-    this.form = this.fb.group({
+    this.form = this.fb.group(
+      {
         identityDocumentType: [null, Validators.required],
-      attachedSaudiIDFront: [null, Validators.required],
-      attachedSaudiIDBack: [null, Validators.required],
-      status: [null],
-      rejectionReason: [null],
-    });
+        attachedSaudiIDFront: [null, Validators.required],
+        attachedSaudiIDBack: [null, Validators.required],
+        iban: [null],
+        shamBankAccount: [null],
+        shamBankAccountImage: [null],
+        status: [null],
+        rejectionReason: [null],
+      },
+      { validators: this.paymentDetailsValidator },
+    );
   }
 
   back() {
@@ -158,6 +186,13 @@ export class AccountVerificationComponent implements OnInit, OnDestroy {
     if (event?.type == 'success') {
       this.saudiIDBackFile = event.fileList.slice(-1);
       this.form.controls['attachedSaudiIDBack'].setValue(event.file.response?.name);
+    }
+  }
+
+  uploadShamBankAccountImageFile(event) {
+    if (event?.type == 'success') {
+      this.shamBankAccountImageFile = event.fileList.slice(-1);
+      this.form.controls['shamBankAccountImage'].setValue(event.file.response?.name);
     }
   }
 
@@ -184,6 +219,9 @@ export class AccountVerificationComponent implements OnInit, OnDestroy {
           identityDocumentType: this.form.value.identityDocumentType,
         attachedSaudiIDFront: this.form.value.attachedSaudiIDFront,
         attachedSaudiIDBack: this.form.value.attachedSaudiIDBack,
+        iban: this.form.value.iban,
+        shamBankAccount: this.form.value.shamBankAccount,
+        shamBankAccountImage: this.form.value.shamBankAccountImage,
       })
       .subscribe({
         next: data => {

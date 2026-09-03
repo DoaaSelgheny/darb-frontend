@@ -240,6 +240,133 @@
     </div>
   </section>
 
+  <section class="mt-8">
+    <h4 class="text-lg text-dark font-extrabold border-0">
+      {{
+        { key: '::Host:Verification:BankAccountData', defaultValue: 'بيانات الحساب البنكي' }
+          | abpLocalization
+      }}
+    </h4>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-9 gap-y-4 mt-5">
+      <div>
+        <app-field
+          [control]="form | getControl: 'iban'"
+          formControlName="iban"
+          [readonly]="isReadOnly"
+          [label]="
+            { key: '::Host:Verification:IbanNumber', defaultValue: 'رقم الآيبان' }
+              | abpLocalization
+          "
+          [placeholder]="
+            { key: '::Host:Verification:Placeholder:Iban', defaultValue: 'أدخل رقم الآيبان' }
+              | abpLocalization
+          "
+        ></app-field>
+      </div>
+
+      <div>
+        <app-field
+          [control]="form | getControl: 'shamBankAccount'"
+          formControlName="shamBankAccount"
+          [readonly]="isReadOnly"
+          [label]="
+            {
+              key: '::Host:Verification:ShamCashAccountNumber',
+              defaultValue: 'رقم حساب كاش الشام',
+            } | abpLocalization
+          "
+          [placeholder]="
+            {
+              key: '::Host:Verification:Placeholder:ShamCashAccountNumber',
+              defaultValue: 'أدخل رقم حساب كاش الشام',
+            } | abpLocalization
+          "
+        ></app-field>
+
+        <div class="mt-4">
+          <app-field-label
+            [label]="
+              {
+                key: '::Host:Verification:ShamCashUploadPhoto',
+                defaultValue: '(PDF, JPG, JPEG, PNG) أو ارفع صورة حساب كاش الشام',
+              } | abpLocalization
+            "
+            [control]="form | getControl: 'shamBankAccountImage'"
+            formControlName="shamBankAccountImage"
+          ></app-field-label>
+
+          <app-upload
+            [fileList]="shamBankAccountImageFile"
+            [isShowUploadList]="true"
+            [readOnly]="isReadOnly"
+            [uploadAction]="uploadPDFUrl"
+            [accept]="'application/pdf, image/jpeg, image/jpg, image/png'"
+            (handleChange)="uploadShamBankAccountImageFile($event)"
+            [sizeMB]="2"
+            label=""
+            class="border border-dashed h-auto border-gray-300 block rounded-lg"
+          >
+            <ng-container uploadState> </ng-container>
+            <div
+              class="flex items-center justify-between px-4 text-secondary"
+              [ngClass]="{ '!text-gray-300': isReadOnly }"
+            >
+              <div class="flex items-center">
+                <svg
+                  width="12"
+                  height="14"
+                  viewBox="0 0 12 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8 1.66683H1.33333V12.3335H10.6667V4.3335H8V1.66683ZM0 0.994696C0 0.629529 0.298327 0.333496 0.665667 0.333496H8.66667L11.9998 3.66683L12 12.9952C12 13.3661 11.7034 13.6668 11.3377 13.6668H0.662267C0.296507 13.6668 0 13.3633 0 13.0056V0.994696ZM6.66667 7.00016V9.66683H5.33333V7.00016H3.33333L6 4.3335L8.66667 7.00016H6.66667Z"
+                    fill="#404040"
+                  />
+                </svg>
+                <p>
+                  {{
+                    { key: '::Host:Verification:Browse', defaultValue: 'تصفح ملفاتك' }
+                      | abpLocalization
+                  }}
+                </p>
+              </div>
+              <span nz-icon nzType="cloud-upload" class="text-lg" nzTheme="outline"></span>
+            </div>
+          </app-upload>
+          <app-validation [control]="form | getControl: 'shamBankAccountImage'"></app-validation>
+          <div
+            class="flex justify-end mt-2"
+            *ngIf="shamBankAccountImageFile.length > 0 && isReadOnly"
+          >
+            <button nz-button nzType="default" (click)="downloadFile(shamBankAccountImageFile[0])">
+              {{ { key: '::Host:Verification:Download', defaultValue: 'تحميل' } | abpLocalization }}
+              <span nz-icon nzType="download" class="ml-2"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p
+      class="text-red-600 text-sm mt-3"
+      *ngIf="
+        form.errors?.paymentDetailsRequired &&
+        (form.get('iban').touched ||
+          form.get('shamBankAccount').touched ||
+          form.get('shamBankAccountImage').touched)
+      "
+    >
+      {{
+        {
+          key: '::Host:Verification:PaymentDetailsRequired',
+          defaultValue: 'يرجى إدخال رقم الآيبان أو رقم حساب كاش الشام (رقم الحساب أو صورة الحساب أو كلاهما)',
+        } | abpLocalization
+      }}
+    </p>
+  </section>
+
   <div class="mt-7 border-t flex justify-end pt-8 pb-2 border-[#F1F3F9]">
     <app-button
       [disabled]="isReadOnly"

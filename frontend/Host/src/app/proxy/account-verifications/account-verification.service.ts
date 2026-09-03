@@ -40,7 +40,7 @@ export class AccountVerificationService {
     this.restService.request<any, PagedResultDto<AccountVerificationDto>>({
       method: 'GET',
       url: '/api/app/account-verifications',
-      params: { filterText: input.filterText, attachedSaudiIDFront: input.attachedSaudiIDFront, attachedSaudiIDBack: input.attachedSaudiIDBack, status: input.status, type: input.type, sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
+      params: { filterText: input.filterText, attachedSaudiIDFront: input.attachedSaudiIDFront, attachedSaudiIDBack: input.attachedSaudiIDBack, iban: input.iban, shamBankAccount: input.shamBankAccount, shamBankAccountImage: input.shamBankAccountImage, status: input.status, type: input.type, sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
     },
     { apiName: this.apiName,...config });
   
