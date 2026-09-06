@@ -74,10 +74,10 @@
         @if(startResult?.requiresReceiptUpload && !receiptSubmitted){
           <div class="mt-4">
             <img [src]="startResult.qrCodeImageUrl" alt="ShamBank QR code" class="mx-auto max-w-[220px]">
-            <p class="text-sm text-[#3A3A3A] mt-3 text-center">{{"::guest:payment:shamBankQrHint" | abpLocalization}}</p>
+            <p class="text-sm text-[#3A3A3A] mt-3 text-center ">{{"::guest:payment:shamBankQrHint" | abpLocalization}}</p>
 
             <input #receiptInput type="file" class="hidden" accept=".jpg,.jpeg,.png,.pdf" (change)="onFileSelected($event)">
-            <div class="flex items-center gap-3 mt-4">
+            <div class="flex items-center justify-center gap-3 mt-4">
               <button nz-button nzType="primary" [nzLoading]="uploading" (click)="receiptInput.click()">
                 {{"::guest:payment:uploadReceipt" | abpLocalization}}
               </button>

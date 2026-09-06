@@ -19,7 +19,7 @@ export class HostLandingComponent implements OnInit,AfterViewInit{
       title:
         this.localizationService.currentLang == 'en'
           ? 'What is the Hyyak Platform?'
-          : 'وش هي منصة حياك؟',
+          : 'ما هي منصة حياك؟',
       description:
         this.localizationService.currentLang == 'en'
           ? 'Hyyak is a licensed tourism platform that offers guests a variety of unique destinations, including local accommodations, experiences, and activities. It enables community members to increase their income by embracing a tourism role, welcoming guests, and sharing a unique local story. '
@@ -100,8 +100,8 @@ Or, an individual or business with the skills or resources to offer activities, 
     {
       title:
         this.localizationService.currentLang == 'en'
-          ? 'What are the Requirements to Join Hyyak as a Host?  '
-          : 'وش شروط الانضمام بصفة مُضيف لمنصة حياك ؟',
+          ? 'What are the Requirements to Join Darb as a Host?  '
+          : 'ما شروط الانضمام بصفة مُضيف لمنصة درب ؟',
       description:
         this.localizationService.currentLang == 'en'
           ? `

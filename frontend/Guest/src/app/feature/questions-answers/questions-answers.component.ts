@@ -40,7 +40,7 @@ export class QuestionsAnswersComponent {
       title:
         this.localizationService.currentLang == 'en'
           ? 'What is the Darb Platform?'
-          : 'وش هي منصة درب؟',
+          : 'ما هي منصة درب؟',
       description:
         this.localizationService.currentLang == 'en'
           ? ` <strong>Darb </strong> is a licensed tourism platform that offers guests a variety of destinations, including local accommodations, experiences, and activities. It empowers community members to increase their income by taking on a tourism role, welcoming guests, and providing unique local stories. `
@@ -82,7 +82,7 @@ export class QuestionsAnswersComponent {
       title:
         this.localizationService.currentLang == 'en'
           ? 'What Payment Methods Are Available?  '
-          : 'وش طرق الدفع المتاحة ؟',
+          : 'ما طرق الدفع المتاحة ؟',
       description:
         this.localizationService.currentLang == 'en'
           ? 'Currently, only digital payments via Visa and MasterCard are available.'
@@ -104,7 +104,7 @@ export class QuestionsAnswersComponent {
       title:
         this.localizationService.currentLang == 'en'
           ? 'What Is the Refund Process in Case of Cancellation?'
-          : 'إذا حصل ظرف يستوجب استرجاع المبلغ، وش الآلية المتّبعة للاسترجاع؟',
+          : 'إذا حصل ظرف يستوجب استرجاع المبلغ، ما الآلية المتّبعة للاسترجاع؟',
       description:
         this.localizationService.currentLang == 'en'
           ? `<p> 1-If the cancellation is by the host, the guest is entitled to a full refund.  </p>
